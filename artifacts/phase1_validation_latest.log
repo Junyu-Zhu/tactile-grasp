@@ -1,0 +1,1815 @@
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/zjy/Documents/grasp/TacEx/IsaacLab/apps/isaaclab.python.headless.kit
+[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+Loading user config located at: '/home/zjy/miniconda3/envs/tacex/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'
+[Info] [carb] Logging to file: /home/zjy/miniconda3/envs/tacex/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20260416_020628.log
+2026-04-15 18:06:28 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-04-15 18:06:28 [2ms] [Warning] [omni.ext.plugin] [ext: rendering_modes] Extensions config 'extension.toml' doesn't exist '/home/zjy/Documents/grasp/TacEx/IsaacLab/apps/rendering_modes' or '/home/zjy/Documents/grasp/TacEx/IsaacLab/apps/rendering_modes/config'
+2026-04-15 18:06:28 [94ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-04-15 18:06:29 [338ms] [Warning] [omni.datastore] OmniHub is inaccessible
+2026-04-15 18:06:29 [401ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-04-15 18:06:31 [2,733ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: AMD Ryzen 9 9950X 16-Core Processor (RADV RAPHAEL_MENDOCINO)
+2026-04-15 18:06:31 [2,734ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: AMD Ryzen 9 9950X 16-Core Processor (RADV RAPHAEL_MENDOCINO)
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 590.48.01     | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 4090          | Yes: 0 |     | 24564   MB | 10de      | 0          |
+|     |                                  |        |     |            | 2684      | c6214bfd.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | AMD Ryzen 9 9950X 16-Core Proc.. |        |     | 22005   MB | 1002      | 0          |
+|     |                                  |        |     |            | 13c0      | 00000000.. |
+|     |                                  |        |     |            | 74        |            |
+|=============================================================================================|
+| OS: 24.04.3 LTS (Noble Numbat) ubuntu, Version: 24.04.3, Kernel: 6.14.0-37-generic
+| XServer Vendor: The X.Org Foundation, XServer Version: 12101011 (1.21.1.11)
+| Processor: AMD Ryzen 9 9950X 16-Core Processor
+| Cores: 16 | Logical Cores: 32
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 61920 | Free Memory: 29586
+| Total Page/Swap (MB): 8191 | Free Page/Swap: 52
+|---------------------------------------------------------------------------------------------|
+2026-04-15 18:06:31 [2,936ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-04-15 18:06:31 [2,936ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 915.89 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.43 
+
+   CPU     0 
+     0   1.85 
+2026-04-15 18:06:33 [4,202ms] [Error] [gpu.foundation.plugin] DriverShaderCacheManager::init() called without a shutdown()!
+2026-04-15 18:06:33 [4,267ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: AMD Ryzen 9 9950X 16-Core Processor (RADV RAPHAEL_MENDOCINO)
+2026-04-15 18:06:33 [4,267ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: AMD Ryzen 9 9950X 16-Core Processor (RADV RAPHAEL_MENDOCINO)
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 590.48.01     | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 4090          | Yes: 0 |     | 24564   MB | 10de      | 0          |
+|     |                                  |        |     |            | 2684      | c6214bfd.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | AMD Ryzen 9 9950X 16-Core Proc.. |        |     | 22005   MB | 1002      | 0          |
+|     |                                  |        |     |            | 13c0      | 00000000.. |
+|     |                                  |        |     |            | 74        |            |
+|=============================================================================================|
+| OS: 24.04.3 LTS (Noble Numbat) ubuntu, Version: 24.04.3, Kernel: 6.14.0-37-generic
+| XServer Vendor: The X.Org Foundation, XServer Version: 12101011 (1.21.1.11)
+| Processor: AMD Ryzen 9 9950X 16-Core Processor
+| Cores: 16 | Logical Cores: 32
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 61920 | Free Memory: 29307
+| Total Page/Swap (MB): 8191 | Free Page/Swap: 52
+|---------------------------------------------------------------------------------------------|
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 845.97 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.35 
+
+   CPU     0 
+     0   1.88 
+2026-04-15 18:06:33 [4,512ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-04-15 18:06:33 [4,512ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 919.12 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.38 
+
+   CPU     0 
+     0   2.16 
+2026-04-15 18:06:33 [4,982ms] [Warning] [omni.graph.visualization.nodes._impl.extension] No Viewport Window to add omni.graph.visualization.nodes-2.1.1 scene to
+2026-04-15 18:06:33 [5,027ms] [Warning] [isaacsim.asset.importer.urdf] The path model.urdf is not a valid usd path, modifying to model_urdf
+2026-04-15 18:06:33 [5,092ms] [Warning] [isaaclab.sim.utils] Could not perform 'modify_collision_properties' on any prims under: '/World/Origin1/YcbBanana'. This might be because of the following reasons:
+	(1) The desired attribute does not exist on any of the prims.
+	(2) The desired attribute exists on an instanced prim.
+		Discovered list of instanced prim paths: ['/World/Origin1/YcbBanana/baseLink/visuals', '/World/Origin1/YcbBanana/baseLink/collisions']
+2026-04-15 18:06:34 [5,413ms] [Warning] [isaaclab.actuators.actuator_pd] The <ImplicitActuatorCfg> object has a value for 'effort_limit'. This parameter will be removed in the future. To set the effort limit, please use 'effort_limit_sim' instead.
+2026-04-15 18:06:34 [5,413ms] [Warning] [isaaclab.actuators.actuator_pd] The <ImplicitActuatorCfg> object has a value for 'velocity_limit'. Previously, although this value was specified, it was not getting used by implicit actuators. Since this parameter affects the simulation behavior, we continue to not use it. This parameter will be removed in the future. To set the velocity limit, please use 'velocity_limit_sim' instead.
+2026-04-15 18:06:34 [5,447ms] [Warning] [isaaclab.actuators.actuator_pd] The <ImplicitActuatorCfg> object has a value for 'effort_limit'. This parameter will be removed in the future. To set the effort limit, please use 'effort_limit_sim' instead.
+2026-04-15 18:06:34 [5,447ms] [Warning] [isaaclab.actuators.actuator_pd] The <ImplicitActuatorCfg> object has a value for 'velocity_limit'. Previously, although this value was specified, it was not getting used by implicit actuators. Since this parameter affects the simulation behavior, we continue to not use it. This parameter will be removed in the future. To set the velocity limit, please use 'velocity_limit_sim' instead.
+2026-04-15 18:06:34 [5,448ms] [Warning] [isaaclab.assets.articulation.articulation] Not all actuators are configured! Total number of actuated joints not equal to number of joints available: 7 != 14.
+[INFO] Loaded UR5 USD from: /home/zjy/Documents/grasp/tactile_grasp/assets/ur5_usd/ur5_moveit.usd
+[INFO] Loaded table USD from: /home/zjy/Documents/grasp/tactile_grasp/assets/ur5_usd/table.usd
+[INFO] Loaded banana URDF from: /home/zjy/Documents/grasp/tactile_grasp/ycb_objects/YcbBanana/model.urdf
+[CHECK] Running arm joint actuation check...
+[CHECK] Running gripper open/close check for 20 cycles...
+[CHECK] Running deterministic reset check for 20 trials...
+[CHECK] Running fixed pre-grasp reach check for 20 trials...
+[CHECK] Phase 1 validation summary:
+{
+  "arm_joint_actuation": {
+    "passed": true,
+    "results": [
+      {
+        "joint_name": "shoulder_pan_joint",
+        "target_rad": 0.2814159393310547,
+        "passed": true,
+        "steps": 35,
+        "peak_error_rad": 0.22615982964634895,
+        "final_error_rad": 0.00030481815338134766,
+        "error_by_joint": {
+          "shoulder_pan_joint": 0.00030481815338134766
+        }
+      },
+      {
+        "joint_name": "shoulder_lift_joint",
+        "target_rad": -1.2736724615097046,
+        "passed": true,
+        "steps": 49,
+        "peak_error_rad": 0.24116575717926025,
+        "final_error_rad": 0.005245804786682129,
+        "error_by_joint": {
+          "shoulder_lift_joint": 0.005245804786682129
+        }
+      },
+      {
+        "joint_name": "elbow_joint",
+        "target_rad": 1.1383726596832275,
+        "passed": true,
+        "steps": 35,
+        "peak_error_rad": 0.208851158618927,
+        "final_error_rad": 0.0009573698043823242,
+        "error_by_joint": {
+          "elbow_joint": 0.0009573698043823242
+        }
+      },
+      {
+        "joint_name": "wrist_1_joint",
+        "target_rad": -0.68549644947052,
+        "passed": true,
+        "steps": 35,
+        "peak_error_rad": 0.19749683141708374,
+        "final_error_rad": 0.0006257295608520508,
+        "error_by_joint": {
+          "wrist_1_joint": 0.0006257295608520508
+        }
+      },
+      {
+        "joint_name": "wrist_2_joint",
+        "target_rad": -1.3225417137145996,
+        "passed": true,
+        "steps": 35,
+        "peak_error_rad": 0.20625948905944824,
+        "final_error_rad": 0.007288455963134766,
+        "error_by_joint": {
+          "wrist_2_joint": 0.007288455963134766
+        }
+      },
+      {
+        "joint_name": "wrist_3_joint",
+        "target_rad": 0.20462143421173096,
+        "passed": true,
+        "steps": 35,
+        "peak_error_rad": 0.19664281141012907,
+        "final_error_rad": 9.611248970031738e-06,
+        "error_by_joint": {
+          "wrist_3_joint": 9.611248970031738e-06
+        }
+      }
+    ]
+  },
+  "gripper_open_close": {
+    "passed": true,
+    "primary_joint": "robotiq_85_left_knuckle_joint",
+    "mirror_joint": "robotiq_85_right_knuckle_joint",
+    "open_target_rad": {
+      "robotiq_85_left_knuckle_joint": 0.0,
+      "robotiq_85_right_knuckle_joint": 0.0
+    },
+    "close_target_rad": {
+      "robotiq_85_left_knuckle_joint": 0.6000000238418579,
+      "robotiq_85_right_knuckle_joint": 0.6000000238418579
+    },
+    "results": [
+      {
+        "cycle": 1,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643464289605618,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028483785688877106,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021083921194076538,
+            "robotiq_85_right_knuckle_joint": 0.028483785688877106
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021083921194076538,
+          "robotiq_85_right_knuckle_joint": 0.028483785688877106,
+          "left_knuckle_finger_joint": 0.000555732985958457,
+          "right_knuckle_finger_joint": 9.146441470875288e-08,
+          "left_inner_finger_joint": 0.27622291445732117,
+          "right_inner_finger_joint": 0.008944610133767128,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172807335853577
+        }
+      },
+      {
+        "cycle": 2,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643471926450729,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484387323260307,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084284409880638,
+            "robotiq_85_right_knuckle_joint": 0.028484387323260307
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084284409880638,
+          "robotiq_85_right_knuckle_joint": 0.028484387323260307,
+          "left_knuckle_finger_joint": 0.0005557617987506092,
+          "right_knuckle_finger_joint": 2.1663279881067865e-07,
+          "left_inner_finger_joint": 0.27622073888778687,
+          "right_inner_finger_joint": 0.008953358046710491,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39171987771987915
+        }
+      },
+      {
+        "cycle": 3,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643469579517841,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484530746936798,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084368228912354,
+            "robotiq_85_right_knuckle_joint": 0.028484530746936798
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084368228912354,
+          "robotiq_85_right_knuckle_joint": 0.028484530746936798,
+          "left_knuckle_finger_joint": 0.0005559796118177474,
+          "right_knuckle_finger_joint": 2.1495914381830517e-07,
+          "left_inner_finger_joint": 0.2762206196784973,
+          "right_inner_finger_joint": 0.008947157301008701,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.3917255699634552
+        }
+      },
+      {
+        "cycle": 4,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643466114997864,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.02848445065319538,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084440872073174,
+            "robotiq_85_right_knuckle_joint": 0.02848445065319538
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084440872073174,
+          "robotiq_85_right_knuckle_joint": 0.02848445065319538,
+          "left_knuckle_finger_joint": 0.0005556570831686258,
+          "right_knuckle_finger_joint": 2.5860657615339733e-07,
+          "left_inner_finger_joint": 0.27622121572494507,
+          "right_inner_finger_joint": 0.008951556868851185,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172181487083435
+        }
+      },
+      {
+        "cycle": 5,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643465779721737,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484558686614037,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084407344460487,
+            "robotiq_85_right_knuckle_joint": 0.028484558686614037
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084407344460487,
+          "robotiq_85_right_knuckle_joint": 0.028484558686614037,
+          "left_knuckle_finger_joint": 0.0005560846184380352,
+          "right_knuckle_finger_joint": 4.3829766127601033e-07,
+          "left_inner_finger_joint": 0.2762210965156555,
+          "right_inner_finger_joint": 0.008948042057454586,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.3917250335216522
+        }
+      },
+      {
+        "cycle": 6,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643464922904968,
+          "final_error_rad": 4.827976226806641e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.827976226806641e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.02848471701145172,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084465086460114,
+            "robotiq_85_right_knuckle_joint": 0.02848471701145172
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084465086460114,
+          "robotiq_85_right_knuckle_joint": 0.02848471701145172,
+          "left_knuckle_finger_joint": 0.0005556494579650462,
+          "right_knuckle_finger_joint": 2.3216124134251004e-07,
+          "left_inner_finger_joint": 0.2762199938297272,
+          "right_inner_finger_joint": 0.008952673524618149,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.391720712184906
+        }
+      },
+      {
+        "cycle": 7,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643464587628841,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028483828529715538,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021083932369947433,
+            "robotiq_85_right_knuckle_joint": 0.028483828529715538
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021083932369947433,
+          "robotiq_85_right_knuckle_joint": 0.028483828529715538,
+          "left_knuckle_finger_joint": 0.0005558541161008179,
+          "right_knuckle_finger_joint": 2.603037785320339e-07,
+          "left_inner_finger_joint": 0.2762230336666107,
+          "right_inner_finger_joint": 0.008949861861765385,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172297716140747
+        }
+      },
+      {
+        "cycle": 8,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.564347181469202,
+          "final_error_rad": 4.827976226806641e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.827976226806641e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.02848469652235508,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084431558847427,
+            "robotiq_85_right_knuckle_joint": 0.02848469652235508
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084431558847427,
+          "robotiq_85_right_knuckle_joint": 0.02848469652235508,
+          "left_knuckle_finger_joint": 0.0005559753044508398,
+          "right_knuckle_finger_joint": 1.7509630367840145e-07,
+          "left_inner_finger_joint": 0.2762201726436615,
+          "right_inner_finger_joint": 0.008947735652327538,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.3917251527309418
+        }
+      },
+      {
+        "cycle": 9,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.564346507191658,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484182432293892,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084146574139595,
+            "robotiq_85_right_knuckle_joint": 0.028484182432293892
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084146574139595,
+          "robotiq_85_right_knuckle_joint": 0.028484182432293892,
+          "left_knuckle_finger_joint": 0.0005556510877795517,
+          "right_knuckle_finger_joint": 2.4152065236648923e-08,
+          "left_inner_finger_joint": 0.27622222900390625,
+          "right_inner_finger_joint": 0.008947839960455894,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.3917255699634552
+        }
+      },
+      {
+        "cycle": 10,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643468424677849,
+          "final_error_rad": 4.827976226806641e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.827976226806641e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.02848384715616703,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021083947271108627,
+            "robotiq_85_right_knuckle_joint": 0.02848384715616703
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021083947271108627,
+          "robotiq_85_right_knuckle_joint": 0.02848384715616703,
+          "left_knuckle_finger_joint": 0.0005557570839300752,
+          "right_knuckle_finger_joint": 2.458282040151971e-07,
+          "left_inner_finger_joint": 0.276222825050354,
+          "right_inner_finger_joint": 0.008950225077569485,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.3917231857776642
+        }
+      },
+      {
+        "cycle": 11,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643471516668797,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484540060162544,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.02108435519039631,
+            "robotiq_85_right_knuckle_joint": 0.028484540060162544
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.02108435519039631,
+          "robotiq_85_right_knuckle_joint": 0.028484540060162544,
+          "left_knuckle_finger_joint": 0.0005558751872740686,
+          "right_knuckle_finger_joint": 2.1596058275008545e-07,
+          "left_inner_finger_joint": 0.276220440864563,
+          "right_inner_finger_joint": 0.008950186893343925,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172327518463135
+        }
+      },
+      {
+        "cycle": 12,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643466226756573,
+          "final_error_rad": 4.827976226806641e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.827976226806641e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.02848435752093792,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084295585751534,
+            "robotiq_85_right_knuckle_joint": 0.02848435752093792
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084295585751534,
+          "robotiq_85_right_knuckle_joint": 0.02848435752093792,
+          "left_knuckle_finger_joint": 0.0005557104013860226,
+          "right_knuckle_finger_joint": 3.0711251497450576e-07,
+          "left_inner_finger_joint": 0.27622082829475403,
+          "right_inner_finger_joint": 0.0089470399543643,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172548055648804
+        }
+      },
+      {
+        "cycle": 13,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643469430506229,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484344482421875,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084321662783623,
+            "robotiq_85_right_knuckle_joint": 0.028484344482421875
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084321662783623,
+          "robotiq_85_right_knuckle_joint": 0.028484344482421875,
+          "left_knuckle_finger_joint": 0.0005558782140724361,
+          "right_knuckle_finger_joint": 2.3388429326587357e-07,
+          "left_inner_finger_joint": 0.27622082829475403,
+          "right_inner_finger_joint": 0.008947563357651234,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172524213790894
+        }
+      },
+      {
+        "cycle": 14,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643469616770744,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028483815491199493,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.02108391374349594,
+            "robotiq_85_right_knuckle_joint": 0.028483815491199493
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.02108391374349594,
+          "robotiq_85_right_knuckle_joint": 0.028483815491199493,
+          "left_knuckle_finger_joint": 0.0005555905518122017,
+          "right_knuckle_finger_joint": 2.5187509322677215e-07,
+          "left_inner_finger_joint": 0.27622291445732117,
+          "right_inner_finger_joint": 0.00895294826477766,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172065258026123
+        }
+      },
+      {
+        "cycle": 15,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643471926450729,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484268113970757,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084263920783997,
+            "robotiq_85_right_knuckle_joint": 0.028484268113970757
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084263920783997,
+          "robotiq_85_right_knuckle_joint": 0.028484268113970757,
+          "left_knuckle_finger_joint": 0.0005558134289458394,
+          "right_knuckle_finger_joint": 4.769087169620434e-08,
+          "left_inner_finger_joint": 0.2762209475040436,
+          "right_inner_finger_joint": 0.008946510963141918,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172637462615967
+        }
+      },
+      {
+        "cycle": 16,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643470138311386,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.02848455123603344,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.0210843738168478,
+            "robotiq_85_right_knuckle_joint": 0.02848455123603344
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.0210843738168478,
+          "robotiq_85_right_knuckle_joint": 0.02848455123603344,
+          "left_knuckle_finger_joint": 0.0005555897951126099,
+          "right_knuckle_finger_joint": 1.0503092795488556e-07,
+          "left_inner_finger_joint": 0.2762204706668854,
+          "right_inner_finger_joint": 0.008946230635046959,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.3917263448238373
+        }
+      },
+      {
+        "cycle": 17,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643466040492058,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484346345067024,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084275096654892,
+            "robotiq_85_right_knuckle_joint": 0.028484346345067024
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084275096654892,
+          "robotiq_85_right_knuckle_joint": 0.028484346345067024,
+          "left_knuckle_finger_joint": 0.0005557768745347857,
+          "right_knuckle_finger_joint": 4.229147876344541e-08,
+          "left_inner_finger_joint": 0.27622082829475403,
+          "right_inner_finger_joint": 0.008946693502366543,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.3917255401611328
+        }
+      },
+      {
+        "cycle": 18,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643470026552677,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484191745519638,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.02108418010175228,
+            "robotiq_85_right_knuckle_joint": 0.028484191745519638
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.02108418010175228,
+          "robotiq_85_right_knuckle_joint": 0.028484191745519638,
+          "left_knuckle_finger_joint": 0.000555761915165931,
+          "right_knuckle_finger_joint": 3.861848085762176e-07,
+          "left_inner_finger_joint": 0.2762216329574585,
+          "right_inner_finger_joint": 0.008947898633778095,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172524213790894
+        }
+      },
+      {
+        "cycle": 19,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643468089401722,
+          "final_error_rad": 4.76837158203125e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.76837158203125e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484633192420006,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084381267428398,
+            "robotiq_85_right_knuckle_joint": 0.028484633192420006
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084381267428398,
+          "robotiq_85_right_knuckle_joint": 0.028484633192420006,
+          "left_knuckle_finger_joint": 0.0005559190176427364,
+          "right_knuckle_finger_joint": 1.953821993083693e-07,
+          "left_inner_finger_joint": 0.2762201428413391,
+          "right_inner_finger_joint": 0.008947093971073627,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172565937042236
+        }
+      },
+      {
+        "cycle": 20,
+        "close": {
+          "passed": true,
+          "steps": 91,
+          "peak_error_rad": 0.5643465220928192,
+          "final_error_rad": 4.827976226806641e-06,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 1.7881393432617188e-06,
+            "robotiq_85_right_knuckle_joint": 4.827976226806641e-06
+          }
+        },
+        "open": {
+          "passed": true,
+          "steps": 122,
+          "peak_error_rad": 0.5916635990142822,
+          "final_error_rad": 0.028484316542744637,
+          "error_by_joint": {
+            "robotiq_85_left_knuckle_joint": 0.021084263920783997,
+            "robotiq_85_right_knuckle_joint": 0.028484316542744637
+          }
+        },
+        "gripper_joint_positions": {
+          "robotiq_85_left_knuckle_joint": 0.021084263920783997,
+          "robotiq_85_right_knuckle_joint": 0.028484316542744637,
+          "left_knuckle_finger_joint": 0.0005558606935665011,
+          "right_knuckle_finger_joint": 3.4498842182983935e-07,
+          "left_inner_finger_joint": 0.2762218117713928,
+          "right_inner_finger_joint": 0.008947574533522129,
+          "robotiq_85_left_finger_tip_joint": 0.7853987216949463,
+          "robotiq_85_right_finger_tip_joint": 0.39172521233558655
+        }
+      }
+    ]
+  },
+  "deterministic_reset": {
+    "passed": true,
+    "results": [
+      {
+        "trial": 1,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 2,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 3,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 4,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 5,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 6,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 7,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 8,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 9,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 10,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 11,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 12,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 13,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 14,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 15,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 16,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 17,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 18,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 19,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      },
+      {
+        "trial": 20,
+        "robot_position_error_m": 0.0,
+        "banana_position_error_m": 0.000616908073425293,
+        "joint_error_by_name": {
+          "shoulder_pan_joint": 7.300451397895813e-05,
+          "shoulder_lift_joint": 3.1828880310058594e-05,
+          "elbow_joint": 0.0001240372657775879,
+          "wrist_1_joint": 0.0005928874015808105,
+          "wrist_2_joint": 0.007187366485595703,
+          "wrist_3_joint": 1.7940998077392578e-05,
+          "robotiq_85_left_knuckle_joint": 0.021083999425172806,
+          "robotiq_85_right_knuckle_joint": 0.02848396636545658
+        },
+        "arm_max_joint_error_rad": 0.007187366485595703,
+        "gripper_max_joint_error_rad": 0.02848396636545658,
+        "max_joint_error_rad": 0.02848396636545658,
+        "passed": true
+      }
+    ]
+  },
+  "fixed_pregrasp_reach": {
+    "passed": true,
+    "results": [
+      {
+        "trial": 1,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.611425019800663,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426125764846802e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.274482727050781e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.00043185928370803595,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 2,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 3,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 4,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 5,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 6,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 7,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 8,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 9,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 10,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 11,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 12,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 13,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 14,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 15,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 16,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 17,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 18,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 19,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      },
+      {
+        "trial": 20,
+        "target_joint_rad": {
+          "shoulder_pan_joint": -0.04485496133565903,
+          "shoulder_lift_joint": -1.1150908470153809,
+          "elbow_joint": 1.4751522541046143,
+          "wrist_1_joint": -1.93085777759552,
+          "wrist_2_joint": -1.5707963705062866,
+          "wrist_3_joint": -2.7101473808288574
+        },
+        "passed": true,
+        "steps": 80,
+        "peak_error_rad": 2.6114249899983406,
+        "final_error_rad": 0.006471872329711914,
+        "error_by_joint": {
+          "shoulder_pan_joint": 6.426498293876648e-05,
+          "shoulder_lift_joint": 0.00012886524200439453,
+          "elbow_joint": 1.2040138244628906e-05,
+          "wrist_1_joint": 0.0016466379165649414,
+          "wrist_2_joint": 0.006471872329711914,
+          "wrist_3_joint": 9.250640869140625e-05
+        },
+        "ee_link_world_pos": [
+          0.6002119779586792,
+          0.0004318580904509872,
+          0.9803544282913208
+        ]
+      }
+    ]
+  },
+  "passed": true
+}
+[RESULT] Phase 1 validation PASSED.
+/tmp/tmppqdamv5p: line 22: 3136519 Killed                  python -u /home/zjy/Documents/grasp/tactile_grasp/ur5_sim.py --headless --phase1-checks --gripper-cycles 20 --reset-trials 20 --pregrasp-trials 20
