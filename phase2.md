@@ -23,10 +23,13 @@
 ---
 
 ## Source of Truth
-- UR5 主资产参考：`tactile_grasp/assets/ur5DHGS.urdf`
-- 备选：`tactile_grasp/assets/ur5RQGS.urdf`
-- GelSight Mini mesh：`tactile_grasp/assets/meshes/gelsight_mini`
+- UR5 主资产参考：`tactile_grasp/assets/ur5_usd/ur5_moveit.usd`（参考 `ur5_sim.py` 实际采用的机械臂模型）
+- 备选：无备选方案
+- Phase 2 主执行脚本：`tactile_grasp/ur5_phase2_sim.py`
+- 挂载 helper：`tactile_grasp/ur5_phase2_mount.py`
+- GelSight Mini local mesh：`tactile_grasp/assets/meshes/gelsight_mini`
 - connector mesh：`tactile_grasp/assets/meshes/gelsight_robotiq_connector`
+- TacEx GelSight Mini 资产/装载格式参考：`TacEx/source/tacex_assets/tacex_assets/data/Sensors/GelSight_Mini`
 - TacEx 传感器配置参考：`TacEx/source/tacex_assets/tacex_assets/sensors/gelsight_mini/gsmini_cfg.py`
 - TacEx 挂载教程参考：`TacEx/docs/source/tutorials/creating_robot_asset_with_sensors.md`
 
@@ -183,3 +186,9 @@
 
 ## Phase 2 的一句话总结
 **先让 GelSight Mini 在 UR5e + Robotiq 上挂得稳、出得图，再开始任何 Sparsh 和闭环控制工作。**
+
+
+## 本次 Step 1/2/3 产物
+- 结论报告：`tactile_grasp/artifacts/phase2_step1_3_report.md`
+- 原始 JSON：`tactile_grasp/artifacts/phase2_step1_3_report.json`
+- 主参考命名：left = `gelsight_connector_left` / `gelsight_mini_case_left` / `gelsight_mini_gelpad_left`

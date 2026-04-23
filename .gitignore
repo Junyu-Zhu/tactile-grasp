@@ -1,3 +1,6 @@
 assets/
 ycb_objects/
-
+gelsight_adaptor/
+.omx/
+__pycache__/
+artifacts/

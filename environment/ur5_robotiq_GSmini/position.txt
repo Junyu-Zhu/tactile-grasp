@@ -1,0 +1,10 @@
+
+coonetor to pad_cube: Location(X:-0.001617 m,Y:-0.005824 m,Z:-0.016003 m)
+		      Rotation(X:0, Y:0, Z:0)
+
+base_link to connector:Location(X:-0.00195 m,Y:-0.011887 m,Z:-0.030084 m)
+		      Rotation(X:90d, Y90d, Z:0)
+
+soft_link to base_link:Location(X:-0.001337 m,Y:-0.023465 m,Z:-0.034931 m)
+		      Rotation(X:90d, Y90d, Z:0)
+
