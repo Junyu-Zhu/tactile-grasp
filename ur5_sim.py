@@ -1,10 +1,10 @@
-"""Phase 1 UR5e embodiment bring-up scene for Isaac Sim.
+"""Phase 1 integrated embodiment bring-up scene for Isaac Sim.
 
 This is the single source-of-truth scene entry point for Phase 1 in
 `tactile_grasp/phase1.md`.
 
 It intentionally stays focused on Phase 1 embodiment bring-up:
-- one UR5e + Robotiq loaded from the local USD config in `assets/ur5_usd/ur5.py`
+- one integrated UR5e + Robotiq + connector + GSmini robot, sourced from the canonical URDF
 - one local table USD
 - one YCB banana loaded from the local URDF
 - deterministic reset helpers for the robot and banana
@@ -14,22 +14,27 @@ It intentionally stays focused on Phase 1 embodiment bring-up:
 Usage:
     ./isaaclab.sh -p tactile_grasp/ur5_sim.py --headless --max_steps 5
     ./isaaclab.sh -p tactile_grasp/ur5_sim.py --headless --phase1-checks
+    ./isaaclab.sh -p tactile_grasp/ur5_sim.py --headless --regenerate-robot-usd --max_steps 1
 """
 
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 
 from isaaclab.app import AppLauncher
 
-parser = argparse.ArgumentParser(description="Phase 1 UR5e + table + banana Isaac Sim scene.")
+parser = argparse.ArgumentParser(description="Phase 1 integrated UR5e embodiment Isaac Sim scene.")
 parser.add_argument("--num_envs", type=int, default=1, help="Number of environments to spawn.")
 parser.add_argument("--max_steps", type=int, default=0, help="Maximum simulation steps to run. 0 keeps running.")
 parser.add_argument("--phase1-checks", action="store_true", help="Run the Phase 1 validation suite and exit.")
 parser.add_argument("--gripper-cycles", type=int, default=20, help="Number of open/close cycles for the gripper validation.")
 parser.add_argument("--reset-trials", type=int, default=20, help="Number of deterministic reset trials to run.")
 parser.add_argument("--pregrasp-trials", type=int, default=20, help="Number of fixed pre-grasp reach trials to run.")
+parser.add_argument(
+    "--regenerate-robot-usd",
+    action="store_true",
+    help="Force regeneration of the USD derived from the canonical robot URDF before scene load.",
+)
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
 
@@ -45,14 +50,15 @@ from ur5_phase1_checks import run_phase1_validation_suite
 from ur5_phase1_control import build_reset_joint_target
 from ur5_phase1_reset import reset_scene
 from ur5_phase1_scene import (
+    BANANA_URDF_PATH,
     CAMERA_EYE,
     CAMERA_TARGET,
     RESET_INTERVAL,
-    UR5_USD_PATH,
     TABLE_USD_PATH,
-    BANANA_URDF_PATH,
     design_scene,
+    ensure_robot_usd_path,
     report_scene_state,
+    resolve_robot_urdf_path,
 )
 
 
@@ -61,6 +67,8 @@ def run_simulator(
     robots: dict[str, Articulation],
     bananas: dict[str, RigidObject],
     origins: torch.Tensor,
+    robot_urdf_path,
+    robot_usd_path,
 ) -> None:
     step_count = 0
     robot_list = list(robots.values())
@@ -69,8 +77,8 @@ def run_simulator(
 
     for index, robot in enumerate(robot_list):
         reset_scene(sim, robot, banana_list[index], origins[index])
-    report_scene_state(origins)
-    print("[INFO] Reset scene to Phase 1 UR5e + table + banana state.")
+    report_scene_state(origins, robot_urdf_path, robot_usd_path)
+    print("[INFO] Reset scene to Phase 1 integrated UR5e + Robotiq + connector + GSmini state.")
 
     while simulation_app.is_running():
         if step_count > 0 and step_count % RESET_INTERVAL == 0:
@@ -99,11 +107,14 @@ def main() -> int:
     sim = sim_utils.SimulationContext(sim_cfg)
     sim.set_camera_view(CAMERA_EYE, CAMERA_TARGET)
 
-    robots, bananas, origins = design_scene(args_cli.num_envs)
+    robot_urdf_path = resolve_robot_urdf_path()
+    robot_usd_path = ensure_robot_usd_path(force_conversion=args_cli.regenerate_robot_usd)
+    robots, bananas, origins = design_scene(args_cli.num_envs, robot_usd_path=robot_usd_path)
     origins = origins.to(sim.device)
 
     sim.reset()
-    print(f"[INFO] Loaded UR5 USD from: {UR5_USD_PATH}")
+    print(f"[INFO] Loaded canonical robot URDF from: {robot_urdf_path}")
+    print(f"[INFO] Loaded generated robot USD from: {robot_usd_path}")
     print(f"[INFO] Loaded table USD from: {TABLE_USD_PATH}")
     print(f"[INFO] Loaded banana URDF from: {BANANA_URDF_PATH}")
 
@@ -127,7 +138,7 @@ def main() -> int:
         print("[RESULT] Phase 1 validation PASSED.")
         return 0
 
-    run_simulator(sim, robots, bananas, origins)
+    run_simulator(sim, robots, bananas, origins, robot_urdf_path, robot_usd_path)
     return 0
 
 

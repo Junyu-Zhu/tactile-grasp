@@ -17,11 +17,11 @@ from ur5_phase1_control import (
     DEFAULT_GRIPPER_CYCLES,
     DEFAULT_PREGRASP_TRIALS,
     DEFAULT_RESET_TRIALS,
+    GRIPPER_CONTROL_JOINT_NAME,
+    GRIPPER_CONTROL_JOINT_NAMES,
     GRIPPER_JOINT_TOLERANCE_RAD,
     GRIPPER_LOG_JOINT_NAMES,
     GRIPPER_MAX_STEPS,
-    GRIPPER_MIRROR_JOINT_NAME,
-    GRIPPER_PRIMARY_JOINT_NAME,
     PREGRASP_JOINT_TOLERANCE_RAD,
     PREGRASP_MAX_STEPS,
     RESET_GRIPPER_JOINT_TOLERANCE_RAD,
@@ -134,7 +134,7 @@ def run_gripper_cycle_check(
     base_target = build_reset_joint_target(robot)
     open_target = build_gripper_joint_target(robot, closed=False, base_target=base_target)
     close_target = build_gripper_joint_target(robot, closed=True, base_target=base_target)
-    tracked_joints = [GRIPPER_PRIMARY_JOINT_NAME, GRIPPER_MIRROR_JOINT_NAME]
+    tracked_joints = GRIPPER_CONTROL_JOINT_NAMES
 
     reset_scene(sim, robot, banana, origin)
     for cycle_index in range(1, cycles + 1):
@@ -166,16 +166,16 @@ def run_gripper_cycle_check(
         if not (close_result["passed"] and open_result["passed"]):
             return {
                 "passed": False,
-                "primary_joint": GRIPPER_PRIMARY_JOINT_NAME,
-                "mirror_joint": GRIPPER_MIRROR_JOINT_NAME,
+                "primary_control_joint": GRIPPER_CONTROL_JOINT_NAME,
+                "coordinated_gripper_joints": GRIPPER_LOG_JOINT_NAMES,
                 "open_target_rad": joint_target_values(open_target, robot, tracked_joints),
                 "close_target_rad": joint_target_values(close_target, robot, tracked_joints),
                 "results": cycle_results,
             }
     return {
         "passed": True,
-        "primary_joint": GRIPPER_PRIMARY_JOINT_NAME,
-        "mirror_joint": GRIPPER_MIRROR_JOINT_NAME,
+        "primary_control_joint": GRIPPER_CONTROL_JOINT_NAME,
+        "coordinated_gripper_joints": GRIPPER_LOG_JOINT_NAMES,
         "open_target_rad": joint_target_values(open_target, robot, tracked_joints),
         "close_target_rad": joint_target_values(close_target, robot, tracked_joints),
         "results": cycle_results,
@@ -208,7 +208,8 @@ def run_deterministic_reset_check(
         arm_error_map = {joint_name: joint_error_map[joint_name] for joint_name in ARM_JOINT_NAMES}
         gripper_error_map = {
             joint_name: joint_error_map[joint_name]
-            for joint_name in (GRIPPER_PRIMARY_JOINT_NAME, GRIPPER_MIRROR_JOINT_NAME)
+            for joint_name in GRIPPER_CONTROL_JOINT_NAMES
+            if joint_name in joint_error_map
         }
         trial_summary = {
             "trial": trial_index,
@@ -221,6 +222,7 @@ def run_deterministic_reset_check(
         }
         trial_summary["passed"] = (
             _is_finite_map(joint_error_map)
+            and len(gripper_error_map) == len(GRIPPER_CONTROL_JOINT_NAMES)
             and trial_summary["arm_max_joint_error_rad"] <= RESET_JOINT_TOLERANCE_RAD
             and trial_summary["gripper_max_joint_error_rad"] <= RESET_GRIPPER_JOINT_TOLERANCE_RAD
             and robot_position_error <= RESET_POSITION_TOLERANCE_M
@@ -257,7 +259,14 @@ def run_pregrasp_check(
             "trial": trial_index,
             "target_joint_rad": joint_target_values(pregrasp_target, robot, ARM_JOINT_NAMES),
             **reach_result,
-            "ee_link_world_pos": [float(value) for value in robot.data.body_pose_w[0, robot.find_bodies(['ee_link'], preserve_order=True)[0][0], :3].tolist()],
+            "ee_link_world_pos": [
+                float(value)
+                for value in robot.data.body_pose_w[
+                    0,
+                    robot.find_bodies(['ee_link'], preserve_order=True)[0][0],
+                    :3,
+                ].tolist()
+            ],
         }
         trial_results.append(trial_summary)
         if not reach_result["passed"]:

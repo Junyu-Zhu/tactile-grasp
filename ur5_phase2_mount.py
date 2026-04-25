@@ -14,15 +14,18 @@ import isaacsim.core.utils.prims as prim_utils
 from ur5_phase1_control import build_gripper_joint_target, build_reset_joint_target
 from ur5_phase1_reset import reset_scene, step_scene
 
-PHASE2_SCOPE_SENTENCE = "Phase 2 = 先把 GelSight Mini + adaptor 在 Robotiq 上挂稳，再去做 tactile output bring-up。"
+PHASE2_SCOPE_SENTENCE = "Phase 2 = 基于 canonical integrated UR5e + Robotiq + connector + GSmini embodiment，先校核挂载，再做 tactile output bring-up。"
+
+CANONICAL_ROBOT_REFERENCE = "tactile_grasp/environment/ur5_robotiq_GSmini/urdf/ur5_robotiq_GSmini.urdf"
+RETIRED_PHASE1_ROBOT_REFERENCE = "tactile_grasp/assets/ur5_usd/ur5_moveit.usd"
 
 PHASE2_MOUNT_USD_DIR = Path(__file__).resolve().parent / "assets" / "phase2_mount_usd"
 GELSIGHT_MINI_CASE_MESH = Path(__file__).resolve().parent / "assets" / "meshes" / "gelsight_mini" / "visual" / "base_link.STL"
 GELSIGHT_MINI_GELPAD_MESH = Path(__file__).resolve().parent / "assets" / "meshes" / "gelsight_mini" / "visual" / "soft_link.STL"
 GELSIGHT_CONNECTOR_MESH = Path(__file__).resolve().parent / "assets" / "meshes" / "gelsight_robotiq_connector" / "visual" / "gelsight_adaptor.STL"
 
-LEFT_FINGER_LINK_PATH = "/World/Origin1/Robot/robotiq_85_left_finger_tip_link"
-RIGHT_FINGER_LINK_PATH = "/World/Origin1/Robot/robotiq_85_right_finger_tip_link"
+LEFT_FINGER_LINK_PATH = "/World/Origin1/Robot/left_inner_finger_pad"
+RIGHT_FINGER_LINK_PATH = "/World/Origin1/Robot/right_inner_finger_pad"
 
 PHASE2_VISUALS_ROOT_PATH = "/World/Phase2Visuals"
 LEFT_VISUAL_GROUP_PATH = f"{PHASE2_VISUALS_ROOT_PATH}/left"
@@ -83,7 +86,9 @@ CONNECTOR_USD_SPEC = MountAssetSpec(
 def source_of_truth_summary() -> dict[str, object]:
     return {
         "scope": PHASE2_SCOPE_SENTENCE,
-        "primary_robot_reference": "tactile_grasp/assets/ur5_usd/ur5_moveit.usd",
+        "primary_robot_reference": CANONICAL_ROBOT_REFERENCE,
+        "retired_phase1_robot_reference": RETIRED_PHASE1_ROBOT_REFERENCE,
+        "generated_robot_asset_policy": "Any generated USD is only a convenience derivative of the canonical URDF, not a new truth source.",
         "attachment_target_paths": {
             "left_fingertip": LEFT_FINGER_LINK_PATH,
             "right_fingertip": RIGHT_FINGER_LINK_PATH,
@@ -170,7 +175,7 @@ def _delete_prim_if_present(prim_path: str) -> None:
 def _left_fingertip_body_index(robot: Articulation) -> int:
     cache_key = id(robot)
     if cache_key not in _LEFT_TIP_BODY_INDEX_CACHE:
-        body_indices, _ = robot.find_bodies("robotiq_85_left_finger_tip_link", preserve_order=True)
+        body_indices, _ = robot.find_bodies("left_inner_finger_pad", preserve_order=True)
         if not body_indices:
             raise ValueError("Failed to resolve left fingertip body index from articulation body names.")
         _LEFT_TIP_BODY_INDEX_CACHE[cache_key] = int(body_indices[0])

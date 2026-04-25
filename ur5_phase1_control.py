@@ -19,19 +19,36 @@ ARM_JOINT_NAMES = [
     "wrist_2_joint",
     "wrist_3_joint",
 ]
-GRIPPER_PRIMARY_JOINT_NAME = "robotiq_85_left_knuckle_joint"
-GRIPPER_MIRROR_JOINT_NAME = "robotiq_85_right_knuckle_joint"
-GRIPPER_LOG_JOINT_NAMES = [
-    GRIPPER_PRIMARY_JOINT_NAME,
-    GRIPPER_MIRROR_JOINT_NAME,
-    "left_knuckle_finger_joint",
-    "right_knuckle_finger_joint",
-    "left_inner_finger_joint",
-    "right_inner_finger_joint",
-    "robotiq_85_left_finger_tip_joint",
-    "robotiq_85_right_finger_tip_joint",
-]
-CONTROLLED_JOINT_NAMES = ARM_JOINT_NAMES + [GRIPPER_PRIMARY_JOINT_NAME, GRIPPER_MIRROR_JOINT_NAME]
+GRIPPER_CONTROL_JOINT_NAME = "finger_joint"
+GRIPPER_MIMIC_MULTIPLIERS = {
+    "finger_joint": 1.0,
+    "left_inner_finger_joint": -1.0,
+    "left_inner_knuckle_joint": 1.0,
+    "right_outer_knuckle_joint": 1.0,
+    "right_inner_finger_joint": -1.0,
+    "right_inner_knuckle_joint": 1.0,
+}
+GRIPPER_CONTROL_JOINT_NAMES = list(GRIPPER_MIMIC_MULTIPLIERS.keys())
+GRIPPER_LOG_JOINT_NAMES = GRIPPER_CONTROL_JOINT_NAMES.copy()
+GRIPPER_OPEN_TARGET_RAD_BY_JOINT = {joint_name: 0.0 for joint_name in GRIPPER_CONTROL_JOINT_NAMES}
+# Use a visibly closed Robotiq target for the integrated GSmini fingertips.
+# The previous 0.25 rad / -0.16 rad target was intentionally conservative for
+# Phase 1 stability, but it leaves a clear center gap and keeps the two GSmini
+# fingertip assemblies apart in the visible demo.
+GRIPPER_CLOSE_TARGET_RAD = 0.45
+# Robotiq 2F-85 keeps the fingertip pads parallel through a four-bar mimic
+# relation. The inner-finger joints must mirror the outer knuckle target;
+# otherwise any GSmini mounted on the pad will close at an angled gripper pose.
+GRIPPER_CLOSE_INNER_FINGER_RAD = -GRIPPER_CLOSE_TARGET_RAD
+GRIPPER_CLOSE_TARGET_RAD_BY_JOINT = {
+    "finger_joint": GRIPPER_CLOSE_TARGET_RAD,
+    "left_inner_finger_joint": GRIPPER_CLOSE_INNER_FINGER_RAD,
+    "left_inner_knuckle_joint": GRIPPER_CLOSE_TARGET_RAD,
+    "right_outer_knuckle_joint": GRIPPER_CLOSE_TARGET_RAD,
+    "right_inner_finger_joint": GRIPPER_CLOSE_INNER_FINGER_RAD,
+    "right_inner_knuckle_joint": GRIPPER_CLOSE_TARGET_RAD,
+}
+CONTROLLED_JOINT_NAMES = ARM_JOINT_NAMES + GRIPPER_CONTROL_JOINT_NAMES
 
 RESET_ARM_JOINT_POS_DEG = {
     "shoulder_pan_joint": 1.8,
@@ -50,8 +67,6 @@ PREGRASP_ARM_JOINT_POS_DEG = {
     "wrist_3_joint": -155.28,
 }
 
-GRIPPER_OPEN_ANGLE_RAD = 0.0
-GRIPPER_CLOSE_ANGLE_RAD = 0.6
 ARM_SINGLE_JOINT_DELTA_RAD = 0.25
 ARM_JOINT_TOLERANCE_RAD = 0.05
 GRIPPER_JOINT_TOLERANCE_RAD = 0.03
@@ -61,7 +76,12 @@ RESET_POSITION_TOLERANCE_M = 0.005
 PREGRASP_JOINT_TOLERANCE_RAD = 0.05
 TARGET_HOLD_STEPS = 30
 ARM_MAX_STEPS = 180
-GRIPPER_MAX_STEPS = 180
+GRIPPER_MAX_STEPS = 240
+# Isaac's URDF importer converts the Robotiq closed-loop mimic chain into an
+# open articulation. For Phase 1 visual/control checks we therefore stabilize
+# the mimic gripper joints kinematically at a bounded per-step speed so the
+# fingertip pads stay parallel instead of lagging or oscillating under the arm.
+GRIPPER_KINEMATIC_STEP_RAD = 0.02
 PREGRASP_MAX_STEPS = 240
 DEFAULT_GRIPPER_CYCLES = 20
 DEFAULT_RESET_TRIALS = 20
@@ -90,17 +110,20 @@ def build_joint_target(
     return joint_target
 
 
+def gripper_joint_overrides_rad(closed: bool) -> dict[str, float]:
+    target_map = GRIPPER_CLOSE_TARGET_RAD_BY_JOINT if closed else GRIPPER_OPEN_TARGET_RAD_BY_JOINT
+    return target_map.copy()
+
+
 def reset_joint_overrides_rad() -> dict[str, float]:
     joint_overrides = joint_targets_deg_to_rad(RESET_ARM_JOINT_POS_DEG)
-    joint_overrides[GRIPPER_PRIMARY_JOINT_NAME] = GRIPPER_OPEN_ANGLE_RAD
-    joint_overrides[GRIPPER_MIRROR_JOINT_NAME] = GRIPPER_OPEN_ANGLE_RAD
+    joint_overrides.update(gripper_joint_overrides_rad(closed=False))
     return joint_overrides
 
 
 def pregrasp_joint_overrides_rad() -> dict[str, float]:
     joint_overrides = joint_targets_deg_to_rad(PREGRASP_ARM_JOINT_POS_DEG)
-    joint_overrides[GRIPPER_PRIMARY_JOINT_NAME] = GRIPPER_OPEN_ANGLE_RAD
-    joint_overrides[GRIPPER_MIRROR_JOINT_NAME] = GRIPPER_OPEN_ANGLE_RAD
+    joint_overrides.update(gripper_joint_overrides_rad(closed=False))
     return joint_overrides
 
 
@@ -117,13 +140,9 @@ def build_gripper_joint_target(
     closed: bool,
     base_target: torch.Tensor | None = None,
 ) -> torch.Tensor:
-    gripper_angle = GRIPPER_CLOSE_ANGLE_RAD if closed else GRIPPER_OPEN_ANGLE_RAD
     return build_joint_target(
         robot,
-        {
-            GRIPPER_PRIMARY_JOINT_NAME: gripper_angle,
-            GRIPPER_MIRROR_JOINT_NAME: gripper_angle,
-        },
+        gripper_joint_overrides_rad(closed=closed),
         base_target=base_target,
     )
 

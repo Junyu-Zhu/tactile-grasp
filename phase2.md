@@ -18,13 +18,14 @@
 ## 依赖
 开始本阶段前，必须满足：
 - `tactile_grasp/phase1.md` 全部通过
-- UR5e + Robotiq 已稳定导入、可 reset、可开合、可到 pre-grasp
+- integrated `UR5e + Robotiq + connector + GSmini` embodiment 已稳定导入、可 reset、可开合、可到 pre-grasp（但尚未做 tactile-output 验证）
 
 ---
 
 ## Source of Truth
-- UR5 主资产参考：`tactile_grasp/assets/ur5_usd/ur5_moveit.usd`（参考 `ur5_sim.py` 实际采用的机械臂模型）
-- 备选：无备选方案
+- Canonical robot source：`tactile_grasp/environment/ur5_robotiq_GSmini/urdf/ur5_robotiq_GSmini.urdf`
+- Generated USD：`tactile_grasp/environment/ur5_robotiq_GSmini/usd/ur5_robotiq_GSmini.usd`，作为 canonical URDF 的 derived loading asset 使用，不替代 truth
+- 已退役的旧 Phase 1 truth：`tactile_grasp/assets/ur5_usd/ur5_moveit.usd`
 - Phase 2 主执行脚本：`tactile_grasp/ur5_phase2_sim.py`
 - 挂载 helper：`tactile_grasp/ur5_phase2_mount.py`
 - GelSight Mini local mesh：`tactile_grasp/assets/meshes/gelsight_mini`
@@ -33,7 +34,7 @@
 - TacEx 传感器配置参考：`TacEx/source/tacex_assets/tacex_assets/sensors/gelsight_mini/gsmini_cfg.py`
 - TacEx 挂载教程参考：`TacEx/docs/source/tutorials/creating_robot_asset_with_sensors.md`
 
-原则：**Phase 2 先稳挂载与图像输出，不讨论算法。**
+原则：**Phase 2 在 canonical integrated embodiment 之上做挂载校核与 tactile image/output bring-up，不讨论算法。**
 
 ---
 
@@ -53,15 +54,16 @@
 
 ## Step 2：锁定挂载几何 source-of-truth
 ### 要做
-- 确定最终采用哪套 UR5 + GSmini 挂载几何作为主参考
+- 明确采用 canonical `ur5_robotiq_GSmini.urdf` 作为唯一机器人/挂载几何 truth
 - 确定 connector / sensor mesh 使用哪套本地路径
 - 记录左/右传感器命名方案
+- 若后续生成 robot USD，只把它记为 derived loading convenience，不把它写回 truth
 
 ### 完成标准
-- 文档里明确写出挂载 source-of-truth
+- 文档里明确写出 canonical 挂载 source-of-truth
 
 ### 禁止
-- 不要并行维护多套挂载方案
+- 不要并行维护多套挂载方案，也不要回退到 `ur5_moveit.usd` 作为 truth
 
 ---
 
@@ -185,7 +187,7 @@
 ---
 
 ## Phase 2 的一句话总结
-**先让 GelSight Mini 在 UR5e + Robotiq 上挂得稳、出得图，再开始任何 Sparsh 和闭环控制工作。**
+**先在 canonical integrated UR5e + Robotiq + connector + GSmini embodiment 上把挂载校核清楚、把 tactile 图像跑通，再开始任何 Sparsh 和闭环控制工作。**
 
 
 ## 本次 Step 1/2/3 产物

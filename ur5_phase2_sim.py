@@ -20,6 +20,11 @@ parser = argparse.ArgumentParser(description="Phase 2 single-side GSmini mount p
 parser.add_argument("--num_envs", type=int, default=1, help="Number of environments to spawn.")
 parser.add_argument("--max_steps", type=int, default=0, help="Maximum simulation steps to run. 0 keeps running.")
 parser.add_argument("--phase2-step3-checks", action="store_true", help="Run Step 3 single-side mount validation and exit.")
+parser.add_argument(
+    "--regenerate-robot-usd",
+    action="store_true",
+    help="Force regeneration of the USD derived from the canonical robot URDF before the Phase 2 scene loads.",
+)
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
 
@@ -30,7 +35,14 @@ import isaaclab.sim as sim_utils
 
 from ur5_phase1_control import build_reset_joint_target
 from ur5_phase1_reset import reset_scene
-from ur5_phase1_scene import CAMERA_EYE, CAMERA_TARGET, design_scene, report_scene_state
+from ur5_phase1_scene import (
+    CAMERA_EYE,
+    CAMERA_TARGET,
+    design_scene,
+    ensure_robot_usd_path,
+    report_scene_state,
+    resolve_robot_urdf_path,
+)
 from ur5_phase2_mount import (
     PHASE2_SCOPE_SENTENCE,
     mount_single_side_connector_only,
@@ -63,7 +75,7 @@ def _set_phase2_debug_camera(sim, robot) -> dict[str, list[float]]:
     return {"eye": eye, "target": target}
 
 
-def run_preview(sim, robots, bananas, origins) -> None:
+def run_preview(sim, robots, bananas, origins, robot_urdf_path, robot_usd_path) -> None:
     robot_list = list(robots.values())
     banana_list = list(bananas.values())
     sim_dt = sim.get_physics_dt()
@@ -87,7 +99,7 @@ def run_preview(sim, robots, bananas, origins) -> None:
 
     debug_positions = sync_left_mount_to_runtime_fingertip(robot_list[0], include_gsmini=False)
     camera_debug = _set_phase2_debug_camera(sim, robot_list[0])
-    report_scene_state(origins)
+    report_scene_state(origins, robot_urdf_path, robot_usd_path)
     print(f"[INFO] {PHASE2_SCOPE_SENTENCE}")
     print("[INFO] Phase 2 preview ready: connector-only manual tuning mode on the left fingertip.")
     print(json.dumps(source_of_truth_summary(), ensure_ascii=False, indent=2))
@@ -125,7 +137,9 @@ def main() -> int:
 
     sim = sim_utils.SimulationContext(sim_utils.SimulationCfg(device=args_cli.device))
     sim.set_camera_view(CAMERA_EYE, CAMERA_TARGET)
-    robots, bananas, origins = design_scene(args_cli.num_envs)
+    robot_urdf_path = resolve_robot_urdf_path()
+    robot_usd_path = ensure_robot_usd_path(force_conversion=args_cli.regenerate_robot_usd)
+    robots, bananas, origins = design_scene(args_cli.num_envs, robot_usd_path=robot_usd_path)
     origins = origins.to(sim.device)
     sim.reset()
 
@@ -141,7 +155,7 @@ def main() -> int:
         print("[RESULT] Phase 2 Step 1/2/3 validation PASSED.")
         return 0
 
-    run_preview(sim, robots, bananas, origins)
+    run_preview(sim, robots, bananas, origins, robot_urdf_path, robot_usd_path)
     return 0
 
 
