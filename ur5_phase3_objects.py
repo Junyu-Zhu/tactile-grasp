@@ -53,6 +53,8 @@ class Phase3ObjectProfile:
     max_close_object_lift_m: float
     hold_seconds: float
     micro_lift_distance_m: float
+    pregrasp_mode: str
+    contact_approach_refine: bool
     tuning_note: str
 
     @property
@@ -111,6 +113,8 @@ CUBE_PROFILE = Phase3ObjectProfile(
     max_close_object_lift_m=0.004,
     hold_seconds=2.0,
     micro_lift_distance_m=0.015,
+    pregrasp_mode="phase2_side_pregrasp",
+    contact_approach_refine=False,
     tuning_note=(
         "Phase2-proven cube profile: side grasp at the cube center and conservative close width; "
         "Phase3 allows a small <=4 mm close-induced lift because early runtime trials reached "
@@ -130,16 +134,20 @@ CHIPS_CAN_PROFILE = Phase3ObjectProfile(
     ),
     mass_kg=0.205,
     root_rot_wxyz=(1.0, 0.0, 0.0, 0.0),
-    grasp_center_local_m=(-0.005432096682485999, 0.011964731290936996, 0.126518871868025),
-    close_rad=0.18,
+    grasp_center_local_m=(-0.060, 0.011964731290936996, 0.126518871868025),
+    close_rad=0.35,
     stable_force_threshold_n=0.35,
     high_force_threshold_n=6.0,
-    max_close_object_lift_m=0.003,
+    max_close_object_lift_m=0.006,
     hold_seconds=2.0,
     micro_lift_distance_m=0.012,
+    pregrasp_mode="reset_clearance",
+    contact_approach_refine=True,
     tuning_note=(
-        "Upright can profile: target the cylindrical mid-height center and use lower force than cube "
-        "to avoid rolling/squeezing the wider object."
+        "Upright can profile: keep the reset-clearance pregrasp, then target the near-side "
+        "mid-height edge instead of the full cylinder center because the GSmini fingertips reduce "
+        "the usable open gap below the can diameter. Runtime tuning treats the final soft-center "
+        "approach as the contact stage so the can is touched without tipping before hold."
     ),
 )
 
@@ -165,6 +173,8 @@ CRACKER_BOX_PROFILE = Phase3ObjectProfile(
     max_close_object_lift_m=0.004,
     hold_seconds=2.5,
     micro_lift_distance_m=0.010,
+    pregrasp_mode="reset_clearance",
+    contact_approach_refine=False,
     tuning_note=(
         "Box profile: yaw-rotate so the narrow side is gripped; use a shorter micro-lift because "
         "the tall box is heavier and more tip-prone than the cube."

@@ -199,16 +199,17 @@ class Phase3TrialRunner(Phase3MotionMixin):
             gripper_joint_target=open_gripper_target,
         )
         arm_hold_target, latch = self._latch_arm(arm_joint_ids)
+        post_refine_stage = "contact_close" if self.contact_onset is not None else "pre_grasp"
         self._hold_targets(
             logger,
-            "pre_grasp",
+            post_refine_stage,
             arm_joint_ids=arm_joint_ids,
             arm_joint_target=arm_hold_target,
             gripper_joint_ids=gripper_joint_ids,
             gripper_joint_target=open_gripper_target,
             steps=self.options.arm_hold_settle_steps,
         )
-        self._log_sample(logger, "pre_grasp", force_tactile=True)
+        self._log_sample(logger, post_refine_stage, force_tactile=True)
 
         close_target, close_summary = self._close_gripper(
             logger,

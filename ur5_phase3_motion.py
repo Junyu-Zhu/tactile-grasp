@@ -270,6 +270,7 @@ class Phase3MotionMixin(Phase3GeometryMixin):
     ) -> dict[str, Any]:
         desired = self._object_grasp_center_world()
         rounds: list[dict[str, Any]] = []
+        stage = "contact_close" if getattr(self.object_profile, "contact_approach_refine", False) else "pre_grasp"
         for round_index in range(1, self.options.soft_center_refine_rounds + 1):
             if self.budget.exhausted:
                 break
@@ -279,7 +280,7 @@ class Phase3MotionMixin(Phase3GeometryMixin):
             ee_pos, _ = self._ee_pose(ee_body)
             move = self._move_ee_to_pose(
                 logger,
-                stage="pre_grasp",
+                stage=stage,
                 target_pos_w=ee_pos[0] + step_vec,
                 target_quat_w=target_quat_w,
                 arm_joint_ids=arm_joint_ids,
@@ -304,6 +305,7 @@ class Phase3MotionMixin(Phase3GeometryMixin):
                 break
         return {
             "enabled": self.options.soft_center_refine_rounds > 0,
+            "stage": stage,
             "desired_soft_pair_center_world_m": _list_tensor(desired),
             "rounds": rounds,
             "final_error_norm_m": rounds[-1]["post_error_norm_m"] if rounds else None,
@@ -422,6 +424,8 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         }
 
     def _pregrasp_target(self) -> torch.Tensor:
+        if getattr(self.object_profile, "pregrasp_mode", "") == "reset_clearance":
+            return build_reset_joint_target(self.robot)
         target = build_pregrasp_joint_target(self.robot)
         target[:, named_joint_ids(self.robot, ["wrist_3_joint"])["wrist_3_joint"]] = math.radians(PHASE3_DEFAULT_PREGRASP_WRIST3_DEG)
         return target
