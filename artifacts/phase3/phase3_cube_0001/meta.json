@@ -1,0 +1,481 @@
+{
+  "schema_version": "phase3_trial_v1",
+  "trial_id": "phase3_cube_0001",
+  "object_id": "cube",
+  "sensor_id": [
+    "left",
+    "right"
+  ],
+  "seed": 8,
+  "phase_name": "phase3_contact_grasp_logging",
+  "timestamp_start": "2026-05-03T16:35:01.230Z",
+  "timestamp_end": "2026-05-03T16:35:11.815Z",
+  "action_stage": [
+    "reset",
+    "pre_grasp",
+    "contact_close",
+    "hold",
+    "release",
+    "end_trial"
+  ],
+  "joint_state": {
+    "position_rad": {
+      "shoulder_pan_joint": -0.04498836770653725,
+      "shoulder_lift_joint": -1.012681245803833,
+      "elbow_joint": 1.4714882373809814,
+      "wrist_1_joint": -1.956959843635559,
+      "wrist_2_joint": -1.5710933208465576,
+      "wrist_3_joint": -0.050403423607349396,
+      "finger_joint": 9.474404594200792e-11,
+      "left_inner_knuckle_joint": 1.9259191503806505e-06,
+      "right_inner_knuckle_joint": 2.047112729997025e-06,
+      "right_outer_knuckle_joint": 1.9196436369384173e-06,
+      "left_inner_finger_joint": -1.3755222880718065e-06,
+      "right_inner_finger_joint": -3.1201559522742173e-06
+    },
+    "velocity_rad_s": {
+      "shoulder_pan_joint": -3.675789412227459e-05,
+      "shoulder_lift_joint": 0.00014762581849936396,
+      "elbow_joint": 5.2565414080163464e-05,
+      "wrist_1_joint": 2.2058373360778205e-05,
+      "wrist_2_joint": 4.9049078370444477e-05,
+      "wrist_3_joint": -6.361586883940618e-07,
+      "finger_joint": 0.00012903135211672634,
+      "left_inner_knuckle_joint": 0.0001305571640841663,
+      "right_inner_knuckle_joint": 0.00013072346337139606,
+      "right_outer_knuckle_joint": 0.00012805053847841918,
+      "left_inner_finger_joint": -0.0001288641506107524,
+      "right_inner_finger_joint": -0.0001290313375648111
+    }
+  },
+  "gripper_state": {
+    "control_joint_position_rad": {
+      "finger_joint": 9.474404594200792e-11,
+      "left_inner_finger_joint": -1.3755222880718065e-06,
+      "left_inner_knuckle_joint": 1.9259191503806505e-06,
+      "right_outer_knuckle_joint": 1.9196436369384173e-06,
+      "right_inner_finger_joint": -3.1201559522742173e-06,
+      "right_inner_knuckle_joint": 2.047112729997025e-06
+    },
+    "finger_joint_abs_rad": 9.474404594200792e-11
+  },
+  "tactile_frame_id": {
+    "count": 54,
+    "last": "frame_000054"
+  },
+  "contact_onset": {
+    "detected": true,
+    "step": 169,
+    "timestamp": "2026-05-03T16:35:08.726Z",
+    "action_stage": "contact_close",
+    "contact_sides": [
+      "right"
+    ],
+    "force_by_side_n": {
+      "left": 0.0,
+      "right": 0.0
+    }
+  },
+  "success_label": true,
+  "failure_reason": null,
+  "protocol_variant": "contact_hold",
+  "object_profile": {
+    "object_id": "cube",
+    "label": "4cm_cube",
+    "object_kind": "cube",
+    "prim_name": "GraspCube",
+    "urdf_rel_path": null,
+    "local_aabb": {
+      "min_m": [
+        -0.02,
+        -0.02,
+        -0.02
+      ],
+      "max_m": [
+        0.02,
+        0.02,
+        0.02
+      ],
+      "size_m": [
+        0.04,
+        0.04,
+        0.04
+      ],
+      "center_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "mass_kg": 0.08,
+    "root_rot_wxyz": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "grasp_center_local_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "close_rad": 0.25,
+    "stable_force_threshold_n": 0.5,
+    "high_force_threshold_n": 8.0,
+    "max_close_object_lift_m": 0.004,
+    "hold_seconds": 2.0,
+    "micro_lift_distance_m": 0.015,
+    "tuning_note": "Phase2-proven cube profile: side grasp at the cube center and conservative close width; Phase3 allows a small <=4 mm close-induced lift because early runtime trials reached stable two-sided force around 1.9-3.1 mm before hold.",
+    "root_position_m": [
+      0.6,
+      0.0,
+      0.74
+    ],
+    "rest_root_z_m": 0.74,
+    "urdf_path": null
+  },
+  "command_profile": {
+    "runner_options": {
+      "output_root": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3",
+      "seed": 7,
+      "max_steps": 0,
+      "reset_settle_steps": 20,
+      "pregrasp_move_steps": 25,
+      "direct_move_steps": 240,
+      "direct_pos_tolerance_m": 0.006,
+      "max_joint_delta_per_step": 0.018,
+      "soft_center_refine_rounds": 2,
+      "soft_center_refine_steps": 50,
+      "max_soft_center_refine_step_m": 0.02,
+      "close_steps": 160,
+      "close_settle_steps": 6,
+      "release_steps": 60,
+      "arm_hold_settle_steps": 30,
+      "stable_force_steps": 2,
+      "sample_every_steps": 20,
+      "tactile_sides": [
+        "left",
+        "right"
+      ],
+      "tactile_device": "cpu",
+      "tactile_resolution": [
+        320,
+        240
+      ],
+      "include_camera_depth": true,
+      "include_camera_rgb": false,
+      "disable_tactile": false,
+      "save_tactile_arrays": true,
+      "save_preview_images": true,
+      "disable_force_control": false
+    },
+    "protocol_profile": {
+      "variant": "contact_hold",
+      "stages": [
+        "reset",
+        "pre_grasp",
+        "contact_close",
+        "hold",
+        "release",
+        "end_trial"
+      ],
+      "hold_seconds": 2.0,
+      "micro_lift_distance_m": 0.0,
+      "description": "Recommended first stable variant: contact close plus fixed hold."
+    },
+    "tactile_setup": {
+      "enabled": true,
+      "sides": [
+        "left",
+        "right"
+      ],
+      "sensor_paths": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera"
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera"
+        }
+      },
+      "shell_spawn": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        }
+      },
+      "camera_check": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        }
+      },
+      "mount_check": {
+        "left": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        },
+        "right": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        }
+      },
+      "resolution": [
+        320,
+        240
+      ],
+      "include_camera_depth": true,
+      "include_camera_rgb": false
+    }
+  },
+  "output_files": {
+    "meta": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/meta.json",
+    "robot_state": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/robot_state.json",
+    "frame_map": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/frame_map.csv",
+    "tactile_dir": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/tactile"
+  },
+  "alignment_summary": {
+    "robot_state_samples": 27,
+    "tactile_frame_rows": 54,
+    "all_frames_have_robot_state": true,
+    "observed_stages": [
+      "reset",
+      "pre_grasp",
+      "contact_close",
+      "hold",
+      "release",
+      "end_trial"
+    ],
+    "frame_stages": [
+      "reset",
+      "pre_grasp",
+      "contact_close",
+      "hold",
+      "release",
+      "end_trial"
+    ],
+    "frame_map_columns": [
+      "frame_id",
+      "timestamp",
+      "action_stage",
+      "side",
+      "sensor_id",
+      "tactile_rgb_path",
+      "camera_depth_path",
+      "camera_rgb_path",
+      "robot_state_index",
+      "contact_detected",
+      "success_label",
+      "failure_reason"
+    ]
+  }
+}

@@ -1,0 +1,740 @@
+{
+  "scope": "Phase 3 builds a minimal, repeatable contact/grasp trial protocol and saves aligned tactile frames plus robot state for later Phase 4/Sparsh work.",
+  "forbidden_scope": "No Sparsh inference/adaptation, no closed-loop tactile policy, no GraspNet, no RL, and no large-scale object generalization.",
+  "object_id": "cube",
+  "protocol_variant": "contact_hold",
+  "trials_requested": 1,
+  "trials_passed": 1,
+  "passed": true,
+  "robot_urdf_path": "/home/zjy/Documents/grasp/tactile_grasp/environment/ur5_robotiq_GSmini/urdf/ur5_robotiq_GSmini.urdf",
+  "robot_usd_path": "/home/zjy/Documents/grasp/tactile_grasp/environment/ur5_robotiq_GSmini/usd/ur5_robotiq_GSmini.usd",
+  "runner_options": {
+    "output_root": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3",
+    "seed": 7,
+    "max_steps": 0,
+    "reset_settle_steps": 20,
+    "pregrasp_move_steps": 25,
+    "direct_move_steps": 240,
+    "direct_pos_tolerance_m": 0.006,
+    "max_joint_delta_per_step": 0.018,
+    "soft_center_refine_rounds": 2,
+    "soft_center_refine_steps": 50,
+    "max_soft_center_refine_step_m": 0.02,
+    "close_steps": 160,
+    "close_settle_steps": 6,
+    "release_steps": 60,
+    "arm_hold_settle_steps": 30,
+    "stable_force_steps": 2,
+    "sample_every_steps": 20,
+    "tactile_sides": [
+      "left",
+      "right"
+    ],
+    "tactile_device": "cpu",
+    "tactile_resolution": [
+      320,
+      240
+    ],
+    "include_camera_depth": true,
+    "include_camera_rgb": false,
+    "disable_tactile": false,
+    "save_tactile_arrays": true,
+    "save_preview_images": true,
+    "disable_force_control": false
+  },
+  "results": [
+    {
+      "trial_id": "phase3_cube_0001",
+      "passed": true,
+      "failure_reason": null,
+      "meta_path": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/meta.json",
+      "trial_dir": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001",
+      "step_budget_used": 394,
+      "object_id": "cube",
+      "protocol_variant": "contact_hold",
+      "tactile_setup": {
+        "enabled": true,
+        "sides": [
+          "left",
+          "right"
+        ],
+        "sensor_paths": {
+          "left": {
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera"
+          },
+          "right": {
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera"
+          }
+        },
+        "shell_spawn": {
+          "left": {
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "hidden_render_meshes": 3,
+            "disabled_physics_attrs": 7,
+            "camera_clipping": {
+              "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+              "applied": true,
+              "clipping_range_m": [
+                0.024,
+                0.04
+              ]
+            },
+            "mount_check": {
+              "passed": true,
+              "mount_mode": "fingertip_child_local_offsets",
+              "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+              "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+              "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+              "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+              "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+              "mounted_under_fingertip": true,
+              "local_offsets_m": {
+                "case": [
+                  -0.01549999974668026,
+                  -0.012000000104308128,
+                  0.01850000023841858
+                ],
+                "gelpad": [
+                  -0.01549999974668026,
+                  -0.012000000104308128,
+                  0.042500000447034836
+                ]
+              },
+              "expected_local_offsets_m": {
+                "case": [
+                  -0.0155,
+                  -0.012,
+                  0.0185
+                ],
+                "gelpad": [
+                  -0.0155,
+                  -0.012,
+                  0.042499999999999996
+                ]
+              },
+              "local_mount_errors_m": {
+                "case": 2.5331974018438785e-10,
+                "gelpad": 4.4703483970121027e-10,
+                "max": 4.4703483970121027e-10,
+                "tolerance": 0.0001
+              },
+              "camera_exists": true
+            }
+          },
+          "right": {
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "hidden_render_meshes": 3,
+            "disabled_physics_attrs": 7,
+            "camera_clipping": {
+              "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+              "applied": true,
+              "clipping_range_m": [
+                0.024,
+                0.04
+              ]
+            },
+            "mount_check": {
+              "passed": true,
+              "mount_mode": "fingertip_child_local_offsets",
+              "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+              "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+              "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+              "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+              "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+              "mounted_under_fingertip": true,
+              "local_offsets_m": {
+                "case": [
+                  -0.01549999974668026,
+                  -0.012000000104308128,
+                  0.01850000023841858
+                ],
+                "gelpad": [
+                  -0.01549999974668026,
+                  -0.012000000104308128,
+                  0.042500000447034836
+                ]
+              },
+              "expected_local_offsets_m": {
+                "case": [
+                  -0.0155,
+                  -0.012,
+                  0.0185
+                ],
+                "gelpad": [
+                  -0.0155,
+                  -0.012,
+                  0.042499999999999996
+                ]
+              },
+              "local_mount_errors_m": {
+                "case": 2.5331974018438785e-10,
+                "gelpad": 4.4703483970121027e-10,
+                "max": 4.4703483970121027e-10,
+                "tolerance": 0.0001
+              },
+              "camera_exists": true
+            }
+          }
+        },
+        "camera_check": {
+          "left": {
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "camera_exists": true,
+            "expected_appendix": "/Camera",
+            "clipping_range_m": [
+              0.024000000208616257,
+              0.03999999910593033
+            ],
+            "expected_clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "right": {
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "camera_exists": true,
+            "expected_appendix": "/Camera",
+            "clipping_range_m": [
+              0.024000000208616257,
+              0.03999999910593033
+            ],
+            "expected_clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          }
+        },
+        "mount_check": {
+          "left": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          },
+          "right": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        },
+        "resolution": [
+          320,
+          240
+        ],
+        "include_camera_depth": true,
+        "include_camera_rgb": false
+      },
+      "soft_center_target": {
+        "mode": "soft_mesh_pair_center_to_object_grasp_center",
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "pregrasp_ee_world_m": [
+          0.5980125069618225,
+          0.003332096617668867,
+          1.0137221813201904
+        ],
+        "pregrasp_soft_pair_center_world_m": [
+          0.5946996212005615,
+          0.0034314338117837906,
+          0.8483408689498901
+        ],
+        "soft_offset_in_ee_frame_m": [
+          0.16541452705860138,
+          -2.327142283320427e-07,
+          -1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033129692077637,
+          -9.933306137099862e-05,
+          0.9218429327011108
+        ]
+      },
+      "direct_move": {
+        "passed": true,
+        "steps": 10,
+        "target_position_world_m": [
+          0.6033129692077637,
+          -9.933306137099862e-05,
+          0.9218429327011108
+        ],
+        "final_position_world_m": [
+          0.6014846563339233,
+          -0.0022028665989637375,
+          0.9245163202285767
+        ],
+        "final_position_error_m": 0.0038619402330368757,
+        "pos_tolerance_m": 0.006
+      },
+      "soft_center_refinement": {
+        "enabled": true,
+        "desired_soft_pair_center_world_m": [
+          0.5999999046325684,
+          -7.167465554402952e-08,
+          0.7564616799354553
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "pre_error_m": [
+              0.02056264877319336,
+              0.0011874604970216751,
+              -0.003908812999725342
+            ],
+            "step_m": [
+              0.019999999552965164,
+              0.0011874604970216751,
+              -0.003908812999725342
+            ],
+            "move": {
+              "passed": true,
+              "steps": 15,
+              "target_position_world_m": [
+                0.621484637260437,
+                -0.0010154061019420624,
+                0.9206075072288513
+              ],
+              "final_position_world_m": [
+                0.6168594360351562,
+                -0.00074962672078982,
+                0.917182981967926
+              ],
+              "final_position_error_m": 0.005761119537055492,
+              "pos_tolerance_m": 0.006
+            },
+            "post_error_m": [
+              -0.004274427890777588,
+              0.00022705555602442473,
+              0.0042174458503723145
+            ],
+            "post_error_norm_m": 0.006009087897837162
+          },
+          {
+            "round": 2,
+            "pre_error_m": [
+              -0.004274427890777588,
+              0.00022705555602442473,
+              0.0042174458503723145
+            ],
+            "step_m": [
+              -0.004274427890777588,
+              0.00022705555602442473,
+              0.0042174458503723145
+            ],
+            "move": {
+              "passed": true,
+              "steps": 1,
+              "target_position_world_m": [
+                0.6125850081443787,
+                -0.00052257115021348,
+                0.9214004278182983
+              ],
+              "final_position_world_m": [
+                0.6164208054542542,
+                -0.0009003809536807239,
+                0.9169937968254089
+              ],
+              "final_position_error_m": 0.005854440852999687,
+              "pos_tolerance_m": 0.006
+            },
+            "post_error_m": [
+              -0.004433155059814453,
+              0.00025205223937518895,
+              0.004314839839935303
+            ],
+            "post_error_norm_m": 0.006191465072333813
+          }
+        ],
+        "final_error_norm_m": 0.006191465072333813
+      },
+      "arm_latch": {
+        "latched": true,
+        "target_rad": [
+          -0.0449887253344059,
+          -1.0126793384552002,
+          1.471489429473877,
+          -1.9569590091705322,
+          -1.5710902214050293,
+          -0.05040346831083298
+        ]
+      },
+      "close": {
+        "requested_target_close_rad": 0.25,
+        "start_close_rad": 0.0,
+        "stopped_by_stable_force": true,
+        "stopped_by_high_force": false,
+        "stopped_by_object_lift": false,
+        "stable_counter": 2,
+        "max_object_lift_m": 0.0030908584594726562,
+        "force_history_tail": [
+          {
+            "step": 88,
+            "planned_close_rad": 0.1375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": 5.960464477539063e-08
+          },
+          {
+            "step": 89,
+            "planned_close_rad": 0.1390625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.1920928955078125e-06
+          },
+          {
+            "step": 90,
+            "planned_close_rad": 0.140625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.3709068298339844e-06
+          },
+          {
+            "step": 91,
+            "planned_close_rad": 0.1421875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.7285346984863281e-06
+          },
+          {
+            "step": 92,
+            "planned_close_rad": 0.14375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.0132789611816406e-06
+          },
+          {
+            "step": 93,
+            "planned_close_rad": 0.1453125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -5.960464477539063e-08
+          },
+          {
+            "step": 94,
+            "planned_close_rad": 0.146875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.1920928955078125e-06
+          },
+          {
+            "step": 95,
+            "planned_close_rad": 0.1484375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.0132789611816406e-06
+          },
+          {
+            "step": 96,
+            "planned_close_rad": 0.15,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.2516975402832031e-06
+          },
+          {
+            "step": 97,
+            "planned_close_rad": 0.1515625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.3113021850585938e-06
+          },
+          {
+            "step": 98,
+            "planned_close_rad": 0.153125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.0132789611816406e-06
+          },
+          {
+            "step": 99,
+            "planned_close_rad": 0.1546875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.1324882507324219e-06
+          },
+          {
+            "step": 100,
+            "planned_close_rad": 0.15625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.2516975402832031e-06
+          },
+          {
+            "step": 101,
+            "planned_close_rad": 0.1578125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -2.3245811462402344e-06
+          },
+          {
+            "step": 102,
+            "planned_close_rad": 0.159375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": -1.9073486328125e-06
+          },
+          {
+            "step": 103,
+            "planned_close_rad": 0.1609375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": 6.520748138427734e-05
+          },
+          {
+            "step": 104,
+            "planned_close_rad": 0.1625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": 0.00027054548263549805
+          },
+          {
+            "step": 105,
+            "planned_close_rad": 0.1640625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "object_lift_m": 0.0007126331329345703
+          },
+          {
+            "step": 106,
+            "planned_close_rad": 0.165625,
+            "force_by_side_n": {
+              "left": 1.29657781124115,
+              "right": 1.0809404850006104
+            },
+            "max_force_n": 1.29657781124115,
+            "both_sides_stable": true,
+            "object_lift_m": 0.0018615126609802246
+          },
+          {
+            "step": 107,
+            "planned_close_rad": 0.1671875,
+            "force_by_side_n": {
+              "left": 1.2731631994247437,
+              "right": 1.3776938915252686
+            },
+            "max_force_n": 1.3776938915252686,
+            "both_sides_stable": true,
+            "object_lift_m": 0.0030908584594726562
+          }
+        ],
+        "settle": {
+          "requested_steps": 6,
+          "actual_steps": 6
+        }
+      },
+      "hold": {
+        "requested_steps": 120,
+        "actual_steps": 120
+      },
+      "micro_lift": {
+        "enabled": false
+      },
+      "release": {
+        "requested_steps": 60,
+        "actual_steps": 60
+      },
+      "contact_onset": {
+        "detected": true,
+        "step": 169,
+        "timestamp": "2026-05-03T16:35:08.726Z",
+        "action_stage": "contact_close",
+        "contact_sides": [
+          "right"
+        ],
+        "force_by_side_n": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "alignment_summary": {
+        "robot_state_samples": 27,
+        "tactile_frame_rows": 54,
+        "all_frames_have_robot_state": true,
+        "observed_stages": [
+          "reset",
+          "pre_grasp",
+          "contact_close",
+          "hold",
+          "release",
+          "end_trial"
+        ],
+        "frame_stages": [
+          "reset",
+          "pre_grasp",
+          "contact_close",
+          "hold",
+          "release",
+          "end_trial"
+        ],
+        "frame_map_columns": [
+          "frame_id",
+          "timestamp",
+          "action_stage",
+          "side",
+          "sensor_id",
+          "tactile_rgb_path",
+          "camera_depth_path",
+          "camera_rgb_path",
+          "robot_state_index",
+          "contact_detected",
+          "success_label",
+          "failure_reason"
+        ]
+      }
+    }
+  ]
+}

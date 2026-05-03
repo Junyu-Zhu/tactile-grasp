@@ -108,12 +108,13 @@ CUBE_PROFILE = Phase3ObjectProfile(
     close_rad=0.25,
     stable_force_threshold_n=0.5,
     high_force_threshold_n=8.0,
-    max_close_object_lift_m=0.001,
+    max_close_object_lift_m=0.004,
     hold_seconds=2.0,
     micro_lift_distance_m=0.015,
     tuning_note=(
-        "Phase2-proven cube profile: side grasp at the cube center, conservative close width, "
-        "and object-lift guard enabled."
+        "Phase2-proven cube profile: side grasp at the cube center and conservative close width; "
+        "Phase3 allows a small <=4 mm close-induced lift because early runtime trials reached "
+        "stable two-sided force around 1.9-3.1 mm before hold."
     ),
 )
 

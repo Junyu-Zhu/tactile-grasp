@@ -295,6 +295,7 @@ tactile_grasp/artifacts/phase3/
 - `ur5_phase3_logging.py`：`meta.json`、`robot_state.json`、`frame_map.csv`、tactile `.npy` 与 preview image 落盘。
 - `ur5_phase3_trial_runner.py`：单条 trial orchestration。
 - `ur5_phase3_data_collection.py`：Isaac/AppLauncher CLI 入口。
+- `ur5_phase3_review.py`：离线检查 `meta.json` / `robot_state.json` / `frame_map.csv` 对齐和标签质量。
 
 推荐先跑 cube 的最小验证命令：
 
@@ -307,4 +308,10 @@ python -u ur5_phase3_data_collection.py \
   --object_id cube \
   --protocol_variant contact_hold \
   --trials 1
+```
+
+离线复查命令：
+
+```bash
+python ur5_phase3_review.py --output_root artifacts/phase3
 ```

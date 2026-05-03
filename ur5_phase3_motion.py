@@ -131,7 +131,9 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         self.grasp_object.update(dt)
         self.budget.tick()
         contact_state = self._read_contact_state()
-        if contact_state.get("contact_detected") and self.contact_onset is None:
+        onset_stage = stage in {"contact_close", "hold", "micro_lift"}
+        onset_has_force = bool(contact_state.get("force_contact_sides"))
+        if contact_state.get("contact_detected") and self.contact_onset is None and (onset_stage or onset_has_force):
             self.contact_onset = {
                 "detected": True,
                 "step": self.budget.steps,

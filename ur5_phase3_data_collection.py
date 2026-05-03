@@ -57,6 +57,14 @@ parser.add_argument("--no_tactile_arrays", action="store_true", help="Do not sav
 parser.add_argument("--no_preview_images", action="store_true", help="Do not save PNG/PPM preview images.")
 parser.add_argument("--disable_force_control", action="store_true", help="Disable GSmini contact force sensors.")
 parser.add_argument("--regenerate_robot_usd", action="store_true", help="Force canonical URDF -> USD regeneration.")
+parser.add_argument(
+    "--graceful_sim_close",
+    action="store_true",
+    help=(
+        "Call simulation_app.close() before process exit. Disabled by default for Phase3 headless data "
+        "runs because Isaac/Kit can hang after artifacts are written; process exit plus cleanup is more reliable."
+    ),
+)
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
 
@@ -74,6 +82,7 @@ from ur5_phase3_trial_runner import (
     Phase3TrialRunner,
     setup_phase3_contact_sensors,
 )
+from ur5_phase3_review import write_phase3_review
 
 
 def _tactile_sides() -> tuple[str, ...]:
@@ -184,15 +193,25 @@ def main() -> int:
         "results": results,
     }
     summary_path = _write_batch_summary(output_root, summary)
+    review_path = write_phase3_review(output_root)
     print(f"[INFO] Wrote Phase3 batch summary: {summary_path}", flush=True)
+    print(f"[INFO] Wrote Phase3 review artifact: {review_path}", flush=True)
     print("[RESULT] Phase 3 batch PASSED." if summary["passed"] else "[RESULT] Phase 3 batch FAILED.", flush=True)
     return 0 if summary["passed"] else 1
 
 
 if __name__ == "__main__":
+    import os
+    import sys
+
     exit_code = 1
     try:
         exit_code = main()
     finally:
-        simulation_app.close(wait_for_replicator=False)
-    raise SystemExit(exit_code)
+        if args_cli.graceful_sim_close:
+            simulation_app.close(wait_for_replicator=False)
+        else:
+            print("[INFO] Skipping graceful SimulationApp close; process exit will release Phase3 headless resources.", flush=True)
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os._exit(exit_code)
