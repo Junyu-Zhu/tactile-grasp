@@ -26,6 +26,17 @@ from ur5_phase1_control import (
 
 BANANA_NAME = "YcbBanana"
 BANANA_MASS = 0.09
+PHASE2_CUBE_NAME = "GraspCube"
+PHASE2_CUBE_SIZE_M = 0.04
+# Phase2 cube contact tuning follows TacEx rigid-object demos: keep the contact
+# object around unit friction with "multiply" combine instead of the previous
+# high-friction/max-combine cube, which could drag/lift the cube when the GSmini
+# soft pads closed.  The slightly heavier 80 g cube and smaller contact offset
+# also reduce artificial depenetration pops for this small 4 cm object.
+PHASE2_CUBE_MASS = 0.08
+PHASE2_CUBE_CONTACT_OFFSET_M = 0.003
+PHASE2_CUBE_REST_OFFSET_M = 0.0
+PHASE2_CUBE_REST_HEIGHT = TABLE_TOP_HEIGHT + PHASE2_CUBE_SIZE_M / 2.0 + PHASE2_CUBE_REST_OFFSET_M
 CAMERA_EYE = (2.6, -2.2, 1.8)
 CAMERA_TARGET = (0.6, 0.0, 0.75)
 RESET_INTERVAL = 600
@@ -52,22 +63,22 @@ _GS_MINI_VISUAL_MATERIAL_PATCHES = {
     "GSminiConnectorDarkGray": {
         "color": (0.35, 0.35, 0.35),
         "mesh_paths": (
-            "/visuals/left_inner_finger/left_gelsight_connector_visual/mesh",
-            "/visuals/right_inner_finger/right_gelsight_connector_visual/mesh",
+            "/visuals/left_gelsight_connector/left_gelsight_connector_visual/mesh",
+            "/visuals/right_gelsight_connector/right_gelsight_connector_visual/mesh",
         ),
     },
     "GSminiBaseBlack": {
         "color": (0.05, 0.05, 0.05),
         "mesh_paths": (
-            "/visuals/left_inner_finger/left_gelsight_mini_base_visual/mesh",
-            "/visuals/right_inner_finger/right_gelsight_mini_base_visual/mesh",
+            "/visuals/left_gelsight_mini_case/left_gelsight_mini_base_visual/mesh",
+            "/visuals/right_gelsight_mini_case/right_gelsight_mini_base_visual/mesh",
         ),
     },
     "GSminiSoftBlue": {
         "color": (0.25, 0.60, 1.0),
         "mesh_paths": (
-            "/visuals/left_inner_finger/left_gelsight_mini_soft_visual/mesh",
-            "/visuals/right_inner_finger/right_gelsight_mini_soft_visual/mesh",
+            "/visuals/left_gelsight_mini_gelpad/left_gelsight_mini_soft_visual/mesh",
+            "/visuals/right_gelsight_mini_gelpad/right_gelsight_mini_soft_visual/mesh",
         ),
     },
 }
@@ -130,7 +141,8 @@ def _patch_gsmini_usd_visual_materials() -> None:
         for mesh_path in patch["mesh_paths"]:
             mesh_prim = stage.GetPrimAtPath(mesh_path)
             if not mesh_prim.IsValid():
-                raise RuntimeError(f"Expected GSmini mesh prim missing from generated USD: {mesh_path}")
+                print(f"[WARN] Expected GSmini mesh prim missing from generated USD while patching material: {mesh_path}")
+                continue
             UsdShade.MaterialBindingAPI(mesh_prim).Bind(material, bindingStrength=UsdShade.Tokens.strongerThanDescendants)
 
     stage.GetRootLayer().Save()
@@ -154,9 +166,8 @@ def ensure_robot_usd_path(force_conversion: bool = False) -> Path:
         make_instanceable=False,
         fix_base=True,
         root_link_name="base_link",
-        # Keep fixed joints unmerged for Robotiq link/body naming, but embed
-        # GSmini/connector visuals directly in the fingertip pads so they do
-        # not rely on lightweight fixed-joint rigid bodies during arm motion.
+        # Keep fixed joints unmerged so the TacEx-style connector/case/gelpad
+        # attachment chain and camera links survive URDF->USD conversion.
         merge_fixed_joints=False,
         convert_mimic_joints_to_normal_joints=True,
         collider_type="convex_decomposition",
@@ -212,7 +223,7 @@ def _reset_joint_state_map() -> dict[str, float]:
     return joint_overrides
 
 
-def build_robot_cfg(prim_path: str, robot_usd_path: Path) -> ArticulationCfg:
+def build_robot_cfg(prim_path: str, robot_usd_path: Path, *, activate_contact_sensors: bool = False) -> ArticulationCfg:
     return ArticulationCfg(
         prim_path=prim_path,
         spawn=sim_utils.UsdFileCfg(
@@ -223,7 +234,7 @@ def build_robot_cfg(prim_path: str, robot_usd_path: Path) -> ArticulationCfg:
                 enable_gyroscopic_forces=True,
                 disable_gravity=True,
             ),
-            activate_contact_sensors=False,
+            activate_contact_sensors=activate_contact_sensors,
             articulation_props=sim_utils.ArticulationRootPropertiesCfg(
                 enabled_self_collisions=False,
                 solver_position_iteration_count=16,
@@ -315,6 +326,55 @@ def make_banana_cfg(prim_path: str) -> RigidObjectCfg:
     )
 
 
+def make_phase2_cube_cfg(prim_path: str) -> RigidObjectCfg:
+    return RigidObjectCfg(
+        prim_path=prim_path,
+        spawn=sim_utils.CuboidCfg(
+            size=(PHASE2_CUBE_SIZE_M, PHASE2_CUBE_SIZE_M, PHASE2_CUBE_SIZE_M),
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                rigid_body_enabled=True,
+                disable_gravity=False,
+                linear_damping=1.0,
+                angular_damping=2.0,
+                max_linear_velocity=1.0,
+                max_angular_velocity=180.0,
+                max_depenetration_velocity=1.0,
+                max_contact_impulse=50.0,
+                enable_gyroscopic_forces=False,
+                retain_accelerations=True,
+                solver_position_iteration_count=32,
+                solver_velocity_iteration_count=12,
+                sleep_threshold=0.001,
+                stabilization_threshold=0.0005,
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=PHASE2_CUBE_MASS),
+            collision_props=sim_utils.CollisionPropertiesCfg(
+                collision_enabled=True,
+                contact_offset=PHASE2_CUBE_CONTACT_OFFSET_M,
+                rest_offset=PHASE2_CUBE_REST_OFFSET_M,
+                torsional_patch_radius=0.01,
+                min_torsional_patch_radius=0.002,
+            ),
+            physics_material=sim_utils.RigidBodyMaterialCfg(
+                static_friction=1.0,
+                dynamic_friction=1.0,
+                restitution=0.0,
+                friction_combine_mode="multiply",
+                restitution_combine_mode="multiply",
+            ),
+            visual_material=sim_utils.PreviewSurfaceCfg(
+                diffuse_color=(1.0, 1.0, 1.0),
+                metallic=0.0,
+                roughness=0.55,
+            ),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(
+            pos=(TABLE_TRANSLATION[0], TABLE_TRANSLATION[1], PHASE2_CUBE_REST_HEIGHT),
+            rot=(1.0, 0.0, 0.0, 0.0),
+        ),
+    )
+
+
 def robot_mount_base_translation() -> tuple[float, float, float]:
     return (
         UR5_BASE_OFFSET[0],
@@ -390,7 +450,16 @@ def spawn_robot_mount_base(prim_path: str) -> None:
     bind_visual_material(mesh_path, material_path)
 
 
-def design_scene(num_envs: int, *, robot_usd_path: Path) -> tuple[dict[str, Articulation], dict[str, RigidObject], torch.Tensor]:
+def design_scene(
+    num_envs: int,
+    *,
+    robot_usd_path: Path,
+    object_kind: str = "banana",
+    activate_contact_sensors: bool = False,
+) -> tuple[dict[str, Articulation], dict[str, RigidObject], torch.Tensor]:
+    if object_kind not in {"banana", "cube"}:
+        raise ValueError(f"Unsupported object_kind={object_kind!r}; expected 'banana' or 'cube'.")
+
     ground_cfg = sim_utils.GroundPlaneCfg()
     ground_cfg.func("/World/defaultGroundPlane", ground_cfg)
 
@@ -408,20 +477,29 @@ def design_scene(num_envs: int, *, robot_usd_path: Path) -> tuple[dict[str, Arti
     )
     origins = compute_grid_origins(num_envs, spacing=2.5)
     robots: dict[str, Articulation] = {}
-    bananas: dict[str, RigidObject] = {}
+    objects: dict[str, RigidObject] = {}
 
     for index, origin in enumerate(origins, start=1):
         origin_prim = f"/World/Origin{index}"
         prim_utils.create_prim(origin_prim, "Xform", translation=origin)
         table_cfg.func(f"{origin_prim}/Table", table_cfg, translation=TABLE_TRANSLATION)
         spawn_robot_mount_base(f"{origin_prim}/RobotMountBase")
-        robots[f"ur5_{index}"] = Articulation(cfg=build_robot_cfg(f"{origin_prim}/Robot", robot_usd_path))
-        bananas[f"banana_{index}"] = RigidObject(cfg=make_banana_cfg(f"{origin_prim}/{BANANA_NAME}"))
+        robots[f"ur5_{index}"] = Articulation(
+            cfg=build_robot_cfg(
+                f"{origin_prim}/Robot",
+                robot_usd_path,
+                activate_contact_sensors=activate_contact_sensors,
+            )
+        )
+        if object_kind == "cube":
+            objects[f"cube_{index}"] = RigidObject(cfg=make_phase2_cube_cfg(f"{origin_prim}/{PHASE2_CUBE_NAME}"))
+        else:
+            objects[f"banana_{index}"] = RigidObject(cfg=make_banana_cfg(f"{origin_prim}/{BANANA_NAME}"))
 
-    return robots, bananas, torch.tensor(origins, dtype=torch.float32)
+    return robots, objects, torch.tensor(origins, dtype=torch.float32)
 
 
-def report_scene_state(origins: torch.Tensor, robot_urdf_path: Path, robot_usd_path: Path) -> None:
+def report_scene_state(origins: torch.Tensor, robot_urdf_path: Path, robot_usd_path: Path, *, object_kind: str = "banana") -> None:
     base_pose = (
         float(origins[0, 0].item()) + UR5_BASE_OFFSET[0],
         float(origins[0, 1].item()) + UR5_BASE_OFFSET[1],
@@ -432,6 +510,16 @@ def report_scene_state(origins: torch.Tensor, robot_urdf_path: Path, robot_usd_p
         float(origins[0, 1].item()) + TABLE_TRANSLATION[1],
         float(origins[0, 2].item()) + BANANA_REST_HEIGHT,
     )
+    cube_pose = (
+        float(origins[0, 0].item()) + TABLE_TRANSLATION[0],
+        float(origins[0, 1].item()) + TABLE_TRANSLATION[1],
+        float(origins[0, 2].item()) + PHASE2_CUBE_REST_HEIGHT,
+    )
+    cube_half = PHASE2_CUBE_SIZE_M / 2.0
+    cube_side_centers = {
+        "left_y_positive": (cube_pose[0], cube_pose[1] + cube_half, cube_pose[2]),
+        "right_y_negative": (cube_pose[0], cube_pose[1] - cube_half, cube_pose[2]),
+    }
     mount_base_local_pose = robot_mount_base_translation()
     mount_base_pose = (
         float(origins[0, 0].item()) + mount_base_local_pose[0],
@@ -447,4 +535,8 @@ def report_scene_state(origins: torch.Tensor, robot_urdf_path: Path, robot_usd_p
         "[INFO] UR5 visual mount base: "
         f"pose={mount_base_pose}, radius={ROBOT_MOUNT_BASE_RADIUS}, height={ROBOT_MOUNT_BASE_HEIGHT}"
     )
-    print(f"[INFO] Banana pose reference: {banana_pose}")
+    if object_kind == "cube":
+        print(f"[INFO] Phase2 cube pose reference: {cube_pose}, size={PHASE2_CUBE_SIZE_M} m")
+        print(f"[INFO] Phase2 cube left/right side-center references: {cube_side_centers}")
+    else:
+        print(f"[INFO] Banana pose reference: {banana_pose}")

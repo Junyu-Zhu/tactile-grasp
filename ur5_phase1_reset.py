@@ -73,11 +73,11 @@ def reset_robot(
     return joint_target
 
 
-def reset_banana(banana: RigidObject, origin: torch.Tensor) -> None:
+def reset_banana(banana: RigidObject, origin: torch.Tensor, *, object_rest_height: float = BANANA_REST_HEIGHT) -> None:
     object_pose = banana.data.default_root_state[:, :7].clone()
     object_pose[:, 0] = float(origin[0].item()) + TABLE_TRANSLATION[0]
     object_pose[:, 1] = float(origin[1].item()) + TABLE_TRANSLATION[1]
-    object_pose[:, 2] = float(origin[2].item()) + BANANA_REST_HEIGHT
+    object_pose[:, 2] = float(origin[2].item()) + object_rest_height
     object_pose[:, 3:7] = torch.tensor([1.0, 0.0, 0.0, 0.0], device=banana.device, dtype=object_pose.dtype)
     object_velocity = torch.zeros((object_pose.shape[0], 6), device=banana.device, dtype=object_pose.dtype)
 
@@ -139,9 +139,10 @@ def reset_scene(
     banana: RigidObject,
     origin: torch.Tensor,
     settle_steps: int = 150,
+    object_rest_height: float = BANANA_REST_HEIGHT,
 ) -> torch.Tensor:
     joint_target = build_reset_joint_target(robot)
     reset_robot(robot, origin, joint_target)
-    reset_banana(banana, origin)
+    reset_banana(banana, origin, object_rest_height=object_rest_height)
     step_scene(sim, robot, banana, joint_target=joint_target, steps=settle_steps)
     return joint_target
