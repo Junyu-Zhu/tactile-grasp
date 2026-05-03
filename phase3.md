@@ -218,4 +218,56 @@ tactile_grasp/artifacts/phase3/
 ---
 
 ## Phase 3 的一句话总结
+
+Phase 3 只构建 **deterministic contact/grasp trial protocol + tactile/robot-state 对齐日志**：先从 cube 开始，稳定后扩展到 `YcbChipsCan` 与 `YcbCrackerBox`，为 Phase 4/Sparsh 留下干净、可重放的数据，不在本阶段加入学习、策略或闭环控制。
+
+## 当前锁定的 Phase 3 schema（v1）
+
+代码 source-of-truth：`ur5_phase3_schema.py`。
+
+每条 trial 的 `meta.json` 必须包含固定字段：
+
+```text
+trial_id
+object_id
+sensor_id
+seed
+phase_name
+timestamp_start
+timestamp_end
+action_stage
+joint_state
+gripper_state
+tactile_frame_id
+contact_onset
+success_label
+failure_reason
+```
+
+本阶段固定 action stage 顺序：
+
+```text
+reset -> pre_grasp -> contact_close -> hold -> micro_lift -> release -> end_trial
+```
+
+固定 protocol variants：
+
+```text
+contact_only
+contact_hold
+contact_hold_micro_lift
+```
+
+固定落盘结构：
+
+```text
+tactile_grasp/artifacts/phase3/
+  trial_schema.json
+  phase3_review.json
+  <trial_id>/
+    meta.json
+    tactile/
+    robot_state.json
+    frame_map.csv
+```
 **先把最小的 contact/grasp trial protocol 和 tactile logging 做到稳定、可对齐、可复用，再开始任何 Sparsh 或闭环控制工作。**

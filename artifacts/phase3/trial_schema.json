@@ -1,0 +1,88 @@
+{
+  "schema_version": "phase3_trial_v1",
+  "scope": "Phase 3 builds a minimal, repeatable contact/grasp trial protocol and saves aligned tactile frames plus robot state for later Phase 4/Sparsh work.",
+  "forbidden_scope": "No Sparsh inference/adaptation, no closed-loop tactile policy, no GraspNet, no RL, and no large-scale object generalization.",
+  "required_fields": [
+    "trial_id",
+    "object_id",
+    "sensor_id",
+    "seed",
+    "phase_name",
+    "timestamp_start",
+    "timestamp_end",
+    "action_stage",
+    "joint_state",
+    "gripper_state",
+    "tactile_frame_id",
+    "contact_onset",
+    "success_label",
+    "failure_reason"
+  ],
+  "metadata_fields": [
+    "schema_version",
+    "trial_id",
+    "object_id",
+    "sensor_id",
+    "seed",
+    "phase_name",
+    "timestamp_start",
+    "timestamp_end",
+    "action_stage",
+    "joint_state",
+    "gripper_state",
+    "tactile_frame_id",
+    "contact_onset",
+    "success_label",
+    "failure_reason",
+    "protocol_variant",
+    "object_profile",
+    "command_profile",
+    "output_files",
+    "alignment_summary"
+  ],
+  "frame_map_columns": [
+    "frame_id",
+    "timestamp",
+    "action_stage",
+    "side",
+    "sensor_id",
+    "tactile_rgb_path",
+    "camera_depth_path",
+    "camera_rgb_path",
+    "robot_state_index",
+    "contact_detected",
+    "success_label",
+    "failure_reason"
+  ],
+  "robot_state_sample_fields": [
+    "index",
+    "timestamp",
+    "action_stage",
+    "joint_state",
+    "gripper_state",
+    "object_state",
+    "contact_state",
+    "tactile_frame_ids"
+  ],
+  "protocol_stages": [
+    "reset",
+    "pre_grasp",
+    "contact_close",
+    "hold",
+    "micro_lift",
+    "release",
+    "end_trial"
+  ],
+  "protocol_variants": [
+    "contact_only",
+    "contact_hold",
+    "contact_hold_micro_lift"
+  ],
+  "directory_layout": {
+    "meta": "artifacts/phase3/<trial_id>/meta.json",
+    "tactile": "artifacts/phase3/<trial_id>/tactile/<side>_<frame_id>_<data_type>.<ext>",
+    "robot_state": "artifacts/phase3/<trial_id>/robot_state.json",
+    "frame_map": "artifacts/phase3/<trial_id>/frame_map.csv",
+    "review": "artifacts/phase3/phase3_review.json"
+  }
+}
