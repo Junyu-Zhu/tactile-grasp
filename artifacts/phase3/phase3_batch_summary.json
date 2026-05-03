@@ -1,7 +1,7 @@
 {
   "scope": "Phase 3 builds a minimal, repeatable contact/grasp trial protocol and saves aligned tactile frames plus robot state for later Phase 4/Sparsh work.",
   "forbidden_scope": "No Sparsh inference/adaptation, no closed-loop tactile policy, no GraspNet, no RL, and no large-scale object generalization.",
-  "object_id": "chips_can",
+  "object_id": "cracker_box",
   "protocol_variant": "contact_hold",
   "trials_requested": 1,
   "trials_passed": 1,
@@ -44,13 +44,13 @@
   },
   "results": [
     {
-      "trial_id": "phase3_chips_can_0001",
+      "trial_id": "phase3_cracker_box_0001",
       "passed": true,
       "failure_reason": null,
-      "meta_path": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_chips_can_0001/meta.json",
-      "trial_dir": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_chips_can_0001",
-      "step_budget_used": 604,
-      "object_id": "chips_can",
+      "meta_path": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cracker_box_0001/meta.json",
+      "trial_dir": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cracker_box_0001",
+      "step_budget_used": 636,
+      "object_id": "cracker_box",
       "protocol_variant": "contact_hold",
       "tactile_setup": {
         "enabled": true,
@@ -308,9 +308,9 @@
       "soft_center_target": {
         "mode": "soft_mesh_pair_center_to_object_grasp_center",
         "desired_soft_pair_center_world_m": [
-          0.5399990081787109,
-          0.011966044083237648,
-          0.8572789430618286
+          0.5220199227333069,
+          0.027415448799729347,
+          0.8548192381858826
         ],
         "pregrasp_ee_world_m": [
           0.3737534284591675,
@@ -328,313 +328,313 @@
           2.9802322387695312e-08
         ],
         "target_ee_world_m": [
-          0.5399899482727051,
-          0.012254652567207813,
-          1.0227227210998535
+          0.522010862827301,
+          0.027704056352376938,
+          1.0202630758285522
         ]
       },
       "direct_move": {
         "passed": true,
-        "steps": 176,
+        "steps": 180,
         "target_position_world_m": [
-          0.5399899482727051,
-          0.012254652567207813,
-          1.0227227210998535
+          0.522010862827301,
+          0.027704056352376938,
+          1.0202630758285522
         ],
         "final_position_world_m": [
-          0.5357261300086975,
-          0.012470298446714878,
-          1.0185242891311646
+          0.5178225636482239,
+          0.027914395555853844,
+          1.016654133796692
         ],
-        "final_position_error_m": 0.005987777374684811,
+        "final_position_error_m": 0.005532681010663509,
         "pos_tolerance_m": 0.006
       },
       "soft_center_refinement": {
         "enabled": true,
         "stage": "contact_close",
         "desired_soft_pair_center_world_m": [
-          0.5452949404716492,
-          0.0106694670394063,
-          0.8610434532165527
+          0.5234992504119873,
+          0.027427880093455315,
+          0.8568897247314453
         ],
         "rounds": [
           {
             "round": 1,
             "pre_error_m": [
-              0.01835864782333374,
-              -0.0017687631770968437,
-              0.007715106010437012
+              0.013860464096069336,
+              -0.00023000501096248627,
+              0.00543367862701416
             ],
             "step_m": [
-              0.01835864782333374,
-              -0.0017687631770968437,
-              0.007715106010437012
+              0.013860464096069336,
+              -0.00023000501096248627,
+              0.00543367862701416
             ],
             "move": {
               "passed": true,
-              "steps": 7,
+              "steps": 5,
               "target_position_world_m": [
-                0.5540847778320312,
-                0.010701535269618034,
-                1.0262393951416016
+                0.5316830277442932,
+                0.027684390544891357,
+                1.022087812423706
               ],
               "final_position_world_m": [
-                0.5504075288772583,
-                0.01126127503812313,
-                1.0225645303726196
+                0.5273047089576721,
+                0.028521552681922913,
+                1.0212167501449585
               ],
-              "final_position_error_m": 0.005228776019066572,
+              "final_position_error_m": 0.004541945178061724,
               "pos_tolerance_m": 0.006
             },
             "post_error_m": [
-              -0.0029178857803344727,
-              -0.000355403870344162,
-              0.003949522972106934
+              -0.0010598301887512207,
+              -0.000898212194442749,
+              0.0010434389114379883
             ],
-            "post_error_norm_m": 0.0049233222380280495
+            "post_error_norm_m": 0.0017374665476381779
           }
         ],
-        "final_error_norm_m": 0.0049233222380280495
+        "final_error_norm_m": 0.0017374665476381779
       },
       "arm_latch": {
         "latched": true,
         "target_rad": [
-          -0.029475105926394463,
-          -1.2538212537765503,
-          1.5563855171203613,
-          -1.8601404428482056,
-          -1.5725646018981934,
-          -0.10686787962913513
+          -0.0008292041020467877,
+          -1.297797679901123,
+          1.617688775062561,
+          -1.8741340637207031,
+          -1.572587490081787,
+          -0.07901045680046082
         ]
       },
       "close": {
-        "requested_target_close_rad": 0.35,
-        "start_close_rad": 2.5788241984556204e-13,
+        "requested_target_close_rad": 0.22,
+        "start_close_rad": 7.411468661011611e-10,
         "stopped_by_stable_force": false,
         "stopped_by_high_force": false,
         "stopped_by_object_lift": false,
         "stable_counter": 0,
-        "max_object_lift_m": 1.1920928955078125e-07,
+        "max_object_lift_m": 4.470348358154297e-06,
         "force_history_tail": [
           {
             "step": 141,
-            "planned_close_rad": 0.3084375000000306,
+            "planned_close_rad": 0.19387500008801117,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.1920928955078125e-06
+            "object_lift_m": 1.430511474609375e-06
           },
           {
             "step": 142,
-            "planned_close_rad": 0.31062500000002896,
+            "planned_close_rad": 0.195250000083379,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.1920928955078125e-06
+            "object_lift_m": 4.291534423828125e-06
           },
           {
             "step": 143,
-            "planned_close_rad": 0.3128125000000274,
+            "planned_close_rad": 0.19662500007874686,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.1324882507324219e-06
+            "object_lift_m": 2.6226043701171875e-06
           },
           {
             "step": 144,
-            "planned_close_rad": 0.31500000000002576,
+            "planned_close_rad": 0.1980000000741147,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0728836059570312e-06
+            "object_lift_m": 1.6689300537109375e-06
           },
           {
             "step": 145,
-            "planned_close_rad": 0.31718750000002416,
+            "planned_close_rad": 0.19937500006948253,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.3709068298339844e-06
+            "object_lift_m": 3.993511199951172e-06
           },
           {
             "step": 146,
-            "planned_close_rad": 0.31937500000002256,
+            "planned_close_rad": 0.20075000006485036,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.1324882507324219e-06
+            "object_lift_m": 1.9669532775878906e-06
           },
           {
             "step": 147,
-            "planned_close_rad": 0.3215625000000209,
+            "planned_close_rad": 0.20212500006021816,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.1920928955078125e-06
+            "object_lift_m": 1.0728836059570312e-06
           },
           {
             "step": 148,
-            "planned_close_rad": 0.32375000000001936,
+            "planned_close_rad": 0.20350000005558602,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.2516975402832031e-06
+            "object_lift_m": 3.7550926208496094e-06
           },
           {
             "step": 149,
-            "planned_close_rad": 0.3259375000000177,
+            "planned_close_rad": 0.20487500005095385,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0132789611816406e-06
+            "object_lift_m": 2.0265579223632812e-06
           },
           {
             "step": 150,
-            "planned_close_rad": 0.3281250000000161,
+            "planned_close_rad": 0.20625000004632169,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0728836059570312e-06
+            "object_lift_m": 1.6093254089355469e-06
           },
           {
             "step": 151,
-            "planned_close_rad": 0.3303125000000145,
+            "planned_close_rad": 0.20762500004168952,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.1920928955078125e-06
+            "object_lift_m": 3.874301910400391e-06
           },
           {
             "step": 152,
-            "planned_close_rad": 0.33250000000001284,
+            "planned_close_rad": 0.20900000003705732,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -8.344650268554688e-07
+            "object_lift_m": 4.470348358154297e-06
           },
           {
             "step": 153,
-            "planned_close_rad": 0.3346875000000113,
+            "planned_close_rad": 0.21037500003242518,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0132789611816406e-06
+            "object_lift_m": 3.2782554626464844e-06
           },
           {
             "step": 154,
-            "planned_close_rad": 0.33687500000000964,
+            "planned_close_rad": 0.211750000027793,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0728836059570312e-06
+            "object_lift_m": 3.039836883544922e-06
           },
           {
             "step": 155,
-            "planned_close_rad": 0.33906250000000804,
+            "planned_close_rad": 0.21312500002316084,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.3113021850585938e-06
+            "object_lift_m": 3.2186508178710938e-06
           },
           {
             "step": 156,
-            "planned_close_rad": 0.34125000000000644,
+            "planned_close_rad": 0.21450000001852867,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0132789611816406e-06
+            "object_lift_m": 3.3974647521972656e-06
           },
           {
             "step": 157,
-            "planned_close_rad": 0.3434375000000048,
+            "planned_close_rad": 0.2158750000138965,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0728836059570312e-06
+            "object_lift_m": 3.7550926208496094e-06
           },
           {
             "step": 158,
-            "planned_close_rad": 0.34562500000000324,
+            "planned_close_rad": 0.21725000000926434,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.1324882507324219e-06
+            "object_lift_m": 3.874301910400391e-06
           },
           {
             "step": 159,
-            "planned_close_rad": 0.3478125000000016,
+            "planned_close_rad": 0.21862500000463217,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.2516975402832031e-06
+            "object_lift_m": 3.993511199951172e-06
           },
           {
             "step": 160,
-            "planned_close_rad": 0.35,
+            "planned_close_rad": 0.22,
             "force_by_side_n": {
               "left": 0.0,
               "right": 0.0
             },
             "max_force_n": 0.0,
             "both_sides_stable": false,
-            "object_lift_m": -1.0132789611816406e-06
+            "object_lift_m": 4.172325134277344e-06
           }
         ],
         "settle": {
@@ -643,8 +643,8 @@
         }
       },
       "hold": {
-        "requested_steps": 120,
-        "actual_steps": 120
+        "requested_steps": 150,
+        "actual_steps": 150
       },
       "micro_lift": {
         "enabled": false
@@ -655,8 +655,8 @@
       },
       "contact_onset": {
         "detected": true,
-        "step": 226,
-        "timestamp": "2026-05-03T16:57:11.666Z",
+        "step": 228,
+        "timestamp": "2026-05-03T17:02:28.405Z",
         "action_stage": "contact_close",
         "contact_sides": [
           "left"
@@ -667,8 +667,8 @@
         }
       },
       "alignment_summary": {
-        "robot_state_samples": 38,
-        "tactile_frame_rows": 76,
+        "robot_state_samples": 39,
+        "tactile_frame_rows": 78,
         "all_frames_have_robot_state": true,
         "observed_stages": [
           "reset",

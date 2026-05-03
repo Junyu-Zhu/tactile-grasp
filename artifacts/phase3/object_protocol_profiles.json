@@ -156,8 +156,8 @@
       ],
       "grasp_center_local_m": [
         0.027457500000000003,
-        -0.010833499999999996,
-        -0.004976499999999995
+        0.078,
+        0.01
       ],
       "close_rad": 0.22,
       "stable_force_threshold_n": 0.45,
@@ -166,8 +166,8 @@
       "hold_seconds": 2.5,
       "micro_lift_distance_m": 0.01,
       "pregrasp_mode": "reset_clearance",
-      "contact_approach_refine": false,
-      "tuning_note": "Box profile: yaw-rotate so the narrow side is gripped; use a shorter micro-lift because the tall box is heavier and more tip-prone than the cube.",
+      "contact_approach_refine": true,
+      "tuning_note": "Box profile: yaw-rotate so the narrow side is along the Robotiq closing axis, then target the near x-side at upper-mid height. The full box depth is too large for a centered side approach, so final soft-center refinement is treated as contact approach.",
       "root_position_m": [
         0.6,
         0.0,

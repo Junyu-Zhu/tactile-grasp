@@ -1,8 +1,8 @@
 {
   "output_root": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3",
-  "trial_count": 2,
+  "trial_count": 3,
   "artifact_validation_passed": true,
-  "clean_trial_count": 2,
+  "clean_trial_count": 3,
   "failed_trials": [],
   "trials": [
     {
@@ -27,6 +27,39 @@
       },
       "robot_state_samples": 38,
       "frame_rows": 76,
+      "observed_stages": [
+        "reset",
+        "pre_grasp",
+        "contact_close",
+        "hold",
+        "release",
+        "end_trial"
+      ],
+      "passed": true,
+      "issues": []
+    },
+    {
+      "trial_dir": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cracker_box_0001",
+      "trial_id": "phase3_cracker_box_0001",
+      "object_id": "cracker_box",
+      "protocol_variant": "contact_hold",
+      "success_label": true,
+      "failure_reason": null,
+      "contact_onset": {
+        "detected": true,
+        "step": 228,
+        "timestamp": "2026-05-03T17:02:28.405Z",
+        "action_stage": "contact_close",
+        "contact_sides": [
+          "left"
+        ],
+        "force_by_side_n": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "robot_state_samples": 39,
+      "frame_rows": 78,
       "observed_stages": [
         "reset",
         "pre_grasp",

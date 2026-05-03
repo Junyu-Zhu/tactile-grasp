@@ -270,7 +270,7 @@ contact_hold_micro_lift
 
 - `cube`：沿用 Phase2 已验证的 4 cm cube 侧向接触抓取参数，先跑 `contact_hold`。
 - `chips_can`：保持罐体直立，但不强行把 GSmini 指尖居中穿过整罐直径；先用 reset-clearance 姿态避开高物体，再用 near-side mid-height contact approach 进入 `contact_close`，避免罐体在 pre-grasp 阶段被顶倒。
-- `cracker_box`：绕 z 轴旋转 90°，让窄边进入 Robotiq 闭合轴；micro-lift 距离比 cube 更保守，避免高盒体倾倒。
+- `cracker_box`：绕 z 轴旋转 90°，让窄边进入 Robotiq 闭合轴；和 `chips_can` 一样避免中心穿透式 side approach，改用 near-side upper-mid contact approach，防止高盒体被推远或顶倒。
 
 固定落盘结构：
 
@@ -320,3 +320,4 @@ python ur5_phase3_review.py --output_root artifacts/phase3
 
 - `phase3_cube_0001`：`contact_hold` 通过，`contact_onset.action_stage=contact_close`，tactile frame 与 robot state 对齐。
 - `phase3_chips_can_0001`：`contact_hold` 通过，`contact_onset.action_stage=contact_close`；该对象使用 `contact_approach_refine=True`，因为 GSmini 指尖占用后可用开口小于罐体直径，最终 soft-center refine 被视为接触进入阶段而不是纯 pre-grasp。
+- `phase3_cracker_box_0001`：`contact_hold` 通过，`contact_onset.action_stage=contact_close`；盒体 yaw 后虽能让窄边进入闭合轴，但 x 方向深度较大，使用 near-side upper-mid target 避免 centered approach 把盒体沿 x 推远。

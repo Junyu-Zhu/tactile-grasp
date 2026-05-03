@@ -166,7 +166,7 @@ CRACKER_BOX_PROFILE = Phase3ObjectProfile(
     # the gripper closing axis.  Without this, the world-y width is too large
     # for a Robotiq 2F-85 side grasp.
     root_rot_wxyz=_yaw_quat_wxyz(math.pi / 2.0),
-    grasp_center_local_m=(0.027457500000000003, -0.010833499999999996, -0.004976499999999995),
+    grasp_center_local_m=(0.027457500000000003, 0.078, 0.010),
     close_rad=0.22,
     stable_force_threshold_n=0.45,
     high_force_threshold_n=7.0,
@@ -174,10 +174,11 @@ CRACKER_BOX_PROFILE = Phase3ObjectProfile(
     hold_seconds=2.5,
     micro_lift_distance_m=0.010,
     pregrasp_mode="reset_clearance",
-    contact_approach_refine=False,
+    contact_approach_refine=True,
     tuning_note=(
-        "Box profile: yaw-rotate so the narrow side is gripped; use a shorter micro-lift because "
-        "the tall box is heavier and more tip-prone than the cube."
+        "Box profile: yaw-rotate so the narrow side is along the Robotiq closing axis, then target "
+        "the near x-side at upper-mid height. The full box depth is too large for a centered "
+        "side approach, so final soft-center refinement is treated as contact approach."
     ),
 )
 
