@@ -1,9 +1,9 @@
 {
-  "trial_id": "phase3_cube_0001",
+  "trial_id": "phase3_cube_0002",
   "samples": [
     {
       "index": 0,
-      "timestamp": "2026-05-03T17:04:18.755Z",
+      "timestamp": "2026-05-03T17:04:23.840Z",
       "action_stage": "reset",
       "joint_state": {
         "position_rad": {
@@ -202,7 +202,7 @@
     },
     {
       "index": 1,
-      "timestamp": "2026-05-03T17:04:18.844Z",
+      "timestamp": "2026-05-03T17:04:23.919Z",
       "action_stage": "reset",
       "joint_state": {
         "position_rad": {
@@ -401,7 +401,7 @@
     },
     {
       "index": 2,
-      "timestamp": "2026-05-03T17:04:19.055Z",
+      "timestamp": "2026-05-03T17:04:24.227Z",
       "action_stage": "pre_grasp",
       "joint_state": {
         "position_rad": {
@@ -600,7 +600,7 @@
     },
     {
       "index": 3,
-      "timestamp": "2026-05-03T17:04:19.164Z",
+      "timestamp": "2026-05-03T17:04:24.374Z",
       "action_stage": "pre_grasp",
       "joint_state": {
         "position_rad": {
@@ -799,7 +799,7 @@
     },
     {
       "index": 4,
-      "timestamp": "2026-05-03T17:04:19.378Z",
+      "timestamp": "2026-05-03T17:04:24.619Z",
       "action_stage": "pre_grasp",
       "joint_state": {
         "position_rad": {
@@ -1007,7 +1007,7 @@
     },
     {
       "index": 5,
-      "timestamp": "2026-05-03T17:04:19.621Z",
+      "timestamp": "2026-05-03T17:04:24.904Z",
       "action_stage": "pre_grasp",
       "joint_state": {
         "position_rad": {
@@ -1206,7 +1206,7 @@
     },
     {
       "index": 6,
-      "timestamp": "2026-05-03T17:04:19.848Z",
+      "timestamp": "2026-05-03T17:04:25.148Z",
       "action_stage": "pre_grasp",
       "joint_state": {
         "position_rad": {
@@ -1405,7 +1405,7 @@
     },
     {
       "index": 7,
-      "timestamp": "2026-05-03T17:04:19.930Z",
+      "timestamp": "2026-05-03T17:04:25.249Z",
       "action_stage": "pre_grasp",
       "joint_state": {
         "position_rad": {
@@ -1604,7 +1604,7 @@
     },
     {
       "index": 8,
-      "timestamp": "2026-05-03T17:04:20.157Z",
+      "timestamp": "2026-05-03T17:04:25.477Z",
       "action_stage": "contact_close",
       "joint_state": {
         "position_rad": {
@@ -1803,7 +1803,7 @@
     },
     {
       "index": 9,
-      "timestamp": "2026-05-03T17:04:20.397Z",
+      "timestamp": "2026-05-03T17:04:25.726Z",
       "action_stage": "contact_close",
       "joint_state": {
         "position_rad": {
@@ -2002,7 +2002,7 @@
     },
     {
       "index": 10,
-      "timestamp": "2026-05-03T17:04:20.618Z",
+      "timestamp": "2026-05-03T17:04:25.967Z",
       "action_stage": "contact_close",
       "joint_state": {
         "position_rad": {
@@ -2201,7 +2201,7 @@
     },
     {
       "index": 11,
-      "timestamp": "2026-05-03T17:04:20.761Z",
+      "timestamp": "2026-05-03T17:04:26.109Z",
       "action_stage": "contact_close",
       "joint_state": {
         "position_rad": {
@@ -2406,7 +2406,7 @@
     },
     {
       "index": 12,
-      "timestamp": "2026-05-03T17:04:20.908Z",
+      "timestamp": "2026-05-03T17:04:26.274Z",
       "action_stage": "contact_close",
       "joint_state": {
         "position_rad": {
@@ -2614,7 +2614,7 @@
     },
     {
       "index": 13,
-      "timestamp": "2026-05-03T17:04:21.130Z",
+      "timestamp": "2026-05-03T17:04:26.493Z",
       "action_stage": "contact_close",
       "joint_state": {
         "position_rad": {
@@ -2822,7 +2822,7 @@
     },
     {
       "index": 14,
-      "timestamp": "2026-05-03T17:04:21.313Z",
+      "timestamp": "2026-05-03T17:04:26.666Z",
       "action_stage": "contact_close",
       "joint_state": {
         "position_rad": {
@@ -3033,7 +3033,7 @@
     },
     {
       "index": 15,
-      "timestamp": "2026-05-03T17:04:21.426Z",
+      "timestamp": "2026-05-03T17:04:26.778Z",
       "action_stage": "hold",
       "joint_state": {
         "position_rad": {
@@ -3244,7 +3244,7 @@
     },
     {
       "index": 16,
-      "timestamp": "2026-05-03T17:04:21.651Z",
+      "timestamp": "2026-05-03T17:04:26.994Z",
       "action_stage": "hold",
       "joint_state": {
         "position_rad": {
@@ -3455,7 +3455,7 @@
     },
     {
       "index": 17,
-      "timestamp": "2026-05-03T17:04:21.869Z",
+      "timestamp": "2026-05-03T17:04:27.219Z",
       "action_stage": "hold",
       "joint_state": {
         "position_rad": {
@@ -3666,7 +3666,7 @@
     },
     {
       "index": 18,
-      "timestamp": "2026-05-03T17:04:22.087Z",
+      "timestamp": "2026-05-03T17:04:27.442Z",
       "action_stage": "hold",
       "joint_state": {
         "position_rad": {
@@ -3865,7 +3865,7 @@
     },
     {
       "index": 19,
-      "timestamp": "2026-05-03T17:04:22.321Z",
+      "timestamp": "2026-05-03T17:04:27.664Z",
       "action_stage": "hold",
       "joint_state": {
         "position_rad": {
@@ -4064,7 +4064,7 @@
     },
     {
       "index": 20,
-      "timestamp": "2026-05-03T17:04:22.552Z",
+      "timestamp": "2026-05-03T17:04:27.885Z",
       "action_stage": "hold",
       "joint_state": {
         "position_rad": {
@@ -4263,7 +4263,7 @@
     },
     {
       "index": 21,
-      "timestamp": "2026-05-03T17:04:22.729Z",
+      "timestamp": "2026-05-03T17:04:28.059Z",
       "action_stage": "hold",
       "joint_state": {
         "position_rad": {
@@ -4462,7 +4462,7 @@
     },
     {
       "index": 22,
-      "timestamp": "2026-05-03T17:04:22.848Z",
+      "timestamp": "2026-05-03T17:04:28.174Z",
       "action_stage": "release",
       "joint_state": {
         "position_rad": {
@@ -4661,7 +4661,7 @@
     },
     {
       "index": 23,
-      "timestamp": "2026-05-03T17:04:23.078Z",
+      "timestamp": "2026-05-03T17:04:28.403Z",
       "action_stage": "release",
       "joint_state": {
         "position_rad": {
@@ -4860,7 +4860,7 @@
     },
     {
       "index": 24,
-      "timestamp": "2026-05-03T17:04:23.324Z",
+      "timestamp": "2026-05-03T17:04:28.686Z",
       "action_stage": "release",
       "joint_state": {
         "position_rad": {
@@ -5059,7 +5059,7 @@
     },
     {
       "index": 25,
-      "timestamp": "2026-05-03T17:04:23.507Z",
+      "timestamp": "2026-05-03T17:04:28.876Z",
       "action_stage": "release",
       "joint_state": {
         "position_rad": {
@@ -5258,7 +5258,7 @@
     },
     {
       "index": 26,
-      "timestamp": "2026-05-03T17:04:23.582Z",
+      "timestamp": "2026-05-03T17:04:28.958Z",
       "action_stage": "end_trial",
       "joint_state": {
         "position_rad": {

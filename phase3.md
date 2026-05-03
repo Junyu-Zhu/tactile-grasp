@@ -321,3 +321,8 @@ python ur5_phase3_review.py --output_root artifacts/phase3
 - `phase3_cube_0001`：`contact_hold` 通过，`contact_onset.action_stage=contact_close`，tactile frame 与 robot state 对齐。
 - `phase3_chips_can_0001`：`contact_hold` 通过，`contact_onset.action_stage=contact_close`；该对象使用 `contact_approach_refine=True`，因为 GSmini 指尖占用后可用开口小于罐体直径，最终 soft-center refine 被视为接触进入阶段而不是纯 pre-grasp。
 - `phase3_cracker_box_0001`：`contact_hold` 通过，`contact_onset.action_stage=contact_close`；盒体 yaw 后虽能让窄边进入闭合轴，但 x 方向深度较大，使用 near-side upper-mid target 避免 centered approach 把盒体沿 x 推远。
+
+Step 7 首批 clean batch：
+
+- `cube` 已跑满 10 条 `contact_hold` clean trials（`phase3_cube_0001`–`phase3_cube_0010`）。
+- 当前 `artifacts/phase3` 聚合 review：12 条 clean trials（10 cube + 1 chips_can + 1 cracker_box），`artifact_validation_passed=True`，`failed_trials=[]`。

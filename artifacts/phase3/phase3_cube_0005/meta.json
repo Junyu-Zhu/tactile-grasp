@@ -1,15 +1,15 @@
 {
   "schema_version": "phase3_trial_v1",
-  "trial_id": "phase3_cube_0001",
+  "trial_id": "phase3_cube_0005",
   "object_id": "cube",
   "sensor_id": [
     "left",
     "right"
   ],
-  "seed": 8,
+  "seed": 12,
   "phase_name": "phase3_contact_grasp_logging",
-  "timestamp_start": "2026-05-03T17:04:12.817Z",
-  "timestamp_end": "2026-05-03T17:04:23.589Z",
+  "timestamp_start": "2026-05-03T17:04:39.461Z",
+  "timestamp_end": "2026-05-03T17:04:46.106Z",
   "action_stage": [
     "reset",
     "pre_grasp",
@@ -66,7 +66,7 @@
   "contact_onset": {
     "detected": true,
     "step": 169,
-    "timestamp": "2026-05-03T17:04:20.702Z",
+    "timestamp": "2026-05-03T17:04:42.317Z",
     "action_stage": "contact_close",
     "contact_sides": [
       "right"
@@ -440,10 +440,10 @@
     }
   },
   "output_files": {
-    "meta": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/meta.json",
-    "robot_state": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/robot_state.json",
-    "frame_map": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/frame_map.csv",
-    "tactile_dir": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0001/tactile"
+    "meta": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0005/meta.json",
+    "robot_state": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0005/robot_state.json",
+    "frame_map": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0005/frame_map.csv",
+    "tactile_dir": "/home/zjy/Documents/grasp/tactile_grasp/artifacts/phase3/phase3_cube_0005/tactile"
   },
   "alignment_summary": {
     "robot_state_samples": 27,
