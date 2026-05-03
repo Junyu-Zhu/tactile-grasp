@@ -193,13 +193,13 @@ tactile_grasp/artifacts/phase3/
 ## Step 8：Phase 3 Review
 ### Exit Criteria
 必须全部通过：
-- [ ] trial schema 已锁定
-- [ ] object set 已锁定（1–3 个）
-- [ ] deterministic trial runner 可重复执行
-- [ ] tactile frame 与 robot state 成功对齐
-- [ ] contact_onset / success_label / failure_reason 可记录
-- [ ] 数据能落盘到固定结构
-- [ ] 一小批 clean trial 可复用
+- [x] trial schema 已锁定（`ur5_phase3_schema.py`，`artifacts/phase3/trial_schema.json`）
+- [x] object set 已锁定（`cube`、`chips_can`、`cracker_box`）
+- [x] deterministic trial runner 可重复执行（`ur5_phase3_trial_runner.py` + `ur5_phase3_data_collection.py`）
+- [x] tactile frame 与 robot state 成功对齐（`artifacts/phase3/phase3_review.json`）
+- [x] contact_onset / success_label / failure_reason 可记录（每条 trial 的 `meta.json`）
+- [x] 数据能落盘到固定结构（`meta.json`、`tactile/`、`robot_state.json`、`frame_map.csv`）
+- [x] 一小批 clean trial 可复用（12 条 clean trials，`failed_trials=[]`）
 
 ### 规则
 - 任一项失败，就继续修 Phase 3
@@ -326,3 +326,33 @@ Step 7 首批 clean batch：
 
 - `cube` 已跑满 10 条 `contact_hold` clean trials（`phase3_cube_0001`–`phase3_cube_0010`）。
 - 当前 `artifacts/phase3` 聚合 review：12 条 clean trials（10 cube + 1 chips_can + 1 cracker_box），`artifact_validation_passed=True`，`failed_trials=[]`。
+
+## Phase 3 完成审计
+
+本阶段按 `phase3_test` 分支上的逐步提交完成，关键产物与验证如下：
+
+| 要求 | 证据 |
+| --- | --- |
+| 新建 Phase 3 代码，且按主要功能分块 | `ur5_phase3_schema.py`、`ur5_phase3_objects.py`、`ur5_phase3_geometry.py`、`ur5_phase3_motion.py`、`ur5_phase3_logging.py`、`ur5_phase3_trial_runner.py`、`ur5_phase3_data_collection.py`、`ur5_phase3_review.py` |
+| 从 cube 开始，再扩展到简单 YCB 对象 | `object_sequence = cube -> chips_can -> cracker_box`，见 `artifacts/phase3/object_protocol_profiles.json` |
+| 各对象抓取过程有针对性微调 | `cube` 调整 lift guard；`chips_can` 使用 reset-clearance + near-side contact approach；`cracker_box` 使用 yaw 后 near-side upper-mid target |
+| trial schema 固定 | `artifacts/phase3/trial_schema.json`，schema version 为 `phase3_trial_v1` |
+| tactile frame 与 robot state 对齐 | `phase3_review.json` 中 12 条 trial 均有非空 `frame_rows` 与 `robot_state_samples`，且 `passed=true` |
+| contact_onset / success_label / failure_reason 可记录 | 12 条 trial 均有 `success_label=true`、`contact_onset.detected=true`、`failure_reason=null` |
+| 固定目录结构落盘 | 每条 trial 均包含 `meta.json`、`tactile/`、`robot_state.json`、`frame_map.csv` |
+| 一小批 clean trial 可复用 | `phase3_review.json`：`trial_count=12`、`clean_trial_count=12`、`artifact_validation_passed=true`、`failed_trials=[]` |
+
+最终复查命令：
+
+```bash
+python ur5_phase3_review.py --output_root artifacts/phase3
+python -m py_compile \
+  ur5_phase3_schema.py \
+  ur5_phase3_objects.py \
+  ur5_phase3_geometry.py \
+  ur5_phase3_motion.py \
+  ur5_phase3_logging.py \
+  ur5_phase3_trial_runner.py \
+  ur5_phase3_data_collection.py \
+  ur5_phase3_review.py
+```
