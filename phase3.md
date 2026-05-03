@@ -285,3 +285,26 @@ tactile_grasp/artifacts/phase3/
     frame_map.csv
 ```
 **先把最小的 contact/grasp trial protocol 和 tactile logging 做到稳定、可对齐、可复用，再开始任何 Sparsh 或闭环控制工作。**
+
+## 当前 Phase 3 代码拆分
+
+- `ur5_phase3_schema.py`：固定 trial schema / stage / variant。
+- `ur5_phase3_objects.py`：固定 object set、对象级初始抓取微调参数、Phase3 scene builder。
+- `ur5_phase3_geometry.py`：对象 AABB、GSmini soft-link AABB、contact sensor 与接触读取。
+- `ur5_phase3_motion.py`：reset、pre-grasp、soft-center IK/refine、close/hold/micro-lift/release deterministic motion。
+- `ur5_phase3_logging.py`：`meta.json`、`robot_state.json`、`frame_map.csv`、tactile `.npy` 与 preview image 落盘。
+- `ur5_phase3_trial_runner.py`：单条 trial orchestration。
+- `ur5_phase3_data_collection.py`：Isaac/AppLauncher CLI 入口。
+
+推荐先跑 cube 的最小验证命令：
+
+```bash
+cd /home/zjy/Documents/grasp/tactile_grasp
+conda activate tacex
+python -u ur5_phase3_data_collection.py \
+  --enable_cameras \
+  --device cpu \
+  --object_id cube \
+  --protocol_variant contact_hold \
+  --trials 1
+```
