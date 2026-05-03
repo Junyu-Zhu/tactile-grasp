@@ -258,6 +258,20 @@ contact_hold
 contact_hold_micro_lift
 ```
 
+固定 object set 与推荐顺序（代码 source-of-truth：`ur5_phase3_objects.py`）：
+
+```text
+1. cube / 4cm_cube
+2. chips_can / YcbChipsCan
+3. cracker_box / YcbCrackerBox
+```
+
+当前对象级微调原则：
+
+- `cube`：沿用 Phase2 已验证的 4 cm cube 侧向接触抓取参数，先跑 `contact_hold`。
+- `chips_can`：保持罐体直立，抓取中高位置，降低 close/force 阈值，避免圆柱体滚动或被过度挤压。
+- `cracker_box`：绕 z 轴旋转 90°，让窄边进入 Robotiq 闭合轴；micro-lift 距离比 cube 更保守，避免高盒体倾倒。
+
 固定落盘结构：
 
 ```text
