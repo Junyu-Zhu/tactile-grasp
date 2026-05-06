@@ -29,7 +29,7 @@ parser.add_argument(
 parser.add_argument(
     "--protocol_variant",
     choices=("contact_only", "contact_hold", "contact_hold_micro_lift"),
-    default="contact_hold",
+    default="contact_hold_micro_lift",
     help="Locked Phase 3 protocol variant.",
 )
 parser.add_argument("--trials", type=int, default=1, help="Number of deterministic trials to run for this object.")
@@ -37,17 +37,50 @@ parser.add_argument("--seed", type=int, default=7, help="Base deterministic seed
 parser.add_argument("--output_root", type=Path, default=Path("artifacts/phase3"), help="Phase 3 artifact root.")
 parser.add_argument("--max_steps", type=int, default=0, help="Global per-trial step budget; 0 disables.")
 parser.add_argument("--reset_settle_steps", type=int, default=20)
-parser.add_argument("--pregrasp_move_steps", type=int, default=25)
-parser.add_argument("--direct_move_steps", type=int, default=240)
-parser.add_argument("--close_steps", type=int, default=160)
+parser.add_argument("--pregrasp_move_steps", type=int, default=40)
+parser.add_argument("--direct_move_steps", type=int, default=320)
+parser.add_argument(
+    "--approach_steps",
+    type=int,
+    default=None,
+    help="Alias for --direct_move_steps: number of IK steps used for the object approach segment.",
+)
+parser.add_argument("--direct_pos_tolerance_m", type=float, default=0.006)
+parser.add_argument("--direct_pass_tolerance_m", type=float, default=0.008)
+parser.add_argument("--close_steps", type=int, default=320)
 parser.add_argument("--close_settle_steps", type=int, default=6)
 parser.add_argument("--release_steps", type=int, default=60)
-parser.add_argument("--arm_hold_settle_steps", type=int, default=30)
+parser.add_argument("--arm_hold_settle_steps", type=int, default=50)
 parser.add_argument("--soft_center_refine_rounds", type=int, default=2)
 parser.add_argument("--soft_center_refine_steps", type=int, default=50)
 parser.add_argument("--max_soft_center_refine_step_m", type=float, default=0.020)
-parser.add_argument("--sample_every_steps", type=int, default=8)
+parser.add_argument("--sample_every_steps", type=int, default=4)
+parser.add_argument(
+    "--tactile_sample_every_steps",
+    type=int,
+    default=4,
+    help=(
+        "Capture tactile/robot samples every N physics steps during approach/close/hold/lift. "
+        "Use 1 for dense continuous tactile sequences; 0 disables periodic samples except forced stage boundaries."
+    ),
+)
 parser.add_argument("--tactile_sides", choices=("left", "right", "both"), default="both")
+parser.add_argument(
+    "--sim_device",
+    default=None,
+    help=(
+        "Optional device for the IsaacLab SimulationContext. Use this to run the app/render/TacEx stack "
+        "with --device cuda:0 while keeping Phase3 PhysX/motion on cpu."
+    ),
+)
+parser.add_argument(
+    "--tactile_device",
+    default="cuda:0",
+    help=(
+        "Device used by TacEx GelSight optical simulation. Keep this on cuda:0; "
+        "TacEx camera contact rendering is unreliable on CPU."
+    ),
+)
 parser.add_argument("--phase3_tactile_width", type=int, default=320)
 parser.add_argument("--phase3_tactile_height", type=int, default=240)
 parser.add_argument("--include_camera_rgb", action="store_true", help="Also log TacEx camera RGB when available.")
@@ -55,6 +88,24 @@ parser.add_argument("--no_camera_depth", action="store_true", help="Do not log c
 parser.add_argument("--disable_tactile", action="store_true", help="Run protocol without TacEx tactile sensors.")
 parser.add_argument("--no_tactile_arrays", action="store_true", help="Do not save .npy tactile arrays.")
 parser.add_argument("--no_preview_images", action="store_true", help="Do not save PNG/PPM preview images.")
+parser.add_argument(
+    "--disable_tactile_contact_imprint",
+    action="store_true",
+    help=(
+        "Disable Phase3 continuous contact-imprint rendering. By default Phase3 feeds contact-geometry "
+        "indentation into TacEx/Taxim so tactile_rgb varies through close and micro-lift."
+    ),
+)
+parser.add_argument("--tactile_imprint_min_depth_mm", type=float, default=0.08)
+parser.add_argument("--tactile_imprint_max_depth_mm", type=float, default=2.5)
+parser.add_argument(
+    "--tactile_imprint_depth_per_mm_overlap",
+    type=float,
+    default=0.65,
+    help="Additional Taxim imprint depth in mm per mm of soft/object AABB overlap beyond the contact margin.",
+)
+parser.add_argument("--tactile_imprint_sigma_x", type=float, default=0.34)
+parser.add_argument("--tactile_imprint_sigma_y", type=float, default=0.42)
 parser.add_argument("--disable_force_control", action="store_true", help="Disable GSmini contact force sensors.")
 parser.add_argument("--regenerate_robot_usd", action="store_true", help="Force canonical URDF -> USD regeneration.")
 parser.add_argument(
@@ -115,8 +166,12 @@ def main() -> int:
     print("[INFO] Phase 3 forbidden scope:", PHASE3_FORBIDDEN_SCOPE, flush=True)
     print("[INFO] Object profile:", json.dumps(object_profile.as_dict(), ensure_ascii=False), flush=True)
     print("[INFO] Protocol profile:", json.dumps(protocol_profile.as_dict(), ensure_ascii=False), flush=True)
-    print(f"[INFO] Creating SimulationContext on device={args_cli.device}", flush=True)
-    sim = sim_utils.SimulationContext(sim_utils.SimulationCfg(device=args_cli.device))
+    sim_device = args_cli.sim_device or args_cli.device
+    print(
+        f"[INFO] Creating SimulationContext on device={sim_device} (AppLauncher/device={args_cli.device})",
+        flush=True,
+    )
+    sim = sim_utils.SimulationContext(sim_utils.SimulationCfg(device=sim_device))
     sim.set_camera_view(CAMERA_EYE, CAMERA_TARGET)
 
     robot_urdf_path = resolve_robot_urdf_path()
@@ -140,7 +195,9 @@ def main() -> int:
         max_steps=args_cli.max_steps,
         reset_settle_steps=args_cli.reset_settle_steps,
         pregrasp_move_steps=args_cli.pregrasp_move_steps,
-        direct_move_steps=args_cli.direct_move_steps,
+        direct_move_steps=args_cli.approach_steps if args_cli.approach_steps is not None else args_cli.direct_move_steps,
+        direct_pos_tolerance_m=args_cli.direct_pos_tolerance_m,
+        direct_pass_tolerance_m=args_cli.direct_pass_tolerance_m,
         soft_center_refine_rounds=args_cli.soft_center_refine_rounds,
         soft_center_refine_steps=args_cli.soft_center_refine_steps,
         max_soft_center_refine_step_m=args_cli.max_soft_center_refine_step_m,
@@ -149,14 +206,21 @@ def main() -> int:
         release_steps=args_cli.release_steps,
         arm_hold_settle_steps=args_cli.arm_hold_settle_steps,
         sample_every_steps=args_cli.sample_every_steps,
+        tactile_sample_every_steps=args_cli.tactile_sample_every_steps,
         tactile_sides=_tactile_sides(),
-        tactile_device=args_cli.device,
+        tactile_device=args_cli.tactile_device,
         tactile_resolution=(args_cli.phase3_tactile_width, args_cli.phase3_tactile_height),
         include_camera_depth=not args_cli.no_camera_depth,
         include_camera_rgb=args_cli.include_camera_rgb,
         disable_tactile=args_cli.disable_tactile,
         save_tactile_arrays=not args_cli.no_tactile_arrays,
         save_preview_images=not args_cli.no_preview_images,
+        tactile_contact_imprint_enabled=not args_cli.disable_tactile_contact_imprint,
+        tactile_imprint_min_depth_mm=args_cli.tactile_imprint_min_depth_mm,
+        tactile_imprint_max_depth_mm=args_cli.tactile_imprint_max_depth_mm,
+        tactile_imprint_depth_per_mm_overlap=args_cli.tactile_imprint_depth_per_mm_overlap,
+        tactile_imprint_sigma_x=args_cli.tactile_imprint_sigma_x,
+        tactile_imprint_sigma_y=args_cli.tactile_imprint_sigma_y,
         disable_force_control=args_cli.disable_force_control,
     )
     runner = Phase3TrialRunner(
@@ -179,6 +243,10 @@ def main() -> int:
         print("[PHASE3] Trial result:", json.dumps(result, ensure_ascii=False), flush=True)
         results.append(result)
 
+    review_path = write_phase3_review(output_root)
+    review = json.loads(review_path.read_text(encoding="utf-8"))
+    trial_motion_passed = all(result.get("passed") for result in results)
+    artifact_review_passed = bool(review.get("artifact_validation_passed"))
     summary = {
         "scope": PHASE3_SCOPE_SENTENCE,
         "forbidden_scope": PHASE3_FORBIDDEN_SCOPE,
@@ -186,14 +254,19 @@ def main() -> int:
         "protocol_variant": protocol_profile.variant,
         "trials_requested": args_cli.trials,
         "trials_passed": sum(1 for result in results if result.get("passed")),
-        "passed": all(result.get("passed") for result in results),
+        "artifact_review_passed": artifact_review_passed,
+        "passed": trial_motion_passed and artifact_review_passed,
         "robot_urdf_path": robot_urdf_path.as_posix(),
         "robot_usd_path": robot_usd_path.as_posix(),
-        "runner_options": asdict(options) | {"output_root": output_root.as_posix()},
+        "runner_options": asdict(options)
+        | {
+            "output_root": output_root.as_posix(),
+            "app_launcher_device": args_cli.device,
+            "simulation_context_device": sim_device,
+        },
         "results": results,
     }
     summary_path = _write_batch_summary(output_root, summary)
-    review_path = write_phase3_review(output_root)
     print(f"[INFO] Wrote Phase3 batch summary: {summary_path}", flush=True)
     print(f"[INFO] Wrote Phase3 review artifact: {review_path}", flush=True)
     print("[RESULT] Phase 3 batch PASSED." if summary["passed"] else "[RESULT] Phase 3 batch FAILED.", flush=True)

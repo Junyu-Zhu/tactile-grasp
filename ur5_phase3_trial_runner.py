@@ -29,27 +29,35 @@ class Phase3RunnerOptions:
     seed: int = 7
     max_steps: int = 0
     reset_settle_steps: int = 20
-    pregrasp_move_steps: int = 25
-    direct_move_steps: int = 240
+    pregrasp_move_steps: int = 40
+    direct_move_steps: int = 320
     direct_pos_tolerance_m: float = 0.006
+    direct_pass_tolerance_m: float = 0.008
     max_joint_delta_per_step: float = 0.018
     soft_center_refine_rounds: int = 2
     soft_center_refine_steps: int = 50
     max_soft_center_refine_step_m: float = 0.020
-    close_steps: int = 160
+    close_steps: int = 320
     close_settle_steps: int = 6
     release_steps: int = 60
-    arm_hold_settle_steps: int = 30
-    stable_force_steps: int = 2
-    sample_every_steps: int = 8
+    arm_hold_settle_steps: int = 50
+    stable_force_steps: int = 1
+    sample_every_steps: int = 4
+    tactile_sample_every_steps: int = 4
     tactile_sides: tuple[str, ...] = ("left", "right")
-    tactile_device: str = "cpu"
+    tactile_device: str = "cuda:0"
     tactile_resolution: tuple[int, int] = (320, 240)
     include_camera_depth: bool = True
     include_camera_rgb: bool = False
     disable_tactile: bool = False
     save_tactile_arrays: bool = True
     save_preview_images: bool = True
+    tactile_contact_imprint_enabled: bool = True
+    tactile_imprint_min_depth_mm: float = 0.08
+    tactile_imprint_max_depth_mm: float = 2.5
+    tactile_imprint_depth_per_mm_overlap: float = 0.65
+    tactile_imprint_sigma_x: float = 0.34
+    tactile_imprint_sigma_y: float = 0.42
     disable_force_control: bool = False
 
 
@@ -76,7 +84,16 @@ class Phase3TrialRunner(Phase3MotionMixin):
         self.options = options
         self.budget = StepBudget(options.max_steps)
         self.tactile_sensors: list[tuple[str, Any]] = []
+        self.tactile_sensor_cfgs: dict[str, Any] = {}
         self.tactile_setup: dict[str, Any] = {"enabled": False}
+        self._last_tactile_pose_sync: dict[str, Any] = {"enabled": False}
+        self._last_tactile_contact_proxy: dict[str, Any] = {"enabled": False}
+        self._last_tactile_imprint: dict[str, Any] = {"enabled": False}
+        self._tactile_imprint_baselines: dict[str, torch.Tensor] = {}
+        self._tactile_imprint_stats: dict[str, dict[str, Any]] = {}
+        self._last_tactile_sensor_refresh: dict[str, Any] = {"refreshed": False}
+        self._last_tactile_scene_signature: tuple[Any, ...] | None = None
+        self._last_tactile_scene_signature_by_side: dict[str, tuple[Any, ...]] = {}
         self.contact_onset: dict[str, Any] | None = None
         self._last_contact_state: dict[str, Any] = {"contact_detected": False}
         self._last_tactile_outputs: dict[str, dict[str, Any]] = {}
@@ -111,6 +128,8 @@ class Phase3TrialRunner(Phase3MotionMixin):
             raise RuntimeError(f"Phase3 tactile sensor shell validation failed for sides: {failed}")
 
         self.tactile_sensors = []
+        self.tactile_sensor_cfgs = {}
+        self._last_tactile_scene_signature_by_side = {}
         for side in sides:
             cfg = build_phase2_gsmini_cfg(
                 side,
@@ -120,8 +139,22 @@ class Phase3TrialRunner(Phase3MotionMixin):
                 include_camera_rgb=self.options.include_camera_rgb,
                 debug_vis=False,
             )
+            self.tactile_sensor_cfgs[side] = cfg
             self.tactile_sensors.append((side, initialize_phase2_sensor(cfg)))
+            self._last_tactile_scene_signature_by_side[side] = ("no_probe",)
+        self._last_tactile_scene_signature = ("no_contact_proxy",)
 
+        # Keep the TacEx runtime shells in the same fingertip-child local-offset
+        # mode that Phase2 validates.  TiledCamera render products can retain a
+        # stale view when these referenced camera prims are repeatedly rewritten
+        # to world poses, so Phase3 gates Phase2-style camera-visible contact
+        # probes by the actual runtime contact state instead of moving the
+        # sensor shell hierarchy every logged sample.
+        initial_pose_sync = {
+            "enabled": False,
+            "mode": "phase2_fingertip_child_local_offsets",
+            "reason": "preserve Phase2 TacEx render-product behavior",
+        }
         self.tactile_setup = {
             "enabled": True,
             "sides": list(sides),
@@ -132,6 +165,21 @@ class Phase3TrialRunner(Phase3MotionMixin):
             "resolution": list(self.options.tactile_resolution),
             "include_camera_depth": self.options.include_camera_depth,
             "include_camera_rgb": self.options.include_camera_rgb,
+            "pose_sync": {
+                "mode": "phase2_fingertip_child_local_offsets",
+                "initial": initial_pose_sync,
+            },
+            "contact_proxy": {
+                "enabled": False,
+                "mode": "disabled_replaced_by_continuous_taxim_contact_imprint",
+            },
+            "contact_imprint": {
+                "enabled": self.options.tactile_contact_imprint_enabled,
+                "mode": "soft_object_overlap_to_continuous_taxim_height_map",
+                "min_depth_mm": self.options.tactile_imprint_min_depth_mm,
+                "max_depth_mm": self.options.tactile_imprint_max_depth_mm,
+                "depth_per_mm_overlap": self.options.tactile_imprint_depth_per_mm_overlap,
+            },
         }
         return self.tactile_setup
 
@@ -231,7 +279,7 @@ class Phase3TrialRunner(Phase3MotionMixin):
         self._log_sample(logger, "end_trial", force_tactile=True)
 
         contact_onset = self.contact_onset or {"detected": False}
-        failed_reasons = self._failure_reasons(direct_move, contact_onset, close_summary)
+        failed_reasons = self._failure_reasons(direct_move, contact_onset, close_summary, micro_lift_summary)
         success_label = not failed_reasons
         failure_reason = "; ".join(failed_reasons) if failed_reasons else None
         meta = logger.finalize(success_label=success_label, failure_reason=failure_reason, contact_onset=contact_onset)

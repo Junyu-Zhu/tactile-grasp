@@ -36,6 +36,40 @@ class LocalAabb:
         return tuple((self.min_m[index] + self.max_m[index]) / 2.0 for index in range(3))
 
 
+def _scaled_aabb(
+    min_m: tuple[float, float, float],
+    max_m: tuple[float, float, float],
+    scale: float | tuple[float, float, float],
+) -> LocalAabb:
+    if isinstance(scale, tuple):
+        sx, sy, sz = scale
+    else:
+        sx = sy = sz = scale
+    return LocalAabb(
+        min_m=(min_m[0] * sx, min_m[1] * sy, min_m[2] * sz),
+        max_m=(max_m[0] * sx, max_m[1] * sy, max_m[2] * sz),
+    )
+
+
+def _quat_apply_wxyz(
+    quat: tuple[float, float, float, float],
+    vec: tuple[float, float, float],
+) -> tuple[float, float, float]:
+    """Rotate a vector by a wxyz quaternion without importing torch/Isaac."""
+
+    w, x, y, z = quat
+    vx, vy, vz = vec
+    # q * v * q^-1, expanded for dependency-light profile calculations.
+    tx = 2.0 * (y * vz - z * vy)
+    ty = 2.0 * (z * vx - x * vz)
+    tz = 2.0 * (x * vy - y * vx)
+    return (
+        vx + w * tx + (y * tz - z * ty),
+        vy + w * ty + (z * tx - x * tz),
+        vz + w * tz + (x * ty - y * tx),
+    )
+
+
 @dataclass(frozen=True)
 class Phase3ObjectProfile:
     object_id: str
@@ -56,10 +90,24 @@ class Phase3ObjectProfile:
     pregrasp_mode: str
     contact_approach_refine: bool
     tuning_note: str
+    spawn_scale: tuple[float, float, float] = (1.0, 1.0, 1.0)
+    approach_offset_world_m: tuple[float, float, float] = (0.0, 0.0, 0.0)
 
     @property
     def rest_root_z_m(self) -> float:
-        return TABLE_TOP_HEIGHT_M - self.local_aabb.min_m[2]
+        min_xyz, max_xyz = self.local_aabb.min_m, self.local_aabb.max_m
+        corners = (
+            (min_xyz[0], min_xyz[1], min_xyz[2]),
+            (min_xyz[0], min_xyz[1], max_xyz[2]),
+            (min_xyz[0], max_xyz[1], min_xyz[2]),
+            (min_xyz[0], max_xyz[1], max_xyz[2]),
+            (max_xyz[0], min_xyz[1], min_xyz[2]),
+            (max_xyz[0], min_xyz[1], max_xyz[2]),
+            (max_xyz[0], max_xyz[1], min_xyz[2]),
+            (max_xyz[0], max_xyz[1], max_xyz[2]),
+        )
+        rotated_min_z = min(_quat_apply_wxyz(self.root_rot_wxyz, corner)[2] for corner in corners)
+        return TABLE_TOP_HEIGHT_M - rotated_min_z
 
     @property
     def root_position_m(self) -> tuple[float, float, float]:
@@ -97,6 +145,10 @@ def _yaw_quat_wxyz(yaw_rad: float) -> tuple[float, float, float, float]:
     return (math.cos(yaw_rad / 2.0), 0.0, 0.0, math.sin(yaw_rad / 2.0))
 
 
+def _pitch_quat_wxyz(pitch_rad: float) -> tuple[float, float, float, float]:
+    return (math.cos(pitch_rad / 2.0), 0.0, math.sin(pitch_rad / 2.0), 0.0)
+
+
 CUBE_PROFILE = Phase3ObjectProfile(
     object_id="cube",
     label="4cm_cube",
@@ -108,18 +160,25 @@ CUBE_PROFILE = Phase3ObjectProfile(
     root_rot_wxyz=(1.0, 0.0, 0.0, 0.0),
     grasp_center_local_m=(0.0, 0.0, 0.0),
     close_rad=0.25,
-    stable_force_threshold_n=0.5,
-    high_force_threshold_n=8.0,
-    max_close_object_lift_m=0.004,
+    stable_force_threshold_n=1.5,
+    high_force_threshold_n=12.0,
+    max_close_object_lift_m=0.0025,
     hold_seconds=2.0,
     micro_lift_distance_m=0.015,
     pregrasp_mode="phase2_side_pregrasp",
     contact_approach_refine=False,
     tuning_note=(
-        "Phase2-proven cube profile: side grasp at the cube center and conservative close width; "
-        "Phase3 allows a small <=4 mm close-induced lift because early runtime trials reached "
-        "stable two-sided force around 1.9-3.1 mm before hold."
+        "Phase2-proven cube profile retuned for Phase3 visible grasp logging: side grasp at the "
+        "cube center with a moderate close target, bilateral-contact success checks, and the "
+        "default micro-lift protocol so a GUI run shows whether the cube is actually held."
     ),
+)
+
+_CHIPS_CAN_SCALE = 0.55
+_CHIPS_CAN_AABB = _scaled_aabb(
+    min_m=(-0.042753130197522, -0.025356302224099, 0.00570114748552),
+    max_m=(0.03188893683255, 0.04928576480597299, 0.24733659625053),
+    scale=_CHIPS_CAN_SCALE,
 )
 
 CHIPS_CAN_PROFILE = Phase3ObjectProfile(
@@ -128,27 +187,38 @@ CHIPS_CAN_PROFILE = Phase3ObjectProfile(
     object_kind="urdf",
     prim_name="YcbChipsCan",
     urdf_rel_path="ycb_objects/YcbChipsCan/model.urdf",
-    local_aabb=LocalAabb(
-        min_m=(-0.042753130197522, -0.025356302224099, 0.00570114748552),
-        max_m=(0.03188893683255, 0.04928576480597299, 0.24733659625053),
-    ),
-    mass_kg=0.205,
-    root_rot_wxyz=(1.0, 0.0, 0.0, 0.0),
-    grasp_center_local_m=(-0.060, 0.011964731290936996, 0.126518871868025),
-    close_rad=0.35,
-    stable_force_threshold_n=0.35,
+    local_aabb=_CHIPS_CAN_AABB,
+    mass_kg=0.10,
+    # Lay the can on its side: local z (can height) becomes world x, while the
+    # gripper still closes across the can's circular cross-section near center.
+    root_rot_wxyz=_pitch_quat_wxyz(math.pi / 2.0),
+    grasp_center_local_m=_CHIPS_CAN_AABB.center_m,
+    close_rad=0.23,
+    stable_force_threshold_n=0.45,
     high_force_threshold_n=6.0,
-    max_close_object_lift_m=0.006,
+    max_close_object_lift_m=0.0035,
     hold_seconds=2.0,
     micro_lift_distance_m=0.012,
-    pregrasp_mode="reset_clearance",
-    contact_approach_refine=True,
+    pregrasp_mode="phase2_side_pregrasp",
+    contact_approach_refine=False,
     tuning_note=(
-        "Upright can profile: keep the reset-clearance pregrasp, then target the near-side "
-        "mid-height edge instead of the full cylinder center because the GSmini fingertips reduce "
-        "the usable open gap below the can diameter. Runtime tuning treats the final soft-center "
-        "approach as the contact stage so the can is touched without tipping before hold."
+        "Side-lying scaled can profile: shrink the can to 55% so the GSmini-padded Robotiq opening "
+        "can surround the circular section with margin, rotate the can 90 degrees about local y so "
+        "its axis lies along world x, and target the scaled local AABB center for a lift-capable side grasp."
     ),
+    spawn_scale=(_CHIPS_CAN_SCALE, _CHIPS_CAN_SCALE, _CHIPS_CAN_SCALE),
+)
+
+_CRACKER_BOX_SCALE = 0.55
+_CRACKER_BOX_AABB = _scaled_aabb(
+    min_m=(-0.003362, -0.089567, -0.108358),
+    max_m=(0.058277, 0.0679, 0.098405),
+    scale=_CRACKER_BOX_SCALE,
+)
+_CRACKER_BOX_GRASP_CENTER = (
+    _CRACKER_BOX_AABB.center_m[0],
+    _CRACKER_BOX_AABB.center_m[1],
+    _CRACKER_BOX_AABB.center_m[2] + 0.020,
 )
 
 CRACKER_BOX_PROFILE = Phase3ObjectProfile(
@@ -157,29 +227,30 @@ CRACKER_BOX_PROFILE = Phase3ObjectProfile(
     object_kind="urdf",
     prim_name="YcbCrackerBox",
     urdf_rel_path="ycb_objects/YcbCrackerBox/model.urdf",
-    local_aabb=LocalAabb(
-        min_m=(-0.003362, -0.089567, -0.108358),
-        max_m=(0.058277, 0.0679, 0.098405),
-    ),
-    mass_kg=0.411,
+    local_aabb=_CRACKER_BOX_AABB,
+    mass_kg=0.10,
     # Rotate the box 90 degrees about z so the thin local-x dimension is along
     # the gripper closing axis.  Without this, the world-y width is too large
     # for a Robotiq 2F-85 side grasp.
     root_rot_wxyz=_yaw_quat_wxyz(math.pi / 2.0),
-    grasp_center_local_m=(0.027457500000000003, 0.078, 0.010),
-    close_rad=0.22,
-    stable_force_threshold_n=0.45,
+    grasp_center_local_m=_CRACKER_BOX_GRASP_CENTER,
+    close_rad=0.35,
+    stable_force_threshold_n=0.35,
     high_force_threshold_n=7.0,
-    max_close_object_lift_m=0.004,
+    max_close_object_lift_m=0.003,
     hold_seconds=2.5,
     micro_lift_distance_m=0.010,
-    pregrasp_mode="reset_clearance",
-    contact_approach_refine=True,
+    pregrasp_mode="phase2_side_pregrasp",
+    contact_approach_refine=False,
     tuning_note=(
-        "Box profile: yaw-rotate so the narrow side is along the Robotiq closing axis, then target "
-        "the near x-side at upper-mid height. The full box depth is too large for a centered "
-        "side approach, so final soft-center refinement is treated as contact approach."
+        "Scaled box profile: shrink the YCB cracker box to 55% so the Robotiq+GSmini opening can "
+        "surround it, yaw-rotate the narrow side into the closing axis, and target an upper-mid "
+        "scaled AABB grasp point and close farther so both GSmini pads engage before micro-lift; "
+        "the upper-mid target keeps the arm out of the too-low side-grasp band observed in GUI runs "
+        "while still pressing the box near its lift-capable side band."
     ),
+    spawn_scale=(_CRACKER_BOX_SCALE, _CRACKER_BOX_SCALE, _CRACKER_BOX_SCALE),
+    approach_offset_world_m=(0.0, 0.0, 0.002),
 )
 
 OBJECT_PROFILES: dict[str, Phase3ObjectProfile] = {
@@ -276,10 +347,10 @@ def make_phase3_object_cfg(profile: Phase3ObjectProfile, prim_path: str):
         min_torsional_patch_radius=0.002,
     )
     common_material = sim_utils.RigidBodyMaterialCfg(
-        static_friction=1.0,
-        dynamic_friction=1.0,
+        static_friction=2.5,
+        dynamic_friction=2.0,
         restitution=0.0,
-        friction_combine_mode="multiply",
+        friction_combine_mode="max",
         restitution_combine_mode="multiply",
     )
 
@@ -309,6 +380,7 @@ def make_phase3_object_cfg(profile: Phase3ObjectProfile, prim_path: str):
             prim_path=prim_path,
             spawn=sim_utils.UrdfFileCfg(
                 asset_path=urdf_path.as_posix(),
+                scale=profile.spawn_scale,
                 fix_base=False,
                 joint_drive=None,
                 rigid_props=common_rigid,

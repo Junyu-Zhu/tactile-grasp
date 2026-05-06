@@ -9,6 +9,7 @@ import torch
 
 from isaaclab.assets import Articulation
 from isaaclab.controllers import DifferentialIKController, DifferentialIKControllerCfg
+import isaaclab.utils.math as math_utils
 from isaaclab.utils.math import quat_apply, quat_apply_inverse, subtract_frame_transforms
 
 from ur5_phase1_control import (
@@ -26,6 +27,21 @@ from ur5_phase3_logging import Phase3TrialLogger
 from ur5_phase3_schema import utc_now_iso
 
 PHASE3_DEFAULT_PREGRASP_WRIST3_DEG = -2.6
+TACTILE_FINGERTIP_BODY_BY_SIDE = {
+    "left": "left_inner_finger",
+    "right": "right_inner_finger",
+}
+TACTILE_CONTACT_PROXY_ROOT = "/World/Phase3TactileContactProxy"
+TACTILE_CONTACT_PROXY_DISTANCE_M = 0.026
+TACTILE_CONTACT_PROXY_SCALE = (0.010, 0.010, 0.010)
+TACTILE_CONTACT_PROXY_AXES = (
+    (0.0, 0.0, 1.0),
+    (0.0, 0.0, -1.0),
+    (1.0, 0.0, 0.0),
+    (-1.0, 0.0, 0.0),
+    (0.0, 1.0, 0.0),
+    (0.0, -1.0, 0.0),
+)
 
 
 class StepBudget:
@@ -56,6 +72,408 @@ def _make_custom_gripper_target(
 
 
 class Phase3MotionMixin(Phase3GeometryMixin):
+    def _delete_tactile_contact_proxies(self) -> None:
+        import isaacsim.core.utils.prims as prim_utils
+
+        if prim_utils.is_prim_path_valid(TACTILE_CONTACT_PROXY_ROOT):
+            prim_utils.delete_prim(TACTILE_CONTACT_PROXY_ROOT)
+
+    def _set_proxy_cube_pose(self, prim_path: str, position: Any) -> None:
+        import isaacsim.core.utils.prims as prim_utils
+        from pxr import Gf, UsdGeom
+        import omni.usd
+
+        if not prim_utils.is_prim_path_valid(prim_path):
+            prim_utils.create_prim(
+                prim_path,
+                "Cube",
+                translation=(float(position[0]), float(position[1]), float(position[2])),
+                scale=TACTILE_CONTACT_PROXY_SCALE,
+            )
+        stage = omni.usd.get_context().get_stage()
+        prim = stage.GetPrimAtPath(prim_path)
+        xform = UsdGeom.Xformable(prim)
+        xform.ClearXformOpOrder()
+        xform.AddTranslateOp(UsdGeom.XformOp.PrecisionDouble).Set(
+            Gf.Vec3d(float(position[0]), float(position[1]), float(position[2]))
+        )
+        xform.AddScaleOp(UsdGeom.XformOp.PrecisionDouble).Set(Gf.Vec3d(*TACTILE_CONTACT_PROXY_SCALE))
+
+    def _update_tactile_contact_proxies(self, contact_state: dict[str, Any]) -> dict[str, Any]:
+        """Spawn camera-visible, non-physics contact witnesses for TacEx.
+
+        IsaacLab PhysX body poses and USD camera render products do not expose
+        the canonical URDF GSmini collision contact directly to TacEx's internal
+        depth camera.  Phase2 already used a camera-visible probe to prove the
+        GSmini optical stack.  Phase3 gates this probe by the *actual* contact
+        state so tactile_rgb changes only when the scripted grasp has reached
+        contact/hold.
+        """
+
+        import isaacsim.core.utils.prims as prim_utils
+        import omni.usd
+        from pxr import Gf, Usd, UsdGeom
+        from ur5_phase2_mount import phase2_sensor_prim_paths
+
+        contact_sides = set(contact_state.get("contact_sides", []))
+        if not contact_sides:
+            self._delete_tactile_contact_proxies()
+            self._last_tactile_contact_proxy = {"enabled": False, "reason": "no_contact"}
+            return self._last_tactile_contact_proxy
+
+        if not prim_utils.is_prim_path_valid(TACTILE_CONTACT_PROXY_ROOT):
+            prim_utils.create_prim(TACTILE_CONTACT_PROXY_ROOT, "Xform")
+        stage = omni.usd.get_context().get_stage()
+        summary: dict[str, Any] = {"enabled": True, "distance_m": TACTILE_CONTACT_PROXY_DISTANCE_M, "sides": {}}
+        for side, paths in phase2_sensor_prim_paths().items():
+            side_root = f"{TACTILE_CONTACT_PROXY_ROOT}/{side}"
+            if side not in contact_sides:
+                if prim_utils.is_prim_path_valid(side_root):
+                    prim_utils.delete_prim(side_root)
+                continue
+            if not prim_utils.is_prim_path_valid(side_root):
+                prim_utils.create_prim(side_root, "Xform")
+            camera_prim = stage.GetPrimAtPath(paths["camera"])
+            if not camera_prim.IsValid():
+                continue
+            camera_xform = UsdGeom.Xformable(camera_prim).ComputeLocalToWorldTransform(Usd.TimeCode.Default())
+            camera_pos = camera_xform.ExtractTranslation()
+            positions = []
+            for index, axis_tuple in enumerate(TACTILE_CONTACT_PROXY_AXES):
+                axis = Gf.Vec3d(*axis_tuple)
+                direction = camera_xform.TransformDir(axis)
+                direction.Normalize()
+                # Small lateral staggering avoids exact overlap while keeping
+                # all probes close to the TacEx optical contact distance.
+                lateral = (index - 2.5) * 0.0004
+                proxy_pos = camera_pos + direction * TACTILE_CONTACT_PROXY_DISTANCE_M + Gf.Vec3d(lateral, 0.0, 0.0)
+                child_path = f"{side_root}/probe_{index}"
+                self._set_proxy_cube_pose(child_path, proxy_pos)
+                positions.append([float(proxy_pos[0]), float(proxy_pos[1]), float(proxy_pos[2])])
+            summary["sides"][side] = {
+                "camera": paths["camera"],
+                "probes": positions,
+            }
+        self._last_tactile_contact_proxy = summary
+        return summary
+
+    @staticmethod
+    def _tactile_scene_signature(contact_proxy: dict[str, Any]) -> tuple[Any, ...]:
+        """Return a coarse renderer-scene signature for TacEx sensor refreshes.
+
+        Phase2 rebuilds the GelSight sensor after adding its camera-visible
+        contact probe because a standalone TiledCamera view can otherwise keep
+        returning the pre-probe render product.  Phase3 keeps the same rule but
+        only keys on contact-proxy presence/side set; moving an already-visible
+        proxy should be picked up by render ticks without recreating sensors on
+        every logged sample.
+        """
+
+        if not contact_proxy.get("enabled"):
+            return ("no_contact_proxy",)
+        sides = tuple(sorted(contact_proxy.get("sides", {}).keys()))
+        return ("contact_proxy", sides)
+
+    def _refresh_tactile_sensors_for_scene_signature(self, signature: tuple[Any, ...]) -> dict[str, Any]:
+        if signature == self._last_tactile_scene_signature:
+            return {"refreshed": False, "signature": list(signature)}
+        if not getattr(self, "tactile_sensor_cfgs", None):
+            self._last_tactile_scene_signature = signature
+            return {"refreshed": False, "signature": list(signature), "reason": "missing_sensor_cfgs"}
+
+        from ur5_phase2_tactile import initialize_phase2_sensor
+
+        refreshed: list[str] = []
+        rebuilt: list[tuple[str, Any]] = []
+        for side, sensor in self.tactile_sensors:
+            cfg = self.tactile_sensor_cfgs.get(side)
+            if cfg is None:
+                rebuilt.append((side, sensor))
+                continue
+            rebuilt.append((side, initialize_phase2_sensor(cfg)))
+            refreshed.append(side)
+        self.tactile_sensors = rebuilt
+        self._last_tactile_scene_signature = signature
+        return {
+            "refreshed": bool(refreshed),
+            "signature": list(signature),
+            "sides": refreshed,
+        }
+
+    def _delete_phase2_static_contact_probe(self) -> None:
+        import isaacsim.core.utils.prims as prim_utils
+        from ur5_phase2_tactile import STATIC_CONTACT_PROBE_PATH
+
+        if prim_utils.is_prim_path_valid(STATIC_CONTACT_PROBE_PATH):
+            prim_utils.delete_prim(STATIC_CONTACT_PROBE_PATH)
+
+    def _set_tactile_shell_world_pose(self, prim_path: str, position: torch.Tensor, orientation: torch.Tensor) -> None:
+        import omni.usd
+        from pxr import Gf, UsdGeom
+
+        stage = omni.usd.get_context().get_stage()
+        prim = stage.GetPrimAtPath(prim_path)
+        if not prim.IsValid():
+            raise RuntimeError(f"Phase3 tactile shell prim is missing: {prim_path}")
+        pos = [float(value) for value in position.detach().cpu().reshape(-1).tolist()]
+        quat = [float(value) for value in orientation.detach().cpu().reshape(-1).tolist()]
+        xform = UsdGeom.Xformable(prim)
+        xform.ClearXformOpOrder()
+        # The TacEx camera shells are runtime sensor-only prims.  They must
+        # follow IsaacLab's PhysX articulation body poses, not stale USD child
+        # transforms under the URDF link.  Resetting the inherited xform stack
+        # lets Phase3 write the exact world pose every capture.
+        xform.SetResetXformStack(True)
+        xform.AddTranslateOp().Set(Gf.Vec3d(*pos))
+        xform.AddOrientOp().Set(Gf.Quatf(quat[0], Gf.Vec3f(quat[1], quat[2], quat[3])))
+
+    def _sync_tactile_sensor_shells_to_runtime_fingers(self) -> dict[str, Any]:
+        if not self.tactile_sensors:
+            return {"enabled": False, "reason": "no_tactile_sensors"}
+
+        from ur5_phase2_mount import (
+            CASE_LOCAL_QUAT_WXYZ,
+            CASE_LOCAL_TRANSLATION,
+            CONNECTOR_LOCAL_QUAT_WXYZ,
+            CONNECTOR_LOCAL_TRANSLATION,
+            GELPAD_LOCAL_QUAT_WXYZ,
+            GELPAD_LOCAL_TRANSLATION,
+            phase2_sensor_prim_paths,
+        )
+
+        pose_summary: dict[str, Any] = {"enabled": True, "sides": {}}
+        device = self.robot.device
+        dtype = self.robot.data.body_pose_w.dtype
+        for side, _sensor in self.tactile_sensors:
+            body_name = TACTILE_FINGERTIP_BODY_BY_SIDE[side]
+            body_id = int(self.robot.find_bodies([body_name], preserve_order=True)[0][0])
+            fingertip_pose = self.robot.data.body_pose_w[:, body_id]
+            fingertip_pos = fingertip_pose[:, 0:3]
+            fingertip_quat = fingertip_pose[:, 3:7]
+            connector_pos, connector_quat = math_utils.combine_frame_transforms(
+                fingertip_pos,
+                fingertip_quat,
+                torch.tensor([CONNECTOR_LOCAL_TRANSLATION], device=device, dtype=dtype),
+                torch.tensor([CONNECTOR_LOCAL_QUAT_WXYZ], device=device, dtype=dtype),
+            )
+            case_pos, case_quat = math_utils.combine_frame_transforms(
+                connector_pos,
+                connector_quat,
+                torch.tensor([CASE_LOCAL_TRANSLATION], device=device, dtype=dtype),
+                torch.tensor([CASE_LOCAL_QUAT_WXYZ], device=device, dtype=dtype),
+            )
+            gelpad_pos, gelpad_quat = math_utils.combine_frame_transforms(
+                case_pos,
+                case_quat,
+                torch.tensor([GELPAD_LOCAL_TRANSLATION], device=device, dtype=dtype),
+                torch.tensor([GELPAD_LOCAL_QUAT_WXYZ], device=device, dtype=dtype),
+            )
+            paths = phase2_sensor_prim_paths()[side]
+            self._set_tactile_shell_world_pose(paths["case"], case_pos[0], case_quat[0])
+            self._set_tactile_shell_world_pose(paths["gelpad"], gelpad_pos[0], gelpad_quat[0])
+            pose_summary["sides"][side] = {
+                "finger_body": body_name,
+                "sensor_case_world_m": _list_tensor(case_pos[0]),
+                "sensor_gelpad_world_m": _list_tensor(gelpad_pos[0]),
+            }
+        self._last_tactile_pose_sync = pose_summary
+        return pose_summary
+
+    @staticmethod
+    def _tactile_rgb_tensor(output: dict[str, Any]) -> torch.Tensor | None:
+        frame = output.get("tactile_rgb")
+        if frame is None or not hasattr(frame, "detach"):
+            return None
+        return frame.detach()
+
+    @staticmethod
+    def _tactile_rgb_mean_abs_delta(frame: torch.Tensor, baseline: torch.Tensor | None) -> float | None:
+        if baseline is None:
+            return None
+        try:
+            current = frame.detach()
+            reference = baseline.detach().to(device=current.device, dtype=current.dtype)
+            if current.shape != reference.shape:
+                return None
+            return float(torch.mean(torch.abs(current - reference)).item())
+        except Exception:
+            return None
+
+    @staticmethod
+    def _sensor_optical_simulator_geometry(sensor: Any) -> dict[str, float]:
+        optical_sim = getattr(sensor, "optical_simulator", None)
+        cfg = getattr(optical_sim, "cfg", None)
+        gelpad_to_camera = float(getattr(cfg, "gelpad_to_camera_min_distance", 0.024) or 0.024)
+        gelpad_height = float(getattr(cfg, "gelpad_height", 0.0045) or 0.0045)
+        return {
+            "gelpad_to_camera_min_distance_m": gelpad_to_camera,
+            "gelpad_height_m": gelpad_height,
+            "far_gelpad_surface_mm": (gelpad_to_camera + gelpad_height) * 1000.0,
+        }
+
+    @staticmethod
+    def _clamp_unit(value: float, limit: float = 0.60) -> float:
+        return max(-limit, min(limit, float(value)))
+
+    def _continuous_imprint_depth_mm(self, side_geometry: dict[str, Any], contact_state: dict[str, Any], side: str) -> float:
+        min_depth = max(0.01, float(self.options.tactile_imprint_min_depth_mm))
+        max_depth = max(min_depth, float(self.options.tactile_imprint_max_depth_mm))
+        margin_m = float(side_geometry.get("contact_margin_m", 0.0) or 0.0)
+        min_overlap_m = float(side_geometry.get("soft_mesh_aabb_min_overlap_m", -margin_m) or -margin_m)
+        overlap_inside_margin_mm = max(0.0, min_overlap_m + margin_m) * 1000.0
+        geometry_depth = min_depth + max(0.0, float(self.options.tactile_imprint_depth_per_mm_overlap)) * overlap_inside_margin_mm
+
+        force_by_side = contact_state.get("force_by_side_n", {}) if isinstance(contact_state, dict) else {}
+        force_n = max(0.0, float(force_by_side.get(side, 0.0) or 0.0))
+        force_depth = 0.0
+        if self.object_profile.stable_force_threshold_n > 0.0:
+            force_depth = min_depth * min(2.0, force_n / self.object_profile.stable_force_threshold_n)
+        return max(min_depth, min(max_depth, geometry_depth + force_depth))
+
+    def _continuous_imprint_center_xy(self, side_geometry: dict[str, Any], contact_state: dict[str, Any]) -> tuple[float, float]:
+        geometry = contact_state.get("geometry", {}) if isinstance(contact_state, dict) else {}
+        object_center = geometry.get("object_aabb", {}).get("center_world_m")
+        soft_center = side_geometry.get("center_world_m")
+        if not object_center or not soft_center:
+            return (0.0, 0.0)
+        # Keep this deliberately heuristic and bounded: the goal is to preserve a
+        # continuous, contact-relative patch inside the TacEx/Taxim optical model,
+        # not to claim a calibrated pixel-to-world registration.
+        lateral_scale_m = 0.035
+        vertical_scale_m = 0.035
+        center_x = self._clamp_unit((float(object_center[1]) - float(soft_center[1])) / lateral_scale_m)
+        center_y = self._clamp_unit(-(float(object_center[2]) - float(soft_center[2])) / vertical_scale_m)
+        return (center_x, center_y)
+
+    def _apply_continuous_taxim_imprint(
+        self,
+        sensor: Any,
+        output: dict[str, Any],
+        *,
+        side: str,
+        side_geometry: dict[str, Any],
+        contact_state: dict[str, Any],
+    ) -> dict[str, Any]:
+        optical_sim = getattr(sensor, "optical_simulator", None)
+        sensor_data = getattr(sensor, "_data", None)
+        sensor_output = getattr(sensor_data, "output", None)
+        if optical_sim is None or sensor_output is None or "height_map" not in sensor_output or "tactile_rgb" not in output:
+            return {"applied": False, "reason": "missing TacEx optical simulator, height_map, or tactile_rgb output"}
+
+        height_map = sensor_output["height_map"]
+        if not hasattr(height_map, "shape") or height_map.ndim != 3:
+            return {"applied": False, "reason": f"unsupported height_map shape: {getattr(height_map, 'shape', None)}"}
+
+        _, height, width = height_map.shape
+        geometry = self._sensor_optical_simulator_geometry(sensor)
+        base_mm = geometry["far_gelpad_surface_mm"]
+        depth_mm = self._continuous_imprint_depth_mm(side_geometry, contact_state, side)
+        center_x, center_y = self._continuous_imprint_center_xy(side_geometry, contact_state)
+        device = height_map.device
+        dtype = height_map.dtype
+        y = torch.linspace(-1.0, 1.0, height, device=device, dtype=dtype).reshape(1, height, 1)
+        x = torch.linspace(-1.0, 1.0, width, device=device, dtype=dtype).reshape(1, 1, width)
+        sigma_x = torch.tensor(max(0.05, float(self.options.tactile_imprint_sigma_x)), device=device, dtype=dtype)
+        sigma_y = torch.tensor(max(0.05, float(self.options.tactile_imprint_sigma_y)), device=device, dtype=dtype)
+        imprint = torch.exp(
+            -0.5
+            * (
+                ((x - torch.tensor(center_x, device=device, dtype=dtype)) / sigma_x) ** 2
+                + ((y - torch.tensor(center_y, device=device, dtype=dtype)) / sigma_y) ** 2
+            )
+        )
+        height_map[:] = torch.tensor(base_mm, device=device, dtype=dtype) - torch.tensor(depth_mm, device=device, dtype=dtype) * imprint
+
+        indentation = getattr(sensor, "_indentation_depth", None)
+        if indentation is not None:
+            indentation[:] = torch.tensor(depth_mm, device=indentation.device, dtype=indentation.dtype)
+        optical_indentation = getattr(optical_sim, "_indentation_depth", None)
+        if optical_indentation is not None:
+            optical_indentation[:] = torch.tensor(depth_mm, device=optical_indentation.device, dtype=optical_indentation.dtype)
+
+        rendered = optical_sim.optical_simulation()
+        target_rgb = output["tactile_rgb"]
+        if rendered.device != target_rgb.device or rendered.dtype != target_rgb.dtype:
+            rendered = rendered.to(device=target_rgb.device, dtype=target_rgb.dtype)
+        target_rgb[:] = rendered
+        return {
+            "applied": True,
+            "source": "phase3_continuous_soft_object_overlap_to_taxim_height_map",
+            "side": side,
+            "depth_mm": depth_mm,
+            "center_xy": [center_x, center_y],
+            "base_height_mm": base_mm,
+            "height_map_shape": [int(height), int(width)],
+            "soft_mesh_aabb_min_overlap_m": side_geometry.get("soft_mesh_aabb_min_overlap_m"),
+            **geometry,
+        }
+
+    def _maybe_apply_continuous_tactile_imprint(
+        self,
+        side: str,
+        sensor: Any,
+        output: dict[str, Any],
+        contact_state: dict[str, Any],
+    ) -> dict[str, Any]:
+        frame = self._tactile_rgb_tensor(output)
+        stats = self._tactile_imprint_stats.setdefault(
+            side,
+            {
+                "frames": 0,
+                "baseline_frames": 0,
+                "contact_frames": 0,
+                "applied_frames": 0,
+                "max_mean_abs_delta_before": 0.0,
+                "max_mean_abs_delta_after": 0.0,
+                "max_depth_mm": 0.0,
+            },
+        )
+        stats["frames"] = int(stats.get("frames", 0)) + 1
+        if frame is None:
+            return {"applied": False, "reason": "missing tactile_rgb frame"}
+
+        geometry = contact_state.get("geometry", {}) if isinstance(contact_state, dict) else {}
+        side_geometry = geometry.get("sides", {}).get(side, {})
+        contact_sides = set(contact_state.get("contact_sides", [])) if isinstance(contact_state, dict) else set()
+        if not self.options.tactile_contact_imprint_enabled:
+            self._tactile_imprint_baselines.setdefault(side, frame.detach().clone())
+            return {"applied": False, "reason": "continuous imprint disabled by options"}
+        if side not in contact_sides:
+            self._tactile_imprint_baselines[side] = frame.detach().clone()
+            stats["baseline_frames"] = int(stats.get("baseline_frames", 0)) + 1
+            return {"applied": False, "reason": "no contact on this side"}
+
+        stats["contact_frames"] = int(stats.get("contact_frames", 0)) + 1
+        baseline = self._tactile_imprint_baselines.get(side)
+        before_delta = self._tactile_rgb_mean_abs_delta(frame, baseline)
+        if before_delta is not None:
+            stats["max_mean_abs_delta_before"] = max(float(stats.get("max_mean_abs_delta_before", 0.0)), before_delta)
+
+        result = self._apply_continuous_taxim_imprint(
+            sensor,
+            output,
+            side=side,
+            side_geometry=side_geometry,
+            contact_state=contact_state,
+        )
+        after_frame = self._tactile_rgb_tensor(output)
+        after_delta = self._tactile_rgb_mean_abs_delta(after_frame, baseline) if after_frame is not None else None
+        if after_delta is not None:
+            stats["max_mean_abs_delta_after"] = max(float(stats.get("max_mean_abs_delta_after", 0.0)), after_delta)
+        if result.get("applied"):
+            stats["applied_frames"] = int(stats.get("applied_frames", 0)) + 1
+            stats["max_depth_mm"] = max(float(stats.get("max_depth_mm", 0.0)), float(result.get("depth_mm", 0.0) or 0.0))
+        stats.update(
+            {
+                "last_contact": True,
+                "last_contact_sides": sorted(contact_sides),
+                "last_mean_abs_delta_before": before_delta,
+                "last_mean_abs_delta_after": after_delta,
+                "last_result": result,
+            }
+        )
+        return result
+
     def _capture_tactile_outputs(self) -> dict[str, dict[str, Any]]:
         if not self.tactile_sensors:
             return {}
@@ -63,11 +481,41 @@ class Phase3MotionMixin(Phase3GeometryMixin):
 
         outputs: dict[str, dict[str, Any]] = {}
         dt = self.sim.get_physics_dt()
+        contact_sides = set(self._last_contact_state.get("contact_sides", []))
+        self._delete_tactile_contact_proxies()
+        self._delete_phase2_static_contact_probe()
+        rebuilt_sensors: list[tuple[str, Any]] = []
+        imprint_results: dict[str, Any] = {}
         for side, sensor in self.tactile_sensors:
             try:
                 outputs[side] = dict(update_phase2_sensor(sensor, self.sim, dt=dt))
+                imprint_results[side] = self._maybe_apply_continuous_tactile_imprint(
+                    side,
+                    sensor,
+                    outputs[side],
+                    self._last_contact_state,
+                )
             except Exception as exc:  # pragma: no cover - Isaac runtime only
                 outputs[side] = {"error": str(exc)}
+                imprint_results[side] = {"applied": False, "error": str(exc)}
+            rebuilt_sensors.append((side, sensor))
+        self.tactile_sensors = rebuilt_sensors
+        self._last_tactile_sensor_refresh = {
+            "refreshed": False,
+            "sides": [],
+            "mode": "continuous_imprint_no_static_probe_rebuild",
+        }
+        self._last_tactile_contact_proxy = {
+            "enabled": False,
+            "mode": "disabled_replaced_by_continuous_taxim_contact_imprint",
+        }
+        self._last_tactile_imprint = {
+            "enabled": self.options.tactile_contact_imprint_enabled,
+            "contact_sides": sorted(contact_sides),
+            "mode": "continuous_taxim_height_map",
+            "results": imprint_results,
+            "stats": self._tactile_imprint_stats,
+        }
         self._last_tactile_outputs = outputs
         return outputs
 
@@ -95,6 +543,8 @@ class Phase3MotionMixin(Phase3GeometryMixin):
     def _log_sample(self, logger: Phase3TrialLogger, stage: str, *, force_tactile: bool = False) -> None:
         contact_state = self._read_contact_state()
         tactile_outputs = self._capture_tactile_outputs() if (force_tactile or self.tactile_sensors) else {}
+        contact_state = dict(contact_state)
+        contact_state["tactile_imprint"] = self._last_tactile_imprint
         logger.record_sample(
             timestamp=utc_now_iso(),
             action_stage=stage,
@@ -143,7 +593,12 @@ class Phase3MotionMixin(Phase3GeometryMixin):
                 "force_by_side_n": contact_state.get("force_by_side_n", {}),
             }
             force_log = True
-        if force_log or (self.options.sample_every_steps > 0 and self.budget.steps % self.options.sample_every_steps == 0):
+        sample_every_steps = (
+            self.options.tactile_sample_every_steps
+            if self.options.tactile_sample_every_steps is not None
+            else self.options.sample_every_steps
+        )
+        if force_log or (sample_every_steps > 0 and self.budget.steps % sample_every_steps == 0):
             self._log_sample(logger, stage, force_tactile=force_log)
 
     def _resolve_ik_indices(self) -> tuple[list[int], list[int], int, int]:
@@ -172,7 +627,12 @@ class Phase3MotionMixin(Phase3GeometryMixin):
             self.robot.update(dt)
             self.grasp_object.update(dt)
             self.budget.tick()
-            if self.options.sample_every_steps > 0 and self.budget.steps % self.options.sample_every_steps == 0:
+            sample_every_steps = (
+                self.options.tactile_sample_every_steps
+                if self.options.tactile_sample_every_steps is not None
+                else self.options.sample_every_steps
+            )
+            if sample_every_steps > 0 and self.budget.steps % sample_every_steps == 0:
                 self._log_sample(logger, stage)
 
     def _move_ee_to_pose(
@@ -246,11 +706,18 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         current_soft_pair_center_w = self._soft_mesh_pair_center_world()
         soft_offset_in_ee = quat_apply_inverse(ee_quat_w, (current_soft_pair_center_w.reshape(1, 3) - ee_pos_w))[0]
         desired_soft_pair_center_w = self._object_grasp_center_world()
+        approach_offset_w = torch.tensor(
+            getattr(self.object_profile, "approach_offset_world_m", (0.0, 0.0, 0.0)),
+            device=self.robot.device,
+            dtype=self.robot.data.root_pose_w.dtype,
+        )
+        desired_soft_pair_center_w = desired_soft_pair_center_w + approach_offset_w
         target_soft_offset_w = quat_apply(target_quat_w.reshape(1, 4), soft_offset_in_ee.reshape(1, 3))[0]
         target_ee_pos_w = desired_soft_pair_center_w - target_soft_offset_w
         return target_ee_pos_w.to(device=self.robot.device, dtype=self.robot.data.root_pose_w.dtype), {
             "mode": "soft_mesh_pair_center_to_object_grasp_center",
             "desired_soft_pair_center_world_m": _list_tensor(desired_soft_pair_center_w),
+            "approach_offset_world_m": _list_tensor(approach_offset_w),
             "pregrasp_ee_world_m": _list_tensor(ee_pos_w[0]),
             "pregrasp_soft_pair_center_world_m": _list_tensor(current_soft_pair_center_w),
             "soft_offset_in_ee_frame_m": _list_tensor(soft_offset_in_ee),
@@ -268,7 +735,12 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         ee_jacobian_index: int,
         gripper_joint_target: torch.Tensor,
     ) -> dict[str, Any]:
-        desired = self._object_grasp_center_world()
+        approach_offset_w = torch.tensor(
+            getattr(self.object_profile, "approach_offset_world_m", (0.0, 0.0, 0.0)),
+            device=self.robot.device,
+            dtype=self.robot.data.root_pose_w.dtype,
+        )
+        desired = self._object_grasp_center_world() + approach_offset_w
         rounds: list[dict[str, Any]] = []
         stage = "contact_close" if getattr(self.object_profile, "contact_approach_refine", False) else "pre_grasp"
         for round_index in range(1, self.options.soft_center_refine_rounds + 1):
@@ -364,6 +836,10 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         stopped_by_high_force = False
         stopped_by_object_lift = False
         max_object_lift_m = 0.0
+        bilateral_contact_detected = False
+        bilateral_contact_step: int | None = None
+        max_force_seen_n = 0.0
+        final_contact_state: dict[str, Any] = {}
         for index in range(max(1, self.options.close_steps)):
             if self.budget.exhausted:
                 break
@@ -379,18 +855,27 @@ class Phase3MotionMixin(Phase3GeometryMixin):
                 gripper_joint_target=final_target,
             )
             contact_state = self._last_contact_state
+            final_contact_state = contact_state
             force_by_side = contact_state.get("force_by_side_n", {})
+            contact_sides = set(contact_state.get("contact_sides", []))
+            if {"left", "right"}.issubset(contact_sides):
+                bilateral_contact_detected = True
+                if bilateral_contact_step is None:
+                    bilateral_contact_step = index + 1
             both_sides_stable = bool(force_by_side and all(float(force_by_side.get(side, 0.0)) >= self.object_profile.stable_force_threshold_n for side in ("left", "right")))
             stable_counter = stable_counter + 1 if both_sides_stable else 0
             max_force_n = float(contact_state.get("max_force_n", 0.0) or 0.0)
+            max_force_seen_n = max(max_force_seen_n, max_force_n)
             object_lift_m = float(self.grasp_object.data.root_pose_w[0, 2].item()) - object_z0
             max_object_lift_m = max(max_object_lift_m, object_lift_m)
             force_history.append({
                 "step": index + 1,
                 "planned_close_rad": planned_close_rad,
+                "contact_sides": sorted(contact_sides),
                 "force_by_side_n": force_by_side,
                 "max_force_n": max_force_n,
                 "both_sides_stable": both_sides_stable,
+                "bilateral_contact_detected": bilateral_contact_detected,
                 "object_lift_m": object_lift_m,
             })
             if max_force_n >= self.object_profile.high_force_threshold_n:
@@ -418,7 +903,11 @@ class Phase3MotionMixin(Phase3GeometryMixin):
             "stopped_by_high_force": stopped_by_high_force,
             "stopped_by_object_lift": stopped_by_object_lift,
             "stable_counter": stable_counter,
+            "bilateral_contact_detected": bilateral_contact_detected,
+            "bilateral_contact_step": bilateral_contact_step,
+            "max_force_seen_n": max_force_seen_n,
             "max_object_lift_m": max_object_lift_m,
+            "final_contact_state": final_contact_state,
             "force_history_tail": force_history[-20:],
             "settle": settle,
         }
@@ -450,6 +939,7 @@ class Phase3MotionMixin(Phase3GeometryMixin):
             return {"enabled": False}
         ee_pos, ee_quat = self._ee_pose(ee_body)
         distance = max(self.protocol_profile.micro_lift_distance_m, self.object_profile.micro_lift_distance_m)
+        object_z0 = float(self.grasp_object.data.root_pose_w[0, 2].item())
         move = self._move_ee_to_pose(
             logger,
             stage="micro_lift",
@@ -464,8 +954,20 @@ class Phase3MotionMixin(Phase3GeometryMixin):
             pos_tolerance=self.options.direct_pos_tolerance_m,
             max_joint_delta=self.options.max_joint_delta_per_step,
         )
+        final_object_z = float(self.grasp_object.data.root_pose_w[0, 2].item())
+        object_lift_m = final_object_z - object_z0
+        min_required_object_lift_m = max(0.0015, min(0.004, distance * 0.25))
         self._log_sample(logger, "micro_lift", force_tactile=True)
-        return {"enabled": True, "distance_m": distance, "move": move}
+        return {
+            "enabled": True,
+            "distance_m": distance,
+            "move": move,
+            "pre_lift_object_z_m": object_z0,
+            "final_object_z_m": final_object_z,
+            "object_lift_m": object_lift_m,
+            "min_required_object_lift_m": min_required_object_lift_m,
+            "object_lift_passed": object_lift_m >= min_required_object_lift_m,
+        }
 
     def _run_release(self, logger: Phase3TrialLogger, arm_joint_ids: list[int], arm_hold_target: torch.Tensor, gripper_joint_ids: list[int]) -> dict[str, Any]:
         release_target = self._open_gripper_target()
@@ -473,16 +975,43 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         self._log_sample(logger, "release", force_tactile=True)
         return summary
 
-    def _failure_reasons(self, direct_move: dict[str, Any], contact_onset: dict[str, Any], close_summary: dict[str, Any]) -> list[str]:
+    def _failure_reasons(
+        self,
+        direct_move: dict[str, Any],
+        contact_onset: dict[str, Any],
+        close_summary: dict[str, Any],
+        micro_lift_summary: dict[str, Any],
+    ) -> list[str]:
         failed_reasons: list[str] = []
         if self.budget.exhausted:
             failed_reasons.append("global step budget exhausted")
-        if not direct_move.get("passed"):
+        direct_error = float(direct_move.get("final_position_error_m", math.inf) or math.inf)
+        direct_accepted = bool(direct_move.get("passed")) or direct_error <= self.options.direct_pass_tolerance_m
+        direct_move["accepted_pass_tolerance_m"] = self.options.direct_pass_tolerance_m
+        direct_move["accepted_for_trial"] = direct_accepted
+        if not direct_accepted and not contact_onset.get("detected"):
             failed_reasons.append("direct pre-grasp IK target not reached")
         if not contact_onset.get("detected"):
             failed_reasons.append("contact_onset not detected")
+        if not close_summary.get("bilateral_contact_detected"):
+            failed_reasons.append("bilateral GSmini contact not detected during close")
         if close_summary.get("stopped_by_high_force"):
             failed_reasons.append("close stopped by high force")
         if close_summary.get("stopped_by_object_lift"):
             failed_reasons.append("close stopped by object lift guard")
+        if not micro_lift_summary.get("enabled"):
+            failed_reasons.append("micro lift stage not enabled by protocol")
+        else:
+            lift_move = micro_lift_summary.get("move", {})
+            lift_error = float(lift_move.get("final_position_error_m", math.inf) or math.inf)
+            lift_accepted = bool(lift_move.get("passed")) or lift_error <= self.options.direct_pass_tolerance_m
+            lift_move["accepted_pass_tolerance_m"] = self.options.direct_pass_tolerance_m
+            lift_move["accepted_for_trial"] = lift_accepted
+            if not lift_accepted:
+                failed_reasons.append("micro lift IK target not reached")
+            if not micro_lift_summary.get("object_lift_passed"):
+                failed_reasons.append(
+                    "object did not lift with the gripper "
+                    f"({float(micro_lift_summary.get('object_lift_m', 0.0)):.4f} m)"
+                )
         return failed_reasons

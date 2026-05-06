@@ -305,7 +305,7 @@ class Phase3TrialLogger:
             encoding="utf-8",
         )
         with self.paths.frame_map_csv.open("w", encoding="utf-8", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=FRAME_MAP_COLUMNS)
+            writer = csv.DictWriter(stream, fieldnames=FRAME_MAP_COLUMNS, lineterminator="\n")
             writer.writeheader()
             for row in self.frame_rows:
                 writer.writerow({column: row.get(column, "") for column in FRAME_MAP_COLUMNS})
