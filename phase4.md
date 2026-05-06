@@ -1,12 +1,17 @@
-# Phase 4：Cube-only Phase3 artifacts → Sparsh force/slip bridge feasibility
+# Phase 4：Cube-only Phase3 artifacts → Sparsh force/slip bridge and cube-trial optimization
 
 ## 目标
 
-Phase 4 当前收窄为一个 **format bridge / smoke-test 阶段**：
+Phase 4 当前收窄为一个 **分步式 format bridge + smoke test + cube-trial optimization 规划阶段**：
 
-> **只使用当前仿真中已经采集的 cube Phase3 artifacts，不采集实物数据，不考虑 forcefield，把 Phase3 cube tactile/logging 数据整理成尽量接近 Sparsh force estimation / slip detection 的输入格式，并验证 Sparsh 现有模块能否与这些仿真数据连通。**
+> **先把当前仿真中已经采集的 cube Phase3 artifacts 转成 Sparsh force estimation / slip detection 可消费的格式，完成 dataloader / model-forward 连通性验证；随后再通过有设计地增加 cube trials，逐步补足 force labels 与 slip labels，使后续 force/slip evaluation 变得可信。**
 
-本阶段优先回答“能不能接上数据管线”，不是回答“模型效果是否可信”。
+本阶段不追求立刻得到可信 force/slip 指标，而是按阶段明确：
+
+1. 当前数据能否接上 Sparsh 数据管线。
+2. 当前 labels 哪些只是 placeholder / proxy，不能用于指标。
+3. 后续需要怎样采更多 cube trials，才能让 force/slip labels 逐步有效。
+4. 满足什么 gate 后，才允许进入真正 force/slip evaluation 或 adaptation。
 
 ---
 
@@ -16,23 +21,23 @@ Phase 4 当前收窄为一个 **format bridge / smoke-test 阶段**：
 
 - object：`cube`
 - data source：`tactile_grasp/artifacts/phase3/phase3_cube_*`
-- Sparsh task：
+- Sparsh tasks：
   - force estimation
   - slip detection
 - 目标：
-  - 分析 Phase3 artifact 格式与 Sparsh force/slip loader 格式差异。
-  - 生成或规划一个 derived Sparsh-compatible view。
-  - 尝试让 Sparsh 现有 force/slip 模块完成 dataloader + model forward / smoke test。
+  - 将 Phase3 cube artifacts 映射 / 转换为 Sparsh-like force/slip 数据格式。
+  - 用当前数据完成 dataloader / forward smoke test。
+  - 规划更多 cube trials 的采集方式，用于补齐 force/slip labels。
 
 ### 不考虑
 
 - forcefield demo / forcefield decoder。
-- chips_can / cracker_box。
+- `chips_can` / `cracker_box`。
 - 实物 GelSight Mini 数据采集。
 - Sparsh adaptation / fine-tuning。
 - closed-loop control。
 - GraspNet / RL。
-- 把当前 Phase3 labels 伪装成真实 force/slip ground truth。
+- 把当前 Phase3 `contact_onset` / `success_label` 直接当成真实 force/slip labels。
 
 ---
 
@@ -46,7 +51,7 @@ Phase 4 当前收窄为一个 **format bridge / smoke-test 阶段**：
 - `tactile_grasp/artifacts/phase3/phase3_cube_*/tactile/*_tactile_rgb.npy`
 - optional preview：`*_tactile_rgb.png`
 
-当前检查到的 cube trials：
+当前 artifacts 目录下可见 cube trials：
 
 ```text
 phase3_cube_0001
@@ -54,23 +59,23 @@ phase3_cube_0002
 phase3_cube_0003
 ```
 
-> 注：之前 `phase3.md` 曾记录 10 条 cube clean trials，但当前 artifacts 目录下可见的是 3 条 cube trials。因此 Phase4 当前以实际存在的 cube artifacts 为准。
+> 注：`phase3.md` 中曾记录 10 条 cube clean trials，但当前 artifacts 目录可见的是 3 条 cube trials。因此 Phase4 当前以实际存在 artifacts 为准。
 
 ### Sparsh force/slip entry points
 
 - force config：`sparsh/config/experiment/downstream_task/force/gelsight_dino.yaml`
 - slip config：`sparsh/config/experiment/downstream_task/slip/gelsight_dino.yaml`
 - shared data config：`sparsh/config/data/gelsight_force.yaml`
-- combined force/slip dataset：`sparsh/tactile_ssl/data/vision_based_forces_slip_probes.py`
+- force/slip dataset：`sparsh/tactile_ssl/data/vision_based_forces_slip_probes.py`
 - force tester：`sparsh/tactile_ssl/test/test_t1_force.py`
 - slip tester：`sparsh/tactile_ssl/test/test_t2_slip.py`
-- Sparsh dataset loading helper：`sparsh/tactile_ssl/data/digit/utils.py`
+- dataset helper：`sparsh/tactile_ssl/data/digit/utils.py`
 
 ---
 
-# 当前 Phase3 artifact 格式
+# 当前 Phase3 cube artifact 格式
 
-每条 cube trial 的结构：
+每条 cube trial：
 
 ```text
 tactile_grasp/artifacts/phase3/phase3_cube_0001/
@@ -130,7 +135,7 @@ samples[]
   tactile_frame_ids
 ```
 
-其中 `contact_state` 当前有：
+`contact_state` 当前提供：
 
 ```text
 contact_detected
@@ -142,13 +147,13 @@ max_force_n
 geometry
 ```
 
-重要观察：当前 cube artifact 中可看到 `contact_detected` / geometry contact，但 `force_by_side_n` 示例为 0.0。这意味着当前数据有接触事件与触觉图像变化，但没有可直接作为 force estimation ground truth 的可靠非零 force label。
+重要观察：当前 cube artifacts 有 tactile frames、stage、contact flag、robot-state alignment；但 `force_by_side_n` 示例为 0.0，且没有明确 slip event label。因此当前数据足够做 **格式连通性验证**，不足以做可信 force/slip 指标。
 
 ---
 
 # Sparsh force/slip 期望格式
 
-当前 `gelsight_force.yaml` 默认使用：
+`gelsight_force.yaml` 默认使用：
 
 ```text
 _target_: tactile_ssl.data.vision_based_forces_slip_probes.VisionForceSlipDataset
@@ -158,43 +163,36 @@ num_frames: 2
 frame_stride: 5
 ```
 
-`VisionForceSlipDataset` 通过 `load_dataset_forces(config, dataset_name, sensor)` 读取：
+Sparsh loader 期望：
 
 ```text
 <path_dataset>/<dataset_name>/dataset_slip_forces.pkl
-<path_dataset>/<dataset_name>/dataset_gelsight*   # pickle list of images / arrays / buffers
+<path_dataset>/<dataset_name>/dataset_gelsight*   # pickle list of tactile images / arrays / buffers
 ```
 
-## `dataset_slip_forces.pkl` 至少需要
+`dataset_slip_forces.pkl` 至少需要：
 
 ```python
 {
-  "in_contact": np.ndarray,        # per-frame contact flag
+  "in_contact": np.ndarray,
   "trajectories": {
     trajectory_id: {
-      "indexes": np.ndarray,      # indexes into dataset_gelsight image list
-      "forces": np.ndarray,       # shape [T, 3], force labels
-      "slip_label": np.ndarray,   # shape [T], 0/1 labels
-      # some loaders may use delta_forces in older paths
+      "indexes": np.ndarray,
+      "forces": np.ndarray,      # [T, 3]
+      "slip_label": np.ndarray,  # [T], 0/1
     }
   }
 }
 ```
 
-## Force task loader output
-
-Force tester expects dataloader samples like：
+Force task sample：
 
 ```python
 sample["image"]
 sample["force"]
 ```
 
-`TestForceSL` reports RMSE / correlation only if `force` is true label.
-
-## Slip task loader output
-
-Slip tester expects dataloader samples like：
+Slip task sample：
 
 ```python
 sample["image"]
@@ -202,287 +200,380 @@ sample["slip_label"]
 sample["delta_force"]
 ```
 
-`TestSlipSL` reports balanced accuracy / classification metrics / delta-force metrics only if `slip_label` and `delta_force` are meaningful labels.
-
 ---
 
-# Phase3 → Sparsh 格式映射
+# Phase3 → Sparsh 映射可行性
 
-## 可直接映射的部分
+## 可直接映射
 
 | Phase3 | Sparsh-compatible view | 可行性 |
 | --- | --- | --- |
 | `*_tactile_rgb.npy` | `dataset_gelsight_cube.pkl` image list | 高 |
-| `frame_map.csv.frame_id` | image index / frame metadata | 高 |
+| `frame_map.csv.frame_id` | image index / metadata | 高 |
 | `frame_map.csv.action_stage` | trajectory stage metadata | 高 |
-| `frame_map.csv.contact_detected` | `in_contact` | 中-高：可作为 contact flag，不等于 slip label |
+| `frame_map.csv.contact_detected` | `in_contact` | 中-高：contact flag，不等于 slip label |
 | `robot_state.samples[].tactile_frame_ids` | frame → state alignment | 高 |
-| `meta.success_label` | trial-level grasp success metadata | 中：不用于 force/slip metric |
+| `meta.success_label` | trial-level metadata | 中：不能用于 force/slip metric |
 
-## 缺失或不可靠的部分
+## 缺失 / 不可靠
 
-| Sparsh expected | 当前 Phase3 cube artifact 状态 | 影响 |
+| Sparsh expected | 当前状态 | 影响 |
 | --- | --- | --- |
-| true `forces[:, 3]` | 当前 `force_by_side_n` 示例为 0.0；缺少可靠三轴 force label | 不能做可信 force metric |
-| true `slip_label` | 当前 protocol 是 contact_hold，没有明确 slip event label | 不能做可信 slip metric |
-| true `delta_force` | 可由 forces 差分得到，但 forces 本身不可靠 | 不能做可信 slip delta-force metric |
-| sufficient class diversity | 当前 cube trials 少，且多为 clean success/contact_hold | 不足以评估 slip classifier |
+| true `forces[:, 3]` | `force_by_side_n` 示例为 0.0；缺少可靠三轴 force label | 不能做可信 force metric |
+| true `slip_label` | 当前 `contact_hold` protocol 没有受控 slip event | 不能做可信 slip metric |
+| true `delta_force` | 依赖 force 差分；force 不可靠时 delta_force 也不可靠 | 不能做可信 slip metric |
+| enough trial diversity | 当前 cube trials 数量少，且多为 clean success/contact_hold | 不足以评估 classifier |
 
 ---
 
-# 可行性分析
+# Phase 4 分步操作计划
 
-## 结论概览
+## Step 1 — 当前 cube artifacts inventory
 
-| 目标 | 可行性 | 说明 |
-| --- | --- | --- |
-| 把 cube Phase3 tactile frames 整理成 Sparsh-like image list | 高 | `.npy`/`.png` 可转为 pickle image list，路径和 stage 可由 `frame_map.csv` 组织 |
-| 构建 `dataset_slip_forces.pkl` 的结构壳 | 高 | `in_contact` 和 `trajectories.indexes` 可由 frame_map / robot_state 生成 |
-| 跑通 Sparsh dataloader smoke | 中-高 | 需要生成符合 loader 预期的 pickle 和 config override；不依赖实物数据 |
-| 跑通 Sparsh model forward smoke | 中 | 取决于 checkpoint / package / config 是否可用；数据形状可适配 |
-| 获得可信 force estimation metrics | 低 | 当前 artifacts 缺少真实 force label，`force_by_side_n` 似乎为 0 |
-| 获得可信 slip detection metrics | 低 | 当前 artifacts 缺少真实 slip events / slip labels |
-| 用当前数据证明 Sparsh 在 cube grasp 上有效 | 不可行 | 当前只能证明“连接上”，不能证明模型有效 |
+### 目标
 
-## 推荐判断
+确认当前能用于 bridge 的 cube 数据到底有哪些。
 
-本阶段是可行的，但应定义为：
+### 操作
 
-> **Sparsh force/slip data-contract bridge + forward smoke test**
-
-而不是：
-
-> Sparsh force/slip evaluation
-
-因为当前仿真 artifacts 有足够的信息构建 Sparsh-like 数据容器，但没有足够真实监督信号支撑 force/slip 指标。
-
----
-
-# 推荐技术路线
-
-## Option A — Recommended：Derived Sparsh-compatible dataset view
-
-不修改原始 Phase3 artifacts，另建 derived 输出：
-
-```text
-tactile_grasp/artifacts/phase4_sparsh_cube/
-  cube_phase3_bridge/
-    dataset_gelsight_cube.pkl
-    dataset_slip_forces.pkl
-    manifest.csv
-    README.md
-```
-
-### 生成内容
-
-1. `dataset_gelsight_cube.pkl`
-   - pickle list。
-   - 每个元素为 RGB image array 或 Sparsh `load_sample_from_buf` 能接受的 buffer / ndarray。
-   - 数据来自 `phase3_cube_*/tactile/*_tactile_rgb.npy`。
-
-2. `dataset_slip_forces.pkl`
-   - 结构匹配 Sparsh loader。
-   - `in_contact` 来自 `frame_map.csv.contact_detected` 或 `robot_state.contact_state.contact_detected`。
-   - `trajectories[trial_id]["indexes"]` 指向对应 image list index。
-   - `forces` 暂时只能是：
-     - placeholder zeros，或
-     - geometry/contact proxy，或
-     - 如果后续修复 sim contact sensor，则使用真实 sim force。
-   - `slip_label` 暂时只能是：
-     - all-zero no-slip placeholder，或
-     - 后续专门仿真 slip protocol 生成。
-
-3. `manifest.csv`
-   - 保留所有 provenance：
-     - trial_id
-     - side
-     - frame_id
-     - source_path
-     - action_stage
-     - contact_detected
-     - robot_state_index
-     - label_source：`placeholder` / `sim_contact_sensor` / `geometry_proxy`
-     - label_valid_for_metrics：true/false
-
-### 为什么推荐
-
-- 不破坏 Phase3 raw artifacts。
-- 最大限度复用 Sparsh 原 loader/config。
-- 明确区分“格式连通”和“监督指标有效”。
-- 后续如果有真实 sim force/slip labels，只需替换 derived label 字段。
-
----
-
-## Option B：写自定义 PyTorch Dataset adapter
-
-新增一个 dataset 类，直接读取 Phase3 `frame_map.csv` / `robot_state.json`，输出：
-
-```python
-{
-  "image": ...,
-  "force": ...,
-  "delta_force": ...,
-  "slip_label": ...,
-}
-```
-
-### 优点
-
-- 不需要伪装成 `dataset_slip_forces.pkl`。
-- 更清晰表达 Phase3 native schema。
-
-### 缺点
-
-- 需要改 Sparsh config / 新增 dataset 类。
-- 与“格式修改为与 Sparsh 对应”的目标相比，侵入更大。
-
-当前不推荐作为第一步；可以作为 Option A 不足时的 fallback。
-
----
-
-# Phase 4 Task List（更新版）
-
-## Step 1 — 锁定 cube-only scope
-
-### 要做
-
-- 只枚举 `tactile_grasp/artifacts/phase3/phase3_cube_*`。
-- 确认每条 cube trial 的：
+- 枚举 `tactile_grasp/artifacts/phase3/phase3_cube_*`。
+- 对每条 trial 检查：
   - `meta.json`
   - `robot_state.json`
   - `frame_map.csv`
-  - tactile RGB frames
-- 不处理 `chips_can` / `cracker_box`。
-
-### 完成标准
-
-- 生成 cube trial inventory。
-- 明确当前可用 cube trial 数量。
-
----
-
-## Step 2 — 分析 Phase3 cube artifact → Sparsh force/slip contract
-
-### 要做
-
-- 读取 `frame_map.csv`。
-- 读取 `robot_state.json`。
+  - tactile RGB `.npy` / `.png`
 - 统计：
-  - frame count per trial / side / stage。
+  - trial 数量。
+  - 每条 trial 的 frame count。
+  - left/right sensor frame count。
+  - stage 分布：reset / pre_grasp / contact_close / hold / release / end_trial。
   - contact frames vs no-contact frames。
-  - 是否存在非零 force readings。
-  - 是否存在可用 slip label。
+  - 是否存在非零 `force_by_side_n`。
+
+### 输出
+
+```text
+tactile_grasp/artifacts/phase4_sparsh_cube/inventory.json
+tactile_grasp/artifacts/phase4_sparsh_cube/inventory.csv
+```
 
 ### 完成标准
 
-- 形成 contract gap report：
-  - image：PASS
-  - in_contact：PASS / approximate
-  - force：BLOCKED or proxy-only
-  - slip_label：BLOCKED or placeholder-only
-  - delta_force：BLOCKED unless force usable
+- 明确当前 cube 数据量。
+- 明确当前 force label 是否可用。
+- 明确当前 slip label 是否缺失。
 
 ---
 
-## Step 3 — 生成 derived Sparsh-compatible cube dataset
+## Step 2 — 生成当前数据的 Sparsh-compatible derived dataset
 
-### 要做
+### 目标
 
-输出目录：
+不修改 Phase3 raw artifacts，派生一个 Sparsh-like 数据视图。
+
+### 输出目录
 
 ```text
 tactile_grasp/artifacts/phase4_sparsh_cube/cube_phase3_bridge/
+  dataset_gelsight_cube.pkl
+  dataset_slip_forces.pkl
+  manifest.csv
+  README.md
 ```
 
-生成：
+### 操作
 
-```text
-dataset_gelsight_cube.pkl
-dataset_slip_forces.pkl
-manifest.csv
-README.md
-```
+1. 读取所有 `phase3_cube_* / frame_map.csv`。
+2. 读取对应 tactile RGB `.npy`。
+3. 生成 `dataset_gelsight_cube.pkl`：
+   - pickle list。
+   - 每个元素为 RGB ndarray 或 Sparsh `load_sample_from_buf` 可接受格式。
+4. 生成 `dataset_slip_forces.pkl`：
+   - `in_contact` 来自 `frame_map.csv.contact_detected` 或 `robot_state.contact_state.contact_detected`。
+   - `trajectories[trial_id]["indexes"]` 指向 `dataset_gelsight_cube.pkl` 中的 image index。
+   - `forces` 初期只允许：
+     - placeholder zeros，或
+     - 明确标记的 geometry/contact proxy，或
+     - 后续修复 sim contact force 后替换为真实 sim force。
+   - `slip_label` 初期只允许：
+     - all-zero no-slip placeholder，或
+     - 后续 controlled-slip protocol 生成的真实仿真 label。
+5. 生成 `manifest.csv`，保留 provenance：
+   - trial_id
+   - side
+   - frame_id
+   - source_path
+   - action_stage
+   - contact_detected
+   - robot_state_index
+   - force_label_source：`placeholder` / `geometry_proxy` / `sim_contact_sensor`
+   - slip_label_source：`placeholder` / `controlled_slip_protocol`
+   - label_valid_for_metrics：true/false
 
 ### 完成标准
 
 - Sparsh loader 能找到：
   - `dataset_slip_forces.pkl`
   - `dataset_gelsight*`
-- `manifest.csv` 能追溯每个 sample 到 Phase3 原始 frame。
-- label validity 在 README / manifest 中明确标注。
+- 每个 derived sample 都能追溯回 Phase3 原始 frame。
+- README 明确写出：当前 labels 是否有效，哪些只是 placeholder。
 
 ---
 
-## Step 4 — 配置 Sparsh force estimation smoke
+## Step 3 — Force estimation dataloader / forward smoke
 
-### 要做
+### 目标
 
-- 使用 `gelsight_dino` force config。
-- 将 `path_dataset` override 到 derived cube bridge root。
-- 将 `list_datasets_test` / `test.data.dataset_name` 指向 `cube_phase3_bridge`。
-- 尝试 dataloader instantiate。
-- 如果 checkpoint 可用，尝试 model forward。
+验证 Sparsh force estimation 模块能否消费 derived cube dataset。
 
-### 完成标准
+### 操作
 
-Force lane 必须输出：
+- 使用 `sparsh/config/experiment/downstream_task/force/gelsight_dino.yaml`。
+- override：
+  - `data.dataset.config.path_dataset=tactile_grasp/artifacts/phase4_sparsh_cube/`
+  - dataset name 指向 `cube_phase3_bridge`。
+- 先只做 dataloader instantiate。
+- 如果 checkpoint / environment 可用，再做 model forward。
+
+### 输出状态
+
+Force lane 必须输出以下之一：
 
 - `PASS_FORWARD`：dataloader + model forward 成功。
-- `PASS_DATALOADER_ONLY`：dataloader 成功，checkpoint/model 阻塞。
-- `BLOCKED-with-exact-contract`：明确缺少哪一个契约。
+- `PASS_DATALOADER_ONLY`：dataloader 成功，但 checkpoint / model / environment 阻塞。
+- `BLOCKED-with-exact-contract`：明确缺失哪个文件、字段、shape、checkpoint 或 package。
 
-### 注意
+### 重要限制
 
-即使 forward 成功，当前也只能叫 smoke test，不能叫可信 force evaluation。
+如果 `forces` 使用 placeholder / proxy：
+
+- 不允许报告可信 RMSE / correlation。
+- 只能记录为 `METRIC_VALIDITY=invalid` 或 `proxy-only`。
 
 ---
 
-## Step 5 — 配置 Sparsh slip detection smoke
+## Step 4 — Slip detection dataloader / forward smoke
 
-### 要做
+### 目标
 
-- 使用 `gelsight_dino` slip config。
-- 复用同一个 derived cube bridge dataset。
-- 尝试 dataloader instantiate。
-- 如果 checkpoint 可用，尝试 model forward。
+验证 Sparsh slip detection 模块能否消费 derived cube dataset。
 
-### 完成标准
+### 操作
 
-Slip lane 必须输出：
+- 使用 `sparsh/config/experiment/downstream_task/slip/gelsight_dino.yaml`。
+- 复用 `cube_phase3_bridge`。
+- 先只做 dataloader instantiate。
+- 如果 checkpoint / environment 可用，再做 model forward。
+
+### 输出状态
+
+Slip lane 必须输出以下之一：
 
 - `PASS_FORWARD`：dataloader + model forward 成功。
-- `PASS_DATALOADER_ONLY`：dataloader 成功，checkpoint/model 阻塞。
-- `BLOCKED-with-exact-contract`：明确缺少哪一个契约。
+- `PASS_DATALOADER_ONLY`：dataloader 成功，但 checkpoint / model / environment 阻塞。
+- `BLOCKED-with-exact-contract`：明确缺失哪个文件、字段、shape、checkpoint 或 package。
 
-### 注意
+### 重要限制
 
-当前 cube contact_hold 数据没有真实 slip labels；不能把 all-zero placeholder 结果当成 slip detection 结论。
+如果 `slip_label` 是 all-zero placeholder：
+
+- 不允许报告可信 balanced accuracy / F1。
+- 不允许把 no-slip placeholder 当作真实 slip detection 结论。
+- 只能记录为 `METRIC_VALIDITY=invalid`。
 
 ---
 
-## Step 6 — 总结连通性与下一步
+## Step 5 — 多采 cube trials：bridge robustness batch
 
-### 要做
+### 目标
 
-总结：
+在不改变 label 语义的情况下，先增加 cube 数据覆盖，让 bridge / dataloader 更稳。
 
-- Phase3 cube → Sparsh format bridge 是否成功。
-- Force dataloader / forward 是否成功。
-- Slip dataloader / forward 是否成功。
-- 哪些 labels 是 placeholder / proxy。
-- 是否需要后续仿真补采：
-  - nonzero contact force。
-  - controlled slip events。
-  - label validity checks。
+### 适合采集
+
+继续采 `contact_hold` / clean cube trials，但加入轻微扰动：
+
+- cube 初始位置微扰。
+- left / right / both contact coverage。
+- 不同 tactile sampling frequency。
+- 不同 stage length。
+- 不同 frame_stride 对应的连续帧。
+
+### 作用
+
+能优化：
+
+- 数据格式转换稳定性。
+- dataloader robustness。
+- before/contact/hold/release 阶段覆盖。
+- 左右 sensor coverage。
+
+不能解决：
+
+- true force label 缺失。
+- true slip label 缺失。
+- force/slip metric 无效。
 
 ### 完成标准
 
-明确给出：
+- bridge dataset 能稳定处理更多 cube trials。
+- manifest 能覆盖多 trial / 多 stage / 多 side。
+- force/slip metric 仍保持 invalid，除非 labels 被后续步骤补齐。
 
-- `FORMAT_BRIDGE_PASS / BLOCKED`
-- `FORCE_SMOKE_PASS / BLOCKED`
-- `SLIP_SMOKE_PASS / BLOCKED`
-- `METRIC_VALIDITY = invalid / limited / valid`
+---
+
+## Step 6 — 多采 cube trials：force-oriented protocol
+
+### 目标
+
+让 force labels 变得可用，而不是继续使用 0 force placeholder。
+
+### 推荐 protocol variants
+
+```text
+no_contact
+light_contact
+medium_contact
+firm_contact
+over_contact
+```
+
+### 需要记录
+
+- tactile frames。
+- gripper close target / finger joint position。
+- contact state。
+- contact force。
+- force side：left / right / both。
+- normal / shear force components。
+- force label source：`sim_contact_sensor` / `proxy`。
+
+### 关键要求
+
+优先修复 / 验证仿真 contact force logging：
+
+- `force_by_side_n` 不能一直为 0。
+- 最好能得到三轴 force 或至少可解释的 normal force。
+- 如果只能使用 penetration / AABB overlap 估计 force，必须标记为 `proxy-only`。
+
+### 完成标准
+
+- 至少存在多个 force magnitude levels。
+- force labels 非零且随 close level / contact state 有合理变化。
+- force label source 被记录。
+- 才允许把 force lane 从 `smoke only` 提升到 `limited/proxy evaluation`。
+
+---
+
+## Step 7 — 多采 cube trials：slip-oriented protocol
+
+### 目标
+
+让 slip labels 有真实事件来源，而不是 all-zero placeholder。
+
+### 推荐 protocol variants
+
+```text
+stable_hold
+low_force_slip
+lift_then_slip
+release_before_drop
+external_disturbance_slip
+friction_reduced_slip
+```
+
+### slip label 定义建议
+
+参考 Sparsh 的二分类 slip 语义，但由仿真状态生成：
+
+```text
+slip_label = 1
+if contact_detected
+and tangential relative motion between cube and fingertip/gelpad exceeds threshold
+within a short horizon window
+```
+
+可用信号：
+
+- cube pose over time。
+- fingertip / gelpad pose over time。
+- object 与 gripper 的相对切向位移。
+- object 下滑 / 旋转 / 掉落。
+- contact side。
+- gripper close target / contact force。
+
+### 需要记录
+
+- slip onset time。
+- slip_label per frame or per sample。
+- no-slip / slip class balance。
+- delta_force，如果 force labels 已可用。
+- label threshold 与 horizon。
+
+### 完成标准
+
+- 同时有 slip 与 no-slip 样本。
+- slip onset 可复现。
+- slip label 不再来自 `contact_detected`，而来自相对滑动判据。
+- 才允许 slip lane 从 `smoke only` 提升到 `limited/proxy evaluation`。
+
+---
+
+## Step 8 — Label validity gate
+
+### 目标
+
+决定当前 dataset 到底只能 smoke，还是可以开始 limited evaluation。
+
+### Gate 状态
+
+```text
+FORMAT_BRIDGE_PASS / BLOCKED
+FORCE_SMOKE_PASS / BLOCKED
+SLIP_SMOKE_PASS / BLOCKED
+FORCE_LABEL_VALIDITY = invalid / proxy / sim-valid
+SLIP_LABEL_VALIDITY = invalid / proxy / sim-valid
+METRIC_VALIDITY = invalid / limited-proxy / limited-sim
+```
+
+### 进入真正 evaluation 的最低条件
+
+Force evaluation 最低条件：
+
+- force labels 非零。
+- force labels 与 contact / close level 单调或可解释相关。
+- label source 不再是纯 placeholder。
+- sample 数量覆盖多个 force levels。
+
+Slip evaluation 最低条件：
+
+- 同时存在 slip / no-slip labels。
+- slip onset 由仿真相对运动判据生成。
+- slip labels 可复现。
+- 最好有 delta_force 或明确说明无 delta_force 的替代方式。
+
+---
+
+## Step 9 — 总结与下一阶段决策
+
+### 输出
+
+```text
+tactile_grasp/artifacts/phase4_sparsh_cube/summary.md
+tactile_grasp/artifacts/phase4_sparsh_cube/bridge_report.json
+```
+
+### 必须回答
+
+- 当前 Phase3 cube artifacts 是否能转成 Sparsh-like 格式？
+- Force dataloader 是否能跑？
+- Force model forward 是否能跑？
+- Slip dataloader 是否能跑？
+- Slip model forward 是否能跑？
+- 当前 force/slip labels 是 invalid / proxy / sim-valid？
+- 是否需要继续采 bridge robustness batch？
+- 是否需要采 force-oriented cube trials？
+- 是否需要采 slip-oriented cube trials？
 
 ---
 
@@ -490,54 +581,52 @@ Slip lane 必须输出：
 
 Phase4 完成必须全部满足：
 
-- [ ] 只使用 cube Phase3 artifacts。
-- [ ] 不包含 forcefield 路线。
-- [ ] 不处理 chips_can / cracker_box。
-- [ ] 生成或明确规划 derived Sparsh-compatible cube dataset。
-- [ ] Force estimation lane 完成 dataloader / forward smoke 或给出 exact blocker。
-- [ ] Slip detection lane 完成 dataloader / forward smoke 或给出 exact blocker。
-- [ ] 明确当前 force/slip metrics 是否有效；若使用 placeholder/proxy labels，必须标记为不可用于性能结论。
+- [ ] 只使用 cube 数据。
+- [ ] 不考虑 forcefield。
+- [ ] 不处理 `chips_can` / `cracker_box`。
 - [ ] 不采集实物数据。
-- [ ] 不做 adaptation / fine-tuning / closed-loop control / GraspNet / RL。
+- [ ] 生成或明确规划 `phase4_sparsh_cube/cube_phase3_bridge`。
+- [ ] Force estimation lane 完成 dataloader / forward smoke，或给出 exact blocker。
+- [ ] Slip detection lane 完成 dataloader / forward smoke，或给出 exact blocker。
+- [ ] 当前 placeholder / proxy labels 被明确标记，不能用于可信 metrics。
+- [ ] 多采 cube trials 的下一步被分成：
+  - bridge robustness batch，
+  - force-oriented protocol，
+  - slip-oriented protocol。
+- [ ] 明确 label validity gate，说明什么时候能从 smoke test 进入 limited evaluation。
+- [ ] 不做 Sparsh adaptation / fine-tuning / closed-loop control / GraspNet / RL。
 
 ---
 
 # 可行性最终判断
 
-**可行，但目标必须限定为“连通性验证”。**
+**可行，但第一阶段成功标准必须是“连通性验证”，不是“模型性能评估”。**
 
-当前 Phase3 cube artifacts 已经足够支持：
+当前 cube Phase3 artifacts 已足够支持：
 
-- 读取 tactile RGB frames。
-- 按 trial/stage/side 建立 trajectories。
-- 构造 Sparsh-like `dataset_gelsight*` image pickle。
-- 构造 `dataset_slip_forces.pkl` 的结构壳。
-- 尝试 Sparsh force/slip dataloader 与 model forward。
+- tactile RGB frame 读取。
+- trial / side / stage / contact flag 组织。
+- `dataset_gelsight*` image pickle 构造。
+- `dataset_slip_forces.pkl` 结构壳构造。
+- Sparsh force/slip dataloader smoke。
+- 在 checkpoint 可用时尝试 model forward。
 
-但当前 Phase3 cube artifacts 还不足以支持：
+当前 cube Phase3 artifacts 不足以支持：
 
 - 可信 force estimation metric。
 - 可信 slip detection metric。
-- 证明 Sparsh 在仿真 cube grasp 上“有效”。
+- 证明 Sparsh 在 cube grasp 上有效。
 
-原因是：
+要优化，不能只“多采同样 clean contact_hold trials”。需要分步采：
 
-- force labels 缺失或当前为 0。
-- slip labels 缺失。
-- contact_hold protocol 本身缺少受控 slip event。
-- 数据量仅 3 条 cube trials，远不足以做评估。
+1. **Bridge robustness batch**：让格式转换和 dataloader 稳。
+2. **Force-oriented cube trials**：让 force labels 有非零、可解释来源。
+3. **Slip-oriented cube trials**：让 slip labels 有受控事件来源。
 
-因此 Phase4 应以如下成功定义收尾：
-
-> **成功 = 当前仿真 cube artifacts 可以被无损追溯地转换 / 映射成 Sparsh force/slip loader 可消费的格式，并完成 dataloader + forward smoke；所有 force/slip 指标只作为占位或无效指标记录，不作为论文/实验结论。**
+只有当 force/slip labels 通过 validity gate 后，Phase4/Phase5 才能开始 limited evaluation 或后续 adaptation planning。
 
 ---
 
-# 下一阶段建议
+# 一句话总结
 
-如果 Phase4 bridge 成功，下一阶段再决定是否：
-
-1. 在仿真中补充可用 force labels：修复 / 启用有效 contact force logging，而不是使用 0 force placeholder。
-2. 设计 cube controlled-slip protocol：让 slip_label 有真实事件来源。
-3. 再考虑小规模真实 GelSight Mini 数据采集。
-4. 最后才进入 Sparsh adaptation / control。 
+**Phase4 先把现有 cube 仿真数据接到 Sparsh force/slip 数据管线上；当前 labels 只允许 smoke / placeholder，不做性能结论；随后通过 bridge robustness、force-oriented、slip-oriented 三类 cube trials 逐步补齐有效 labels，再决定是否进入 limited evaluation。**
