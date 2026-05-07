@@ -53,6 +53,24 @@ parser.add_argument(
         "Use sparingly for Phase 4 exploratory label-generation batches."
     ),
 )
+parser.add_argument(
+    "--profile_stable_force_threshold_n",
+    type=float,
+    default=None,
+    help=(
+        "Optional local collection override for the stable-force stop threshold. "
+        "Used by Phase 5 force-regime sweeps when collecting harder cube closes."
+    ),
+)
+parser.add_argument(
+    "--profile_high_force_threshold_n",
+    type=float,
+    default=None,
+    help=(
+        "Optional local collection override for the high-force stop/failure threshold. "
+        "Use only for bounded simulation label sweeps; it changes trial success semantics."
+    ),
+)
 parser.add_argument("--max_steps", type=int, default=0, help="Global per-trial step budget; 0 disables.")
 parser.add_argument("--reset_settle_steps", type=int, default=20)
 parser.add_argument("--pregrasp_move_steps", type=int, default=40)
@@ -179,6 +197,10 @@ def main() -> int:
         profile_overrides["close_rad"] = args_cli.profile_close_rad
     if args_cli.profile_max_close_object_lift_m is not None:
         profile_overrides["max_close_object_lift_m"] = args_cli.profile_max_close_object_lift_m
+    if args_cli.profile_stable_force_threshold_n is not None:
+        profile_overrides["stable_force_threshold_n"] = args_cli.profile_stable_force_threshold_n
+    if args_cli.profile_high_force_threshold_n is not None:
+        profile_overrides["high_force_threshold_n"] = args_cli.profile_high_force_threshold_n
     if profile_overrides:
         object_profile = replace(object_profile, **profile_overrides)
     protocol_profile = get_protocol_profile(args_cli.protocol_variant)
