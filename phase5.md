@@ -76,6 +76,46 @@ sample["slip_label"]
 
 Therefore Phase5 labels must satisfy more than shape compatibility. They must carry defensible semantics.
 
+### Local Sparsh asset paths
+
+As of 2026-05-08, use the following local paths whenever Phase5 or later
+steps need Sparsh datasets or checkpoints:
+
+```text
+SPARSH_REPO=/home/zjy/Documents/grasp/sparsh
+SPARSH_DATA_ROOT=/home/zjy/Documents/dataset1/sparsh/tactile_datasets
+SPARSH_MODEL_ROOT=/home/zjy/Documents/dataset1/sparsh/sparsh_models
+```
+
+Relevant local dataset roots:
+
+```text
+GELSIGHT_FORCE_DATA=/home/zjy/Documents/dataset1/sparsh/tactile_datasets/Gelsight-mini/gelsight-force-estimation
+DIGIT_FORCE_DATA=/home/zjy/Documents/dataset1/sparsh/tactile_datasets/Digit/digit-force-estimation
+GELSIGHT_OBJECT_SLIDE=/home/zjy/Documents/dataset1/sparsh/tactile_datasets/Gelsight-mini/object_slide
+GELSIGHT_OBJECT_FOLDER=/home/zjy/Documents/dataset1/sparsh/tactile_datasets/Gelsight-mini/object_folder
+```
+
+Relevant local encoder checkpoints:
+
+```text
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-small/dino_vitsmall.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-base/dino_vitbase.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-ijepa-small/ijepa_vitsmall.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-ijepa-base/ijepa_vitbase.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-mae-small/mae_vitsmall.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-mae-base/mae_vitbase.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-vjepa-small/vjepa_vitsmall.ckpt
+/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-vjepa-base/vjepa_vitbase.ckpt
+```
+
+The model directory currently provides SSL encoder checkpoints.  Official
+force/slip metrics still require a trained downstream task decoder checkpoint
+(`task.checkpoint_task`) or a new probe-training run.  For diagnostic encoder
+feature checks, use `PYTHONPATH=/home/zjy/Documents/grasp/sparsh` and pass the
+checkpoint path explicitly.
+
 ---
 
 ## RALPLAN-DR Summary

@@ -46,3 +46,14 @@ Sparsh checkpoint was bundled, and no benchmark metrics should be claimed unless
 - Label gate pass: True
 - EVAL_GATE: BLOCKED_NO_CHECKPOINT_NO_TRUSTED_METRICS
 - Trusted metrics: not run.
+
+## Sparsh model/data effect diagnostic
+
+- Report: `artifacts/phase5_cube_force_slip/reports/sparsh_model_data_effect.md`
+- Local encoder used: `/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-small/dino_vitsmall.ckpt`
+- Normal-force frozen-encoder diagnostic on new Phase5 trajectories:
+  RMSE 0.2118 N on all valid force samples, 0.4540 N on nonzero-force samples.
+- Slip frozen-encoder diagnostic on new Phase5 trajectories:
+  balanced accuracy 0.6461, F1 0.4630.
+- This is not an official TacBench/Sparsh metric because the local model set
+  contains encoder checkpoints but no trained force/slip task decoder checkpoint.
