@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "issue_count": 0,
+  "issues_sample": [],
+  "split_overlap": [],
+  "per_source": {
+    "flat/batch_1": {
+      "frame_count": 15259,
+      "trajectory_count": 151,
+      "slip_positive_frames": 2696,
+      "slip_total_frames": 6732,
+      "slip_positive_ratio": 0.40047534165181226,
+      "eligible_dataset_samples_len_minus_5": 6732,
+      "issues": [],
+      "issue_count": 0
+    },
+    "flat/batch_2": {
+      "frame_count": 14550,
+      "trajectory_count": 147,
+      "slip_positive_frames": 2661,
+      "slip_total_frames": 6313,
+      "slip_positive_ratio": 0.4215111674322826,
+      "eligible_dataset_samples_len_minus_5": 6313,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sharp/batch_1": {
+      "frame_count": 18380,
+      "trajectory_count": 153,
+      "slip_positive_frames": 2891,
+      "slip_total_frames": 11183,
+      "slip_positive_ratio": 0.2585173924707145,
+      "eligible_dataset_samples_len_minus_5": 11183,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sharp/batch_2": {
+      "frame_count": 16976,
+      "trajectory_count": 151,
+      "slip_positive_frames": 2769,
+      "slip_total_frames": 9725,
+      "slip_positive_ratio": 0.2847300771208226,
+      "eligible_dataset_samples_len_minus_5": 9725,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_1": {
+      "frame_count": 17288,
+      "trajectory_count": 148,
+      "slip_positive_frames": 2849,
+      "slip_total_frames": 10740,
+      "slip_positive_ratio": 0.2652700186219739,
+      "eligible_dataset_samples_len_minus_5": 10000,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_2": {
+      "frame_count": 18619,
+      "trajectory_count": 154,
+      "slip_positive_frames": 2920,
+      "slip_total_frames": 11515,
+      "slip_positive_ratio": 0.2535822839774208,
+      "eligible_dataset_samples_len_minus_5": 10745,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_3": {
+      "frame_count": 17865,
+      "trajectory_count": 152,
+      "slip_positive_frames": 2673,
+      "slip_total_frames": 10813,
+      "slip_positive_ratio": 0.24720244150559512,
+      "eligible_dataset_samples_len_minus_5": 10053,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_4": {
+      "frame_count": 18800,
+      "trajectory_count": 152,
+      "slip_positive_frames": 2829,
+      "slip_total_frames": 12015,
+      "slip_positive_ratio": 0.23545568039950063,
+      "eligible_dataset_samples_len_minus_5": 11255,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_5": {
+      "frame_count": 18999,
+      "trajectory_count": 152,
+      "slip_positive_frames": 2900,
+      "slip_total_frames": 12228,
+      "slip_positive_ratio": 0.2371606149820085,
+      "eligible_dataset_samples_len_minus_5": 11468,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_6": {
+      "frame_count": 18130,
+      "trajectory_count": 153,
+      "slip_positive_frames": 2916,
+      "slip_total_frames": 11364,
+      "slip_positive_ratio": 0.2565997888067582,
+      "eligible_dataset_samples_len_minus_5": 10599,
+      "issues": [],
+      "issue_count": 0
+    }
+  },
+  "note": "Audit checks length equality, frame index bounds, and trajectory split overlap. It does not prove semantic slip_horizon optimality; slip_horizon remains train/val-only."
+}

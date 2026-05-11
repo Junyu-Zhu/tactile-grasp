@@ -1,0 +1,433 @@
+{
+  "flat/batch_1": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.45098039507865906,
+      "range_max": 0.5490196347236633,
+      "per_channel_mean": [
+        0.4980141818523407,
+        0.4980499744415283,
+        0.4979497194290161
+      ],
+      "per_channel_std": [
+        0.005641992669552565,
+        0.004911480005830526,
+        0.00577900093048811
+      ],
+      "quantiles": [
+        0.48627451062202454,
+        0.4901960790157318,
+        0.49803921580314636,
+        0.5058823823928833,
+        0.5098039507865906
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "flat/batch_2": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/dataset_gelsight_02.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.34117648005485535,
+      "range_max": 0.6392157077789307,
+      "per_channel_mean": [
+        0.49786141514778137,
+        0.4980000853538513,
+        0.4980160892009735
+      ],
+      "per_channel_std": [
+        0.007662137039005756,
+        0.006575915962457657,
+        0.007070739287883043
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5058823823928833,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "sharp/batch_1": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.3019607961177826,
+      "range_max": 0.6784313917160034,
+      "per_channel_mean": [
+        0.4978935122489929,
+        0.498008131980896,
+        0.49798792600631714
+      ],
+      "per_channel_std": [
+        0.009271083399653435,
+        0.006241002585738897,
+        0.007954621687531471
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5098039507865906,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "sharp/batch_2": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.3176470696926117,
+      "range_max": 0.6549019813537598,
+      "per_channel_mean": [
+        0.4980906546115875,
+        0.4978386461734772,
+        0.49801304936408997
+      ],
+      "per_channel_std": [
+        0.00736258365213871,
+        0.006007869727909565,
+        0.011033838614821434
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5098039507865906,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.0,
+      "range_max": 1.0,
+      "per_channel_mean": [
+        0.734488844871521,
+        0.4834490418434143,
+        0.2196006029844284
+      ],
+      "per_channel_std": [
+        0.0871066078543663,
+        0.03215106576681137,
+        0.09470867365598679
+      ],
+      "quantiles": [
+        0.03921568766236305,
+        0.10588235408067703,
+        0.48627451062202454,
+        0.8352941274642944,
+        0.8901960849761963
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    }
+  },
+  "sphere/batch_1": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.37254902720451355,
+      "range_max": 0.5921568870544434,
+      "per_channel_mean": [
+        0.49800190329551697,
+        0.4980267882347107,
+        0.49797871708869934
+      ],
+      "per_channel_std": [
+        0.006521368399262428,
+        0.00662457849830389,
+        0.008789590559899807
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5098039507865906,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "sphere/batch_2": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.41960784792900085,
+      "range_max": 0.5529412031173706,
+      "per_channel_mean": [
+        0.4979519546031952,
+        0.4980245530605316,
+        0.4978412985801697
+      ],
+      "per_channel_std": [
+        0.006418244447559118,
+        0.0054358202032744884,
+        0.00651623634621501
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5058823823928833,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "sphere/batch_3": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.27843138575553894,
+      "range_max": 0.6823529601097107,
+      "per_channel_mean": [
+        0.498075008392334,
+        0.49802032113075256,
+        0.49805235862731934
+      ],
+      "per_channel_std": [
+        0.00875883735716343,
+        0.0073376670479774475,
+        0.007065389305353165
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5098039507865906,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "sphere/batch_4": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.38823530077934265,
+      "range_max": 0.5921568870544434,
+      "per_channel_mean": [
+        0.4979717433452606,
+        0.4979802966117859,
+        0.49821531772613525
+      ],
+      "per_channel_std": [
+        0.006394083146005869,
+        0.006075706332921982,
+        0.007444723509252071
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5098039507865906,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "sphere/batch_5": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.3607843220233917,
+      "range_max": 0.615686297416687,
+      "per_channel_mean": [
+        0.4980178773403168,
+        0.4980297386646271,
+        0.4979473948478699
+      ],
+      "per_channel_std": [
+        0.0063758655451238155,
+        0.006630796939134598,
+        0.007466506212949753
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5098039507865906,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  },
+  "sphere/batch_6": {
+    "dataset_gelsight": {
+      "files": [
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_00.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_01.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_02.pkl",
+        "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_03.pkl"
+      ],
+      "sampled_frames": 16,
+      "shape": [
+        3,
+        320,
+        240
+      ],
+      "dtype": "float32",
+      "range_min": 0.32156863808631897,
+      "range_max": 0.6509804129600525,
+      "per_channel_mean": [
+        0.49804550409317017,
+        0.4979969263076782,
+        0.4980320632457733
+      ],
+      "per_channel_std": [
+        0.00717834010720253,
+        0.007702189963310957,
+        0.008834593929350376
+      ],
+      "quantiles": [
+        0.48235294222831726,
+        0.48627451062202454,
+        0.49803921580314636,
+        0.5098039507865906,
+        0.5137255191802979
+      ],
+      "preprocess_chain": "load_sample_from_buf(io_buf, bg) then get_resize_transform([320,240])"
+    },
+    "org_dataset_gelsight": {
+      "example_error": "operands could not be broadcast together with shapes (1232,1640,3) (320,240,3) "
+    }
+  }
+}

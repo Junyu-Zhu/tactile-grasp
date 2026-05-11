@@ -1,0 +1,1188 @@
+{
+  "datasets": {
+    "flat/batch_1": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_00.pkl",
+          "relative_path": "flat/batch_1/dataset_gelsight_00.pkl",
+          "size": 65405631,
+          "mtime": "2025-05-14T17:06:43.660000",
+          "sha256": "c67b8bb3ecdfd890760cd7ff27f459b20cefb61ce85ec41d70b7bfb9c575dc11"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_01.pkl",
+          "relative_path": "flat/batch_1/dataset_gelsight_01.pkl",
+          "size": 65359656,
+          "mtime": "2025-05-14T17:06:47.720000",
+          "sha256": "e60b458f31cb192f56576153a0cdd9dbbe9712d66c2102999ed1144458e941f8"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_02.pkl",
+          "relative_path": "flat/batch_1/dataset_gelsight_02.pkl",
+          "size": 65430986,
+          "mtime": "2025-05-14T17:06:20.380000",
+          "sha256": "b1ff63f3a0873af9e8cfd3ec0ce12d5ea8e6c05bf4a3aedcfedbc50bc3c0f6a6"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_gelsight_03.pkl",
+          "relative_path": "flat/batch_1/dataset_gelsight_03.pkl",
+          "size": 3388510,
+          "mtime": "2025-05-14T17:09:21.280000",
+          "sha256": "6836c42d35623fc86d98cfb5958fb60ca0cac61cc5875beca7eadda275e5db40"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/org_dataset_gelsight_00.pkl",
+          "relative_path": "flat/batch_1/org_dataset_gelsight_00.pkl",
+          "size": 1506444913,
+          "mtime": "2025-05-14T17:00:53.730000",
+          "sha256": "0c4f34a632a6b433dc6675622465251e06819186680fbae5f0d7097332be9089"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/org_dataset_gelsight_01.pkl",
+          "relative_path": "flat/batch_1/org_dataset_gelsight_01.pkl",
+          "size": 1506124466,
+          "mtime": "2025-05-14T16:41:17.700000",
+          "sha256": "ca066bbb41e935b320d0c89e56c9a78f42f1196585cd4f48144b1fc041b7cdf8"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/org_dataset_gelsight_02.pkl",
+          "relative_path": "flat/batch_1/org_dataset_gelsight_02.pkl",
+          "size": 1506023786,
+          "mtime": "2025-05-14T16:56:06.730000",
+          "sha256": "a449e543d1e473f047813d9ff5122d018a10d7a7acbd2cfaefb948e06c29dde7"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/org_dataset_gelsight_03.pkl",
+          "relative_path": "flat/batch_1/org_dataset_gelsight_03.pkl",
+          "size": 78262192,
+          "mtime": "2025-05-14T16:47:15.270000",
+          "sha256": "21daf2066aab9807788da40d8e25ce4a74429c47e2f95e61e576fa76c4164b1d"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_1/dataset_slip_forces.pkl",
+        "relative_path": "flat/batch_1/dataset_slip_forces.pkl",
+        "size": 1197081,
+        "mtime": "2025-05-14T17:09:28.960000",
+        "sha256": "346cbb110874306f641aa4bf800c23fa591b6ef2205be34d2674a639bff318ae"
+      },
+      "frame_count_from_official_files": 15259,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 259
+        }
+      ],
+      "summary": {
+        "trajectories": 151,
+        "raw_samples": 7487,
+        "eligible_dataset_samples_len_minus_5": 6732,
+        "trajectory_len_min": 11,
+        "trajectory_len_max": 96,
+        "trajectory_len_mean": 49.58278145695364,
+        "slip_positive_frames": 2696,
+        "slip_total_frames": 6732,
+        "slip_positive_ratio": 0.40047534165181226,
+        "force_min": [
+          -1.112824946164447,
+          -0.8666888305920828,
+          0.0911760880931271
+        ],
+        "force_max": [
+          0.7755999276426155,
+          0.7559076505516824,
+          1.48748530815632
+        ],
+        "force_mean": [
+          -0.033041553762083696,
+          -0.03520531623690986,
+          0.5104646736282334
+        ],
+        "force_std": [
+          0.19878631012010958,
+          0.1976893064262081,
+          0.2048340859779657
+        ]
+      }
+    },
+    "flat/batch_2": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/dataset_gelsight_00.pkl",
+          "relative_path": "flat/batch_2/dataset_gelsight_00.pkl",
+          "size": 65396145,
+          "mtime": "2025-05-14T17:06:45.590000",
+          "sha256": "74297d8d6b7d6eba5d7021b3d181071206b653606be43911307da0490581fc6f"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/dataset_gelsight_01.pkl",
+          "relative_path": "flat/batch_2/dataset_gelsight_01.pkl",
+          "size": 65351568,
+          "mtime": "2025-05-14T17:06:57.350000",
+          "sha256": "0207d3d4f97bde5fb8943d6c95c04921cc76add37c5388b035b1dc17d0e0ca1a"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/dataset_gelsight_02.pkl",
+          "relative_path": "flat/batch_2/dataset_gelsight_02.pkl",
+          "size": 59568644,
+          "mtime": "2025-05-14T17:08:16.100000",
+          "sha256": "02da917df8f97c2fa746320906866b5bca7ed899d4af73924fbb31215519016e"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/org_dataset_gelsight_00.pkl",
+          "relative_path": "flat/batch_2/org_dataset_gelsight_00.pkl",
+          "size": 1506157600,
+          "mtime": "2025-05-14T17:00:14.850000",
+          "sha256": "689a3767b52acedb7db5e9ed6d638493791239d2f6ea5172158d306d6f7ea045"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/org_dataset_gelsight_01.pkl",
+          "relative_path": "flat/batch_2/org_dataset_gelsight_01.pkl",
+          "size": 1506065520,
+          "mtime": "2025-05-14T17:09:02.550000",
+          "sha256": "fa8616bc45d8044c2fd0a581da12efa09be8e5b04d3c0cde98e3eced01767fba"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/org_dataset_gelsight_02.pkl",
+          "relative_path": "flat/batch_2/org_dataset_gelsight_02.pkl",
+          "size": 1379978762,
+          "mtime": "2025-05-14T17:09:48.050000",
+          "sha256": "cd83609476d04474c870c4c6084457ba28a9eeed8ef50ccc02aef2ff391fde2f"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/flat/batch_2/dataset_slip_forces.pkl",
+        "relative_path": "flat/batch_2/dataset_slip_forces.pkl",
+        "size": 1132155,
+        "mtime": "2025-05-14T17:09:29.260000",
+        "sha256": "1a5182add98ad5d8d2a8dc0e9589751752265588e5b8d5dfee6290209cddd419"
+      },
+      "frame_count_from_official_files": 14550,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 4550
+        }
+      ],
+      "summary": {
+        "trajectories": 147,
+        "raw_samples": 7048,
+        "eligible_dataset_samples_len_minus_5": 6313,
+        "trajectory_len_min": 11,
+        "trajectory_len_max": 88,
+        "trajectory_len_mean": 47.945578231292515,
+        "slip_positive_frames": 2661,
+        "slip_total_frames": 6313,
+        "slip_positive_ratio": 0.4215111674322826,
+        "force_min": [
+          -0.9756062057756726,
+          -0.9894357267776404,
+          0.10191943293839971
+        ],
+        "force_max": [
+          0.781032985523543,
+          0.7161859211713765,
+          1.1710948700362307
+        ],
+        "force_mean": [
+          -0.028049493129189293,
+          -0.052025497826115034,
+          0.49664158176744694
+        ],
+        "force_std": [
+          0.22372463349717564,
+          0.20788214167079544,
+          0.1981370650009679
+        ]
+      }
+    },
+    "sharp/batch_1": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_00.pkl",
+          "relative_path": "sharp/batch_1/dataset_gelsight_00.pkl",
+          "size": 67444546,
+          "mtime": "2025-05-14T16:59:09.960000",
+          "sha256": "f59b7eeae1a4d6d258c60093b4dccca2fc96d62166eeec292e08feb14eb84c6d"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_01.pkl",
+          "relative_path": "sharp/batch_1/dataset_gelsight_01.pkl",
+          "size": 67481873,
+          "mtime": "2025-05-14T16:59:10.040000",
+          "sha256": "824fee211c7a8ab47a6b8717351d4b13b40674d714a19892dd47f79be90389b1"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_02.pkl",
+          "relative_path": "sharp/batch_1/dataset_gelsight_02.pkl",
+          "size": 67666942,
+          "mtime": "2025-05-14T16:50:15.070000",
+          "sha256": "bf59c903a23405953389238983eedd4e956b7c74dad920fc4fd0fd2fe8fac447"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_gelsight_03.pkl",
+          "relative_path": "sharp/batch_1/dataset_gelsight_03.pkl",
+          "size": 45661543,
+          "mtime": "2025-05-14T17:09:17.670000",
+          "sha256": "c2b5de34d87e66679142511b796114e195e0f0a48459c311fe46c0afeb51b809"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/org_dataset_gelsight_00.pkl",
+          "relative_path": "sharp/batch_1/org_dataset_gelsight_00.pkl",
+          "size": 1608843661,
+          "mtime": "2025-05-14T15:50:32.950000",
+          "sha256": "22c63e56d842340f0982bb97efdf4d41bb76a3555f7ff29ccdc2ec50b3cd1716"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/org_dataset_gelsight_01.pkl",
+          "relative_path": "sharp/batch_1/org_dataset_gelsight_01.pkl",
+          "size": 1609578232,
+          "mtime": "2025-05-14T15:14:06.830000",
+          "sha256": "bf6d3c0726dce56b176d70fe3aecc3f54230ef87b29da79ce56ea186142d1a5c"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/org_dataset_gelsight_02.pkl",
+          "relative_path": "sharp/batch_1/org_dataset_gelsight_02.pkl",
+          "size": 1611113340,
+          "mtime": "2025-05-14T15:14:09.830000",
+          "sha256": "e96d713089e27c200de3c40dcb882d5a9b8aa56ee3aeb1f4704d9465179aec4f"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/org_dataset_gelsight_03.pkl",
+          "relative_path": "sharp/batch_1/org_dataset_gelsight_03.pkl",
+          "size": 1096438362,
+          "mtime": "2025-05-14T16:52:14.990000",
+          "sha256": "28759e01fead2a3d9f01349ee885d9d6046eaec605549d203aa5bed7fd6d4496"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_1/dataset_slip_forces.pkl",
+        "relative_path": "sharp/batch_1/dataset_slip_forces.pkl",
+        "size": 1811765,
+        "mtime": "2025-05-14T17:09:25.540000",
+        "sha256": "c5db850385097cbfab5642ed713ea2cfbbb1e1931046e4ccb346e078852c0ef8"
+      },
+      "frame_count_from_official_files": 18380,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3380
+        }
+      ],
+      "summary": {
+        "trajectories": 153,
+        "raw_samples": 11948,
+        "eligible_dataset_samples_len_minus_5": 11183,
+        "trajectory_len_min": 12,
+        "trajectory_len_max": 145,
+        "trajectory_len_mean": 78.09150326797386,
+        "slip_positive_frames": 2891,
+        "slip_total_frames": 11183,
+        "slip_positive_ratio": 0.2585173924707145,
+        "force_min": [
+          -1.1971605590575658,
+          -1.175335804524258,
+          0.07427017702201795
+        ],
+        "force_max": [
+          0.8623233458988275,
+          1.136804419248206,
+          1.33139632203112
+        ],
+        "force_mean": [
+          -0.028662795402967962,
+          -0.026951465861718902,
+          0.4455802092956667
+        ],
+        "force_std": [
+          0.21037682443611003,
+          0.22750791752170726,
+          0.2220127985313589
+        ]
+      }
+    },
+    "sharp/batch_2": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_00.pkl",
+          "relative_path": "sharp/batch_2/dataset_gelsight_00.pkl",
+          "size": 59539090,
+          "mtime": "2025-05-14T17:08:19.910000",
+          "sha256": "11eb0e127d629538149e45e12b706f1832bb1603eacbf3f90643f14dd2429530"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_01.pkl",
+          "relative_path": "sharp/batch_2/dataset_gelsight_01.pkl",
+          "size": 59640804,
+          "mtime": "2025-05-14T17:08:13.920000",
+          "sha256": "f7fb6ee96bfec1d3fdef8b7fd89d66a485c6048bd3f4c8369484fc042c1a7a77"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_02.pkl",
+          "relative_path": "sharp/batch_2/dataset_gelsight_02.pkl",
+          "size": 60085490,
+          "mtime": "2025-05-14T17:07:45.550000",
+          "sha256": "efc65d622b7361e0577804765380e78dd9eddd872a2cc870b344368ac2f7e791"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_gelsight_03.pkl",
+          "relative_path": "sharp/batch_2/dataset_gelsight_03.pkl",
+          "size": 23605346,
+          "mtime": "2025-05-14T17:09:34.290000",
+          "sha256": "c378bbec62583d916ef0f69640b35769c18f540b54413fb8ba0909ee2ef1e415"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_00.pkl",
+          "relative_path": "sharp/batch_2/org_dataset_gelsight_00.pkl",
+          "size": 67389337,
+          "mtime": "2025-05-14T16:59:09.430000",
+          "sha256": "ca474f31da4ac0865f01a88751a32c521d08cacfcda478a05dc4275fcf4b5f69"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_01.pkl",
+          "relative_path": "sharp/batch_2/org_dataset_gelsight_01.pkl",
+          "size": 67488580,
+          "mtime": "2025-05-14T16:51:45.270000",
+          "sha256": "8d2a6340d2c960c3464af03431c0265587d0bf51482dbfddd7836d5b4f4aeee4"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_02.pkl",
+          "relative_path": "sharp/batch_2/org_dataset_gelsight_02.pkl",
+          "size": 67902699,
+          "mtime": "2025-05-14T16:48:44.270000",
+          "sha256": "c760b3ef797615c45121676a30db3a41d43a8aee450bd422d11deb92bfe10a3b"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/org_dataset_gelsight_03.pkl",
+          "relative_path": "sharp/batch_2/org_dataset_gelsight_03.pkl",
+          "size": 26700667,
+          "mtime": "2025-05-14T17:09:31.620000",
+          "sha256": "fed9d7c1bd4f3c8a34028c11933ce838d2ca611ea6cafd131a2b4d980023d08f"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sharp/batch_2/dataset_slip_forces.pkl",
+        "relative_path": "sharp/batch_2/dataset_slip_forces.pkl",
+        "size": 1604788,
+        "mtime": "2025-05-14T17:09:29.080000",
+        "sha256": "5758f27580930cbeec6eac6618ec1f0656d6c956a505fbedb970138bade87fd0"
+      },
+      "frame_count_from_official_files": 16976,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 1976
+        }
+      ],
+      "summary": {
+        "trajectories": 151,
+        "raw_samples": 10480,
+        "eligible_dataset_samples_len_minus_5": 9725,
+        "trajectory_len_min": 13,
+        "trajectory_len_max": 150,
+        "trajectory_len_mean": 69.40397350993378,
+        "slip_positive_frames": 2769,
+        "slip_total_frames": 9725,
+        "slip_positive_ratio": 0.2847300771208226,
+        "force_min": [
+          -1.5547904597731015,
+          -1.4069200079043296,
+          0.07973259316560634
+        ],
+        "force_max": [
+          0.909720036854172,
+          1.585446713501426,
+          1.7657678316981344
+        ],
+        "force_mean": [
+          -0.043271927640964866,
+          0.005578838796129704,
+          0.4251237270025901
+        ],
+        "force_std": [
+          0.21645553849441704,
+          0.219965481511685,
+          0.23067716968390584
+        ]
+      }
+    },
+    "sphere/batch_1": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_1/dataset_gelsight_00.pkl",
+          "size": 67099919,
+          "mtime": "2025-05-14T17:05:17.440000",
+          "sha256": "5826e399c3b91493ef27b55be8aaf37962447123658a5387b2d06bf0e8487b1d"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_1/dataset_gelsight_01.pkl",
+          "size": 67259002,
+          "mtime": "2025-05-14T17:03:54.680000",
+          "sha256": "77247a5da6ce0dd166560efd4d61c525e64701c4102533910ad2699530d1c75e"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_1/dataset_gelsight_02.pkl",
+          "size": 67199959,
+          "mtime": "2025-05-14T17:05:15.970000",
+          "sha256": "c28a6dcf77279d05dfa9baffa9454e17ee84fdbd6cea1e242d446dc3b349bab9"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_1/dataset_gelsight_03.pkl",
+          "size": 30772422,
+          "mtime": "2025-05-14T17:09:34.750000",
+          "sha256": "60007f9f7dbfed707ad2efa41d177bc8dc69e5d9b3be26e5a7dd69587c88585f"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/org_dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_1/org_dataset_gelsight_00.pkl",
+          "size": 1609188225,
+          "mtime": "2025-05-14T15:36:52.140000",
+          "sha256": "ec26c5c2a9a8d062e2ae6135c09803ef85e340d3bdf490a195e923d00b002686"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/org_dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_1/org_dataset_gelsight_01.pkl",
+          "size": 1608916718,
+          "mtime": "2025-05-14T15:50:29.910000",
+          "sha256": "ffffe18c347b85cc5185c6ec4645215524cf98edb065f59292dccd739e712ab4"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/org_dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_1/org_dataset_gelsight_02.pkl",
+          "size": 1607836624,
+          "mtime": "2025-05-14T16:26:57.500000",
+          "sha256": "7bfe06161779f56618af35248a0d11e2f1aeaf8d9558a084b81b81120290d22c"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/org_dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_1/org_dataset_gelsight_03.pkl",
+          "size": 739726578,
+          "mtime": "2025-05-14T16:57:01.680000",
+          "sha256": "e3db8dce7614b1925b77d0ebfaf621a5f24b112f27a7e5b3464e6e6a4aabbf52"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_1/dataset_slip_forces.pkl",
+        "relative_path": "sphere/batch_1/dataset_slip_forces.pkl",
+        "size": 1654631,
+        "mtime": "2025-05-14T17:09:29.040000",
+        "sha256": "261712be260d70d84085ce7d1e93faa4105a7f30b721f48fd8c46f1685059288"
+      },
+      "frame_count_from_official_files": 17288,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 2288
+        }
+      ],
+      "summary": {
+        "trajectories": 148,
+        "raw_samples": 10740,
+        "eligible_dataset_samples_len_minus_5": 10000,
+        "trajectory_len_min": 6,
+        "trajectory_len_max": 138,
+        "trajectory_len_mean": 72.56756756756756,
+        "slip_positive_frames": 2849,
+        "slip_total_frames": 10740,
+        "slip_positive_ratio": 0.2652700186219739,
+        "force_min": [
+          -1.6739600961356342,
+          -0.8506156266073579,
+          0.06330264180733428
+        ],
+        "force_max": [
+          0.8495347087548399,
+          1.0316119848452687,
+          1.8881099397166992
+        ],
+        "force_mean": [
+          -0.02412652623744651,
+          -0.0021589856954846776,
+          0.39839601313865897
+        ],
+        "force_std": [
+          0.1883164622660366,
+          0.16691261543036487,
+          0.22174338013653624
+        ]
+      }
+    },
+    "sphere/batch_2": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_2/dataset_gelsight_00.pkl",
+          "size": 67299224,
+          "mtime": "2025-05-14T17:02:10.390000",
+          "sha256": "ed1e403a880fcccd7b06513534a2e4457b386ac9b9fc7ccce29d22eb4c9371b1"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_2/dataset_gelsight_01.pkl",
+          "size": 67289840,
+          "mtime": "2025-05-14T17:02:20.200000",
+          "sha256": "c222c435a83728870736d26fae59f8fa17d47621fdf70dc06afebc35c1e4fa06"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_2/dataset_gelsight_02.pkl",
+          "size": 67279771,
+          "mtime": "2025-05-14T17:03:43.260000",
+          "sha256": "81539714a640bc4489ffd39af42987f55fc51b20e8ebdc8af4fcd5fce85bdc19"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_2/dataset_gelsight_03.pkl",
+          "size": 48676882,
+          "mtime": "2025-05-14T17:09:18.520000",
+          "sha256": "341d4b62abf6072a35b43923e94b521897bc9cd73a22fd6cc10ed9e6c6a040f7"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/org_dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_2/org_dataset_gelsight_00.pkl",
+          "size": 1608076890,
+          "mtime": "2025-05-14T15:50:34.450000",
+          "sha256": "ef9508d3b8c4dbcf94896c58e13f7d0b6fac51e448c5781138308df415443421"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/org_dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_2/org_dataset_gelsight_01.pkl",
+          "size": 1608105662,
+          "mtime": "2025-05-14T15:50:27.120000",
+          "sha256": "80619b0325d8b3bbb234bf67b64017b48e0845b93e922a266d3e99f5c062502c"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/org_dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_2/org_dataset_gelsight_02.pkl",
+          "size": 1607874523,
+          "mtime": "2025-05-14T16:27:00.690000",
+          "sha256": "5946ed445b9421097ed0ee48402f9216118fb1ee21c536636117f0c3d73ebe29"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/org_dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_2/org_dataset_gelsight_03.pkl",
+          "size": 1169179635,
+          "mtime": "2025-05-14T16:53:26.120000",
+          "sha256": "3538a2b864edc21a3794077df2cac66f69210fc10065beb3cb89aa1ac949f244"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_2/dataset_slip_forces.pkl",
+        "relative_path": "sphere/batch_2/dataset_slip_forces.pkl",
+        "size": 1770133,
+        "mtime": "2025-05-14T17:09:25.590000",
+        "sha256": "055b2cd5267e49f7698c40283b03dae99519098047fe3a26b603f1d1ad616b9c"
+      },
+      "frame_count_from_official_files": 18619,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3619
+        }
+      ],
+      "summary": {
+        "trajectories": 154,
+        "raw_samples": 11515,
+        "eligible_dataset_samples_len_minus_5": 10745,
+        "trajectory_len_min": 8,
+        "trajectory_len_max": 134,
+        "trajectory_len_mean": 74.77272727272727,
+        "slip_positive_frames": 2920,
+        "slip_total_frames": 11515,
+        "slip_positive_ratio": 0.2535822839774208,
+        "force_min": [
+          -1.252943927046397,
+          -1.165030164685931,
+          0.0724295029176068
+        ],
+        "force_max": [
+          0.952632030776971,
+          0.8676763357906794,
+          1.5188417119668929
+        ],
+        "force_mean": [
+          -0.0406185213754934,
+          -0.020106047613834048,
+          0.41250744436630765
+        ],
+        "force_std": [
+          0.20214904590278154,
+          0.1847761691409327,
+          0.23176445752825545
+        ]
+      }
+    },
+    "sphere/batch_3": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_3/dataset_gelsight_00.pkl",
+          "size": 67244492,
+          "mtime": "2025-05-14T17:04:46.810000",
+          "sha256": "90a092fb8d789abc4a45a97210828fd834f9036c5b05cef20164aee38cfb99d4"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_3/dataset_gelsight_01.pkl",
+          "size": 67206279,
+          "mtime": "2025-05-14T17:05:13.370000",
+          "sha256": "054cb51d1c79bce085d027c28f77667ab5c968709e46ebad997cfda86ac59c43"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_3/dataset_gelsight_02.pkl",
+          "size": 67099255,
+          "mtime": "2025-05-14T17:05:30.290000",
+          "sha256": "7babce2439d86c7af6437bbc2737b9cd2cdc78fcd47c77ebe242601573d47b58"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_3/dataset_gelsight_03.pkl",
+          "size": 38499554,
+          "mtime": "2025-05-14T17:09:16.110000",
+          "sha256": "ab8a2815b4a823782d2ec6f9b862d1b9406813b82fb9f8425d9a0e46099caa61"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/org_dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_3/org_dataset_gelsight_00.pkl",
+          "size": 1607839752,
+          "mtime": "2025-05-14T16:26:55.920000",
+          "sha256": "07b7bd3b146a7917cf84b88b6b2ecb851fcc92ac12371b736056efa57316006f"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/org_dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_3/org_dataset_gelsight_01.pkl",
+          "size": 1607687548,
+          "mtime": "2025-05-14T16:26:59.090000",
+          "sha256": "5a3e488ef6c56f25c28c7d00cbcecf26df7fba629209578d51ccba8c99751d6c"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/org_dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_3/org_dataset_gelsight_02.pkl",
+          "size": 1606620537,
+          "mtime": "2025-05-14T16:26:51.440000",
+          "sha256": "afb86a9c98fad9a4085750d1f6fb49ee2d20e19d2c1a4396cc5e0a02ac225073"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/org_dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_3/org_dataset_gelsight_03.pkl",
+          "size": 926137197,
+          "mtime": "2025-05-14T16:57:47.880000",
+          "sha256": "dc0df8343463d421202df1305d649a1f69a2a580b3710ea4be0f4e3a9e04fdee"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_3/dataset_slip_forces.pkl",
+        "relative_path": "sphere/batch_3/dataset_slip_forces.pkl",
+        "size": 1665584,
+        "mtime": "2025-05-14T17:09:26.270000",
+        "sha256": "1da4ea1796a315a52acd144e2a7dbc76d66f98ed42dd44bd4dd4c860958bb13f"
+      },
+      "frame_count_from_official_files": 17865,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 2865
+        }
+      ],
+      "summary": {
+        "trajectories": 152,
+        "raw_samples": 10813,
+        "eligible_dataset_samples_len_minus_5": 10053,
+        "trajectory_len_min": 6,
+        "trajectory_len_max": 136,
+        "trajectory_len_mean": 71.13815789473684,
+        "slip_positive_frames": 2673,
+        "slip_total_frames": 10813,
+        "slip_positive_ratio": 0.24720244150559512,
+        "force_min": [
+          -1.71519066228785,
+          -1.1279818164964204,
+          0.06152335316121427
+        ],
+        "force_max": [
+          0.943407308791162,
+          1.3139859826288358,
+          1.6600255971035456
+        ],
+        "force_mean": [
+          -0.025373633443612348,
+          0.001907042410120907,
+          0.40417512537300254
+        ],
+        "force_std": [
+          0.19709622373910388,
+          0.18363927243750847,
+          0.23064635999546043
+        ]
+      }
+    },
+    "sphere/batch_4": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_4/dataset_gelsight_00.pkl",
+          "size": 67311183,
+          "mtime": "2025-05-14T17:02:09.100000",
+          "sha256": "16557aa4eff7f4427736279706b1aebbf9bdedaf7ae75423058b98ee44778bc4"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_4/dataset_gelsight_01.pkl",
+          "size": 67275522,
+          "mtime": "2025-05-14T17:03:41.570000",
+          "sha256": "eb4ddf16fcc5931b9a9bf49718cb954659ad4ac6b56e46aa93f230e08feca785"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_4/dataset_gelsight_02.pkl",
+          "size": 67286182,
+          "mtime": "2025-05-14T17:03:39.370000",
+          "sha256": "35661c0f6b1e17e9371b8a94fa6002e11415cd200bdc78c625cf0e039027b36a"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_4/dataset_gelsight_03.pkl",
+          "size": 51068051,
+          "mtime": "2025-05-14T17:09:02.640000",
+          "sha256": "2e839473c6a9e15d0edc54690e60bde664647fc8195c46de04d5591eba2662fb"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/org_dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_4/org_dataset_gelsight_00.pkl",
+          "size": 1608630256,
+          "mtime": "2025-05-14T15:52:59.310000",
+          "sha256": "84e4549ff49ca8e9f4b027b179c57d177fba96e03ecba104e6ef2ac9292bfc88"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/org_dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_4/org_dataset_gelsight_01.pkl",
+          "size": 1608641224,
+          "mtime": "2025-05-14T15:50:31.370000",
+          "sha256": "c053105c05b95195f36e96b83d0db137d6945221184070f0617bceface184a7a"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/org_dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_4/org_dataset_gelsight_02.pkl",
+          "size": 1608807175,
+          "mtime": "2025-05-14T15:50:35.960000",
+          "sha256": "11d31fb67c9db5d39d8196a41bde41854a9248f3768769604a3d0531e338ef2f"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/org_dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_4/org_dataset_gelsight_03.pkl",
+          "size": 1229303962,
+          "mtime": "2025-05-14T16:54:14.760000",
+          "sha256": "d232fe6aef759afef7f5b9611fb9db7beff1d65254abf9b5434ed06410b7312f"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_4/dataset_slip_forces.pkl",
+        "relative_path": "sphere/batch_4/dataset_slip_forces.pkl",
+        "size": 1834429,
+        "mtime": "2025-05-14T17:09:22.570000",
+        "sha256": "6769186f17f716c7383090f1d0c9ed56d2331238904bac0af315784dd36c1d86"
+      },
+      "frame_count_from_official_files": 18800,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3800
+        }
+      ],
+      "summary": {
+        "trajectories": 152,
+        "raw_samples": 12015,
+        "eligible_dataset_samples_len_minus_5": 11255,
+        "trajectory_len_min": 6,
+        "trajectory_len_max": 135,
+        "trajectory_len_mean": 79.04605263157895,
+        "slip_positive_frames": 2829,
+        "slip_total_frames": 12015,
+        "slip_positive_ratio": 0.23545568039950063,
+        "force_min": [
+          -1.7823605879675264,
+          -1.4312348768978824,
+          0.08071653978691072
+        ],
+        "force_max": [
+          0.909200484569505,
+          1.0976609586778892,
+          1.6747447624285732
+        ],
+        "force_mean": [
+          -0.02667380226998369,
+          -0.0004793926366615274,
+          0.41738001199833596
+        ],
+        "force_std": [
+          0.1995779264016174,
+          0.19832315968406716,
+          0.23399337705990722
+        ]
+      }
+    },
+    "sphere/batch_5": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_5/dataset_gelsight_00.pkl",
+          "size": 67339079,
+          "mtime": "2025-05-14T17:01:44.070000",
+          "sha256": "6f95f60f28e69067e3ddbb58a682f03c39da3e5084fa0ecf3bdb1fed5021b895"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_5/dataset_gelsight_01.pkl",
+          "size": 67289675,
+          "mtime": "2025-05-14T17:03:12.500000",
+          "sha256": "68bba250555d96987292d0f5c1fa47fa85f79cb9bae6fd6155e8a3ea6494c883"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_5/dataset_gelsight_02.pkl",
+          "size": 67354622,
+          "mtime": "2025-05-14T17:00:40.720000",
+          "sha256": "77a69e7a75d1c251efb2992a4e3628c32d1eb0b8a889bde13eca87fc82df1f23"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_5/dataset_gelsight_03.pkl",
+          "size": 53789972,
+          "mtime": "2025-05-14T17:08:21.830000",
+          "sha256": "2c82407bf59f2af46c160b7f9515d4213657fbad4464858842692ec003a078a3"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/org_dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_5/org_dataset_gelsight_00.pkl",
+          "size": 1609848921,
+          "mtime": "2025-05-14T15:14:08.340000",
+          "sha256": "f8002c9e93a244bbd526ed8edfab5005ead1ef3f03c03e78ff3f3f6fe3e7a2bc"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/org_dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_5/org_dataset_gelsight_01.pkl",
+          "size": 1609311094,
+          "mtime": "2025-05-14T16:06:18.450000",
+          "sha256": "b006cb67960a122db464c1bf20cf38f4c60cd47b43a95cbeb1da4cddcd583ed4"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/org_dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_5/org_dataset_gelsight_02.pkl",
+          "size": 1609387640,
+          "mtime": "2025-05-14T15:14:11.340000",
+          "sha256": "b93b2b224f5f4cea3fd18851f7bd4bb62d7ec81924c3c6ab7c6c8ffd99925002"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/org_dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_5/org_dataset_gelsight_03.pkl",
+          "size": 1294028574,
+          "mtime": "2025-05-14T17:09:11.270000",
+          "sha256": "59880672eee17e5846cbd92d09b4032a41228a563fe4d40030a550f24b0729a7"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_5/dataset_slip_forces.pkl",
+        "relative_path": "sphere/batch_5/dataset_slip_forces.pkl",
+        "size": 1865675,
+        "mtime": "2025-05-14T17:09:21.600000",
+        "sha256": "58d4ccca625c6a63f0b7285726bbf6f192761d21d599ca037e1b5d87a200d38b"
+      },
+      "frame_count_from_official_files": 18999,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3999
+        }
+      ],
+      "summary": {
+        "trajectories": 152,
+        "raw_samples": 12228,
+        "eligible_dataset_samples_len_minus_5": 11468,
+        "trajectory_len_min": 12,
+        "trajectory_len_max": 138,
+        "trajectory_len_mean": 80.44736842105263,
+        "slip_positive_frames": 2900,
+        "slip_total_frames": 12228,
+        "slip_positive_ratio": 0.2371606149820085,
+        "force_min": [
+          -1.695541088124424,
+          -0.849818505293896,
+          0.06382753195793965
+        ],
+        "force_max": [
+          0.7969932046792394,
+          1.163731283974263,
+          1.7821159357786847
+        ],
+        "force_mean": [
+          -0.03717399924592082,
+          0.003600343212122038,
+          0.4173576141965751
+        ],
+        "force_std": [
+          0.22522687956243603,
+          0.18572114576134013,
+          0.23303401004945823
+        ]
+      }
+    },
+    "sphere/batch_6": {
+      "exists": true,
+      "official_dataset_gelsight_files": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_6/dataset_gelsight_00.pkl",
+          "size": 67347006,
+          "mtime": "2025-05-14T17:00:40.360000",
+          "sha256": "4fa8f4f87cb5da4aad2bd2d34a5ca9bc5b2872753922fbe8700307fd4b4caec3"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_6/dataset_gelsight_01.pkl",
+          "size": 67317034,
+          "mtime": "2025-05-14T17:02:08.270000",
+          "sha256": "e5e0a449f3d4f6384d6df38b858cefb96b151f6517c6a1f349f6512606c2561c"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_6/dataset_gelsight_02.pkl",
+          "size": 67374330,
+          "mtime": "2025-05-14T17:00:40.510000",
+          "sha256": "ec8946a7fa7253f27c61de745a3541a562e881b91cfda1bf017cc17cfee6479b"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_6/dataset_gelsight_03.pkl",
+          "size": 42132217,
+          "mtime": "2025-05-14T17:09:17.050000",
+          "sha256": "a049a1471d0c80b322750107e11b8d43e725f4eb8e98c3a670da26ada83627ce"
+        }
+      ],
+      "org_dataset_gelsight_files_recorded_not_used_for_training": [
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/org_dataset_gelsight_00.pkl",
+          "relative_path": "sphere/batch_6/org_dataset_gelsight_00.pkl",
+          "size": 1609915505,
+          "mtime": "2025-05-14T15:14:03.860000",
+          "sha256": "4d2a8d5643ec44f9fe819c064b9efa8371990ec055ba4370d7d04232eb56c21d"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/org_dataset_gelsight_01.pkl",
+          "relative_path": "sphere/batch_6/org_dataset_gelsight_01.pkl",
+          "size": 1609770219,
+          "mtime": "2025-05-14T15:14:05.350000",
+          "sha256": "ab830617a4d9fb79046cee6db2ec4c88484d5dec5fe2d779deea9fa7600f8e6c"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/org_dataset_gelsight_02.pkl",
+          "relative_path": "sphere/batch_6/org_dataset_gelsight_02.pkl",
+          "size": 1609432906,
+          "mtime": "2025-05-14T15:14:02.370000",
+          "sha256": "c9642f60b3ae8e336db1017ae576891869bf9e9bb8974cd2fd001bec5954fb65"
+        },
+        {
+          "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/org_dataset_gelsight_03.pkl",
+          "relative_path": "sphere/batch_6/org_dataset_gelsight_03.pkl",
+          "size": 1012501952,
+          "mtime": "2025-05-14T16:57:35.740000",
+          "sha256": "3d076778e6f3a23672fe6662be155cf2a50a8e8ce7ef001895de8c36cb504573"
+        }
+      ],
+      "force_slip_file": {
+        "path": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation/sphere/batch_6/dataset_slip_forces.pkl",
+        "relative_path": "sphere/batch_6/dataset_slip_forces.pkl",
+        "size": 1746057,
+        "mtime": "2025-05-14T17:09:26.020000",
+        "sha256": "786130eafaeae4c4dee0450c36fb4a1349cfde1978f8fec866236fef120dc3aa"
+      },
+      "frame_count_from_official_files": 18130,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3130
+        }
+      ],
+      "summary": {
+        "trajectories": 153,
+        "raw_samples": 11364,
+        "eligible_dataset_samples_len_minus_5": 10599,
+        "trajectory_len_min": 6,
+        "trajectory_len_max": 130,
+        "trajectory_len_mean": 74.27450980392157,
+        "slip_positive_frames": 2916,
+        "slip_total_frames": 11364,
+        "slip_positive_ratio": 0.2565997888067582,
+        "force_min": [
+          -1.1011465851356381,
+          -0.9394563983524525,
+          0.06518068097331393
+        ],
+        "force_max": [
+          0.8752498779128893,
+          0.8765113935629882,
+          1.2701861236716228
+        ],
+        "force_mean": [
+          -0.017845849812317682,
+          0.011744187193240298,
+          0.39576966759808
+        ],
+        "force_std": [
+          0.18439088822432867,
+          0.1871679456314959,
+          0.21075604408359777
+        ]
+      }
+    }
+  },
+  "raw_root": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation",
+  "hash_algorithm": "sha256"
+}

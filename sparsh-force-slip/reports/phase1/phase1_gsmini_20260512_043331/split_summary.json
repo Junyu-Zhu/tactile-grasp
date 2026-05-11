@@ -1,0 +1,971 @@
+{
+  "derived_root": "/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini",
+  "train_datasets": [
+    "flat_batch_1_train",
+    "flat_batch_2_train",
+    "sharp_batch_1_train",
+    "sharp_batch_2_train",
+    "sphere_batch_1_train",
+    "sphere_batch_2_train",
+    "sphere_batch_3_train",
+    "sphere_batch_4_train",
+    "sphere_batch_5_train",
+    "sphere_batch_6_train"
+  ],
+  "val_datasets": [
+    "flat_batch_1_val",
+    "flat_batch_2_val",
+    "sharp_batch_1_val",
+    "sharp_batch_2_val",
+    "sphere_batch_1_val",
+    "sphere_batch_2_val",
+    "sphere_batch_3_val",
+    "sphere_batch_4_val",
+    "sphere_batch_5_val",
+    "sphere_batch_6_val"
+  ],
+  "test_datasets": [
+    "flat_batch_1_test",
+    "flat_batch_2_test",
+    "sharp_batch_1_test",
+    "sharp_batch_2_test",
+    "sphere_batch_1_test",
+    "sphere_batch_2_test",
+    "sphere_batch_3_test",
+    "sphere_batch_4_test",
+    "sphere_batch_5_test",
+    "sphere_batch_6_test"
+  ],
+  "by_derived_dataset": {
+    "flat_batch_1_train": {
+      "trajectories": 106,
+      "raw_samples": 5221,
+      "eligible_dataset_samples_len_minus_5": 4691,
+      "trajectory_len_min": 11,
+      "trajectory_len_max": 85,
+      "trajectory_len_mean": 49.25471698113208,
+      "slip_positive_frames": 1892,
+      "slip_total_frames": 4691,
+      "slip_positive_ratio": 0.403325516947346,
+      "force_min": [
+        -0.7119592209925184,
+        -0.8331857150299663,
+        0.0911760880931271
+      ],
+      "force_max": [
+        0.7755999276426155,
+        0.7559076505516824,
+        1.179150599381539
+      ],
+      "force_mean": [
+        -0.029241459814575165,
+        -0.038835745855448495,
+        0.5093177993061327
+      ],
+      "force_std": [
+        0.1926067856478833,
+        0.19298052361547105,
+        0.19830775797730268
+      ]
+    },
+    "flat_batch_1_val": {
+      "trajectories": 23,
+      "raw_samples": 1253,
+      "eligible_dataset_samples_len_minus_5": 1138,
+      "trajectory_len_min": 11,
+      "trajectory_len_max": 91,
+      "trajectory_len_mean": 54.47826086956522,
+      "slip_positive_frames": 395,
+      "slip_total_frames": 1138,
+      "slip_positive_ratio": 0.3471001757469244,
+      "force_min": [
+        -0.8274786466975365,
+        -0.7152980561369626,
+        0.1185041824088842
+      ],
+      "force_max": [
+        0.608752472718651,
+        0.5079015026122463,
+        1.0498737138647214
+      ],
+      "force_mean": [
+        -0.01877910019018174,
+        -0.03922913535120693,
+        0.5083607607773521
+      ],
+      "force_std": [
+        0.18559426581341598,
+        0.189137010891234,
+        0.18126073334139164
+      ]
+    },
+    "flat_batch_1_test": {
+      "trajectories": 22,
+      "raw_samples": 1013,
+      "eligible_dataset_samples_len_minus_5": 903,
+      "trajectory_len_min": 11,
+      "trajectory_len_max": 96,
+      "trajectory_len_mean": 46.04545454545455,
+      "slip_positive_frames": 409,
+      "slip_total_frames": 903,
+      "slip_positive_ratio": 0.4529346622369878,
+      "force_min": [
+        -1.112824946164447,
+        -0.8666888305920828,
+        0.12958559209691956
+      ],
+      "force_max": [
+        0.365539728391862,
+        0.7359422526535699,
+        1.48748530815632
+      ],
+      "force_mean": [
+        -0.0707568504094658,
+        -0.011274583686927572,
+        0.519074020548808
+      ],
+      "force_std": [
+        0.23815352107265916,
+        0.2283531359100876,
+        0.25886024028100074
+      ]
+    },
+    "flat_batch_2_train": {
+      "trajectories": 103,
+      "raw_samples": 4950,
+      "eligible_dataset_samples_len_minus_5": 4435,
+      "trajectory_len_min": 11,
+      "trajectory_len_max": 88,
+      "trajectory_len_mean": 48.05825242718446,
+      "slip_positive_frames": 1867,
+      "slip_total_frames": 4435,
+      "slip_positive_ratio": 0.4209695603156708,
+      "force_min": [
+        -0.9756062057756726,
+        -0.9894357267776404,
+        0.10582408187231004
+      ],
+      "force_max": [
+        0.7618335713875851,
+        0.7161859211713765,
+        1.1710948700362307
+      ],
+      "force_mean": [
+        -0.02938783014551891,
+        -0.044542957897958035,
+        0.5001069080476006
+      ],
+      "force_std": [
+        0.22221875463594584,
+        0.21564840745906425,
+        0.20153078471067032
+      ]
+    },
+    "flat_batch_2_val": {
+      "trajectories": 22,
+      "raw_samples": 1008,
+      "eligible_dataset_samples_len_minus_5": 898,
+      "trajectory_len_min": 16,
+      "trajectory_len_max": 88,
+      "trajectory_len_mean": 45.81818181818182,
+      "slip_positive_frames": 403,
+      "slip_total_frames": 898,
+      "slip_positive_ratio": 0.4487750556792873,
+      "force_min": [
+        -0.5374812867096681,
+        -0.8071244742302466,
+        0.10191943293839971
+      ],
+      "force_max": [
+        0.781032985523543,
+        0.5207301737507715,
+        1.0173038351974948
+      ],
+      "force_mean": [
+        -0.015133916914021169,
+        -0.08866943199450567,
+        0.48366794096751087
+      ],
+      "force_std": [
+        0.22383862703271434,
+        0.2123808053099862,
+        0.20270972717157265
+      ]
+    },
+    "flat_batch_2_test": {
+      "trajectories": 22,
+      "raw_samples": 1090,
+      "eligible_dataset_samples_len_minus_5": 980,
+      "trajectory_len_min": 22,
+      "trajectory_len_max": 77,
+      "trajectory_len_mean": 49.54545454545455,
+      "slip_positive_frames": 391,
+      "slip_total_frames": 980,
+      "slip_positive_ratio": 0.3989795918367347,
+      "force_min": [
+        -0.7044025821124468,
+        -0.6009912156442756,
+        0.1462032584073573
+      ],
+      "force_max": [
+        0.6213765256628724,
+        0.410333320057933,
+        0.8813225900620967
+      ],
+      "force_mean": [
+        -0.03382772044939161,
+        -0.052309999558933326,
+        0.49284730358975676
+      ],
+      "force_std": [
+        0.2298927128956484,
+        0.15847125883805632,
+        0.17668483482544675
+      ]
+    },
+    "sharp_batch_1_train": {
+      "trajectories": 107,
+      "raw_samples": 8650,
+      "eligible_dataset_samples_len_minus_5": 8115,
+      "trajectory_len_min": 12,
+      "trajectory_len_max": 145,
+      "trajectory_len_mean": 80.8411214953271,
+      "slip_positive_frames": 1989,
+      "slip_total_frames": 8115,
+      "slip_positive_ratio": 0.24510166358595195,
+      "force_min": [
+        -1.1971605590575658,
+        -1.175335804524258,
+        0.09534318210234013
+      ],
+      "force_max": [
+        0.8623233458988275,
+        1.136804419248206,
+        1.33139632203112
+      ],
+      "force_mean": [
+        -0.026195673347303303,
+        -0.030421146770773327,
+        0.4507230000967338
+      ],
+      "force_std": [
+        0.20508866367651765,
+        0.24020752406814674,
+        0.2261408177544184
+      ]
+    },
+    "sharp_batch_1_val": {
+      "trajectories": 23,
+      "raw_samples": 1705,
+      "eligible_dataset_samples_len_minus_5": 1590,
+      "trajectory_len_min": 25,
+      "trajectory_len_max": 124,
+      "trajectory_len_mean": 74.1304347826087,
+      "slip_positive_frames": 486,
+      "slip_total_frames": 1590,
+      "slip_positive_ratio": 0.30566037735849055,
+      "force_min": [
+        -1.0436746722216395,
+        -0.8278006979424841,
+        0.08309100048515784
+      ],
+      "force_max": [
+        0.7381992803011732,
+        0.7972431947340193,
+        1.059521906548307
+      ],
+      "force_mean": [
+        -0.014133078835490387,
+        -0.017947874811821172,
+        0.4260480617258087
+      ],
+      "force_std": [
+        0.23580057333350954,
+        0.17850314026822137,
+        0.20352260971674613
+      ]
+    },
+    "sharp_batch_1_test": {
+      "trajectories": 23,
+      "raw_samples": 1593,
+      "eligible_dataset_samples_len_minus_5": 1478,
+      "trajectory_len_min": 12,
+      "trajectory_len_max": 120,
+      "trajectory_len_mean": 69.26086956521739,
+      "slip_positive_frames": 416,
+      "slip_total_frames": 1478,
+      "slip_positive_ratio": 0.2814614343707713,
+      "force_min": [
+        -0.8524189356502005,
+        -0.6755193895199808,
+        0.07427017702201795
+      ],
+      "force_max": [
+        0.5512939044694978,
+        1.0037367592708297,
+        0.9548926170018666
+      ],
+      "force_mean": [
+        -0.05783934805791171,
+        -0.01758695246006935,
+        0.4383558299217927
+      ],
+      "force_std": [
+        0.20738001635378783,
+        0.20077450679967776,
+        0.21676929516218216
+      ]
+    },
+    "sharp_batch_2_train": {
+      "trajectories": 106,
+      "raw_samples": 7337,
+      "eligible_dataset_samples_len_minus_5": 6807,
+      "trajectory_len_min": 13,
+      "trajectory_len_max": 150,
+      "trajectory_len_mean": 69.21698113207547,
+      "slip_positive_frames": 1935,
+      "slip_total_frames": 6807,
+      "slip_positive_ratio": 0.2842661965623623,
+      "force_min": [
+        -1.5547904597731015,
+        -1.4069200079043296,
+        0.09406743214307213
+      ],
+      "force_max": [
+        0.909720036854172,
+        1.585446713501426,
+        1.7657678316981344
+      ],
+      "force_mean": [
+        -0.03981390905280446,
+        0.0019748550002341575,
+        0.41802740343136
+      ],
+      "force_std": [
+        0.2196977590824658,
+        0.21084024727271167,
+        0.229036837303735
+      ]
+    },
+    "sharp_batch_2_val": {
+      "trajectories": 23,
+      "raw_samples": 1554,
+      "eligible_dataset_samples_len_minus_5": 1439,
+      "trajectory_len_min": 17,
+      "trajectory_len_max": 118,
+      "trajectory_len_mean": 67.56521739130434,
+      "slip_positive_frames": 428,
+      "slip_total_frames": 1439,
+      "slip_positive_ratio": 0.2974287699791522,
+      "force_min": [
+        -0.9864936730012808,
+        -1.2056335315903892,
+        0.07973259316560634
+      ],
+      "force_max": [
+        0.7708118618959067,
+        0.8941574887108834,
+        1.193625112517725
+      ],
+      "force_mean": [
+        -0.028299372624466752,
+        0.002229592104778702,
+        0.4163552043972895
+      ],
+      "force_std": [
+        0.19956441625393234,
+        0.23468972742695648,
+        0.21532718227954187
+      ]
+    },
+    "sharp_batch_2_test": {
+      "trajectories": 22,
+      "raw_samples": 1589,
+      "eligible_dataset_samples_len_minus_5": 1479,
+      "trajectory_len_min": 14,
+      "trajectory_len_max": 120,
+      "trajectory_len_mean": 72.22727272727273,
+      "slip_positive_frames": 406,
+      "slip_total_frames": 1479,
+      "slip_positive_ratio": 0.27450980392156865,
+      "force_min": [
+        -1.0857441729705006,
+        -1.0358938429721565,
+        0.10590681879435462
+      ],
+      "force_max": [
+        0.4295238377506603,
+        1.2210252680236504,
+        1.207039169620824
+      ],
+      "force_mean": [
+        -0.07375484799143625,
+        0.025424601938465463,
+        0.46631546370197985
+      ],
+      "force_std": [
+        0.21442786961845722,
+        0.24392615070081552,
+        0.24766963264240544
+      ]
+    },
+    "sphere_batch_1_train": {
+      "trajectories": 104,
+      "raw_samples": 7518,
+      "eligible_dataset_samples_len_minus_5": 6998,
+      "trajectory_len_min": 6,
+      "trajectory_len_max": 129,
+      "trajectory_len_mean": 72.28846153846153,
+      "slip_positive_frames": 2007,
+      "slip_total_frames": 7518,
+      "slip_positive_ratio": 0.26695929768555465,
+      "force_min": [
+        -1.028871880330244,
+        -0.7335055168527087,
+        0.06330264180733428
+      ],
+      "force_max": [
+        0.8495347087548399,
+        1.0316119848452687,
+        1.1118997160684645
+      ],
+      "force_mean": [
+        -0.02315310083769798,
+        -0.0010678277267699922,
+        0.39993069881156096
+      ],
+      "force_std": [
+        0.18342282537204482,
+        0.16566699828380618,
+        0.21798189229742518
+      ]
+    },
+    "sphere_batch_1_val": {
+      "trajectories": 22,
+      "raw_samples": 1547,
+      "eligible_dataset_samples_len_minus_5": 1437,
+      "trajectory_len_min": 16,
+      "trajectory_len_max": 113,
+      "trajectory_len_mean": 70.31818181818181,
+      "slip_positive_frames": 425,
+      "slip_total_frames": 1547,
+      "slip_positive_ratio": 0.27472527472527475,
+      "force_min": [
+        -0.8539099795356491,
+        -0.4426763394227793,
+        0.09620702674003143
+      ],
+      "force_max": [
+        0.5889774587056732,
+        0.4176355206616095,
+        0.8737374825636871
+      ],
+      "force_mean": [
+        -0.01617575461427228,
+        0.0036743328428901594,
+        0.35779182460848996
+      ],
+      "force_std": [
+        0.1856983808499757,
+        0.11362908030667385,
+        0.1806625599592296
+      ]
+    },
+    "sphere_batch_1_test": {
+      "trajectories": 22,
+      "raw_samples": 1675,
+      "eligible_dataset_samples_len_minus_5": 1565,
+      "trajectory_len_min": 18,
+      "trajectory_len_max": 138,
+      "trajectory_len_mean": 76.13636363636364,
+      "slip_positive_frames": 417,
+      "slip_total_frames": 1675,
+      "slip_positive_ratio": 0.24895522388059702,
+      "force_min": [
+        -1.6739600961356342,
+        -0.8506156266073579,
+        0.07286453899158314
+      ],
+      "force_max": [
+        0.6921797587579255,
+        0.7665682584749105,
+        1.8881099397166992
+      ],
+      "force_mean": [
+        -0.03583879839049705,
+        -0.012444042046327984,
+        0.42900909538777865
+      ],
+      "force_std": [
+        0.21055326428441024,
+        0.20828486427242235,
+        0.26342249996563716
+      ]
+    },
+    "sphere_batch_2_train": {
+      "trajectories": 108,
+      "raw_samples": 8276,
+      "eligible_dataset_samples_len_minus_5": 7736,
+      "trajectory_len_min": 8,
+      "trajectory_len_max": 134,
+      "trajectory_len_mean": 76.62962962962963,
+      "slip_positive_frames": 2023,
+      "slip_total_frames": 8276,
+      "slip_positive_ratio": 0.2444417593040116,
+      "force_min": [
+        -1.232930488354839,
+        -1.165030164685931,
+        0.07317769379330027
+      ],
+      "force_max": [
+        0.952632030776971,
+        0.8676763357906794,
+        1.5188417119668929
+      ],
+      "force_mean": [
+        -0.04035192112669377,
+        -0.015259417104765229,
+        0.4205477556585987
+      ],
+      "force_std": [
+        0.20888654250460958,
+        0.18770268698226744,
+        0.23549317112527618
+      ]
+    },
+    "sphere_batch_2_val": {
+      "trajectories": 23,
+      "raw_samples": 1596,
+      "eligible_dataset_samples_len_minus_5": 1481,
+      "trajectory_len_min": 16,
+      "trajectory_len_max": 118,
+      "trajectory_len_mean": 69.3913043478261,
+      "slip_positive_frames": 448,
+      "slip_total_frames": 1596,
+      "slip_positive_ratio": 0.2807017543859649,
+      "force_min": [
+        -0.7426261504527198,
+        -0.8508584995075531,
+        0.09937060195283279
+      ],
+      "force_max": [
+        0.6927304485938995,
+        0.3862889029385904,
+        0.8572666075665543
+      ],
+      "force_mean": [
+        -0.031153300687240162,
+        -0.03722682722890137,
+        0.3769816168313258
+      ],
+      "force_std": [
+        0.1631542715086883,
+        0.16103440200740893,
+        0.1971696037814899
+      ]
+    },
+    "sphere_batch_2_test": {
+      "trajectories": 23,
+      "raw_samples": 1643,
+      "eligible_dataset_samples_len_minus_5": 1528,
+      "trajectory_len_min": 11,
+      "trajectory_len_max": 125,
+      "trajectory_len_mean": 71.43478260869566,
+      "slip_positive_frames": 449,
+      "slip_total_frames": 1643,
+      "slip_positive_ratio": 0.2732805842970176,
+      "force_min": [
+        -1.252943927046397,
+        -0.9880016201288676,
+        0.0724295029176068
+      ],
+      "force_max": [
+        0.5285634920153147,
+        0.8245410411427923,
+        1.20554367751376
+      ],
+      "force_mean": [
+        -0.05115587735694135,
+        -0.02788812298048338,
+        0.4065169419261536
+      ],
+      "force_std": [
+        0.20137941785663888,
+        0.19016599645203713,
+        0.24034486610621347
+      ]
+    },
+    "sphere_batch_3_train": {
+      "trajectories": 106,
+      "raw_samples": 7213,
+      "eligible_dataset_samples_len_minus_5": 6683,
+      "trajectory_len_min": 6,
+      "trajectory_len_max": 132,
+      "trajectory_len_mean": 68.04716981132076,
+      "slip_positive_frames": 1840,
+      "slip_total_frames": 7213,
+      "slip_positive_ratio": 0.2550949674199362,
+      "force_min": [
+        -1.71519066228785,
+        -1.1279818164964204,
+        0.06152335316121427
+      ],
+      "force_max": [
+        0.943407308791162,
+        0.7375169231053861,
+        1.6600255971035456
+      ],
+      "force_mean": [
+        -0.027126644207420437,
+        -0.006191439272808329,
+        0.3932870430195631
+      ],
+      "force_std": [
+        0.201703619842686,
+        0.17305569910371113,
+        0.22538026897566213
+      ]
+    },
+    "sphere_batch_3_val": {
+      "trajectories": 23,
+      "raw_samples": 1645,
+      "eligible_dataset_samples_len_minus_5": 1530,
+      "trajectory_len_min": 19,
+      "trajectory_len_max": 127,
+      "trajectory_len_mean": 71.52173913043478,
+      "slip_positive_frames": 407,
+      "slip_total_frames": 1645,
+      "slip_positive_ratio": 0.2474164133738602,
+      "force_min": [
+        -1.1784575664538752,
+        -0.917206393832722,
+        0.09532183063858671
+      ],
+      "force_max": [
+        0.6975816790875458,
+        0.722376066371228,
+        1.2629034952430536
+      ],
+      "force_mean": [
+        -0.013347223452156836,
+        -0.006472423664977614,
+        0.40678916095271583
+      ],
+      "force_std": [
+        0.17911099107202147,
+        0.1936945700816519,
+        0.2326521756720968
+      ]
+    },
+    "sphere_batch_3_test": {
+      "trajectories": 23,
+      "raw_samples": 1955,
+      "eligible_dataset_samples_len_minus_5": 1840,
+      "trajectory_len_min": 14,
+      "trajectory_len_max": 136,
+      "trajectory_len_mean": 85.0,
+      "slip_positive_frames": 426,
+      "slip_total_frames": 1955,
+      "slip_positive_ratio": 0.21790281329923275,
+      "force_min": [
+        -1.0056744046064543,
+        -0.9480708243326424,
+        0.1001285789160799
+      ],
+      "force_max": [
+        0.8211541652049028,
+        1.3139859826288358,
+        1.4574108818152767
+      ],
+      "force_mean": [
+        -0.029025284490464348,
+        0.038837257280967645,
+        0.44214732459895395
+      ],
+      "force_std": [
+        0.19394485340754083,
+        0.2068676581999481,
+        0.2437028164968319
+      ]
+    },
+    "sphere_batch_4_train": {
+      "trajectories": 106,
+      "raw_samples": 8296,
+      "eligible_dataset_samples_len_minus_5": 7766,
+      "trajectory_len_min": 7,
+      "trajectory_len_max": 135,
+      "trajectory_len_mean": 78.26415094339623,
+      "slip_positive_frames": 1900,
+      "slip_total_frames": 8296,
+      "slip_positive_ratio": 0.22902603664416588,
+      "force_min": [
+        -1.173145500200884,
+        -0.9910771205536859,
+        0.08428223423373518
+      ],
+      "force_max": [
+        0.909200484569505,
+        1.0976609586778892,
+        1.1891359672635644
+      ],
+      "force_mean": [
+        -0.01836953137003369,
+        0.0026246999735437073,
+        0.41214000966341424
+      ],
+      "force_std": [
+        0.17735649312504145,
+        0.19621701313210876,
+        0.22429171751740953
+      ]
+    },
+    "sphere_batch_4_val": {
+      "trajectories": 23,
+      "raw_samples": 2219,
+      "eligible_dataset_samples_len_minus_5": 2104,
+      "trajectory_len_min": 33,
+      "trajectory_len_max": 134,
+      "trajectory_len_mean": 96.47826086956522,
+      "slip_positive_frames": 484,
+      "slip_total_frames": 2219,
+      "slip_positive_ratio": 0.2181162685894547,
+      "force_min": [
+        -1.7823605879675264,
+        -0.8361669131565403,
+        0.09741338444210078
+      ],
+      "force_max": [
+        0.7031704247250088,
+        0.9028706652109331,
+        1.6747447624285732
+      ],
+      "force_mean": [
+        -0.05743344411614325,
+        0.015995896739592175,
+        0.4644833712308505
+      ],
+      "force_std": [
+        0.25042006358924446,
+        0.19901485149437145,
+        0.25414271041787156
+      ]
+    },
+    "sphere_batch_4_test": {
+      "trajectories": 23,
+      "raw_samples": 1500,
+      "eligible_dataset_samples_len_minus_5": 1385,
+      "trajectory_len_min": 6,
+      "trajectory_len_max": 131,
+      "trajectory_len_mean": 65.21739130434783,
+      "slip_positive_frames": 445,
+      "slip_total_frames": 1500,
+      "slip_positive_ratio": 0.2966666666666667,
+      "force_min": [
+        -1.3297309078583517,
+        -1.4312348768978824,
+        0.08071653978691072
+      ],
+      "force_max": [
+        0.7338907328445936,
+        0.5538498526096493,
+        1.479759636854867
+      ],
+      "force_mean": [
+        -0.0270981930228882,
+        -0.04201953891677446,
+        0.3766791488207232
+      ],
+      "force_std": [
+        0.22478794729164678,
+        0.20332448216999807,
+        0.2443401936127924
+      ]
+    },
+    "sphere_batch_5_train": {
+      "trajectories": 106,
+      "raw_samples": 8533,
+      "eligible_dataset_samples_len_minus_5": 8003,
+      "trajectory_len_min": 12,
+      "trajectory_len_max": 130,
+      "trajectory_len_mean": 80.5,
+      "slip_positive_frames": 2045,
+      "slip_total_frames": 8533,
+      "slip_positive_ratio": 0.23965779913277863,
+      "force_min": [
+        -1.695541088124424,
+        -0.849818505293896,
+        0.06382753195793965
+      ],
+      "force_max": [
+        0.7969932046792394,
+        0.9937860875174038,
+        1.5856789106697444
+      ],
+      "force_mean": [
+        -0.030034549986516803,
+        0.00809902185896858,
+        0.41565656801302264
+      ],
+      "force_std": [
+        0.21960990875102543,
+        0.18275971398673901,
+        0.22379176319720584
+      ]
+    },
+    "sphere_batch_5_val": {
+      "trajectories": 23,
+      "raw_samples": 1901,
+      "eligible_dataset_samples_len_minus_5": 1786,
+      "trajectory_len_min": 21,
+      "trajectory_len_max": 138,
+      "trajectory_len_mean": 82.65217391304348,
+      "slip_positive_frames": 416,
+      "slip_total_frames": 1901,
+      "slip_positive_ratio": 0.21883219358232509,
+      "force_min": [
+        -1.6896925663446272,
+        -0.8287695206102965,
+        0.06467091477620054
+      ],
+      "force_max": [
+        0.7413370558286058,
+        0.8431630761130842,
+        1.7821159357786847
+      ],
+      "force_mean": [
+        -0.05539061692948395,
+        -0.024857644224165844,
+        0.4247730294283844
+      ],
+      "force_std": [
+        0.24657066710732783,
+        0.1821929883921438,
+        0.25547324903555596
+      ]
+    },
+    "sphere_batch_5_test": {
+      "trajectories": 23,
+      "raw_samples": 1794,
+      "eligible_dataset_samples_len_minus_5": 1679,
+      "trajectory_len_min": 23,
+      "trajectory_len_max": 131,
+      "trajectory_len_mean": 78.0,
+      "slip_positive_frames": 439,
+      "slip_total_frames": 1794,
+      "slip_positive_ratio": 0.24470457079152733,
+      "force_min": [
+        -1.6183493191454768,
+        -0.629883304679972,
+        0.09024463048688329
+      ],
+      "force_max": [
+        0.6259439596174623,
+        1.163731283974263,
+        1.5369637668276248
+      ],
+      "force_mean": [
+        -0.051829032865787814,
+        0.0123580964021118,
+        0.41759079297503277
+      ],
+      "force_std": [
+        0.22612448044496872,
+        0.20006760564020162,
+        0.2503982096413489
+      ]
+    },
+    "sphere_batch_6_train": {
+      "trajectories": 107,
+      "raw_samples": 7986,
+      "eligible_dataset_samples_len_minus_5": 7451,
+      "trajectory_len_min": 6,
+      "trajectory_len_max": 129,
+      "trajectory_len_mean": 74.6355140186916,
+      "slip_positive_frames": 2033,
+      "slip_total_frames": 7986,
+      "slip_positive_ratio": 0.2545704983721513,
+      "force_min": [
+        -1.1011465851356381,
+        -0.9129832522311561,
+        0.06518068097331393
+      ],
+      "force_max": [
+        0.8046236840381251,
+        0.8765113935629882,
+        1.2701861236716228
+      ],
+      "force_mean": [
+        -0.020245842284986822,
+        0.012984122280417322,
+        0.3979433851607008
+      ],
+      "force_std": [
+        0.19146282403530868,
+        0.18634326256880362,
+        0.21042247805896316
+      ]
+    },
+    "sphere_batch_6_val": {
+      "trajectories": 23,
+      "raw_samples": 1632,
+      "eligible_dataset_samples_len_minus_5": 1517,
+      "trajectory_len_min": 17,
+      "trajectory_len_max": 124,
+      "trajectory_len_mean": 70.95652173913044,
+      "slip_positive_frames": 458,
+      "slip_total_frames": 1632,
+      "slip_positive_ratio": 0.2806372549019608,
+      "force_min": [
+        -0.721590510433966,
+        -0.9394563983524525,
+        0.0924954306242251
+      ],
+      "force_max": [
+        0.61256370899864,
+        0.7446847874162806,
+        1.0088104008452408
+      ],
+      "force_mean": [
+        -0.017895887867353383,
+        0.011806403306055107,
+        0.38568244679486624
+      ],
+      "force_std": [
+        0.14108235605877117,
+        0.20920187911570085,
+        0.21727534628041087
+      ]
+    },
+    "sphere_batch_6_test": {
+      "trajectories": 23,
+      "raw_samples": 1746,
+      "eligible_dataset_samples_len_minus_5": 1631,
+      "trajectory_len_min": 25,
+      "trajectory_len_max": 130,
+      "trajectory_len_mean": 75.91304347826087,
+      "slip_positive_frames": 425,
+      "slip_total_frames": 1746,
+      "slip_positive_ratio": 0.2434135166093929,
+      "force_min": [
+        -0.5898395240547184,
+        -0.8367567473427292,
+        0.09293758385278592
+      ],
+      "force_max": [
+        0.8752498779128893,
+        0.6572167368616675,
+        0.919626226391445
+      ],
+      "force_mean": [
+        -0.006821793688289757,
+        0.006014715084243095,
+        0.3952559424524683
+      ],
+      "force_std": [
+        0.18673539006086656,
+        0.16804020621657073,
+        0.20575578744609704
+      ]
+    }
+  }
+}

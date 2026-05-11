@@ -1,0 +1,1 @@
+Hydra compose verification passed for dinov2_force, dinov2_slip, mae_force, mae_slip at 2026-05-12T04:37:38+08:00
