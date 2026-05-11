@@ -1,0 +1,487 @@
+{
+  "sparsh_repo": "/home/zjy/Documents/grasp/sparsh",
+  "sparsh_model_root": "/home/zjy/Documents/dataset1/sparsh/sparsh_models",
+  "official_dataset_inventory": {
+    "sparsh_data_root": "/home/zjy/Documents/dataset1/sparsh/tactile_datasets",
+    "gelsight_force_root": "/home/zjy/Documents/dataset1/sparsh/tactile_datasets/Gelsight-mini/gelsight-force-estimation",
+    "gelsight_force_exists": true,
+    "gelsight_force_dataset_slip_forces_files": 10,
+    "gelsight_force_dataset_gelsight_files": 39
+  },
+  "model_inventory": [
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-base/dino_vitbase.ckpt",
+      "size_bytes": 1777689733
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-base/dino_vitbase.safetensors",
+      "size_bytes": 345040040
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-small/dino_vitsmall.ckpt",
+      "size_bytes": 734436997
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-small/dino_vitsmall.safetensors",
+      "size_bytes": 87593104
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.ckpt",
+      "size_bytes": 1777966271
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.safetensors",
+      "size_bytes": 345043192
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-ijepa-base/ijepa_vitbase.ckpt",
+      "size_bytes": 2540620978
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-ijepa-base/ijepa_vitbase.safetensors",
+      "size_bytes": 345040040
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-ijepa-small/ijepa_vitsmall.ckpt",
+      "size_bytes": 410478726
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-ijepa-small/ijepa_vitsmall.safetensors",
+      "size_bytes": 87593104
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-mae-base/mae_vitbase.ckpt",
+      "size_bytes": 1354221049
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-mae-base/mae_vitbase.safetensors",
+      "size_bytes": 345036880
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-mae-small/mae_vitsmall.ckpt",
+      "size_bytes": 579527929
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-mae-small/mae_vitsmall.safetensors",
+      "size_bytes": 87591480
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-vjepa-base/vjepa_vitbase.ckpt",
+      "size_bytes": 3004316773
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-vjepa-base/vjepa_vitbase.safetensors",
+      "size_bytes": 345040040
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-vjepa-small/vjepa_vitsmall.ckpt",
+      "size_bytes": 1186898533
+    },
+    {
+      "path": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-vjepa-small/vjepa_vitsmall.safetensors",
+      "size_bytes": 87593104
+    }
+  ],
+  "encoder": {
+    "name": "sparsh-dino-small",
+    "family": "dino",
+    "checkpoint": "/home/zjy/Documents/dataset1/sparsh/sparsh_models/sparsh-dino-small/dino_vitsmall.ckpt",
+    "device": "cuda",
+    "embedding_shape": [
+      2250,
+      384
+    ]
+  },
+  "phase5_manifest": {
+    "phase": "phase5_cube_force_slip_v2",
+    "dataset_name": "cube_force_slip_v2",
+    "dataset_root": "sim_dataset/phase5_cube_force_slip/sparsh_export_v2/cube_force_slip_v2",
+    "export_root": "sim_dataset/phase5_cube_force_slip/sparsh_export_v2",
+    "report_root": "artifacts/phase5_cube_force_slip/reports",
+    "files": {
+      "dataset_gelsight_cube_v2.pkl": "sim_dataset/phase5_cube_force_slip/sparsh_export_v2/cube_force_slip_v2/dataset_gelsight_cube_v2.pkl",
+      "dataset_slip_forces.pkl": "sim_dataset/phase5_cube_force_slip/sparsh_export_v2/cube_force_slip_v2/dataset_slip_forces.pkl",
+      "sample_index.csv": "sim_dataset/phase5_cube_force_slip/sparsh_export_v2/cube_force_slip_v2/sample_index.csv",
+      "export_manifest.json": "sim_dataset/phase5_cube_force_slip/sparsh_export_v2/cube_force_slip_v2/export_manifest.json"
+    },
+    "source_roots": [
+      "artifacts/phase3",
+      "sim_dataset/phase4_collected/bridge_robustness",
+      "sim_dataset/phase4_collected/force_oriented",
+      "sim_dataset/phase4_collected/slip_oriented",
+      "sim_dataset/phase5_cube_force_slip/raw/force_v2",
+      "sim_dataset/phase5_cube_force_slip/raw/slip_v2"
+    ],
+    "counts": {
+      "frames": 2290,
+      "trajectories": 8,
+      "in_contact_frames": 1106,
+      "force_valid_frames": 1308,
+      "force_invalid_frames": 982,
+      "slip_valid_frames": 856,
+      "slip_invalid_frames": 1434,
+      "slip_positive_valid_frames": 296,
+      "slip_negative_valid_frames": 560,
+      "release_masked_slip_frames": 332
+    },
+    "force": {
+      "frame": "phase5_gripper_scalar_normal_v1",
+      "order": [
+        "tangent_a_n",
+        "tangent_b_n",
+        "normal_n"
+      ],
+      "unit": "N",
+      "normal_force_scalar_source": "max(abs(left_force_n), abs(right_force_n), abs(max_force_n)) from sim contact sensors when nonzero",
+      "invalid_vector": "[left_force_n, right_force_n, max_force_n] is explicitly invalid for Phase5 metrics",
+      "thresholds_n": {
+        "light_upper": 0.25,
+        "medium_upper": 0.8,
+        "firm_upper": 1.5
+      },
+      "sources": {
+        "sim_no_contact_zero": 1184,
+        "invalid_geometry_contact_without_force_scalar": 982,
+        "sim_contact_sensor_scalar_normal": 124
+      },
+      "regimes": {
+        "no_contact": 1066,
+        "contact_geometry_no_force_invalid": 770,
+        "release_no_contact": 118,
+        "light": 4,
+        "medium": 8,
+        "hold_medium": 8,
+        "hold_firm": 18,
+        "firm": 32,
+        "over": 32,
+        "hold_over": 20,
+        "contact_release": 214
+      },
+      "label_validity": "sim-valid"
+    },
+    "slip": {
+      "frame": "phase5_gripper_contact_frame_v1",
+      "valid_stages": [
+        "contact_close",
+        "hold",
+        "micro_lift"
+      ],
+      "masked_stages": [
+        "end_trial",
+        "release"
+      ],
+      "threshold_m": 0.00075,
+      "horizon_samples": 3,
+      "sources": {
+        "no_contact_masked": 1066,
+        "sim_contact_frame_tangent_motion": 296,
+        "sim_contact_frame_stable": 544,
+        "sim_contact_frame_terminal_stable": 16,
+        "release_masked_not_metric_slip": 332,
+        "stage_pre_grasp_masked": 36
+      },
+      "label_validity": "sim-valid"
+    },
+    "gates": {
+      "FORMAT_GATE": "PASS_DATALOADER_ONLY",
+      "FORCE_LABEL_VALIDITY": "sim-valid",
+      "SLIP_LABEL_VALIDITY": "sim-valid",
+      "EVAL_GATE": "BLOCKED_NO_CHECKPOINT_NO_TRUSTED_METRICS"
+    },
+    "trial_summaries": [
+      {
+        "trajectory_id": "phase3_existing__phase3_cube_0001",
+        "source_group": "phase3_existing",
+        "source_trial_id": "phase3_cube_0001",
+        "source_dir": "artifacts/phase3/phase3_cube_0001",
+        "frame_rows": 86,
+        "samples": 43,
+        "contact_frames": 22,
+        "force_valid_frames": 64,
+        "slip_valid_frames": 22,
+        "slip_positive_frames": 4,
+        "max_normal_force_n": 0.0,
+        "stages": {
+          "reset": 4,
+          "pre_grasp": 38,
+          "contact_close": 20,
+          "hold": 14,
+          "release": 8,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 54,
+          "contact_geometry_no_force_invalid": 22,
+          "release_no_contact": 10
+        }
+      },
+      {
+        "trajectory_id": "phase3_existing__phase3_cube_0002",
+        "source_group": "phase3_existing",
+        "source_trial_id": "phase3_cube_0002",
+        "source_dir": "artifacts/phase3/phase3_cube_0002",
+        "frame_rows": 82,
+        "samples": 41,
+        "contact_frames": 24,
+        "force_valid_frames": 58,
+        "slip_valid_frames": 24,
+        "slip_positive_frames": 4,
+        "max_normal_force_n": 0.0,
+        "stages": {
+          "reset": 4,
+          "pre_grasp": 32,
+          "contact_close": 22,
+          "hold": 14,
+          "release": 8,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 48,
+          "contact_geometry_no_force_invalid": 24,
+          "release_no_contact": 10
+        }
+      },
+      {
+        "trajectory_id": "phase3_existing__phase3_cube_0003",
+        "source_group": "phase3_existing",
+        "source_trial_id": "phase3_cube_0003",
+        "source_dir": "artifacts/phase3/phase3_cube_0003",
+        "frame_rows": 92,
+        "samples": 46,
+        "contact_frames": 56,
+        "force_valid_frames": 62,
+        "slip_valid_frames": 34,
+        "slip_positive_frames": 14,
+        "max_normal_force_n": 0.8781936168670654,
+        "stages": {
+          "reset": 4,
+          "pre_grasp": 42,
+          "contact_close": 22,
+          "hold": 14,
+          "release": 8,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 26,
+          "contact_geometry_no_force_invalid": 30,
+          "light": 4,
+          "medium": 8,
+          "hold_medium": 8,
+          "hold_firm": 6,
+          "release_no_contact": 10
+        }
+      },
+      {
+        "trajectory_id": "bridge_robustness__phase3_cube_0001",
+        "source_group": "bridge_robustness",
+        "source_trial_id": "phase3_cube_0001",
+        "source_dir": "sim_dataset/phase4_collected/bridge_robustness/phase3_cube_0001",
+        "frame_rows": 218,
+        "samples": 109,
+        "contact_frames": 116,
+        "force_valid_frames": 112,
+        "slip_valid_frames": 86,
+        "slip_positive_frames": 46,
+        "max_normal_force_n": 1.7839936017990112,
+        "stages": {
+          "reset": 10,
+          "pre_grasp": 50,
+          "contact_close": 74,
+          "hold": 50,
+          "micro_lift": 6,
+          "release": 26,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 102,
+          "contact_geometry_no_force_invalid": 78,
+          "firm": 4,
+          "over": 2,
+          "hold_over": 4,
+          "contact_release": 28
+        }
+      },
+      {
+        "trajectory_id": "force_oriented__phase3_cube_0001",
+        "source_group": "force_oriented",
+        "source_trial_id": "phase3_cube_0001",
+        "source_dir": "sim_dataset/phase4_collected/force_oriented/phase3_cube_0001",
+        "frame_rows": 354,
+        "samples": 177,
+        "contact_frames": 184,
+        "force_valid_frames": 186,
+        "slip_valid_frames": 138,
+        "slip_positive_frames": 58,
+        "max_normal_force_n": 1.789130449295044,
+        "stages": {
+          "reset": 14,
+          "pre_grasp": 82,
+          "contact_close": 126,
+          "hold": 82,
+          "micro_lift": 6,
+          "release": 42,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 170,
+          "contact_geometry_no_force_invalid": 124,
+          "firm": 6,
+          "over": 4,
+          "hold_over": 4,
+          "hold_firm": 2,
+          "contact_release": 44
+        }
+      },
+      {
+        "trajectory_id": "slip_oriented__phase3_cube_0001",
+        "source_group": "slip_oriented",
+        "source_trial_id": "phase3_cube_0001",
+        "source_dir": "sim_dataset/phase4_collected/slip_oriented/phase3_cube_0001",
+        "frame_rows": 540,
+        "samples": 270,
+        "contact_frames": 290,
+        "force_valid_frames": 274,
+        "slip_valid_frames": 202,
+        "slip_positive_frames": 88,
+        "max_normal_force_n": 1.7926311492919922,
+        "stages": {
+          "reset": 22,
+          "pre_grasp": 118,
+          "contact_close": 186,
+          "hold": 122,
+          "micro_lift": 8,
+          "release": 82,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 250,
+          "contact_geometry_no_force_invalid": 182,
+          "firm": 6,
+          "over": 8,
+          "hold_over": 8,
+          "hold_firm": 2,
+          "contact_release": 84
+        }
+      },
+      {
+        "trajectory_id": "phase5_force_v2__phase3_cube_0001",
+        "source_group": "phase5_force_v2",
+        "source_trial_id": "phase3_cube_0001",
+        "source_dir": "sim_dataset/phase5_cube_force_slip/raw/force_v2/phase3_cube_0001",
+        "frame_rows": 364,
+        "samples": 182,
+        "contact_frames": 198,
+        "force_valid_frames": 184,
+        "slip_valid_frames": 144,
+        "slip_positive_frames": 32,
+        "max_normal_force_n": 2.5398545265197754,
+        "stages": {
+          "reset": 14,
+          "pre_grasp": 82,
+          "contact_close": 128,
+          "hold": 82,
+          "micro_lift": 6,
+          "release": 50,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 166,
+          "contact_geometry_no_force_invalid": 130,
+          "firm": 6,
+          "over": 10,
+          "contact_release": 52
+        }
+      },
+      {
+        "trajectory_id": "phase5_slip_v2__phase3_cube_0001",
+        "source_group": "phase5_slip_v2",
+        "source_trial_id": "phase3_cube_0001",
+        "source_dir": "sim_dataset/phase5_cube_force_slip/raw/slip_v2/phase3_cube_0001",
+        "frame_rows": 554,
+        "samples": 277,
+        "contact_frames": 216,
+        "force_valid_frames": 368,
+        "slip_valid_frames": 206,
+        "slip_positive_frames": 50,
+        "max_normal_force_n": 1.8202013969421387,
+        "stages": {
+          "reset": 22,
+          "pre_grasp": 118,
+          "contact_close": 190,
+          "hold": 122,
+          "micro_lift": 8,
+          "release": 92,
+          "end_trial": 2
+        },
+        "force_regimes": {
+          "no_contact": 250,
+          "contact_geometry_no_force_invalid": 180,
+          "firm": 10,
+          "over": 8,
+          "hold_firm": 8,
+          "hold_over": 4,
+          "contact_release": 6,
+          "release_no_contact": 88
+        }
+      }
+    ],
+    "sparsh_smoke": {
+      "report": "artifacts/phase5_cube_force_slip/reports/phase5_sparsh_smoke_report.json",
+      "mask_counts": {
+        "valid_force": 1308,
+        "invalid_force": 982,
+        "valid_slip": 856,
+        "invalid_slip": 1434,
+        "positive_slip_valid": 296,
+        "negative_slip_valid": 560
+      },
+      "dataset_len": 2250
+    }
+  },
+  "dataset_len_sparsh_loader": 2250,
+  "diagnostics": {
+    "force_probe": {
+      "train_samples": 741,
+      "test_samples_phase5_new": 547,
+      "test_nonzero_force_samples": 48,
+      "status": "PASS_DIAGNOSTIC_LINEAR_PROBE",
+      "target": "normal_force_n_only_not_full_xyz",
+      "phase5_all_valid_rmse_n": 0.21176141470751306,
+      "phase5_all_valid_mae_n": 0.034478635866553364,
+      "phase5_all_valid_r2": 0.7769361113512678,
+      "baseline_train_mean_rmse_n": 0.448486384955657,
+      "baseline_train_mean_mae_n": 0.23892879481882176,
+      "train_target_mean_n": 0.12524920075727333,
+      "test_target_mean_n": 0.1356611722566092,
+      "test_target_max_n": 2.5398545265197754,
+      "phase5_nonzero_rmse_n": 0.453973091500108,
+      "phase5_nonzero_mae_n": 0.3032408909655296,
+      "baseline_nonzero_rmse_n": 1.4591350657472653,
+      "baseline_nonzero_mae_n": 1.420722908083669
+    },
+    "slip_probe": {
+      "train_samples": 506,
+      "test_samples_phase5_new": 350,
+      "train_positive": 214,
+      "train_negative": 292,
+      "test_positive": 82,
+      "test_negative": 268,
+      "status": "PASS_DIAGNOSTIC_LINEAR_PROBE",
+      "phase5_accuracy": 0.5228571428571429,
+      "phase5_balanced_accuracy": 0.6461139424827084,
+      "phase5_f1": 0.4630225080385852,
+      "phase5_precision": 0.314410480349345,
+      "phase5_recall": 0.8780487804878049,
+      "phase5_confusion_matrix_tn_fp_fn_tp": [
+        111,
+        157,
+        10,
+        72
+      ],
+      "baseline_majority_label": 0,
+      "baseline_accuracy": 0.7657142857142857,
+      "baseline_balanced_accuracy": 0.5,
+      "baseline_f1": 0.0
+    }
+  }
+}

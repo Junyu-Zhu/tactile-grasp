@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 
 from isaaclab.app import AppLauncher
@@ -35,6 +35,42 @@ parser.add_argument(
 parser.add_argument("--trials", type=int, default=1, help="Number of deterministic trials to run for this object.")
 parser.add_argument("--seed", type=int, default=7, help="Base deterministic seed.")
 parser.add_argument("--output_root", type=Path, default=Path("artifacts/phase3"), help="Phase 3 artifact root.")
+parser.add_argument(
+    "--profile_close_rad",
+    type=float,
+    default=None,
+    help=(
+        "Optional local collection override for the object profile close target. "
+        "Used by Phase 4 force-oriented cube batches to create different contact levels."
+    ),
+)
+parser.add_argument(
+    "--profile_max_close_object_lift_m",
+    type=float,
+    default=None,
+    help=(
+        "Optional local collection override for the close-stage object-lift guard. "
+        "Use sparingly for Phase 4 exploratory label-generation batches."
+    ),
+)
+parser.add_argument(
+    "--profile_stable_force_threshold_n",
+    type=float,
+    default=None,
+    help=(
+        "Optional local collection override for the stable-force stop threshold. "
+        "Used by Phase 5 force-regime sweeps when collecting harder cube closes."
+    ),
+)
+parser.add_argument(
+    "--profile_high_force_threshold_n",
+    type=float,
+    default=None,
+    help=(
+        "Optional local collection override for the high-force stop/failure threshold. "
+        "Use only for bounded simulation label sweeps; it changes trial success semantics."
+    ),
+)
 parser.add_argument("--max_steps", type=int, default=0, help="Global per-trial step budget; 0 disables.")
 parser.add_argument("--reset_settle_steps", type=int, default=20)
 parser.add_argument("--pregrasp_move_steps", type=int, default=40)
@@ -156,6 +192,17 @@ def main() -> int:
         raise ValueError("--trials must be >= 1")
 
     object_profile = get_object_profile(args_cli.object_id)
+    profile_overrides = {}
+    if args_cli.profile_close_rad is not None:
+        profile_overrides["close_rad"] = args_cli.profile_close_rad
+    if args_cli.profile_max_close_object_lift_m is not None:
+        profile_overrides["max_close_object_lift_m"] = args_cli.profile_max_close_object_lift_m
+    if args_cli.profile_stable_force_threshold_n is not None:
+        profile_overrides["stable_force_threshold_n"] = args_cli.profile_stable_force_threshold_n
+    if args_cli.profile_high_force_threshold_n is not None:
+        profile_overrides["high_force_threshold_n"] = args_cli.profile_high_force_threshold_n
+    if profile_overrides:
+        object_profile = replace(object_profile, **profile_overrides)
     protocol_profile = get_protocol_profile(args_cli.protocol_variant)
     output_root = args_cli.output_root.resolve()
     output_root.mkdir(parents=True, exist_ok=True)

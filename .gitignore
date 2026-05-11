@@ -4,5 +4,12 @@ gelsight_adaptor/
 .omx/
 __pycache__/
 artifacts/
+<<<<<<< HEAD
 sim_data/
+=======
+!artifacts/
+artifacts/*
+!artifacts/phase5_cube_force_slip/
+!artifacts/phase5_cube_force_slip/**
+>>>>>>> phase4
 sim_dataset/
