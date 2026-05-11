@@ -1,12 +1,14 @@
 # Force-Slip Decoder Phase 1/2 执行步骤
 
-> 本文件从 RALPLAN 审查通过的计划中拆分生成，训练默认在 `zjy-4090` 的 `/home/zjy/document/sparsh` 执行，远程资源位于 `/vla1/zjy/`。
+> 本文件从 RALPLAN 审查通过的计划中拆分生成。B/C 实现代码必须先在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改、提交并 push 到 GitHub，再在 `zjy-4090` 的 `/documents/tactile_grasp` pull；训练/评估从 `/documents/tactile_grasp/sparsh-force-slip` 执行，远程资源位于 `/vla1/zjy/`。
 
 ## 3. Phase 2：实现/训练 B 与 C、结果选择与本地回传
 
 ### Step 1：实现并训练 B shared multitask decoder
 - **目标**：验证共享下游表示是否优于 separate baseline。
 - **远程执行内容**：
+  - 若需要修改 B 的模型、config、训练入口或指标脚本，必须先在本地 `sparsh-force-slip/` 修改并 push；服务器只执行 `git pull --ff-only origin main` 后运行。
+  - 进入服务器运行目录：`ssh zjy-4090 && cd /documents/tactile_grasp && git pull --ff-only origin main && cd sparsh-force-slip`。
   - Sparsh encoder frozen；下游使用 shared pooler/trunk + force head + slip head。
   - force head 输出 signed `Fx,Fy,Fz`；评估时派生 `Fn/Ft/Fmag`。
   - loss：`L = L_force + lambda_slip * L_slip`，不加 consistency loss。
@@ -26,6 +28,7 @@
 ### Step 3：实现并训练 C consistency decoder
 - **目标**：在 B 基础上加入 force-slip consistency，检验物理一致性是否改善。
 - **远程执行内容**：
+  - 若需要修改 C 的 consistency loss、超参 sweep、metrics 或 launch script，必须先在本地 `sparsh-force-slip/` 修改并 push；服务器 pull 后再运行。
   - 先检查 B→C 硬门禁：若 B 相对 A force RMSE 增加 **>10%** 或 slip F1 下降 **>2 个百分点**，本步骤只能运行 diagnostic C，不进入正式 A/B/C claim；若 B 落入 warning band，则可继续 C，但报告中必须标记风险。
   - 计算 `r = Ft_pred / (Fn_pred + eps)`。
   - 计算 `q = sigmoid(alpha * (r - tau))`。
@@ -49,7 +52,7 @@
 - **远程执行内容**：
   - 从 `/vla1/zjy/sparsh_runs/experiments/<run_name>/` 选择 checkpoint、config、split、metrics summary、模型版本信息。
   - `scp` 到本地：`tactile_grasp/checkpoints/force_slip_decoder/<run_name>/`。
-  - 本地记录 `source.txt`：server、remote_repo、remote_run、remote_checkpoint、copied_at。
+  - 本地记录 `source.txt`：server、remote_repo、remote_code_dir、remote_run、remote_checkpoint、git_commit、copied_at。
 - **产物**：本地 checkpoint 包、source.txt、本地加载/推理 smoke test 日志。
 - **验证标准**：checkpoint 可加载；单 batch/样例推理接口可与 `tactile_grasp` 对接；正式指标仍以远程统一评估为准。
 

@@ -4,7 +4,7 @@
 
 核心约定：
 
-> 后续所有与训练相关的工作都在服务器 `zjy-4090` 上进行。本地仓库主要保存 pipeline 文档、分析结论和必要的测试脚本；训练完成后，再按需要把 checkpoint 从服务器 `scp` 回本地做测试或集成验证。
+> 后续所有 force-slip 训练相关代码统一放在 `tactile_grasp/sparsh-force-slip/`。代码必须先在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改并 push 到 GitHub，再到服务器 `zjy-4090` 的 `/documents/tactile_grasp` pull，下游训练/评估从 `/documents/tactile_grasp/sparsh-force-slip` 运行。训练完成后，再按需要把 checkpoint 从服务器 `scp` 回本地做测试或集成验证。
 
 ---
 
@@ -33,6 +33,8 @@ C: shared decoder + force-slip consistency loss
 推荐主线仍然是：
 
 ```text
+本地/远程代码同步确认
+  ↓
 远程环境与路径确认
   ↓
 远程数据加载冒烟测试
@@ -54,7 +56,7 @@ C: shared decoder + force-slip consistency loss
 
 ---
 
-## 2. 远程训练资源约定
+## 2. 代码同步与远程训练资源约定
 
 ### 2.1 服务器连接方式
 
@@ -66,19 +68,65 @@ ssh zjy-4090
 
 后续训练、重评 baseline、导出 checkpoint、整理训练日志，默认都在该服务器上完成。
 
-### 2.2 服务器上的 Sparsh 代码仓库
+### 2.2 force-slip 代码目录
 
-Sparsh 代码仓库位置：
+本地开发源头：
 
 ```text
-/home/zjy/document/sparsh
+/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip
 ```
 
-进入仓库：
+服务器运行副本：
+
+```text
+/documents/tactile_grasp/sparsh-force-slip
+```
+
+关于 force-slip 阶段的代码必须集中在 `sparsh-force-slip/`：
+
+- decoder/model/head 实现；
+- dataloader 或 dataset wrapper；
+- split / manifest / preprocessing 诊断脚本；
+- train / eval / metrics 入口；
+- Hydra/config 或 shell 启动脚本；
+- runbook、实验记录模板和结果整理脚本。
+
+`pipeline/1-force-slip-decoder/` 只保存流程文档和约束，不作为训练代码目录。
+
+### 2.3 GitHub 同步与服务器运行流程
+
+后续只允许按以下顺序修改、同步和运行 force-slip 代码：
+
+```bash
+# A. 本地修改、验证、提交、推送
+cd /home/zjy/Documents/grasp/tactile_grasp
+# edit sparsh-force-slip/ locally
+git status
+git add sparsh-force-slip pipeline/1-force-slip-decoder
+git commit  # 提交信息按 AGENTS.md 的 Lore Commit Protocol 填写
+git push origin main
+
+# B. 服务器拉取 GitHub 代码
+ssh zjy-4090
+cd /documents/tactile_grasp
+git status
+git pull --ff-only origin main
+cd sparsh-force-slip
+
+# C. 只在服务器运行训练/评估
+# run the corresponding force-slip command here
+```
+
+服务器上的 `/documents/tactile_grasp/sparsh-force-slip` 是运行副本，不是开发源头。不要在服务器上直接留下未同步代码改动；若必须临时 debug，最终改动必须回到本地复现、提交、push，再由服务器 pull。
+
+### 2.4 服务器上的 tactile_grasp 仓库
+
+服务器上的 `tactile_grasp` 仓库位置：
 
 ```bash
 ssh zjy-4090
-cd /home/zjy/document/sparsh
+cd /documents/tactile_grasp
+cd sparsh-force-slip
 ```
 
 若服务器上已有 `sparsh` conda 环境，训练和评估应优先使用该环境。实际执行前需要在服务器上确认：
@@ -89,7 +137,7 @@ python -V
 python -c "import torch, hydra, omegaconf; print(torch.__version__)"
 ```
 
-### 2.3 服务器上的数据、base model 和训练权重
+### 2.5 服务器上的数据、base model 和训练权重
 
 训练所需资源统一放在：
 
@@ -113,7 +161,7 @@ python -c "import torch, hydra, omegaconf; print(torch.__version__)"
 
 本地路径如 `/home/zjy/Documents/dataset1/sparsh/...` 可以作为历史参考，但不再作为训练默认路径。
 
-### 2.4 推荐远程 paths 配置
+### 2.6 推荐远程 paths 配置
 
 服务器上应使用指向 `/vla1/zjy` 的 paths 配置，例如：
 
@@ -141,6 +189,8 @@ paths=zjy_4090
 
 服务器 `zjy-4090` 负责：
 
+- 在 `/documents/tactile_grasp` 执行 `git pull --ff-only origin main` 同步 GitHub 上的本地改动；
+- 从 `/documents/tactile_grasp/sparsh-force-slip` 运行 force-slip 训练/评估；
 - 数据加载冒烟测试；
 - force 轴语义统计；
 - trajectory-level split 生成；
@@ -151,9 +201,11 @@ paths=zjy_4090
 
 ### 3.2 本地负责
 
-本地 `/home/zjy/Documents/grasp` 负责：
+本地 `/home/zjy/Documents/grasp/tactile_grasp` 负责：
 
 - 保存 pipeline 文档；
+- 在 `sparsh-force-slip/` 开发所有 force-slip 阶段代码；
+- 本地轻量验证后通过 GitHub push 发布代码；
 - 保存分析结论；
 - 保存从服务器拷贝回来的 checkpoint；
 - 做轻量测试、集成测试或 `tactile_grasp` 侧的验证。
@@ -607,9 +659,11 @@ tactile_grasp/checkpoints/force_slip_decoder/<run_name>/
 
 ```text
 server: zjy-4090
-remote_repo: /home/zjy/document/sparsh
+remote_repo: /documents/tactile_grasp
+remote_code_dir: /documents/tactile_grasp/sparsh-force-slip
 remote_run: /vla1/zjy/sparsh_runs/experiments/<run_name>
 remote_checkpoint: checkpoints/<ckpt>.pth
+git_commit: <commit used on server>
 copied_at: <timestamp>
 ```
 
@@ -621,7 +675,7 @@ copied_at: <timestamp>
 
 第一阶段最小交付应包括：
 
-1. 服务器 paths config；
+1. 服务器 paths config 与 GitHub commit/pull 同步记录；
 2. 服务器数据加载冒烟测试结果；
 3. force 轴语义和单位报告；
 4. trajectory-level split 文件；
@@ -663,4 +717,4 @@ sim2real diagnostic
 
 ## 15. 一句话总结
 
-> 后续训练统一在 `zjy-4090` 上进行，使用 `/home/zjy/document/sparsh` 代码仓库和 `/vla1/zjy` 下的数据、base model、训练输出。先用真实 GSmini 数据固定 force 轴、Newton 单位、轨迹级划分和 A baseline；再训练 B；最后谨慎训练 C。训练完成后，再按需把 checkpoint 从服务器 scp 回本地做测试。Phase5 仿真数据只作为辅助诊断，不能作为 friction consistency 的主证据。
+> 后续训练统一在 `zjy-4090` 上进行；force-slip 代码先在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改并 push 到 GitHub，再在服务器 `/documents/tactile_grasp` pull，并从 `/documents/tactile_grasp/sparsh-force-slip` 运行。数据、base model、训练输出仍使用 `/vla1/zjy`。先用真实 GSmini 数据固定 force 轴、Newton 单位、轨迹级划分和 A baseline；再训练 B；最后谨慎训练 C。训练完成后，再按需把 checkpoint 从服务器 scp 回本地做测试。Phase5 仿真数据只作为辅助诊断，不能作为 friction consistency 的主证据。

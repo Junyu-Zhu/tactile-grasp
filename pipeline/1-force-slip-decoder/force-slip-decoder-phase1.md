@@ -1,18 +1,21 @@
 # Force-Slip Decoder Phase 1/2 执行步骤
 
-> 本文件从 RALPLAN 审查通过的计划中拆分生成，训练默认在 `zjy-4090` 的 `/home/zjy/document/sparsh` 执行，远程资源位于 `/vla1/zjy/`。
+> 本文件从 RALPLAN 审查通过的计划中拆分生成。force-slip 代码统一在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改并 push 到 GitHub，再在 `zjy-4090` 的 `/documents/tactile_grasp` pull；训练/评估从 `/documents/tactile_grasp/sparsh-force-slip` 执行，远程资源位于 `/vla1/zjy/`。
 
 ## 2. Phase 1：数据、环境、验证、基线可比性准备
 
 ### Step 1：远程环境与路径确认
-- **目标**：确认训练只在 `zjy-4090` 执行，并固定 Sparsh repo、数据、模型、输出路径。
+- **目标**：确认训练只在 `zjy-4090` 执行，并固定本地/远程代码同步方式、force-slip 代码目录、数据、模型、输出路径。
 - **远程执行内容**：
-  - `ssh zjy-4090 && cd /home/zjy/document/sparsh`
+  - 本地只在 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改 force-slip 阶段代码；修改后从 `/home/zjy/Documents/grasp/tactile_grasp` 执行 `git push origin main`。
+  - `ssh zjy-4090 && cd /documents/tactile_grasp`
+  - 执行 `git status` 并使用 `git pull --ff-only origin main` 拉取 GitHub 上的本地改动。
+  - 进入 `/documents/tactile_grasp/sparsh-force-slip` 后再运行数据检查、训练和评估命令。
   - 检查 `which python`、`python -V`、`torch/hydra/omegaconf` import。
   - 确认 `/vla1/zjy/tactile_datasets`、`/vla1/zjy/sparsh_models`、`/vla1/zjy/sparsh_runs` 存在。
   - 建立或确认 `paths=zjy_4090` 指向 `/vla1/zjy`。
-- **产物**：环境记录、paths config、资源目录清单。
-- **验证标准**：训练命令可显式使用 `paths=zjy_4090`；日志/输出默认进入 `/vla1/zjy/sparsh_runs`。
+- **产物**：环境记录、GitHub 同步记录、paths config、资源目录清单。
+- **验证标准**：服务器代码来自 `/documents/tactile_grasp` 的 GitHub pull；训练入口位于 `/documents/tactile_grasp/sparsh-force-slip`；训练命令可显式使用 `paths=zjy_4090`；日志/输出默认进入 `/vla1/zjy/sparsh_runs`。
 
 ### Step 2：数据加载冒烟测试与 training data manifest/hash
 - **目标**：确认官方 Sparsh 下游训练主线读取 `dataset_gelsight_*.pkl`，不是 `org_dataset_gelsight_*.pkl`；同时把“实际训练加载了什么”固化为可审计 manifest。

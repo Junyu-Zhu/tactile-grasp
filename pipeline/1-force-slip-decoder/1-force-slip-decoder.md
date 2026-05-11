@@ -12,6 +12,38 @@
 - DINO 与 MAE 表征对比；
 - frozen encoder 与 partial finetuning 对比。
 
+## 代码组织与同步执行约定
+
+后续所有 force-slip 阶段相关的实现代码、配置、训练入口、评估脚本、split/manifest 生成脚本和运行说明，统一放在：
+
+```text
+本地: /home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip
+服务器: /documents/tactile_grasp/sparsh-force-slip
+```
+
+`pipeline/1-force-slip-decoder/` 只保存 pipeline 文档和执行约束，不放训练实现代码。
+
+代码修改必须遵循 **本地修改 → GitHub 同步 → 服务器拉取 → 服务器运行**：
+
+```bash
+# 1) 本地修改与提交
+cd /home/zjy/Documents/grasp/tactile_grasp
+# edit sparsh-force-slip/ and related pipeline docs locally
+git status
+git add sparsh-force-slip pipeline/1-force-slip-decoder
+git commit  # 提交信息按 AGENTS.md 的 Lore Commit Protocol 填写
+git push origin main
+
+# 2) 服务器拉取后再运行
+ssh zjy-4090
+cd /documents/tactile_grasp
+git pull --ff-only origin main
+cd sparsh-force-slip
+# run the corresponding force-slip training/evaluation command here
+```
+
+服务器上的 `sparsh-force-slip` 目录视为运行副本，不直接作为开发源头。若必须在服务器临时排查，也要把最终改动回写到本地、提交并推送，避免本地与服务器代码分叉。
+
 ## 核心研究问题
 
 1. 联合 force/slip decoder 是否优于独立 force decoder 与 slip decoder？
