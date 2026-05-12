@@ -1,0 +1,323 @@
+===== dinov2_slip_allsource rc=0 =====
+db:
+  project: ${task_name}_${sensor}
+  entity: junyuzhuzjy-zhejiang-university
+  save_dir: ${paths.output_dir}
+  id: ${hydra:job.id}_${experiment_name}
+  tags:
+  - ${ssl_name}
+  group: null
+  notes: Sparsh downstream decoder training for tactile_grasp cube evaluation
+  project_override: sparsh-finetune-tactile-grasp
+  entity_override: junyuzhuzjy-zhejiang-university
+  group_override: tactile_grasp_downstream
+  tags_override:
+  - sparsh
+  - tactile_grasp
+  - downstream
+data:
+  train_val_split: null
+  train_data_budget: ${train_data_budget}
+  val_data_budget: ${val_data_budget}
+  max_train_data: 50000
+  sensor: gelsight
+  dataset:
+    _target_: tactile_ssl.data.vision_based_forces_slip_probes.VisionForceSlipDataset
+    config:
+      sensor: ${data.sensor}
+      remove_bg: true
+      out_format: concat_ch_img
+      num_frames: 2
+      frame_stride: 5
+      path_dataset: /vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini
+      list_datasets:
+      - flat_batch_1_train
+      - flat_batch_2_train
+      - sharp_batch_1_train
+      - sharp_batch_2_train
+      - sphere_batch_1_train
+      - sphere_batch_2_train
+      - sphere_batch_3_train
+      - sphere_batch_4_train
+      - sphere_batch_5_train
+      - sphere_batch_6_train
+      list_datasets_test:
+      - flat_batch_1_val
+      - flat_batch_2_val
+      - sharp_batch_1_val
+      - sharp_batch_2_val
+      - sphere_batch_1_val
+      - sphere_batch_2_val
+      - sphere_batch_3_val
+      - sphere_batch_4_val
+      - sphere_batch_5_val
+      - sphere_batch_6_val
+      look_in_folder: false
+      slip_horizon: 0
+      max_abs_forceXYZ:
+      - 1.5
+      - 1.5
+      - 2.0
+      max_delta_forceXYZ:
+      - 0.8
+      - 0.8
+      - 0.4
+      sphere_max_abs_forceXYZ:
+      - 2.0
+      - 1.0
+      - 2.0
+      sharp_max_abs_forceXYZ:
+      - 1.5
+      - 1.5
+      - 1.5
+      hex_max_abs_forceXYZ:
+      - 1.5
+      - 1.0
+      - 1.5
+      transforms:
+        resize:
+        - 320
+        - 240
+  train_dataloader:
+    batch_size: 100
+    num_workers: 2
+    drop_last: true
+    pin_memory: true
+    persistent_workers: true
+    shuffle: true
+  val_dataloader:
+    batch_size: 100
+    num_workers: 2
+    drop_last: true
+    pin_memory: true
+    persistent_workers: true
+task_name: t2_slip
+ssl_model_size: base
+train_data_budget: 1.0
+val_data_budget: 1.0
+experiment_name: phase1_gsmini_20260512_043331_dinov2_slip_allsource_diag_gsmini_20260513_012000
+seed: 42
+trainer:
+  max_epochs: 51
+  validation_frequency: 5
+  sanity_validate: true
+  save_checkpoint_dir: ${paths.output_dir}/checkpoints
+  checkpoint_interval_type: log
+  max_task_checkpoints: 10
+  save_probe_weights_only: true
+  devices: 1
+test:
+  data:
+    dataset_name:
+    - flat_batch_1_val
+    - flat_batch_2_val
+    - sharp_batch_1_val
+    - sharp_batch_2_val
+    - sphere_batch_1_val
+    - sphere_batch_2_val
+    - sphere_batch_3_val
+    - sphere_batch_4_val
+    - sphere_batch_5_val
+    - sphere_batch_6_val
+    batch_size: 200
+  tester:
+    _partial_: true
+    _target_: tactile_ssl.test.TestSlipSL
+  path_outputs: ${paths.tacbench_dir}/${task_name}_${sensor}/
+task:
+  _target_: tactile_ssl.downstream_task.SlipSLModule
+  checkpoint_task: null
+  model_encoder:
+    _target_: tactile_ssl.model.vit_${ssl_model_size}
+    img_size: ${data.dataset.config.transforms.resize}
+    in_chans: 6
+    pos_embed_fn: sinusoidal
+    num_register_tokens: 1
+  model_task:
+    _target_: tactile_ssl.downstream_task.SlipForceProbe
+    embed_dim: ${ssl_model_size}
+    num_heads: 12
+    depth: 1
+    num_classes: 2
+    attn_pool: true
+    dropout: 0.0
+  checkpoint_encoder: /vla1/zjy/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.ckpt
+  train_encoder: false
+  encoder_type: ${ssl_name}
+  input_delta_force: false
+  predict_delta_force: true
+  weights_classes:
+  - 0.1
+  - 1.0
+  add_batch_norm_probe: false
+  optim_cfg:
+    _partial_: true
+    _target_: torch.optim.Adam
+    lr: 0.0001
+  scheduler_cfg: null
+ssl_name: dinov2
+sensor: gelsight
+ckpt_path: null
+
+
+===== mae_slip_allsource rc=0 =====
+ime.cwd}
+wandb:
+  project: ${task_name}_${sensor}
+  entity: junyuzhuzjy-zhejiang-university
+  save_dir: ${paths.output_dir}
+  id: ${hydra:job.id}_${experiment_name}
+  tags:
+  - ${ssl_name}
+  group: null
+  notes: Sparsh downstream decoder training for tactile_grasp cube evaluation
+  project_override: sparsh-finetune-tactile-grasp
+  entity_override: junyuzhuzjy-zhejiang-university
+  group_override: tactile_grasp_downstream
+  tags_override:
+  - sparsh
+  - tactile_grasp
+  - downstream
+data:
+  train_val_split: null
+  train_data_budget: ${train_data_budget}
+  val_data_budget: ${val_data_budget}
+  max_train_data: 50000
+  sensor: gelsight
+  dataset:
+    _target_: tactile_ssl.data.vision_based_forces_slip_probes.VisionForceSlipDataset
+    config:
+      sensor: ${data.sensor}
+      remove_bg: true
+      out_format: concat_ch_img
+      num_frames: 2
+      frame_stride: 5
+      path_dataset: /vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini
+      list_datasets:
+      - flat_batch_1_train
+      - flat_batch_2_train
+      - sharp_batch_1_train
+      - sharp_batch_2_train
+      - sphere_batch_1_train
+      - sphere_batch_2_train
+      - sphere_batch_3_train
+      - sphere_batch_4_train
+      - sphere_batch_5_train
+      - sphere_batch_6_train
+      list_datasets_test:
+      - flat_batch_1_val
+      - flat_batch_2_val
+      - sharp_batch_1_val
+      - sharp_batch_2_val
+      - sphere_batch_1_val
+      - sphere_batch_2_val
+      - sphere_batch_3_val
+      - sphere_batch_4_val
+      - sphere_batch_5_val
+      - sphere_batch_6_val
+      look_in_folder: false
+      slip_horizon: 0
+      max_abs_forceXYZ:
+      - 1.5
+      - 1.5
+      - 2.0
+      max_delta_forceXYZ:
+      - 0.8
+      - 0.8
+      - 0.4
+      sphere_max_abs_forceXYZ:
+      - 2.0
+      - 1.0
+      - 2.0
+      sharp_max_abs_forceXYZ:
+      - 1.5
+      - 1.5
+      - 1.5
+      hex_max_abs_forceXYZ:
+      - 1.5
+      - 1.0
+      - 1.5
+      transforms:
+        resize:
+        - 320
+        - 240
+  train_dataloader:
+    batch_size: 100
+    num_workers: 2
+    drop_last: true
+    pin_memory: true
+    persistent_workers: true
+    shuffle: true
+  val_dataloader:
+    batch_size: 100
+    num_workers: 2
+    drop_last: true
+    pin_memory: true
+    persistent_workers: true
+task_name: t2_slip
+ssl_model_size: base
+train_data_budget: 1.0
+val_data_budget: 1.0
+experiment_name: phase1_gsmini_20260512_043331_mae_slip_allsource_diag_gsmini_20260513_012000
+seed: 42
+trainer:
+  max_epochs: 51
+  validation_frequency: 5
+  sanity_validate: true
+  save_checkpoint_dir: ${paths.output_dir}/checkpoints
+  checkpoint_interval_type: log
+  max_task_checkpoints: 10
+  save_probe_weights_only: true
+  devices: 1
+test:
+  data:
+    dataset_name:
+    - flat_batch_1_val
+    - flat_batch_2_val
+    - sharp_batch_1_val
+    - sharp_batch_2_val
+    - sphere_batch_1_val
+    - sphere_batch_2_val
+    - sphere_batch_3_val
+    - sphere_batch_4_val
+    - sphere_batch_5_val
+    - sphere_batch_6_val
+    batch_size: 200
+  tester:
+    _partial_: true
+    _target_: tactile_ssl.test.TestSlipSL
+  path_outputs: ${paths.tacbench_dir}/${task_name}_${sensor}/
+task:
+  _target_: tactile_ssl.downstream_task.SlipSLModule
+  checkpoint_task: null
+  model_encoder:
+    _target_: tactile_ssl.model.vit_${ssl_model_size}
+    img_size: ${data.dataset.config.transforms.resize}
+    in_chans: 6
+    pos_embed_fn: sinusoidal
+    num_register_tokens: 0
+  model_task:
+    _target_: tactile_ssl.downstream_task.SlipForceProbe
+    embed_dim: ${ssl_model_size}
+    num_heads: 12
+    depth: 1
+    num_classes: 2
+    attn_pool: true
+    dropout: 0.0
+  checkpoint_encoder: /vla1/zjy/sparsh_models/sparsh-mae-base/mae_vitbase.ckpt
+  train_encoder: false
+  encoder_type: ${ssl_name}
+  input_delta_force: false
+  predict_delta_force: true
+  weights_classes:
+  - 0.1
+  - 1.0
+  add_batch_norm_probe: false
+  optim_cfg:
+    _partial_: true
+    _target_: torch.optim.Adam
+    lr: 0.0001
+  scheduler_cfg: null
+ssl_name: mae
+sensor: gelsight
+ckpt_path: null
