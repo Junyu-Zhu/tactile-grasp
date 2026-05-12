@@ -1,0 +1,1674 @@
+{
+  "generated_at": "2026-05-13T00:52:37",
+  "run_id": "phase1_gsmini_20260512_043331",
+  "raw_root": "/vla1/zjy/tactile_datasets/Gelsight-mini/gelsight-force-estimation",
+  "derived_root": "/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini",
+  "audited_sources": [
+    "flat/batch_1",
+    "flat/batch_2",
+    "sharp/batch_1",
+    "sharp/batch_2"
+  ],
+  "reference_sources": [
+    "sphere/batch_1",
+    "sphere/batch_2",
+    "sphere/batch_3",
+    "sphere/batch_4",
+    "sphere/batch_5",
+    "sphere/batch_6"
+  ],
+  "conclusion": {
+    "structural_pass": true,
+    "derived_split_pass": true,
+    "dataloader_smoke_pass": true,
+    "official_delta_shear_positive_greater_than_negative": true,
+    "recommendation": "flat/sharp 可以进入下一步 all-source slip 诊断训练；正式 baseline 仍建议等 all-source 训练指标审计后再升级。",
+    "rationale": "flat/sharp 的 `len(indexes)==len(labels)+5` 与官方 `indexes[5:]` 采样长度规则结构一致，官方 dataloader 可读取派生 split，所有 source trajectory 都被 train/val/test 覆盖，且 slip 正样本的 official delta shear 平均值高于负样本。"
+  },
+  "source_structure": {
+    "flat/batch_1": {
+      "source": "flat/batch_1",
+      "frame_count": 15259,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 259
+        }
+      ],
+      "trajectory_count": 151,
+      "raw_index_count": 7487,
+      "label_count": 6732,
+      "official_sample_count": 6732,
+      "official_sample_min_per_traj": 6,
+      "official_sample_max_per_traj": 91,
+      "length_relations": {
+        "len(indexes)==len(labels)+5": 151
+      },
+      "full_label_positive": 2696,
+      "full_label_total": 6732,
+      "full_label_positive_ratio": 0.40047534165181226,
+      "official_label_positive": 2696,
+      "official_label_total": 6732,
+      "official_label_positive_ratio": 0.40047534165181226,
+      "official_zero_to_one_transition_count": 147,
+      "delta_mag_shear_mean_positive": 0.12908706870921977,
+      "delta_mag_shear_mean_negative": 0.00842471946177299,
+      "delta_mag_shear_pos_over_neg": 15.322417473914419,
+      "delta_mag_normal_mean_positive": 0.04383164988231817,
+      "delta_mag_normal_mean_negative": 0.04825919142775287,
+      "delta_mag_normal_pos_over_neg": 0.908254957960262,
+      "issues": [],
+      "issue_count": 0
+    },
+    "flat/batch_2": {
+      "source": "flat/batch_2",
+      "frame_count": 14550,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 4550
+        }
+      ],
+      "trajectory_count": 147,
+      "raw_index_count": 7048,
+      "label_count": 6313,
+      "official_sample_count": 6313,
+      "official_sample_min_per_traj": 6,
+      "official_sample_max_per_traj": 83,
+      "length_relations": {
+        "len(indexes)==len(labels)+5": 147
+      },
+      "full_label_positive": 2661,
+      "full_label_total": 6313,
+      "full_label_positive_ratio": 0.4215111674322826,
+      "official_label_positive": 2661,
+      "official_label_total": 6313,
+      "official_label_positive_ratio": 0.4215111674322826,
+      "official_zero_to_one_transition_count": 142,
+      "delta_mag_shear_mean_positive": 0.13990452283886812,
+      "delta_mag_shear_mean_negative": 0.007803719207684898,
+      "delta_mag_shear_pos_over_neg": 17.92792886283836,
+      "delta_mag_normal_mean_positive": 0.04053856495787814,
+      "delta_mag_normal_mean_negative": 0.04764930292738869,
+      "delta_mag_normal_pos_over_neg": 0.8507693180486363,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sharp/batch_1": {
+      "source": "sharp/batch_1",
+      "frame_count": 18380,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3380
+        }
+      ],
+      "trajectory_count": 153,
+      "raw_index_count": 11948,
+      "label_count": 11183,
+      "official_sample_count": 11183,
+      "official_sample_min_per_traj": 7,
+      "official_sample_max_per_traj": 140,
+      "length_relations": {
+        "len(indexes)==len(labels)+5": 153
+      },
+      "full_label_positive": 2891,
+      "full_label_total": 11183,
+      "full_label_positive_ratio": 0.2585173924707145,
+      "official_label_positive": 2891,
+      "official_label_total": 11183,
+      "official_label_positive_ratio": 0.2585173924707145,
+      "official_zero_to_one_transition_count": 148,
+      "delta_mag_shear_mean_positive": 0.17057472297531764,
+      "delta_mag_shear_mean_negative": 0.004194651237950843,
+      "delta_mag_shear_pos_over_neg": 40.66481651475306,
+      "delta_mag_normal_mean_positive": 0.03702912774856495,
+      "delta_mag_normal_mean_negative": 0.0333534388056828,
+      "delta_mag_normal_pos_over_neg": 1.110204197030073,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sharp/batch_2": {
+      "source": "sharp/batch_2",
+      "frame_count": 16976,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 1976
+        }
+      ],
+      "trajectory_count": 151,
+      "raw_index_count": 10480,
+      "label_count": 9725,
+      "official_sample_count": 9725,
+      "official_sample_min_per_traj": 8,
+      "official_sample_max_per_traj": 145,
+      "length_relations": {
+        "len(indexes)==len(labels)+5": 151
+      },
+      "full_label_positive": 2769,
+      "full_label_total": 9725,
+      "full_label_positive_ratio": 0.2847300771208226,
+      "official_label_positive": 2769,
+      "official_label_total": 9725,
+      "official_label_positive_ratio": 0.2847300771208226,
+      "official_zero_to_one_transition_count": 149,
+      "delta_mag_shear_mean_positive": 0.15567917283120092,
+      "delta_mag_shear_mean_negative": 0.004353661571593671,
+      "delta_mag_shear_pos_over_neg": 35.75821644273004,
+      "delta_mag_normal_mean_positive": 0.038763860036531796,
+      "delta_mag_normal_mean_negative": 0.03258905244640719,
+      "delta_mag_normal_pos_over_neg": 1.1894749041595984,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_1": {
+      "source": "sphere/batch_1",
+      "frame_count": 17288,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 2288
+        }
+      ],
+      "trajectory_count": 148,
+      "raw_index_count": 10740,
+      "label_count": 10740,
+      "official_sample_count": 10000,
+      "official_sample_min_per_traj": 1,
+      "official_sample_max_per_traj": 133,
+      "length_relations": {
+        "len(indexes)==len(labels)": 148
+      },
+      "full_label_positive": 2849,
+      "full_label_total": 10740,
+      "full_label_positive_ratio": 0.2652700186219739,
+      "official_label_positive": 2134,
+      "official_label_total": 10000,
+      "official_label_positive_ratio": 0.2134,
+      "official_zero_to_one_transition_count": 138,
+      "delta_mag_shear_mean_positive": 0.15081517722247165,
+      "delta_mag_shear_mean_negative": 0.0038167981684874837,
+      "delta_mag_shear_pos_over_neg": 39.513532161100095,
+      "delta_mag_normal_mean_positive": 0.026519708621035205,
+      "delta_mag_normal_mean_negative": 0.03132144483765524,
+      "delta_mag_normal_pos_over_neg": 0.8466949324223386,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_2": {
+      "source": "sphere/batch_2",
+      "frame_count": 18619,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3619
+        }
+      ],
+      "trajectory_count": 154,
+      "raw_index_count": 11515,
+      "label_count": 11515,
+      "official_sample_count": 10745,
+      "official_sample_min_per_traj": 3,
+      "official_sample_max_per_traj": 129,
+      "length_relations": {
+        "len(indexes)==len(labels)": 154
+      },
+      "full_label_positive": 2920,
+      "full_label_total": 11515,
+      "full_label_positive_ratio": 0.2535822839774208,
+      "official_label_positive": 2177,
+      "official_label_total": 10745,
+      "official_label_positive_ratio": 0.2026058631921824,
+      "official_zero_to_one_transition_count": 143,
+      "delta_mag_shear_mean_positive": 0.17233894462435503,
+      "delta_mag_shear_mean_negative": 0.003887021002392668,
+      "delta_mag_shear_pos_over_neg": 44.33702428516188,
+      "delta_mag_normal_mean_positive": 0.03321164364424749,
+      "delta_mag_normal_mean_negative": 0.03158537819872111,
+      "delta_mag_normal_pos_over_neg": 1.0514879205891774,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_3": {
+      "source": "sphere/batch_3",
+      "frame_count": 17865,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 2865
+        }
+      ],
+      "trajectory_count": 152,
+      "raw_index_count": 10813,
+      "label_count": 10813,
+      "official_sample_count": 10053,
+      "official_sample_min_per_traj": 1,
+      "official_sample_max_per_traj": 131,
+      "length_relations": {
+        "len(indexes)==len(labels)": 152
+      },
+      "full_label_positive": 2673,
+      "full_label_total": 10813,
+      "full_label_positive_ratio": 0.24720244150559512,
+      "official_label_positive": 1950,
+      "official_label_total": 10053,
+      "official_label_positive_ratio": 0.1939719486720382,
+      "official_zero_to_one_transition_count": 137,
+      "delta_mag_shear_mean_positive": 0.1734349978126825,
+      "delta_mag_shear_mean_negative": 0.003952000996196719,
+      "delta_mag_shear_pos_over_neg": 43.88536286698954,
+      "delta_mag_normal_mean_positive": 0.03313290125465764,
+      "delta_mag_normal_mean_negative": 0.03131624838611759,
+      "delta_mag_normal_pos_over_neg": 1.0580099137381782,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_4": {
+      "source": "sphere/batch_4",
+      "frame_count": 18800,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3800
+        }
+      ],
+      "trajectory_count": 152,
+      "raw_index_count": 12015,
+      "label_count": 12015,
+      "official_sample_count": 11255,
+      "official_sample_min_per_traj": 1,
+      "official_sample_max_per_traj": 130,
+      "length_relations": {
+        "len(indexes)==len(labels)": 152
+      },
+      "full_label_positive": 2829,
+      "full_label_total": 12015,
+      "full_label_positive_ratio": 0.23545568039950063,
+      "official_label_positive": 2119,
+      "official_label_total": 11255,
+      "official_label_positive_ratio": 0.18827187916481564,
+      "official_zero_to_one_transition_count": 136,
+      "delta_mag_shear_mean_positive": 0.18513908652654368,
+      "delta_mag_shear_mean_negative": 0.003849130534254773,
+      "delta_mag_shear_pos_over_neg": 48.098936845821825,
+      "delta_mag_normal_mean_positive": 0.033522718805501305,
+      "delta_mag_normal_mean_negative": 0.03198590896655796,
+      "delta_mag_normal_pos_over_neg": 1.0480464644447676,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_5": {
+      "source": "sphere/batch_5",
+      "frame_count": 18999,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3999
+        }
+      ],
+      "trajectory_count": 152,
+      "raw_index_count": 12228,
+      "label_count": 12228,
+      "official_sample_count": 11468,
+      "official_sample_min_per_traj": 7,
+      "official_sample_max_per_traj": 133,
+      "length_relations": {
+        "len(indexes)==len(labels)": 152
+      },
+      "full_label_positive": 2900,
+      "full_label_total": 12228,
+      "full_label_positive_ratio": 0.2371606149820085,
+      "official_label_positive": 2163,
+      "official_label_total": 11468,
+      "official_label_positive_ratio": 0.18861178932682246,
+      "official_zero_to_one_transition_count": 139,
+      "delta_mag_shear_mean_positive": 0.19564639075521514,
+      "delta_mag_shear_mean_negative": 0.003864173451694804,
+      "delta_mag_shear_pos_over_neg": 50.63085111222813,
+      "delta_mag_normal_mean_positive": 0.03820083325955101,
+      "delta_mag_normal_mean_negative": 0.03191855853739649,
+      "delta_mag_normal_pos_over_neg": 1.1968220060312953,
+      "issues": [],
+      "issue_count": 0
+    },
+    "sphere/batch_6": {
+      "source": "sphere/batch_6",
+      "frame_count": 18130,
+      "frame_file_counts": [
+        {
+          "file": "dataset_gelsight_00.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_01.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_02.pkl",
+          "frames": 5000
+        },
+        {
+          "file": "dataset_gelsight_03.pkl",
+          "frames": 3130
+        }
+      ],
+      "trajectory_count": 153,
+      "raw_index_count": 11364,
+      "label_count": 11364,
+      "official_sample_count": 10599,
+      "official_sample_min_per_traj": 1,
+      "official_sample_max_per_traj": 125,
+      "length_relations": {
+        "len(indexes)==len(labels)": 153
+      },
+      "full_label_positive": 2916,
+      "full_label_total": 11364,
+      "full_label_positive_ratio": 0.2565997888067582,
+      "official_label_positive": 2171,
+      "official_label_total": 10599,
+      "official_label_positive_ratio": 0.20483064440041512,
+      "official_zero_to_one_transition_count": 143,
+      "delta_mag_shear_mean_positive": 0.174341460873464,
+      "delta_mag_shear_mean_negative": 0.003929149096099886,
+      "delta_mag_shear_pos_over_neg": 44.37130191932544,
+      "delta_mag_normal_mean_positive": 0.029033903913875142,
+      "delta_mag_normal_mean_negative": 0.03128687855006997,
+      "delta_mag_normal_pos_over_neg": 0.9279897918382216,
+      "issues": [],
+      "issue_count": 0
+    }
+  },
+  "derived_consistency": {
+    "flat/batch_1": {
+      "source": "flat/batch_1",
+      "splits": {
+        "train": {
+          "dataset_name": "flat_batch_1_train",
+          "trajectory_count": 106,
+          "source_manifest_trajectory_count": 106,
+          "official_label_total": 4691,
+          "official_label_positive": 1892,
+          "official_label_positive_ratio": 0.403325516947346,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "flat_batch_1_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1138,
+          "official_label_positive": 395,
+          "official_label_positive_ratio": 0.3471001757469244,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "flat_batch_1_test",
+          "trajectory_count": 22,
+          "source_manifest_trajectory_count": 22,
+          "official_label_total": 903,
+          "official_label_positive": 409,
+          "official_label_positive_ratio": 0.4529346622369878,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 151,
+      "seen_source_trajectory_count": 151,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "flat/batch_2": {
+      "source": "flat/batch_2",
+      "splits": {
+        "train": {
+          "dataset_name": "flat_batch_2_train",
+          "trajectory_count": 103,
+          "source_manifest_trajectory_count": 103,
+          "official_label_total": 4435,
+          "official_label_positive": 1867,
+          "official_label_positive_ratio": 0.4209695603156708,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "flat_batch_2_val",
+          "trajectory_count": 22,
+          "source_manifest_trajectory_count": 22,
+          "official_label_total": 898,
+          "official_label_positive": 403,
+          "official_label_positive_ratio": 0.4487750556792873,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "flat_batch_2_test",
+          "trajectory_count": 22,
+          "source_manifest_trajectory_count": 22,
+          "official_label_total": 980,
+          "official_label_positive": 391,
+          "official_label_positive_ratio": 0.3989795918367347,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 147,
+      "seen_source_trajectory_count": 147,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sharp/batch_1": {
+      "source": "sharp/batch_1",
+      "splits": {
+        "train": {
+          "dataset_name": "sharp_batch_1_train",
+          "trajectory_count": 107,
+          "source_manifest_trajectory_count": 107,
+          "official_label_total": 8115,
+          "official_label_positive": 1989,
+          "official_label_positive_ratio": 0.24510166358595195,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sharp_batch_1_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1590,
+          "official_label_positive": 486,
+          "official_label_positive_ratio": 0.30566037735849055,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sharp_batch_1_test",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1478,
+          "official_label_positive": 416,
+          "official_label_positive_ratio": 0.2814614343707713,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 153,
+      "seen_source_trajectory_count": 153,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sharp/batch_2": {
+      "source": "sharp/batch_2",
+      "splits": {
+        "train": {
+          "dataset_name": "sharp_batch_2_train",
+          "trajectory_count": 106,
+          "source_manifest_trajectory_count": 106,
+          "official_label_total": 6807,
+          "official_label_positive": 1935,
+          "official_label_positive_ratio": 0.2842661965623623,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sharp_batch_2_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1439,
+          "official_label_positive": 428,
+          "official_label_positive_ratio": 0.2974287699791522,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sharp_batch_2_test",
+          "trajectory_count": 22,
+          "source_manifest_trajectory_count": 22,
+          "official_label_total": 1479,
+          "official_label_positive": 406,
+          "official_label_positive_ratio": 0.27450980392156865,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 151,
+      "seen_source_trajectory_count": 151,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sphere/batch_1": {
+      "source": "sphere/batch_1",
+      "splits": {
+        "train": {
+          "dataset_name": "sphere_batch_1_train",
+          "trajectory_count": 104,
+          "source_manifest_trajectory_count": 104,
+          "official_label_total": 6998,
+          "official_label_positive": 1509,
+          "official_label_positive_ratio": 0.21563303801086026,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sphere_batch_1_val",
+          "trajectory_count": 22,
+          "source_manifest_trajectory_count": 22,
+          "official_label_total": 1437,
+          "official_label_positive": 315,
+          "official_label_positive_ratio": 0.21920668058455114,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sphere_batch_1_test",
+          "trajectory_count": 22,
+          "source_manifest_trajectory_count": 22,
+          "official_label_total": 1565,
+          "official_label_positive": 310,
+          "official_label_positive_ratio": 0.19808306709265175,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 148,
+      "seen_source_trajectory_count": 148,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sphere/batch_2": {
+      "source": "sphere/batch_2",
+      "splits": {
+        "train": {
+          "dataset_name": "sphere_batch_2_train",
+          "trajectory_count": 108,
+          "source_manifest_trajectory_count": 108,
+          "official_label_total": 7736,
+          "official_label_positive": 1507,
+          "official_label_positive_ratio": 0.19480351602895554,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sphere_batch_2_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1481,
+          "official_label_positive": 336,
+          "official_label_positive_ratio": 0.22687373396353816,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sphere_batch_2_test",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1528,
+          "official_label_positive": 334,
+          "official_label_positive_ratio": 0.21858638743455497,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 154,
+      "seen_source_trajectory_count": 154,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sphere/batch_3": {
+      "source": "sphere/batch_3",
+      "splits": {
+        "train": {
+          "dataset_name": "sphere_batch_3_train",
+          "trajectory_count": 106,
+          "source_manifest_trajectory_count": 106,
+          "official_label_total": 6683,
+          "official_label_positive": 1337,
+          "official_label_positive_ratio": 0.2000598533592698,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sphere_batch_3_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1530,
+          "official_label_positive": 293,
+          "official_label_positive_ratio": 0.19150326797385622,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sphere_batch_3_test",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1840,
+          "official_label_positive": 320,
+          "official_label_positive_ratio": 0.17391304347826086,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 152,
+      "seen_source_trajectory_count": 152,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sphere/batch_4": {
+      "source": "sphere/batch_4",
+      "splits": {
+        "train": {
+          "dataset_name": "sphere_batch_4_train",
+          "trajectory_count": 106,
+          "source_manifest_trajectory_count": 106,
+          "official_label_total": 7766,
+          "official_label_positive": 1412,
+          "official_label_positive_ratio": 0.18181818181818182,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sphere_batch_4_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 2104,
+          "official_label_positive": 373,
+          "official_label_positive_ratio": 0.17728136882129278,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sphere_batch_4_test",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1385,
+          "official_label_positive": 334,
+          "official_label_positive_ratio": 0.24115523465703972,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 152,
+      "seen_source_trajectory_count": 152,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sphere/batch_5": {
+      "source": "sphere/batch_5",
+      "splits": {
+        "train": {
+          "dataset_name": "sphere_batch_5_train",
+          "trajectory_count": 106,
+          "source_manifest_trajectory_count": 106,
+          "official_label_total": 8003,
+          "official_label_positive": 1527,
+          "official_label_positive_ratio": 0.19080344870673496,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sphere_batch_5_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1786,
+          "official_label_positive": 307,
+          "official_label_positive_ratio": 0.17189249720044794,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sphere_batch_5_test",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1679,
+          "official_label_positive": 329,
+          "official_label_positive_ratio": 0.19594997022036928,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 152,
+      "seen_source_trajectory_count": 152,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    },
+    "sphere/batch_6": {
+      "source": "sphere/batch_6",
+      "splits": {
+        "train": {
+          "dataset_name": "sphere_batch_6_train",
+          "trajectory_count": 107,
+          "source_manifest_trajectory_count": 107,
+          "official_label_total": 7451,
+          "official_label_positive": 1515,
+          "official_label_positive_ratio": 0.20332841229365187,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "val": {
+          "dataset_name": "sphere_batch_6_val",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1517,
+          "official_label_positive": 346,
+          "official_label_positive_ratio": 0.22808174027686223,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        },
+        "test": {
+          "dataset_name": "sphere_batch_6_test",
+          "trajectory_count": 23,
+          "source_manifest_trajectory_count": 23,
+          "official_label_total": 1631,
+          "official_label_positive": 310,
+          "official_label_positive_ratio": 0.1900674432863274,
+          "field_mismatch_count": 0,
+          "field_mismatch_sample": []
+        }
+      },
+      "issues": [],
+      "raw_trajectory_count": 153,
+      "seen_source_trajectory_count": 153,
+      "missing_source_trajectory_count": 0,
+      "missing_source_trajectory_sample": [],
+      "passed": true
+    }
+  },
+  "dataloader_smoke": {
+    "datasets_checked": [
+      {
+        "dataset_name": "flat_batch_1_train",
+        "len": 4691,
+        "trajectory_count": 106,
+        "slip_positive": 1892,
+        "slip_total": 4691,
+        "slip_positive_ratio": 0.403325516947346,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "flat_batch_2_train",
+        "len": 4435,
+        "trajectory_count": 103,
+        "slip_positive": 1867,
+        "slip_total": 4435,
+        "slip_positive_ratio": 0.4209695603156708,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "sharp_batch_1_train",
+        "len": 8115,
+        "trajectory_count": 107,
+        "slip_positive": 1989,
+        "slip_total": 8115,
+        "slip_positive_ratio": 0.24510166358595195,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "sharp_batch_2_train",
+        "len": 6807,
+        "trajectory_count": 106,
+        "slip_positive": 1935,
+        "slip_total": 6807,
+        "slip_positive_ratio": 0.2842661965623623,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "flat_batch_1_val",
+        "len": 1138,
+        "trajectory_count": 23,
+        "slip_positive": 395,
+        "slip_total": 1138,
+        "slip_positive_ratio": 0.3471001757469244,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "flat_batch_2_val",
+        "len": 898,
+        "trajectory_count": 22,
+        "slip_positive": 403,
+        "slip_total": 898,
+        "slip_positive_ratio": 0.4487750556792873,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "sharp_batch_1_val",
+        "len": 1590,
+        "trajectory_count": 23,
+        "slip_positive": 486,
+        "slip_total": 1590,
+        "slip_positive_ratio": 0.30566037735849055,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "sharp_batch_2_val",
+        "len": 1439,
+        "trajectory_count": 23,
+        "slip_positive": 428,
+        "slip_total": 1439,
+        "slip_positive_ratio": 0.2974287699791522,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "flat_batch_1_test",
+        "len": 903,
+        "trajectory_count": 22,
+        "slip_positive": 409,
+        "slip_total": 903,
+        "slip_positive_ratio": 0.4529346622369878,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "flat_batch_2_test",
+        "len": 980,
+        "trajectory_count": 22,
+        "slip_positive": 391,
+        "slip_total": 980,
+        "slip_positive_ratio": 0.3989795918367347,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "sharp_batch_1_test",
+        "len": 1478,
+        "trajectory_count": 23,
+        "slip_positive": 416,
+        "slip_total": 1478,
+        "slip_positive_ratio": 0.2814614343707713,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      },
+      {
+        "dataset_name": "sharp_batch_2_test",
+        "len": 1479,
+        "trajectory_count": 22,
+        "slip_positive": 406,
+        "slip_total": 1479,
+        "slip_positive_ratio": 0.27450980392156865,
+        "sample_image_shape": [
+          6,
+          320,
+          240
+        ],
+        "sample_force_shape": [
+          3
+        ],
+        "sample_delta_force_shape": [
+          3
+        ],
+        "sample_slip_label": 0
+      }
+    ],
+    "issues": [],
+    "passed": true
+  },
+  "aggregate_balance": {
+    "flat_sharp_only": {
+      "train": {
+        "dataset_count": 4,
+        "official_label_total": 24048,
+        "official_label_positive": 7683,
+        "official_label_positive_ratio": 0.3194860279441118,
+        "per_dataset": [
+          {
+            "dataset_name": "flat_batch_1_train",
+            "official_label_total": 4691,
+            "official_label_positive": 1892,
+            "official_label_positive_ratio": 0.403325516947346
+          },
+          {
+            "dataset_name": "flat_batch_2_train",
+            "official_label_total": 4435,
+            "official_label_positive": 1867,
+            "official_label_positive_ratio": 0.4209695603156708
+          },
+          {
+            "dataset_name": "sharp_batch_1_train",
+            "official_label_total": 8115,
+            "official_label_positive": 1989,
+            "official_label_positive_ratio": 0.24510166358595195
+          },
+          {
+            "dataset_name": "sharp_batch_2_train",
+            "official_label_total": 6807,
+            "official_label_positive": 1935,
+            "official_label_positive_ratio": 0.2842661965623623
+          }
+        ]
+      },
+      "val": {
+        "dataset_count": 4,
+        "official_label_total": 5065,
+        "official_label_positive": 1712,
+        "official_label_positive_ratio": 0.33800592300098714,
+        "per_dataset": [
+          {
+            "dataset_name": "flat_batch_1_val",
+            "official_label_total": 1138,
+            "official_label_positive": 395,
+            "official_label_positive_ratio": 0.3471001757469244
+          },
+          {
+            "dataset_name": "flat_batch_2_val",
+            "official_label_total": 898,
+            "official_label_positive": 403,
+            "official_label_positive_ratio": 0.4487750556792873
+          },
+          {
+            "dataset_name": "sharp_batch_1_val",
+            "official_label_total": 1590,
+            "official_label_positive": 486,
+            "official_label_positive_ratio": 0.30566037735849055
+          },
+          {
+            "dataset_name": "sharp_batch_2_val",
+            "official_label_total": 1439,
+            "official_label_positive": 428,
+            "official_label_positive_ratio": 0.2974287699791522
+          }
+        ]
+      },
+      "test": {
+        "dataset_count": 4,
+        "official_label_total": 4840,
+        "official_label_positive": 1622,
+        "official_label_positive_ratio": 0.33512396694214874,
+        "per_dataset": [
+          {
+            "dataset_name": "flat_batch_1_test",
+            "official_label_total": 903,
+            "official_label_positive": 409,
+            "official_label_positive_ratio": 0.4529346622369878
+          },
+          {
+            "dataset_name": "flat_batch_2_test",
+            "official_label_total": 980,
+            "official_label_positive": 391,
+            "official_label_positive_ratio": 0.3989795918367347
+          },
+          {
+            "dataset_name": "sharp_batch_1_test",
+            "official_label_total": 1478,
+            "official_label_positive": 416,
+            "official_label_positive_ratio": 0.2814614343707713
+          },
+          {
+            "dataset_name": "sharp_batch_2_test",
+            "official_label_total": 1479,
+            "official_label_positive": 406,
+            "official_label_positive_ratio": 0.27450980392156865
+          }
+        ]
+      }
+    },
+    "sphere_only": {
+      "train": {
+        "dataset_count": 6,
+        "official_label_total": 44637,
+        "official_label_positive": 8807,
+        "official_label_positive_ratio": 0.19730268611241794,
+        "per_dataset": [
+          {
+            "dataset_name": "sphere_batch_1_train",
+            "official_label_total": 6998,
+            "official_label_positive": 1509,
+            "official_label_positive_ratio": 0.21563303801086026
+          },
+          {
+            "dataset_name": "sphere_batch_2_train",
+            "official_label_total": 7736,
+            "official_label_positive": 1507,
+            "official_label_positive_ratio": 0.19480351602895554
+          },
+          {
+            "dataset_name": "sphere_batch_3_train",
+            "official_label_total": 6683,
+            "official_label_positive": 1337,
+            "official_label_positive_ratio": 0.2000598533592698
+          },
+          {
+            "dataset_name": "sphere_batch_4_train",
+            "official_label_total": 7766,
+            "official_label_positive": 1412,
+            "official_label_positive_ratio": 0.18181818181818182
+          },
+          {
+            "dataset_name": "sphere_batch_5_train",
+            "official_label_total": 8003,
+            "official_label_positive": 1527,
+            "official_label_positive_ratio": 0.19080344870673496
+          },
+          {
+            "dataset_name": "sphere_batch_6_train",
+            "official_label_total": 7451,
+            "official_label_positive": 1515,
+            "official_label_positive_ratio": 0.20332841229365187
+          }
+        ]
+      },
+      "val": {
+        "dataset_count": 6,
+        "official_label_total": 9855,
+        "official_label_positive": 1970,
+        "official_label_positive_ratio": 0.19989852866565194,
+        "per_dataset": [
+          {
+            "dataset_name": "sphere_batch_1_val",
+            "official_label_total": 1437,
+            "official_label_positive": 315,
+            "official_label_positive_ratio": 0.21920668058455114
+          },
+          {
+            "dataset_name": "sphere_batch_2_val",
+            "official_label_total": 1481,
+            "official_label_positive": 336,
+            "official_label_positive_ratio": 0.22687373396353816
+          },
+          {
+            "dataset_name": "sphere_batch_3_val",
+            "official_label_total": 1530,
+            "official_label_positive": 293,
+            "official_label_positive_ratio": 0.19150326797385622
+          },
+          {
+            "dataset_name": "sphere_batch_4_val",
+            "official_label_total": 2104,
+            "official_label_positive": 373,
+            "official_label_positive_ratio": 0.17728136882129278
+          },
+          {
+            "dataset_name": "sphere_batch_5_val",
+            "official_label_total": 1786,
+            "official_label_positive": 307,
+            "official_label_positive_ratio": 0.17189249720044794
+          },
+          {
+            "dataset_name": "sphere_batch_6_val",
+            "official_label_total": 1517,
+            "official_label_positive": 346,
+            "official_label_positive_ratio": 0.22808174027686223
+          }
+        ]
+      },
+      "test": {
+        "dataset_count": 6,
+        "official_label_total": 9628,
+        "official_label_positive": 1937,
+        "official_label_positive_ratio": 0.2011840465309514,
+        "per_dataset": [
+          {
+            "dataset_name": "sphere_batch_1_test",
+            "official_label_total": 1565,
+            "official_label_positive": 310,
+            "official_label_positive_ratio": 0.19808306709265175
+          },
+          {
+            "dataset_name": "sphere_batch_2_test",
+            "official_label_total": 1528,
+            "official_label_positive": 334,
+            "official_label_positive_ratio": 0.21858638743455497
+          },
+          {
+            "dataset_name": "sphere_batch_3_test",
+            "official_label_total": 1840,
+            "official_label_positive": 320,
+            "official_label_positive_ratio": 0.17391304347826086
+          },
+          {
+            "dataset_name": "sphere_batch_4_test",
+            "official_label_total": 1385,
+            "official_label_positive": 334,
+            "official_label_positive_ratio": 0.24115523465703972
+          },
+          {
+            "dataset_name": "sphere_batch_5_test",
+            "official_label_total": 1679,
+            "official_label_positive": 329,
+            "official_label_positive_ratio": 0.19594997022036928
+          },
+          {
+            "dataset_name": "sphere_batch_6_test",
+            "official_label_total": 1631,
+            "official_label_positive": 310,
+            "official_label_positive_ratio": 0.1900674432863274
+          }
+        ]
+      }
+    },
+    "all_sources": {
+      "train": {
+        "dataset_count": 10,
+        "official_label_total": 68685,
+        "official_label_positive": 16490,
+        "official_label_positive_ratio": 0.24008153162990464,
+        "per_dataset": [
+          {
+            "dataset_name": "flat_batch_1_train",
+            "official_label_total": 4691,
+            "official_label_positive": 1892,
+            "official_label_positive_ratio": 0.403325516947346
+          },
+          {
+            "dataset_name": "flat_batch_2_train",
+            "official_label_total": 4435,
+            "official_label_positive": 1867,
+            "official_label_positive_ratio": 0.4209695603156708
+          },
+          {
+            "dataset_name": "sharp_batch_1_train",
+            "official_label_total": 8115,
+            "official_label_positive": 1989,
+            "official_label_positive_ratio": 0.24510166358595195
+          },
+          {
+            "dataset_name": "sharp_batch_2_train",
+            "official_label_total": 6807,
+            "official_label_positive": 1935,
+            "official_label_positive_ratio": 0.2842661965623623
+          },
+          {
+            "dataset_name": "sphere_batch_1_train",
+            "official_label_total": 6998,
+            "official_label_positive": 1509,
+            "official_label_positive_ratio": 0.21563303801086026
+          },
+          {
+            "dataset_name": "sphere_batch_2_train",
+            "official_label_total": 7736,
+            "official_label_positive": 1507,
+            "official_label_positive_ratio": 0.19480351602895554
+          },
+          {
+            "dataset_name": "sphere_batch_3_train",
+            "official_label_total": 6683,
+            "official_label_positive": 1337,
+            "official_label_positive_ratio": 0.2000598533592698
+          },
+          {
+            "dataset_name": "sphere_batch_4_train",
+            "official_label_total": 7766,
+            "official_label_positive": 1412,
+            "official_label_positive_ratio": 0.18181818181818182
+          },
+          {
+            "dataset_name": "sphere_batch_5_train",
+            "official_label_total": 8003,
+            "official_label_positive": 1527,
+            "official_label_positive_ratio": 0.19080344870673496
+          },
+          {
+            "dataset_name": "sphere_batch_6_train",
+            "official_label_total": 7451,
+            "official_label_positive": 1515,
+            "official_label_positive_ratio": 0.20332841229365187
+          }
+        ]
+      },
+      "val": {
+        "dataset_count": 10,
+        "official_label_total": 14920,
+        "official_label_positive": 3682,
+        "official_label_positive_ratio": 0.2467828418230563,
+        "per_dataset": [
+          {
+            "dataset_name": "flat_batch_1_val",
+            "official_label_total": 1138,
+            "official_label_positive": 395,
+            "official_label_positive_ratio": 0.3471001757469244
+          },
+          {
+            "dataset_name": "flat_batch_2_val",
+            "official_label_total": 898,
+            "official_label_positive": 403,
+            "official_label_positive_ratio": 0.4487750556792873
+          },
+          {
+            "dataset_name": "sharp_batch_1_val",
+            "official_label_total": 1590,
+            "official_label_positive": 486,
+            "official_label_positive_ratio": 0.30566037735849055
+          },
+          {
+            "dataset_name": "sharp_batch_2_val",
+            "official_label_total": 1439,
+            "official_label_positive": 428,
+            "official_label_positive_ratio": 0.2974287699791522
+          },
+          {
+            "dataset_name": "sphere_batch_1_val",
+            "official_label_total": 1437,
+            "official_label_positive": 315,
+            "official_label_positive_ratio": 0.21920668058455114
+          },
+          {
+            "dataset_name": "sphere_batch_2_val",
+            "official_label_total": 1481,
+            "official_label_positive": 336,
+            "official_label_positive_ratio": 0.22687373396353816
+          },
+          {
+            "dataset_name": "sphere_batch_3_val",
+            "official_label_total": 1530,
+            "official_label_positive": 293,
+            "official_label_positive_ratio": 0.19150326797385622
+          },
+          {
+            "dataset_name": "sphere_batch_4_val",
+            "official_label_total": 2104,
+            "official_label_positive": 373,
+            "official_label_positive_ratio": 0.17728136882129278
+          },
+          {
+            "dataset_name": "sphere_batch_5_val",
+            "official_label_total": 1786,
+            "official_label_positive": 307,
+            "official_label_positive_ratio": 0.17189249720044794
+          },
+          {
+            "dataset_name": "sphere_batch_6_val",
+            "official_label_total": 1517,
+            "official_label_positive": 346,
+            "official_label_positive_ratio": 0.22808174027686223
+          }
+        ]
+      },
+      "test": {
+        "dataset_count": 10,
+        "official_label_total": 14468,
+        "official_label_positive": 3559,
+        "official_label_positive_ratio": 0.24599115288913465,
+        "per_dataset": [
+          {
+            "dataset_name": "flat_batch_1_test",
+            "official_label_total": 903,
+            "official_label_positive": 409,
+            "official_label_positive_ratio": 0.4529346622369878
+          },
+          {
+            "dataset_name": "flat_batch_2_test",
+            "official_label_total": 980,
+            "official_label_positive": 391,
+            "official_label_positive_ratio": 0.3989795918367347
+          },
+          {
+            "dataset_name": "sharp_batch_1_test",
+            "official_label_total": 1478,
+            "official_label_positive": 416,
+            "official_label_positive_ratio": 0.2814614343707713
+          },
+          {
+            "dataset_name": "sharp_batch_2_test",
+            "official_label_total": 1479,
+            "official_label_positive": 406,
+            "official_label_positive_ratio": 0.27450980392156865
+          },
+          {
+            "dataset_name": "sphere_batch_1_test",
+            "official_label_total": 1565,
+            "official_label_positive": 310,
+            "official_label_positive_ratio": 0.19808306709265175
+          },
+          {
+            "dataset_name": "sphere_batch_2_test",
+            "official_label_total": 1528,
+            "official_label_positive": 334,
+            "official_label_positive_ratio": 0.21858638743455497
+          },
+          {
+            "dataset_name": "sphere_batch_3_test",
+            "official_label_total": 1840,
+            "official_label_positive": 320,
+            "official_label_positive_ratio": 0.17391304347826086
+          },
+          {
+            "dataset_name": "sphere_batch_4_test",
+            "official_label_total": 1385,
+            "official_label_positive": 334,
+            "official_label_positive_ratio": 0.24115523465703972
+          },
+          {
+            "dataset_name": "sphere_batch_5_test",
+            "official_label_total": 1679,
+            "official_label_positive": 329,
+            "official_label_positive_ratio": 0.19594997022036928
+          },
+          {
+            "dataset_name": "sphere_batch_6_test",
+            "official_label_total": 1631,
+            "official_label_positive": 310,
+            "official_label_positive_ratio": 0.1900674432863274
+          }
+        ]
+      }
+    }
+  },
+  "visual_examples": [
+    {
+      "source": "flat/batch_1",
+      "trajectory_id": "1",
+      "sample": 3,
+      "window": [
+        0,
+        25
+      ],
+      "image_samples": [
+        0,
+        3,
+        8
+      ],
+      "output_png": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase1/phase1_gsmini_20260512_043331/flat_sharp_slip_alignment_examples/flat_batch_1_slip_alignment_event.png",
+      "slip_label_at_sample": 1,
+      "force_at_sample": [
+        0.038310753483932786,
+        -0.12408581089176268,
+        0.29056406342165736
+      ],
+      "official_delta_shear_at_sample": 0.10009898267747028
+    },
+    {
+      "source": "flat/batch_2",
+      "trajectory_id": "1",
+      "sample": 15,
+      "window": [
+        0,
+        36
+      ],
+      "image_samples": [
+        10,
+        15,
+        20
+      ],
+      "output_png": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase1/phase1_gsmini_20260512_043331/flat_sharp_slip_alignment_examples/flat_batch_2_slip_alignment_event.png",
+      "slip_label_at_sample": 1,
+      "force_at_sample": [
+        0.0731332115771473,
+        0.10191765364975358,
+        0.35395389037265157
+      ],
+      "official_delta_shear_at_sample": 0.15520933777405785
+    },
+    {
+      "source": "sharp/batch_1",
+      "trajectory_id": "1",
+      "sample": 11,
+      "window": [
+        0,
+        33
+      ],
+      "image_samples": [
+        6,
+        11,
+        16
+      ],
+      "output_png": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase1/phase1_gsmini_20260512_043331/flat_sharp_slip_alignment_examples/sharp_batch_1_slip_alignment_event.png",
+      "slip_label_at_sample": 1,
+      "force_at_sample": [
+        0.01093283908608434,
+        -0.07847641538144567,
+        0.19792006219548122
+      ],
+      "official_delta_shear_at_sample": 0.07557324744923594
+    },
+    {
+      "source": "sharp/batch_2",
+      "trajectory_id": "1",
+      "sample": 21,
+      "window": [
+        0,
+        34
+      ],
+      "image_samples": [
+        16,
+        21,
+        26
+      ],
+      "output_png": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase1/phase1_gsmini_20260512_043331/flat_sharp_slip_alignment_examples/sharp_batch_2_slip_alignment_event.png",
+      "slip_label_at_sample": 1,
+      "force_at_sample": [
+        -0.007239925501062278,
+        -0.05240360920552625,
+        0.1718232356228392
+      ],
+      "official_delta_shear_at_sample": 0.04516818992613477
+    }
+  ]
+}
