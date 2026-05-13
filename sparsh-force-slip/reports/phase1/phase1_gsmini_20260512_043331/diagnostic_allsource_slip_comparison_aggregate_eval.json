@@ -1,0 +1,4772 @@
+{
+  "generated_at": "2026-05-13T15:38:09",
+  "run_id": "phase1_gsmini_20260512_043331",
+  "device": "cuda:0",
+  "model_experiments": {
+    "dinov2_sphere_only": "2026.05.12_04-39_phase1_gsmini_20260512_043331_dinov2_slip_gsmini_20260512_043652",
+    "mae_sphere_only": "2026.05.12_04-39_phase1_gsmini_20260512_043331_mae_slip_gsmini_20260512_043652",
+    "dinov2_allsource": "2026.05.13_01-21_phase1_gsmini_20260512_043331_dinov2_slip_allsource_diag_gsmini_20260513_012000",
+    "mae_allsource": "2026.05.13_01-21_phase1_gsmini_20260512_043331_mae_slip_allsource_diag_gsmini_20260513_012000"
+  },
+  "eval_sets": {
+    "sphere_val": [
+      "sphere_batch_1_val",
+      "sphere_batch_2_val",
+      "sphere_batch_3_val",
+      "sphere_batch_4_val",
+      "sphere_batch_5_val",
+      "sphere_batch_6_val"
+    ],
+    "allsource_val": [
+      "flat_batch_1_val",
+      "flat_batch_2_val",
+      "sharp_batch_1_val",
+      "sharp_batch_2_val",
+      "sphere_batch_1_val",
+      "sphere_batch_2_val",
+      "sphere_batch_3_val",
+      "sphere_batch_4_val",
+      "sphere_batch_5_val",
+      "sphere_batch_6_val"
+    ]
+  },
+  "evaluations": {
+    "dinov2_sphere_only__sphere_val": {
+      "aggregate": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9785895484525622,
+        "balanced_accuracy": 0.9767195954536823,
+        "precision_slip": 0.9234472797303803,
+        "recall_slip": 0.9736040609137055,
+        "f1_slip": 0.9478626142821843,
+        "confusion_matrix_labels_0_1": [
+          [
+            7726,
+            159
+          ],
+          [
+            52,
+            1918
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.05323440581560135,
+          0.060352157801389694,
+          0.015561630018055439
+        ],
+        "delta_force_mae_N": [
+          0.02019919827580452,
+          0.021328246220946312,
+          0.009152545593678951
+        ],
+        "delta_force_rmse_mean_N": 0.043049395084381104,
+        "delta_force_mae_mean_N": 0.016893329098820686,
+        "mean_pred_slip_probability": 0.2217843234539032
+      },
+      "per_family": {
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9785895484525622,
+          "balanced_accuracy": 0.9767195954536823,
+          "precision_slip": 0.9234472797303803,
+          "recall_slip": 0.9736040609137055,
+          "f1_slip": 0.9478626142821843,
+          "confusion_matrix_labels_0_1": [
+            [
+              7726,
+              159
+            ],
+            [
+              52,
+              1918
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05323440581560135,
+            0.060352157801389694,
+            0.015561630018055439
+          ],
+          "delta_force_mae_N": [
+            0.02019919827580452,
+            0.021328246220946312,
+            0.009152545593678951
+          ],
+          "delta_force_rmse_mean_N": 0.043049395084381104,
+          "delta_force_mae_mean_N": 0.016893329098820686,
+          "mean_pred_slip_probability": 0.2217843234539032
+        }
+      },
+      "per_dataset": {
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9826026443980515,
+          "balanced_accuracy": 0.9763008233596469,
+          "precision_slip": 0.9559748427672956,
+          "recall_slip": 0.9650793650793651,
+          "f1_slip": 0.9605055292259084,
+          "confusion_matrix_labels_0_1": [
+            [
+              1108,
+              14
+            ],
+            [
+              11,
+              304
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.057895228266716,
+            0.04782828316092491,
+            0.012959882616996765
+          ],
+          "delta_force_mae_N": [
+            0.023321636021137238,
+            0.017551688477396965,
+            0.008115065284073353
+          ],
+          "delta_force_rmse_mean_N": 0.039561133831739426,
+          "delta_force_mae_mean_N": 0.016329463571310043,
+          "mean_pred_slip_probability": 0.2236638218164444
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9797434166103984,
+          "balanced_accuracy": 0.9784882511956747,
+          "precision_slip": 0.9371428571428572,
+          "recall_slip": 0.9761904761904762,
+          "f1_slip": 0.956268221574344,
+          "confusion_matrix_labels_0_1": [
+            [
+              1123,
+              22
+            ],
+            [
+              8,
+              328
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04917313531041145,
+            0.05169667676091194,
+            0.01472974382340908
+          ],
+          "delta_force_mae_N": [
+            0.02018590085208416,
+            0.01944698393344879,
+            0.009579818695783615
+          ],
+          "delta_force_rmse_mean_N": 0.03853318467736244,
+          "delta_force_mae_mean_N": 0.01640423573553562,
+          "mean_pred_slip_probability": 0.2526992857456207
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9607843137254902,
+          "balanced_accuracy": 0.9705386531876912,
+          "precision_slip": 0.8376811594202899,
+          "recall_slip": 0.9863481228668942,
+          "f1_slip": 0.9059561128526645,
+          "confusion_matrix_labels_0_1": [
+            [
+              1181,
+              56
+            ],
+            [
+              4,
+              289
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05388849228620529,
+            0.06983618438243866,
+            0.015961244702339172
+          ],
+          "delta_force_mae_N": [
+            0.018920328468084335,
+            0.025044547393918037,
+            0.009770859964191914
+          ],
+          "delta_force_rmse_mean_N": 0.04656197503209114,
+          "delta_force_mae_mean_N": 0.017911912873387337,
+          "mean_pred_slip_probability": 0.23631514608860016
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9824144486692015,
+          "balanced_accuracy": 0.9808994785205285,
+          "precision_slip": 0.9263959390862944,
+          "recall_slip": 0.9785522788203753,
+          "f1_slip": 0.9517601043024772,
+          "confusion_matrix_labels_0_1": [
+            [
+              1702,
+              29
+            ],
+            [
+              8,
+              365
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.06221884489059448,
+            0.061831049621105194,
+            0.01523804571479559
+          ],
+          "delta_force_mae_N": [
+            0.022843407467007637,
+            0.02200540527701378,
+            0.009070674888789654
+          ],
+          "delta_force_rmse_mean_N": 0.046429309993982315,
+          "delta_force_mae_mean_N": 0.017973164096474648,
+          "mean_pred_slip_probability": 0.18929675221443176
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9776035834266518,
+          "balanced_accuracy": 0.9722807689851185,
+          "precision_slip": 0.9107692307692308,
+          "recall_slip": 0.9641693811074918,
+          "f1_slip": 0.9367088607594937,
+          "confusion_matrix_labels_0_1": [
+            [
+              1450,
+              29
+            ],
+            [
+              11,
+              296
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.052033789455890656,
+            0.056995078921318054,
+            0.020191799849271774
+          ],
+          "delta_force_mae_N": [
+            0.019185110926628113,
+            0.019085239619016647,
+            0.010043501853942871
+          ],
+          "delta_force_rmse_mean_N": 0.04307355359196663,
+          "delta_force_mae_mean_N": 0.016104618087410927,
+          "mean_pred_slip_probability": 0.20209310948848724
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.987475280158207,
+          "balanced_accuracy": 0.9817062636055345,
+          "precision_slip": 0.9739130434782609,
+          "recall_slip": 0.9710982658959537,
+          "f1_slip": 0.9725036179450073,
+          "confusion_matrix_labels_0_1": [
+            [
+              1162,
+              9
+            ],
+            [
+              10,
+              336
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.037266723811626434,
+            0.06957424432039261,
+            0.011969966813921928
+          ],
+          "delta_force_mae_N": [
+            0.016070691868662834,
+            0.02469560131430626,
+            0.00815903302282095
+          ],
+          "delta_force_rmse_mean_N": 0.03960364684462547,
+          "delta_force_mae_mean_N": 0.016308441758155823,
+          "mean_pred_slip_probability": 0.24340876936912537
+        }
+      },
+      "model_key": "dinov2_sphere_only",
+      "eval_set": "sphere_val"
+    },
+    "dinov2_sphere_only__allsource_val": {
+      "aggregate": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9589142091152815,
+        "balanced_accuracy": 0.9642352047386364,
+        "precision_slip": 0.8734485276222925,
+        "recall_slip": 0.9747419880499728,
+        "f1_slip": 0.9213194711847003,
+        "confusion_matrix_labels_0_1": [
+          [
+            10718,
+            520
+          ],
+          [
+            93,
+            3589
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.06667660921812057,
+          0.07503050565719604,
+          0.021629290655255318
+        ],
+        "delta_force_mae_N": [
+          0.025111939758062363,
+          0.027011241763830185,
+          0.013588580302894115
+        ],
+        "delta_force_rmse_mean_N": 0.05444547161459923,
+        "delta_force_mae_mean_N": 0.02190391905605793,
+        "mean_pred_slip_probability": 0.2869540750980377
+      },
+      "per_family": {
+        "flat": {
+          "n_samples": 2036,
+          "positive_count": 798,
+          "positive_ratio": 0.3919449901768173,
+          "no_slip_baseline_accuracy": 0.6080550098231827,
+          "accuracy": 0.9508840864440079,
+          "balanced_accuracy": 0.9576080751150898,
+          "precision_slip": 0.8965909090909091,
+          "recall_slip": 0.9887218045112782,
+          "f1_slip": 0.9404052443384983,
+          "confusion_matrix_labels_0_1": [
+            [
+              1147,
+              91
+            ],
+            [
+              9,
+              789
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.07531893253326416,
+            0.0872608870267868,
+            0.03807169571518898
+          ],
+          "delta_force_mae_N": [
+            0.031975168734788895,
+            0.038333598524332047,
+            0.030573895201086998
+          ],
+          "delta_force_rmse_mean_N": 0.06688383966684341,
+          "delta_force_mae_mean_N": 0.03362755477428436,
+          "mean_pred_slip_probability": 0.4557346999645233
+        },
+        "sharp": {
+          "n_samples": 3029,
+          "positive_count": 914,
+          "positive_ratio": 0.3017497523935292,
+          "no_slip_baseline_accuracy": 0.6982502476064708,
+          "accuracy": 0.900297127764939,
+          "balanced_accuracy": 0.9186647423064389,
+          "precision_slip": 0.765625,
+          "recall_slip": 0.9649890590809628,
+          "f1_slip": 0.8538238141335914,
+          "confusion_matrix_labels_0_1": [
+            [
+              1845,
+              270
+            ],
+            [
+              32,
+              882
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.0941554456949234,
+            0.10373543947935104,
+            0.02328549325466156
+          ],
+          "delta_force_mae_N": [
+            0.03648238256573677,
+            0.0378907211124897,
+            0.01660473458468914
+          ],
+          "delta_force_rmse_mean_N": 0.07372545450925827,
+          "delta_force_mae_mean_N": 0.03032594732940197,
+          "mean_pred_slip_probability": 0.3855379521846771
+        },
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9785895484525622,
+          "balanced_accuracy": 0.9767195954536823,
+          "precision_slip": 0.9234472797303803,
+          "recall_slip": 0.9736040609137055,
+          "f1_slip": 0.9478626142821843,
+          "confusion_matrix_labels_0_1": [
+            [
+              7726,
+              159
+            ],
+            [
+              52,
+              1918
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05323440581560135,
+            0.060352157801389694,
+            0.015561630018055439
+          ],
+          "delta_force_mae_N": [
+            0.02019919827580452,
+            0.021328246220946312,
+            0.009152545593678951
+          ],
+          "delta_force_rmse_mean_N": 0.043049395084381104,
+          "delta_force_mae_mean_N": 0.016893329098820686,
+          "mean_pred_slip_probability": 0.2217843234539032
+        }
+      },
+      "per_dataset": {
+        "flat_batch_1_val": {
+          "n_samples": 1138,
+          "positive_count": 395,
+          "positive_ratio": 0.3471001757469244,
+          "no_slip_baseline_accuracy": 0.6528998242530756,
+          "accuracy": 0.937609841827768,
+          "balanced_accuracy": 0.9504421009591631,
+          "precision_slip": 0.8521739130434782,
+          "recall_slip": 0.9924050632911392,
+          "f1_slip": 0.9169590643274854,
+          "confusion_matrix_labels_0_1": [
+            [
+              675,
+              68
+            ],
+            [
+              3,
+              392
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.0657273456454277,
+            0.08137509971857071,
+            0.038412269204854965
+          ],
+          "delta_force_mae_N": [
+            0.027616893872618675,
+            0.03617122769355774,
+            0.030346546322107315
+          ],
+          "delta_force_rmse_mean_N": 0.061838239431381226,
+          "delta_force_mae_mean_N": 0.03137822449207306,
+          "mean_pred_slip_probability": 0.4387851357460022
+        },
+        "flat_batch_2_val": {
+          "n_samples": 898,
+          "positive_count": 403,
+          "positive_ratio": 0.4487750556792873,
+          "no_slip_baseline_accuracy": 0.5512249443207127,
+          "accuracy": 0.967706013363029,
+          "balanced_accuracy": 0.9693235080331855,
+          "precision_slip": 0.9452380952380952,
+          "recall_slip": 0.9851116625310173,
+          "f1_slip": 0.9647630619684082,
+          "confusion_matrix_labels_0_1": [
+            [
+              472,
+              23
+            ],
+            [
+              6,
+              397
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.08594965934753418,
+            0.09419281780719757,
+            0.0376356840133667
+          ],
+          "delta_force_mae_N": [
+            0.037498343735933304,
+            0.04107380658388138,
+            0.030861984938383102
+          ],
+          "delta_force_rmse_mean_N": 0.07259272038936615,
+          "delta_force_mae_mean_N": 0.03647804632782936,
+          "mean_pred_slip_probability": 0.4772142469882965
+        },
+        "sharp_batch_1_val": {
+          "n_samples": 1590,
+          "positive_count": 486,
+          "positive_ratio": 0.30566037735849055,
+          "no_slip_baseline_accuracy": 0.6943396226415094,
+          "accuracy": 0.960377358490566,
+          "balanced_accuracy": 0.9611010466988728,
+          "precision_slip": 0.9122807017543859,
+          "recall_slip": 0.9629629629629629,
+          "f1_slip": 0.9369369369369369,
+          "confusion_matrix_labels_0_1": [
+            [
+              1059,
+              45
+            ],
+            [
+              18,
+              468
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.08109209686517715,
+            0.06585483998060226,
+            0.017685988917946815
+          ],
+          "delta_force_mae_N": [
+            0.030081063508987427,
+            0.02506590634584427,
+            0.013265135698020458
+          ],
+          "delta_force_rmse_mean_N": 0.054877642542123795,
+          "delta_force_mae_mean_N": 0.022804034873843193,
+          "mean_pred_slip_probability": 0.3316003084182739
+        },
+        "sharp_batch_2_val": {
+          "n_samples": 1439,
+          "positive_count": 428,
+          "positive_ratio": 0.2974287699791522,
+          "no_slip_baseline_accuracy": 0.7025712300208478,
+          "accuracy": 0.8339124391938847,
+          "balanced_accuracy": 0.8723688954213927,
+          "precision_slip": 0.647887323943662,
+          "recall_slip": 0.9672897196261683,
+          "f1_slip": 0.7760074976569822,
+          "confusion_matrix_labels_0_1": [
+            [
+              786,
+              225
+            ],
+            [
+              14,
+              414
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.10674647241830826,
+            0.13363884389400482,
+            0.028208298608660698
+          ],
+          "delta_force_mae_N": [
+            0.04355550929903984,
+            0.05206134915351868,
+            0.020294787362217903
+          ],
+          "delta_force_rmse_mean_N": 0.08953120559453964,
+          "delta_force_mae_mean_N": 0.03863721713423729,
+          "mean_pred_slip_probability": 0.44513553380966187
+        },
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9826026443980515,
+          "balanced_accuracy": 0.9763008233596469,
+          "precision_slip": 0.9559748427672956,
+          "recall_slip": 0.9650793650793651,
+          "f1_slip": 0.9605055292259084,
+          "confusion_matrix_labels_0_1": [
+            [
+              1108,
+              14
+            ],
+            [
+              11,
+              304
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.057895228266716,
+            0.04782828316092491,
+            0.012959882616996765
+          ],
+          "delta_force_mae_N": [
+            0.023321636021137238,
+            0.017551688477396965,
+            0.008115065284073353
+          ],
+          "delta_force_rmse_mean_N": 0.039561133831739426,
+          "delta_force_mae_mean_N": 0.016329463571310043,
+          "mean_pred_slip_probability": 0.2236638218164444
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9797434166103984,
+          "balanced_accuracy": 0.9784882511956747,
+          "precision_slip": 0.9371428571428572,
+          "recall_slip": 0.9761904761904762,
+          "f1_slip": 0.956268221574344,
+          "confusion_matrix_labels_0_1": [
+            [
+              1123,
+              22
+            ],
+            [
+              8,
+              328
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04917313531041145,
+            0.05169667676091194,
+            0.01472974382340908
+          ],
+          "delta_force_mae_N": [
+            0.02018590085208416,
+            0.01944698393344879,
+            0.009579818695783615
+          ],
+          "delta_force_rmse_mean_N": 0.03853318467736244,
+          "delta_force_mae_mean_N": 0.01640423573553562,
+          "mean_pred_slip_probability": 0.2526992857456207
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9607843137254902,
+          "balanced_accuracy": 0.9705386531876912,
+          "precision_slip": 0.8376811594202899,
+          "recall_slip": 0.9863481228668942,
+          "f1_slip": 0.9059561128526645,
+          "confusion_matrix_labels_0_1": [
+            [
+              1181,
+              56
+            ],
+            [
+              4,
+              289
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05388849228620529,
+            0.06983618438243866,
+            0.015961244702339172
+          ],
+          "delta_force_mae_N": [
+            0.018920328468084335,
+            0.025044547393918037,
+            0.009770859964191914
+          ],
+          "delta_force_rmse_mean_N": 0.04656197503209114,
+          "delta_force_mae_mean_N": 0.017911912873387337,
+          "mean_pred_slip_probability": 0.23631514608860016
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9824144486692015,
+          "balanced_accuracy": 0.9808994785205285,
+          "precision_slip": 0.9263959390862944,
+          "recall_slip": 0.9785522788203753,
+          "f1_slip": 0.9517601043024772,
+          "confusion_matrix_labels_0_1": [
+            [
+              1702,
+              29
+            ],
+            [
+              8,
+              365
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.06221884489059448,
+            0.061831049621105194,
+            0.01523804571479559
+          ],
+          "delta_force_mae_N": [
+            0.022843407467007637,
+            0.02200540527701378,
+            0.009070674888789654
+          ],
+          "delta_force_rmse_mean_N": 0.046429309993982315,
+          "delta_force_mae_mean_N": 0.017973164096474648,
+          "mean_pred_slip_probability": 0.18929675221443176
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9776035834266518,
+          "balanced_accuracy": 0.9722807689851185,
+          "precision_slip": 0.9107692307692308,
+          "recall_slip": 0.9641693811074918,
+          "f1_slip": 0.9367088607594937,
+          "confusion_matrix_labels_0_1": [
+            [
+              1450,
+              29
+            ],
+            [
+              11,
+              296
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.052033789455890656,
+            0.056995078921318054,
+            0.020191799849271774
+          ],
+          "delta_force_mae_N": [
+            0.019185110926628113,
+            0.019085239619016647,
+            0.010043501853942871
+          ],
+          "delta_force_rmse_mean_N": 0.04307355359196663,
+          "delta_force_mae_mean_N": 0.016104618087410927,
+          "mean_pred_slip_probability": 0.20209310948848724
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.987475280158207,
+          "balanced_accuracy": 0.9817062636055345,
+          "precision_slip": 0.9739130434782609,
+          "recall_slip": 0.9710982658959537,
+          "f1_slip": 0.9725036179450073,
+          "confusion_matrix_labels_0_1": [
+            [
+              1162,
+              9
+            ],
+            [
+              10,
+              336
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.037266723811626434,
+            0.06957424432039261,
+            0.011969966813921928
+          ],
+          "delta_force_mae_N": [
+            0.016070691868662834,
+            0.02469560131430626,
+            0.00815903302282095
+          ],
+          "delta_force_rmse_mean_N": 0.03960364684462547,
+          "delta_force_mae_mean_N": 0.016308441758155823,
+          "mean_pred_slip_probability": 0.24340876936912537
+        }
+      },
+      "model_key": "dinov2_sphere_only",
+      "eval_set": "allsource_val"
+    },
+    "mae_sphere_only__sphere_val": {
+      "aggregate": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9915778792491121,
+        "balanced_accuracy": 0.9844554815575419,
+        "precision_slip": 0.9850899742930591,
+        "recall_slip": 0.9725888324873097,
+        "f1_slip": 0.9787994891443167,
+        "confusion_matrix_labels_0_1": [
+          [
+            7856,
+            29
+          ],
+          [
+            54,
+            1916
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.03724128007888794,
+          0.047712139785289764,
+          0.013552812859416008
+        ],
+        "delta_force_mae_N": [
+          0.014181585051119328,
+          0.01939774677157402,
+          0.008651810698211193
+        ],
+        "delta_force_rmse_mean_N": 0.03283541277050972,
+        "delta_force_mae_mean_N": 0.014077047817409039,
+        "mean_pred_slip_probability": 0.20155338943004608
+      },
+      "per_family": {
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9915778792491121,
+          "balanced_accuracy": 0.9844554815575419,
+          "precision_slip": 0.9850899742930591,
+          "recall_slip": 0.9725888324873097,
+          "f1_slip": 0.9787994891443167,
+          "confusion_matrix_labels_0_1": [
+            [
+              7856,
+              29
+            ],
+            [
+              54,
+              1916
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03724128007888794,
+            0.047712139785289764,
+            0.013552812859416008
+          ],
+          "delta_force_mae_N": [
+            0.014181585051119328,
+            0.01939774677157402,
+            0.008651810698211193
+          ],
+          "delta_force_rmse_mean_N": 0.03283541277050972,
+          "delta_force_mae_mean_N": 0.014077047817409039,
+          "mean_pred_slip_probability": 0.20155338943004608
+        }
+      },
+      "per_dataset": {
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9909533750869868,
+          "balanced_accuracy": 0.9827900857312621,
+          "precision_slip": 0.9902597402597403,
+          "recall_slip": 0.9682539682539683,
+          "f1_slip": 0.9791332263242376,
+          "confusion_matrix_labels_0_1": [
+            [
+              1119,
+              3
+            ],
+            [
+              10,
+              305
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.036361273378133774,
+            0.04045139625668526,
+            0.012154613621532917
+          ],
+          "delta_force_mae_N": [
+            0.013882298953831196,
+            0.017872972413897514,
+            0.007870536297559738
+          ],
+          "delta_force_rmse_mean_N": 0.029655762016773224,
+          "delta_force_mae_mean_N": 0.01320860255509615,
+          "mean_pred_slip_probability": 0.2149248570203781
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9918973666441594,
+          "balanced_accuracy": 0.9873999272197962,
+          "precision_slip": 0.9850299401197605,
+          "recall_slip": 0.9791666666666666,
+          "f1_slip": 0.982089552238806,
+          "confusion_matrix_labels_0_1": [
+            [
+              1140,
+              5
+            ],
+            [
+              7,
+              329
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03312979266047478,
+            0.03794064745306969,
+            0.012381521984934807
+          ],
+          "delta_force_mae_N": [
+            0.013695348054170609,
+            0.016814937815070152,
+            0.008240358904004097
+          ],
+          "delta_force_rmse_mean_N": 0.027817321941256523,
+          "delta_force_mae_mean_N": 0.01291688159108162,
+          "mean_pred_slip_probability": 0.22799628973007202
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9901960784313726,
+          "balanced_accuracy": 0.9861232586821027,
+          "precision_slip": 0.9695945945945946,
+          "recall_slip": 0.9795221843003413,
+          "f1_slip": 0.9745331069609507,
+          "confusion_matrix_labels_0_1": [
+            [
+              1228,
+              9
+            ],
+            [
+              6,
+              287
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03141352906823158,
+            0.04909325763583183,
+            0.012905135750770569
+          ],
+          "delta_force_mae_N": [
+            0.011773006059229374,
+            0.019040878862142563,
+            0.008371005766093731
+          ],
+          "delta_force_rmse_mean_N": 0.031137308105826378,
+          "delta_force_mae_mean_N": 0.01306163053959608,
+          "mean_pred_slip_probability": 0.19312511384487152
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9933460076045627,
+          "balanced_accuracy": 0.9833365083642704,
+          "precision_slip": 0.9944903581267218,
+          "recall_slip": 0.967828418230563,
+          "f1_slip": 0.9809782608695652,
+          "confusion_matrix_labels_0_1": [
+            [
+              1729,
+              2
+            ],
+            [
+              12,
+              361
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04662085697054863,
+            0.04660100117325783,
+            0.015621308237314224
+          ],
+          "delta_force_mae_N": [
+            0.016553549095988274,
+            0.019380275160074234,
+            0.009573091752827168
+          ],
+          "delta_force_rmse_mean_N": 0.036281052976846695,
+          "delta_force_mae_mean_N": 0.015168971382081509,
+          "mean_pred_slip_probability": 0.1790882647037506
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9921612541993281,
+          "balanced_accuracy": 0.9810704917707844,
+          "precision_slip": 0.9899665551839465,
+          "recall_slip": 0.9641693811074918,
+          "f1_slip": 0.976897689768977,
+          "confusion_matrix_labels_0_1": [
+            [
+              1476,
+              3
+            ],
+            [
+              11,
+              296
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03625502064824104,
+            0.047689639031887054,
+            0.014933701604604721
+          ],
+          "delta_force_mae_N": [
+            0.014136307872831821,
+            0.018427589908242226,
+            0.009189319796860218
+          ],
+          "delta_force_rmse_mean_N": 0.032959457486867905,
+          "delta_force_mae_mean_N": 0.013917739503085613,
+          "mean_pred_slip_probability": 0.1732911467552185
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.990112063282795,
+          "balanced_accuracy": 0.9854504079809263,
+          "precision_slip": 0.9797101449275363,
+          "recall_slip": 0.976878612716763,
+          "f1_slip": 0.9782923299565847,
+          "confusion_matrix_labels_0_1": [
+            [
+              1164,
+              7
+            ],
+            [
+              8,
+              338
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03359581530094147,
+            0.06093387305736542,
+            0.011604218743741512
+          ],
+          "delta_force_mae_N": [
+            0.014132595621049404,
+            0.024890270084142685,
+            0.008166179060935974
+          ],
+          "delta_force_rmse_mean_N": 0.03537796810269356,
+          "delta_force_mae_mean_N": 0.01572968252003193,
+          "mean_pred_slip_probability": 0.23600387573242188
+        }
+      },
+      "model_key": "mae_sphere_only",
+      "eval_set": "sphere_val"
+    },
+    "mae_sphere_only__allsource_val": {
+      "aggregate": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9884048257372654,
+        "balanced_accuracy": 0.9815290453096255,
+        "precision_slip": 0.9848024316109423,
+        "recall_slip": 0.9679521998913634,
+        "f1_slip": 0.976304615806054,
+        "confusion_matrix_labels_0_1": [
+          [
+            11183,
+            55
+          ],
+          [
+            118,
+            3564
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.04838915541768074,
+          0.06268522143363953,
+          0.01920970343053341
+        ],
+        "delta_force_mae_N": [
+          0.018866965547204018,
+          0.025042423978447914,
+          0.01227700524032116
+        ],
+        "delta_force_rmse_mean_N": 0.04342802241444588,
+        "delta_force_mae_mean_N": 0.018728798255324364,
+        "mean_pred_slip_probability": 0.2467721849679947
+      },
+      "per_family": {
+        "flat": {
+          "n_samples": 2036,
+          "positive_count": 798,
+          "positive_ratio": 0.3919449901768173,
+          "no_slip_baseline_accuracy": 0.6080550098231827,
+          "accuracy": 0.9803536345776032,
+          "balanced_accuracy": 0.9782776812791267,
+          "precision_slip": 0.9809644670050761,
+          "recall_slip": 0.968671679197995,
+          "f1_slip": 0.9747793190416141,
+          "confusion_matrix_labels_0_1": [
+            [
+              1223,
+              15
+            ],
+            [
+              25,
+              773
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.06177061051130295,
+            0.06963691860437393,
+            0.032747235149145126
+          ],
+          "delta_force_mae_N": [
+            0.028469296172261238,
+            0.03429212421178818,
+            0.026363136246800423
+          ],
+          "delta_force_rmse_mean_N": 0.0547182559967041,
+          "delta_force_mae_mean_N": 0.02970818430185318,
+          "mean_pred_slip_probability": 0.3917364776134491
+        },
+        "sharp": {
+          "n_samples": 3029,
+          "positive_count": 914,
+          "positive_ratio": 0.3017497523935292,
+          "no_slip_baseline_accuracy": 0.6982502476064708,
+          "accuracy": 0.9834929019478376,
+          "balanced_accuracy": 0.9760647350642229,
+          "precision_slip": 0.9875846501128668,
+          "recall_slip": 0.9573304157549234,
+          "f1_slip": 0.9722222222222222,
+          "confusion_matrix_labels_0_1": [
+            [
+              2104,
+              11
+            ],
+            [
+              39,
+              875
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.06675805151462555,
+            0.09321606159210205,
+            0.022343577817082405
+          ],
+          "delta_force_mae_N": [
+            0.02765675075352192,
+            0.03718999773263931,
+            0.01460349839180708
+          ],
+          "delta_force_rmse_mean_N": 0.06077256426215172,
+          "delta_force_mae_mean_N": 0.026483414694666862,
+          "mean_pred_slip_probability": 0.2964532971382141
+        },
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9915778792491121,
+          "balanced_accuracy": 0.9844554815575419,
+          "precision_slip": 0.9850899742930591,
+          "recall_slip": 0.9725888324873097,
+          "f1_slip": 0.9787994891443167,
+          "confusion_matrix_labels_0_1": [
+            [
+              7856,
+              29
+            ],
+            [
+              54,
+              1916
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03724128007888794,
+            0.047712139785289764,
+            0.013552812859416008
+          ],
+          "delta_force_mae_N": [
+            0.014181585051119328,
+            0.01939774677157402,
+            0.008651810698211193
+          ],
+          "delta_force_rmse_mean_N": 0.03283541277050972,
+          "delta_force_mae_mean_N": 0.014077047817409039,
+          "mean_pred_slip_probability": 0.20155338943004608
+        }
+      },
+      "per_dataset": {
+        "flat_batch_1_val": {
+          "n_samples": 1138,
+          "positive_count": 395,
+          "positive_ratio": 0.3471001757469244,
+          "no_slip_baseline_accuracy": 0.6528998242530756,
+          "accuracy": 0.9815465729349736,
+          "balanced_accuracy": 0.9793464742661464,
+          "precision_slip": 0.9746192893401016,
+          "recall_slip": 0.9721518987341772,
+          "f1_slip": 0.973384030418251,
+          "confusion_matrix_labels_0_1": [
+            [
+              733,
+              10
+            ],
+            [
+              11,
+              384
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05645027756690979,
+            0.06997440755367279,
+            0.03338039293885231
+          ],
+          "delta_force_mae_N": [
+            0.02507958747446537,
+            0.03343189135193825,
+            0.026189805939793587
+          ],
+          "delta_force_rmse_mean_N": 0.05326835811138153,
+          "delta_force_mae_mean_N": 0.028233760967850685,
+          "mean_pred_slip_probability": 0.3495688736438751
+        },
+        "flat_batch_2_val": {
+          "n_samples": 898,
+          "positive_count": 403,
+          "positive_ratio": 0.4487750556792873,
+          "no_slip_baseline_accuracy": 0.5512249443207127,
+          "accuracy": 0.9788418708240535,
+          "balanced_accuracy": 0.9775797679023486,
+          "precision_slip": 0.9873096446700508,
+          "recall_slip": 0.9652605459057072,
+          "f1_slip": 0.9761606022584692,
+          "confusion_matrix_labels_0_1": [
+            [
+              490,
+              5
+            ],
+            [
+              14,
+              389
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.06791676580905914,
+            0.06920689344406128,
+            0.03192683681845665
+          ],
+          "delta_force_mae_N": [
+            0.032764945179224014,
+            0.035382237285375595,
+            0.02658279985189438
+          ],
+          "delta_force_rmse_mean_N": 0.05635016784071922,
+          "delta_force_mae_mean_N": 0.03157665953040123,
+          "mean_pred_slip_probability": 0.4451737105846405
+        },
+        "sharp_batch_1_val": {
+          "n_samples": 1590,
+          "positive_count": 486,
+          "positive_ratio": 0.30566037735849055,
+          "no_slip_baseline_accuracy": 0.6943396226415094,
+          "accuracy": 0.9867924528301887,
+          "balanced_accuracy": 0.98185050993022,
+          "precision_slip": 0.9874213836477987,
+          "recall_slip": 0.9691358024691358,
+          "f1_slip": 0.9781931464174455,
+          "confusion_matrix_labels_0_1": [
+            [
+              1098,
+              6
+            ],
+            [
+              15,
+              471
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.060575298964977264,
+            0.055449388921260834,
+            0.01570916920900345
+          ],
+          "delta_force_mae_N": [
+            0.02430831454694271,
+            0.023915009573101997,
+            0.011351984925568104
+          ],
+          "delta_force_rmse_mean_N": 0.04391128942370415,
+          "delta_force_mae_mean_N": 0.019858436658978462,
+          "mean_pred_slip_probability": 0.30115026235580444
+        },
+        "sharp_batch_2_val": {
+          "n_samples": 1439,
+          "positive_count": 428,
+          "positive_ratio": 0.2974287699791522,
+          "no_slip_baseline_accuracy": 0.7025712300208478,
+          "accuracy": 0.9798471160528145,
+          "balanced_accuracy": 0.9694898176137257,
+          "precision_slip": 0.9877750611246944,
+          "recall_slip": 0.9439252336448598,
+          "f1_slip": 0.965352449223417,
+          "confusion_matrix_labels_0_1": [
+            [
+              1006,
+              5
+            ],
+            [
+              24,
+              404
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.07298299670219421,
+            0.12203691899776459,
+            0.02789597027003765
+          ],
+          "delta_force_mae_N": [
+            0.0313565693795681,
+            0.051858071237802505,
+            0.018196213990449905
+          ],
+          "delta_force_rmse_mean_N": 0.07430529594421387,
+          "delta_force_mae_mean_N": 0.03380361571907997,
+          "mean_pred_slip_probability": 0.29126349091529846
+        },
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9909533750869868,
+          "balanced_accuracy": 0.9827900857312621,
+          "precision_slip": 0.9902597402597403,
+          "recall_slip": 0.9682539682539683,
+          "f1_slip": 0.9791332263242376,
+          "confusion_matrix_labels_0_1": [
+            [
+              1119,
+              3
+            ],
+            [
+              10,
+              305
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.036361273378133774,
+            0.04045139625668526,
+            0.012154613621532917
+          ],
+          "delta_force_mae_N": [
+            0.013882298953831196,
+            0.017872972413897514,
+            0.007870536297559738
+          ],
+          "delta_force_rmse_mean_N": 0.029655762016773224,
+          "delta_force_mae_mean_N": 0.01320860255509615,
+          "mean_pred_slip_probability": 0.2149248570203781
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9918973666441594,
+          "balanced_accuracy": 0.9873999272197962,
+          "precision_slip": 0.9850299401197605,
+          "recall_slip": 0.9791666666666666,
+          "f1_slip": 0.982089552238806,
+          "confusion_matrix_labels_0_1": [
+            [
+              1140,
+              5
+            ],
+            [
+              7,
+              329
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03312979266047478,
+            0.03794064745306969,
+            0.012381521984934807
+          ],
+          "delta_force_mae_N": [
+            0.013695348054170609,
+            0.016814937815070152,
+            0.008240358904004097
+          ],
+          "delta_force_rmse_mean_N": 0.027817321941256523,
+          "delta_force_mae_mean_N": 0.01291688159108162,
+          "mean_pred_slip_probability": 0.22799628973007202
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9901960784313726,
+          "balanced_accuracy": 0.9861232586821027,
+          "precision_slip": 0.9695945945945946,
+          "recall_slip": 0.9795221843003413,
+          "f1_slip": 0.9745331069609507,
+          "confusion_matrix_labels_0_1": [
+            [
+              1228,
+              9
+            ],
+            [
+              6,
+              287
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03141352906823158,
+            0.04909325763583183,
+            0.012905135750770569
+          ],
+          "delta_force_mae_N": [
+            0.011773006059229374,
+            0.019040878862142563,
+            0.008371005766093731
+          ],
+          "delta_force_rmse_mean_N": 0.031137308105826378,
+          "delta_force_mae_mean_N": 0.01306163053959608,
+          "mean_pred_slip_probability": 0.19312511384487152
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9933460076045627,
+          "balanced_accuracy": 0.9833365083642704,
+          "precision_slip": 0.9944903581267218,
+          "recall_slip": 0.967828418230563,
+          "f1_slip": 0.9809782608695652,
+          "confusion_matrix_labels_0_1": [
+            [
+              1729,
+              2
+            ],
+            [
+              12,
+              361
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04662085697054863,
+            0.04660100117325783,
+            0.015621308237314224
+          ],
+          "delta_force_mae_N": [
+            0.016553549095988274,
+            0.019380275160074234,
+            0.009573091752827168
+          ],
+          "delta_force_rmse_mean_N": 0.036281052976846695,
+          "delta_force_mae_mean_N": 0.015168971382081509,
+          "mean_pred_slip_probability": 0.1790882647037506
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9921612541993281,
+          "balanced_accuracy": 0.9810704917707844,
+          "precision_slip": 0.9899665551839465,
+          "recall_slip": 0.9641693811074918,
+          "f1_slip": 0.976897689768977,
+          "confusion_matrix_labels_0_1": [
+            [
+              1476,
+              3
+            ],
+            [
+              11,
+              296
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03625502064824104,
+            0.047689639031887054,
+            0.014933701604604721
+          ],
+          "delta_force_mae_N": [
+            0.014136307872831821,
+            0.018427589908242226,
+            0.009189319796860218
+          ],
+          "delta_force_rmse_mean_N": 0.032959457486867905,
+          "delta_force_mae_mean_N": 0.013917739503085613,
+          "mean_pred_slip_probability": 0.1732911467552185
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.990112063282795,
+          "balanced_accuracy": 0.9854504079809263,
+          "precision_slip": 0.9797101449275363,
+          "recall_slip": 0.976878612716763,
+          "f1_slip": 0.9782923299565847,
+          "confusion_matrix_labels_0_1": [
+            [
+              1164,
+              7
+            ],
+            [
+              8,
+              338
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03359581530094147,
+            0.06093387305736542,
+            0.011604218743741512
+          ],
+          "delta_force_mae_N": [
+            0.014132595621049404,
+            0.024890270084142685,
+            0.008166179060935974
+          ],
+          "delta_force_rmse_mean_N": 0.03537796810269356,
+          "delta_force_mae_mean_N": 0.01572968252003193,
+          "mean_pred_slip_probability": 0.23600387573242188
+        }
+      },
+      "model_key": "mae_sphere_only",
+      "eval_set": "allsource_val"
+    },
+    "dinov2_allsource__sphere_val": {
+      "aggregate": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9776763064434297,
+        "balanced_accuracy": 0.9784336383739607,
+        "precision_slip": 0.9146919431279621,
+        "recall_slip": 0.9796954314720813,
+        "f1_slip": 0.946078431372549,
+        "confusion_matrix_labels_0_1": [
+          [
+            7705,
+            180
+          ],
+          [
+            40,
+            1930
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.052642084658145905,
+          0.06376834958791733,
+          0.015507600270211697
+        ],
+        "delta_force_mae_N": [
+          0.019313741475343704,
+          0.022925596684217453,
+          0.009228454902768135
+        ],
+        "delta_force_rmse_mean_N": 0.0439726747572422,
+        "delta_force_mae_mean_N": 0.017155930399894714,
+        "mean_pred_slip_probability": 0.23076261579990387
+      },
+      "per_family": {
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9776763064434297,
+          "balanced_accuracy": 0.9784336383739607,
+          "precision_slip": 0.9146919431279621,
+          "recall_slip": 0.9796954314720813,
+          "f1_slip": 0.946078431372549,
+          "confusion_matrix_labels_0_1": [
+            [
+              7705,
+              180
+            ],
+            [
+              40,
+              1930
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.052642084658145905,
+            0.06376834958791733,
+            0.015507600270211697
+          ],
+          "delta_force_mae_N": [
+            0.019313741475343704,
+            0.022925596684217453,
+            0.009228454902768135
+          ],
+          "delta_force_rmse_mean_N": 0.0439726747572422,
+          "delta_force_mae_mean_N": 0.017155930399894714,
+          "mean_pred_slip_probability": 0.23076261579990387
+        }
+      },
+      "per_dataset": {
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9700765483646486,
+          "balanced_accuracy": 0.9728461081402258,
+          "precision_slip": 0.8953488372093024,
+          "recall_slip": 0.9777777777777777,
+          "f1_slip": 0.9347496206373292,
+          "confusion_matrix_labels_0_1": [
+            [
+              1086,
+              36
+            ],
+            [
+              7,
+              308
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05424977093935013,
+            0.042778536677360535,
+            0.01202055998146534
+          ],
+          "delta_force_mae_N": [
+            0.02022857591509819,
+            0.01667649857699871,
+            0.008332965895533562
+          ],
+          "delta_force_rmse_mean_N": 0.036349620670080185,
+          "delta_force_mae_mean_N": 0.015079346485435963,
+          "mean_pred_slip_probability": 0.248235285282135
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9763673193787981,
+          "balanced_accuracy": 0.9815619151590768,
+          "precision_slip": 0.9123287671232877,
+          "recall_slip": 0.9910714285714286,
+          "f1_slip": 0.9500713266761769,
+          "confusion_matrix_labels_0_1": [
+            [
+              1113,
+              32
+            ],
+            [
+              3,
+              333
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.048472534865140915,
+            0.0587453618645668,
+            0.01387501135468483
+          ],
+          "delta_force_mae_N": [
+            0.019098404794931412,
+            0.022690368816256523,
+            0.008883156813681126
+          ],
+          "delta_force_rmse_mean_N": 0.04036429896950722,
+          "delta_force_mae_mean_N": 0.016890643164515495,
+          "mean_pred_slip_probability": 0.27230626344680786
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9679738562091503,
+          "balanced_accuracy": 0.9762871750160715,
+          "precision_slip": 0.8630952380952381,
+          "recall_slip": 0.9897610921501706,
+          "f1_slip": 0.9220985691573926,
+          "confusion_matrix_labels_0_1": [
+            [
+              1191,
+              46
+            ],
+            [
+              3,
+              290
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05784408748149872,
+            0.07390310615301132,
+            0.01748845726251602
+          ],
+          "delta_force_mae_N": [
+            0.020444272086024284,
+            0.02595643140375614,
+            0.010281513445079327
+          ],
+          "delta_force_rmse_mean_N": 0.049745213240385056,
+          "delta_force_mae_mean_N": 0.018894072622060776,
+          "mean_pred_slip_probability": 0.229716494679451
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9871673003802282,
+          "balanced_accuracy": 0.9848396144738044,
+          "precision_slip": 0.9481865284974094,
+          "recall_slip": 0.9812332439678284,
+          "f1_slip": 0.9644268774703557,
+          "confusion_matrix_labels_0_1": [
+            [
+              1711,
+              20
+            ],
+            [
+              7,
+              366
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05611337348818779,
+            0.06641700863838196,
+            0.015463147312402725
+          ],
+          "delta_force_mae_N": [
+            0.020912615582346916,
+            0.02449580281972885,
+            0.009178302250802517
+          ],
+          "delta_force_rmse_mean_N": 0.04599784314632416,
+          "delta_force_mae_mean_N": 0.01819557510316372,
+          "mean_pred_slip_probability": 0.195224329829216
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9804031354983203,
+          "balanced_accuracy": 0.9752616985241811,
+          "precision_slip": 0.922360248447205,
+          "recall_slip": 0.9674267100977199,
+          "f1_slip": 0.9443561208267091,
+          "confusion_matrix_labels_0_1": [
+            [
+              1454,
+              25
+            ],
+            [
+              10,
+              297
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04896664619445801,
+            0.06472452729940414,
+            0.0192544087767601
+          ],
+          "delta_force_mae_N": [
+            0.01722637005150318,
+            0.021602313965559006,
+            0.009831942617893219
+          ],
+          "delta_force_rmse_mean_N": 0.044315192848443985,
+          "delta_force_mae_mean_N": 0.0162202101200819,
+          "mean_pred_slip_probability": 0.20722532272338867
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.979564930784443,
+          "balanced_accuracy": 0.9765824378156114,
+          "precision_slip": 0.9411764705882353,
+          "recall_slip": 0.9710982658959537,
+          "f1_slip": 0.9559032716927454,
+          "confusion_matrix_labels_0_1": [
+            [
+              1150,
+              21
+            ],
+            [
+              10,
+              336
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04854435473680496,
+            0.06896250694990158,
+            0.012684416025876999
+          ],
+          "delta_force_mae_N": [
+            0.01775725558400154,
+            0.02539810538291931,
+            0.008710894733667374
+          ],
+          "delta_force_rmse_mean_N": 0.043397095054388046,
+          "delta_force_mae_mean_N": 0.017288751900196075,
+          "mean_pred_slip_probability": 0.2517094612121582
+        }
+      },
+      "model_key": "dinov2_allsource",
+      "eval_set": "sphere_val"
+    },
+    "dinov2_allsource__allsource_val": {
+      "aggregate": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9735254691689008,
+        "balanced_accuracy": 0.9749387819455968,
+        "precision_slip": 0.9200102223358038,
+        "recall_slip": 0.977729494839761,
+        "f1_slip": 0.9479921000658328,
+        "confusion_matrix_labels_0_1": [
+          [
+            10925,
+            313
+          ],
+          [
+            82,
+            3600
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.059621915221214294,
+          0.06964648514986038,
+          0.01860387995839119
+        ],
+        "delta_force_mae_N": [
+          0.02299986407160759,
+          0.026518795639276505,
+          0.011168002150952816
+        ],
+        "delta_force_rmse_mean_N": 0.04929076135158539,
+        "delta_force_mae_mean_N": 0.020228886976838112,
+        "mean_pred_slip_probability": 0.27771520614624023
+      },
+      "per_family": {
+        "flat": {
+          "n_samples": 2036,
+          "positive_count": 798,
+          "positive_ratio": 0.3919449901768173,
+          "no_slip_baseline_accuracy": 0.6080550098231827,
+          "accuracy": 0.9449901768172888,
+          "balanced_accuracy": 0.9516481024856163,
+          "precision_slip": 0.8888888888888888,
+          "recall_slip": 0.9824561403508771,
+          "f1_slip": 0.9333333333333333,
+          "confusion_matrix_labels_0_1": [
+            [
+              1140,
+              98
+            ],
+            [
+              14,
+              784
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.062437281012535095,
+            0.0687248557806015,
+            0.027647480368614197
+          ],
+          "delta_force_mae_N": [
+            0.02924772910773754,
+            0.03200662508606911,
+            0.018906651064753532
+          ],
+          "delta_force_rmse_mean_N": 0.05293653905391693,
+          "delta_force_mae_mean_N": 0.026720335707068443,
+          "mean_pred_slip_probability": 0.4456728398799896
+        },
+        "sharp": {
+          "n_samples": 3029,
+          "positive_count": 914,
+          "positive_ratio": 0.3017497523935292,
+          "no_slip_baseline_accuracy": 0.6982502476064708,
+          "accuracy": 0.9792010564542754,
+          "balanced_accuracy": 0.9764084816694343,
+          "precision_slip": 0.9619978284473398,
+          "recall_slip": 0.9693654266958425,
+          "f1_slip": 0.9656675749318802,
+          "confusion_matrix_labels_0_1": [
+            [
+              2080,
+              35
+            ],
+            [
+              28,
+              886
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.07663857191801071,
+            0.08653505891561508,
+            0.02021380327641964
+          ],
+          "delta_force_mae_N": [
+            0.0307932086288929,
+            0.034521184861660004,
+            0.012276878580451012
+          ],
+          "delta_force_rmse_mean_N": 0.061129141598939896,
+          "delta_force_mae_mean_N": 0.025863759219646454,
+          "mean_pred_slip_probability": 0.3175818622112274
+        },
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9776763064434297,
+          "balanced_accuracy": 0.9784336383739607,
+          "precision_slip": 0.9146919431279621,
+          "recall_slip": 0.9796954314720813,
+          "f1_slip": 0.946078431372549,
+          "confusion_matrix_labels_0_1": [
+            [
+              7705,
+              180
+            ],
+            [
+              40,
+              1930
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.052642084658145905,
+            0.06376834958791733,
+            0.015507600270211697
+          ],
+          "delta_force_mae_N": [
+            0.019313741475343704,
+            0.022925596684217453,
+            0.009228454902768135
+          ],
+          "delta_force_rmse_mean_N": 0.0439726747572422,
+          "delta_force_mae_mean_N": 0.017155930399894714,
+          "mean_pred_slip_probability": 0.23076261579990387
+        }
+      },
+      "per_dataset": {
+        "flat_batch_1_val": {
+          "n_samples": 1138,
+          "positive_count": 395,
+          "positive_ratio": 0.3471001757469244,
+          "no_slip_baseline_accuracy": 0.6528998242530756,
+          "accuracy": 0.9420035149384886,
+          "balanced_accuracy": 0.9514353374107706,
+          "precision_slip": 0.8680089485458613,
+          "recall_slip": 0.9822784810126582,
+          "f1_slip": 0.9216152019002375,
+          "confusion_matrix_labels_0_1": [
+            [
+              684,
+              59
+            ],
+            [
+              7,
+              388
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04835798591375351,
+            0.06930685043334961,
+            0.030262481421232224
+          ],
+          "delta_force_mae_N": [
+            0.023168722167611122,
+            0.03212587162852287,
+            0.020738951861858368
+          ],
+          "delta_force_rmse_mean_N": 0.049309104681015015,
+          "delta_force_mae_mean_N": 0.025344515219330788,
+          "mean_pred_slip_probability": 0.4126192629337311
+        },
+        "flat_batch_2_val": {
+          "n_samples": 898,
+          "positive_count": 403,
+          "positive_ratio": 0.4487750556792873,
+          "no_slip_baseline_accuracy": 0.5512249443207127,
+          "accuracy": 0.9487750556792873,
+          "balanced_accuracy": 0.9519211970824875,
+          "precision_slip": 0.9103448275862069,
+          "recall_slip": 0.9826302729528535,
+          "f1_slip": 0.9451073985680191,
+          "confusion_matrix_labels_0_1": [
+            [
+              456,
+              39
+            ],
+            [
+              7,
+              396
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.07665012031793594,
+            0.06798025965690613,
+            0.023926472291350365
+          ],
+          "delta_force_mae_N": [
+            0.03695140779018402,
+            0.03185548260807991,
+            0.016584664583206177
+          ],
+          "delta_force_rmse_mean_N": 0.05618561431765556,
+          "delta_force_mae_mean_N": 0.028463849797844887,
+          "mean_pred_slip_probability": 0.48756030201911926
+        },
+        "sharp_batch_1_val": {
+          "n_samples": 1590,
+          "positive_count": 486,
+          "positive_ratio": 0.30566037735849055,
+          "no_slip_baseline_accuracy": 0.6943396226415094,
+          "accuracy": 0.9786163522012579,
+          "balanced_accuracy": 0.9736591966362498,
+          "precision_slip": 0.9688796680497925,
+          "recall_slip": 0.9609053497942387,
+          "f1_slip": 0.9648760330578512,
+          "confusion_matrix_labels_0_1": [
+            [
+              1089,
+              15
+            ],
+            [
+              19,
+              467
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.07033586502075195,
+            0.06533650308847427,
+            0.017208876088261604
+          ],
+          "delta_force_mae_N": [
+            0.029959775507450104,
+            0.028191901743412018,
+            0.010976157151162624
+          ],
+          "delta_force_rmse_mean_N": 0.05096041038632393,
+          "delta_force_mae_mean_N": 0.02304261177778244,
+          "mean_pred_slip_probability": 0.3171755075454712
+        },
+        "sharp_batch_2_val": {
+          "n_samples": 1439,
+          "positive_count": 428,
+          "positive_ratio": 0.2974287699791522,
+          "no_slip_baseline_accuracy": 0.7025712300208478,
+          "accuracy": 0.9798471160528145,
+          "balanced_accuracy": 0.9795947844735942,
+          "precision_slip": 0.9544419134396356,
+          "recall_slip": 0.9789719626168224,
+          "f1_slip": 0.9665513264129181,
+          "confusion_matrix_labels_0_1": [
+            [
+              991,
+              20
+            ],
+            [
+              9,
+              419
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.08304829895496368,
+            0.10509813576936722,
+            0.023083548992872238
+          ],
+          "delta_force_mae_N": [
+            0.031714100390672684,
+            0.04151453450322151,
+            0.01371411606669426
+          ],
+          "delta_force_rmse_mean_N": 0.07040999829769135,
+          "delta_force_mae_mean_N": 0.028980916365981102,
+          "mean_pred_slip_probability": 0.31803080439567566
+        },
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9700765483646486,
+          "balanced_accuracy": 0.9728461081402258,
+          "precision_slip": 0.8953488372093024,
+          "recall_slip": 0.9777777777777777,
+          "f1_slip": 0.9347496206373292,
+          "confusion_matrix_labels_0_1": [
+            [
+              1086,
+              36
+            ],
+            [
+              7,
+              308
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05424977093935013,
+            0.042778536677360535,
+            0.01202055998146534
+          ],
+          "delta_force_mae_N": [
+            0.02022857591509819,
+            0.01667649857699871,
+            0.008332965895533562
+          ],
+          "delta_force_rmse_mean_N": 0.036349620670080185,
+          "delta_force_mae_mean_N": 0.015079346485435963,
+          "mean_pred_slip_probability": 0.248235285282135
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9763673193787981,
+          "balanced_accuracy": 0.9815619151590768,
+          "precision_slip": 0.9123287671232877,
+          "recall_slip": 0.9910714285714286,
+          "f1_slip": 0.9500713266761769,
+          "confusion_matrix_labels_0_1": [
+            [
+              1113,
+              32
+            ],
+            [
+              3,
+              333
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.048472534865140915,
+            0.0587453618645668,
+            0.01387501135468483
+          ],
+          "delta_force_mae_N": [
+            0.019098404794931412,
+            0.022690368816256523,
+            0.008883156813681126
+          ],
+          "delta_force_rmse_mean_N": 0.04036429896950722,
+          "delta_force_mae_mean_N": 0.016890643164515495,
+          "mean_pred_slip_probability": 0.27230626344680786
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9679738562091503,
+          "balanced_accuracy": 0.9762871750160715,
+          "precision_slip": 0.8630952380952381,
+          "recall_slip": 0.9897610921501706,
+          "f1_slip": 0.9220985691573926,
+          "confusion_matrix_labels_0_1": [
+            [
+              1191,
+              46
+            ],
+            [
+              3,
+              290
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05784408748149872,
+            0.07390310615301132,
+            0.01748845726251602
+          ],
+          "delta_force_mae_N": [
+            0.020444272086024284,
+            0.02595643140375614,
+            0.010281513445079327
+          ],
+          "delta_force_rmse_mean_N": 0.049745213240385056,
+          "delta_force_mae_mean_N": 0.018894072622060776,
+          "mean_pred_slip_probability": 0.229716494679451
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9871673003802282,
+          "balanced_accuracy": 0.9848396144738044,
+          "precision_slip": 0.9481865284974094,
+          "recall_slip": 0.9812332439678284,
+          "f1_slip": 0.9644268774703557,
+          "confusion_matrix_labels_0_1": [
+            [
+              1711,
+              20
+            ],
+            [
+              7,
+              366
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05611337348818779,
+            0.06641700863838196,
+            0.015463147312402725
+          ],
+          "delta_force_mae_N": [
+            0.020912615582346916,
+            0.02449580281972885,
+            0.009178302250802517
+          ],
+          "delta_force_rmse_mean_N": 0.04599784314632416,
+          "delta_force_mae_mean_N": 0.01819557510316372,
+          "mean_pred_slip_probability": 0.195224329829216
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9804031354983203,
+          "balanced_accuracy": 0.9752616985241811,
+          "precision_slip": 0.922360248447205,
+          "recall_slip": 0.9674267100977199,
+          "f1_slip": 0.9443561208267091,
+          "confusion_matrix_labels_0_1": [
+            [
+              1454,
+              25
+            ],
+            [
+              10,
+              297
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04896664619445801,
+            0.06472452729940414,
+            0.0192544087767601
+          ],
+          "delta_force_mae_N": [
+            0.01722637005150318,
+            0.021602313965559006,
+            0.009831942617893219
+          ],
+          "delta_force_rmse_mean_N": 0.044315192848443985,
+          "delta_force_mae_mean_N": 0.0162202101200819,
+          "mean_pred_slip_probability": 0.20722532272338867
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.979564930784443,
+          "balanced_accuracy": 0.9765824378156114,
+          "precision_slip": 0.9411764705882353,
+          "recall_slip": 0.9710982658959537,
+          "f1_slip": 0.9559032716927454,
+          "confusion_matrix_labels_0_1": [
+            [
+              1150,
+              21
+            ],
+            [
+              10,
+              336
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04854435473680496,
+            0.06896250694990158,
+            0.012684416025876999
+          ],
+          "delta_force_mae_N": [
+            0.01775725558400154,
+            0.02539810538291931,
+            0.008710894733667374
+          ],
+          "delta_force_rmse_mean_N": 0.043397095054388046,
+          "delta_force_mae_mean_N": 0.017288751900196075,
+          "mean_pred_slip_probability": 0.2517094612121582
+        }
+      },
+      "model_key": "dinov2_allsource",
+      "eval_set": "allsource_val"
+    },
+    "mae_allsource__sphere_val": {
+      "aggregate": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9901572805682395,
+        "balanced_accuracy": 0.9877564224303037,
+        "precision_slip": 0.9675486769845232,
+        "recall_slip": 0.983756345177665,
+        "f1_slip": 0.9755852001006796,
+        "confusion_matrix_labels_0_1": [
+          [
+            7820,
+            65
+          ],
+          [
+            32,
+            1938
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.03916231170296669,
+          0.042036235332489014,
+          0.013457415625452995
+        ],
+        "delta_force_mae_N": [
+          0.01422302145510912,
+          0.01587422378361225,
+          0.007951566949486732
+        ],
+        "delta_force_rmse_mean_N": 0.03155198693275452,
+        "delta_force_mae_mean_N": 0.01268293708562851,
+        "mean_pred_slip_probability": 0.20401884615421295
+      },
+      "per_family": {
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9901572805682395,
+          "balanced_accuracy": 0.9877564224303037,
+          "precision_slip": 0.9675486769845232,
+          "recall_slip": 0.983756345177665,
+          "f1_slip": 0.9755852001006796,
+          "confusion_matrix_labels_0_1": [
+            [
+              7820,
+              65
+            ],
+            [
+              32,
+              1938
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03916231170296669,
+            0.042036235332489014,
+            0.013457415625452995
+          ],
+          "delta_force_mae_N": [
+            0.01422302145510912,
+            0.01587422378361225,
+            0.007951566949486732
+          ],
+          "delta_force_rmse_mean_N": 0.03155198693275452,
+          "delta_force_mae_mean_N": 0.01268293708562851,
+          "mean_pred_slip_probability": 0.20401884615421295
+        }
+      },
+      "per_dataset": {
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9867780097425192,
+          "balanced_accuracy": 0.981257957728546,
+          "precision_slip": 0.9683544303797469,
+          "recall_slip": 0.9714285714285714,
+          "f1_slip": 0.9698890649762282,
+          "confusion_matrix_labels_0_1": [
+            [
+              1112,
+              10
+            ],
+            [
+              9,
+              306
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.038109272718429565,
+            0.03239299729466438,
+            0.011422676034271717
+          ],
+          "delta_force_mae_N": [
+            0.014305238611996174,
+            0.01317258458584547,
+            0.007352092303335667
+          ],
+          "delta_force_rmse_mean_N": 0.02730831503868103,
+          "delta_force_mae_mean_N": 0.011609971523284912,
+          "mean_pred_slip_probability": 0.22138221561908722
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9932478055367995,
+          "balanced_accuracy": 0.994581773757538,
+          "precision_slip": 0.9738372093023255,
+          "recall_slip": 0.9970238095238095,
+          "f1_slip": 0.9852941176470589,
+          "confusion_matrix_labels_0_1": [
+            [
+              1136,
+              9
+            ],
+            [
+              1,
+              335
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03153786063194275,
+            0.034200575202703476,
+            0.011610690504312515
+          ],
+          "delta_force_mae_N": [
+            0.012687969952821732,
+            0.01476462371647358,
+            0.007797766011208296
+          ],
+          "delta_force_rmse_mean_N": 0.02578304149210453,
+          "delta_force_mae_mean_N": 0.011750119738280773,
+          "mean_pred_slip_probability": 0.23502998054027557
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9901960784313726,
+          "balanced_accuracy": 0.9887278205280308,
+          "precision_slip": 0.9633333333333334,
+          "recall_slip": 0.9863481228668942,
+          "f1_slip": 0.9747048903878583,
+          "confusion_matrix_labels_0_1": [
+            [
+              1226,
+              11
+            ],
+            [
+              4,
+              289
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04584250599145889,
+            0.04494534432888031,
+            0.012721189297735691
+          ],
+          "delta_force_mae_N": [
+            0.014476783573627472,
+            0.016214244067668915,
+            0.007914824411273003
+          ],
+          "delta_force_rmse_mean_N": 0.034503012895584106,
+          "delta_force_mae_mean_N": 0.012868617661297321,
+          "mean_pred_slip_probability": 0.1956183761358261
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9947718631178707,
+          "balanced_accuracy": 0.9905128526801132,
+          "precision_slip": 0.9865591397849462,
+          "recall_slip": 0.9839142091152815,
+          "f1_slip": 0.9852348993288591,
+          "confusion_matrix_labels_0_1": [
+            [
+              1726,
+              5
+            ],
+            [
+              6,
+              367
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04130427539348602,
+            0.04065781831741333,
+            0.013837317936122417
+          ],
+          "delta_force_mae_N": [
+            0.015163485892117023,
+            0.015314772725105286,
+            0.007782961707562208
+          ],
+          "delta_force_rmse_mean_N": 0.03193313628435135,
+          "delta_force_mae_mean_N": 0.012753739953041077,
+          "mean_pred_slip_probability": 0.1763707548379898
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9888017917133258,
+          "balanced_accuracy": 0.9829138889072421,
+          "precision_slip": 0.9614147909967846,
+          "recall_slip": 0.9739413680781759,
+          "f1_slip": 0.9676375404530745,
+          "confusion_matrix_labels_0_1": [
+            [
+              1467,
+              12
+            ],
+            [
+              8,
+              299
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.040556252002716064,
+            0.043536413460969925,
+            0.017542466521263123
+          ],
+          "delta_force_mae_N": [
+            0.014532900415360928,
+            0.016182325780391693,
+            0.009001927450299263
+          ],
+          "delta_force_rmse_mean_N": 0.033878374844789505,
+          "delta_force_mae_mean_N": 0.013239051215350628,
+          "mean_pred_slip_probability": 0.17671909928321838
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.985497692814766,
+          "balanced_accuracy": 0.986533914494306,
+          "precision_slip": 0.95,
+          "recall_slip": 0.9884393063583815,
+          "f1_slip": 0.9688385269121813,
+          "confusion_matrix_labels_0_1": [
+            [
+              1153,
+              18
+            ],
+            [
+              4,
+              342
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.034560948610305786,
+            0.052743446081876755,
+            0.011411228217184544
+          ],
+          "delta_force_mae_N": [
+            0.01371860783547163,
+            0.01958700641989708,
+            0.007703888695687056
+          ],
+          "delta_force_rmse_mean_N": 0.0329052098095417,
+          "delta_force_mae_mean_N": 0.013669834472239017,
+          "mean_pred_slip_probability": 0.23625555634498596
+        }
+      },
+      "model_key": "mae_allsource",
+      "eval_set": "sphere_val"
+    },
+    "mae_allsource__allsource_val": {
+      "aggregate": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9863941018766756,
+        "balanced_accuracy": 0.9851246967131286,
+        "precision_slip": 0.9630023955283471,
+        "recall_slip": 0.9826181423139598,
+        "f1_slip": 0.9727113859389703,
+        "confusion_matrix_labels_0_1": [
+          [
+            11099,
+            139
+          ],
+          [
+            64,
+            3618
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.04595206677913666,
+          0.04846595972776413,
+          0.015788059681653976
+        ],
+        "delta_force_mae_N": [
+          0.017726833000779152,
+          0.019372589886188507,
+          0.009742091409862041
+        ],
+        "delta_force_rmse_mean_N": 0.03673535957932472,
+        "delta_force_mae_mean_N": 0.015613838098943233,
+        "mean_pred_slip_probability": 0.25255459547042847
+      },
+      "per_family": {
+        "flat": {
+          "n_samples": 2036,
+          "positive_count": 798,
+          "positive_ratio": 0.3919449901768173,
+          "no_slip_baseline_accuracy": 0.6080550098231827,
+          "accuracy": 0.9685658153241651,
+          "balanced_accuracy": 0.9714795874986335,
+          "precision_slip": 0.9379474940334129,
+          "recall_slip": 0.9849624060150376,
+          "f1_slip": 0.960880195599022,
+          "confusion_matrix_labels_0_1": [
+            [
+              1186,
+              52
+            ],
+            [
+              12,
+              786
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.056324075907468796,
+            0.06069893017411232,
+            0.022452648729085922
+          ],
+          "delta_force_mae_N": [
+            0.02632899396121502,
+            0.028932595625519753,
+            0.016649575904011726
+          ],
+          "delta_force_rmse_mean_N": 0.04649188742041588,
+          "delta_force_mae_mean_N": 0.023970387876033783,
+          "mean_pred_slip_probability": 0.4126454293727875
+        },
+        "sharp": {
+          "n_samples": 3029,
+          "positive_count": 914,
+          "positive_ratio": 0.3017497523935292,
+          "no_slip_baseline_accuracy": 0.6982502476064708,
+          "accuracy": 0.9861340376361836,
+          "balanced_accuracy": 0.9838581353363234,
+          "precision_slip": 0.9759825327510917,
+          "recall_slip": 0.9781181619256017,
+          "f1_slip": 0.9770491803278688,
+          "confusion_matrix_labels_0_1": [
+            [
+              2093,
+              22
+            ],
+            [
+              20,
+              894
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.057261332869529724,
+            0.057832956314086914,
+            0.01731249876320362
+          ],
+          "delta_force_mae_N": [
+            0.02334451675415039,
+            0.02432846464216709,
+            0.010924688540399075
+          ],
+          "delta_force_rmse_mean_N": 0.044135596603155136,
+          "delta_force_mae_mean_N": 0.01953255571424961,
+          "mean_pred_slip_probability": 0.30285993218421936
+        },
+        "sphere": {
+          "n_samples": 9855,
+          "positive_count": 1970,
+          "positive_ratio": 0.19989852866565194,
+          "no_slip_baseline_accuracy": 0.8001014713343481,
+          "accuracy": 0.9901572805682395,
+          "balanced_accuracy": 0.9877564224303037,
+          "precision_slip": 0.9675486769845232,
+          "recall_slip": 0.983756345177665,
+          "f1_slip": 0.9755852001006796,
+          "confusion_matrix_labels_0_1": [
+            [
+              7820,
+              65
+            ],
+            [
+              32,
+              1938
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03916231170296669,
+            0.042036235332489014,
+            0.013457415625452995
+          ],
+          "delta_force_mae_N": [
+            0.01422302145510912,
+            0.01587422378361225,
+            0.007951566949486732
+          ],
+          "delta_force_rmse_mean_N": 0.03155198693275452,
+          "delta_force_mae_mean_N": 0.01268293708562851,
+          "mean_pred_slip_probability": 0.20401884615421295
+        }
+      },
+      "per_dataset": {
+        "flat_batch_1_val": {
+          "n_samples": 1138,
+          "positive_count": 395,
+          "positive_ratio": 0.3471001757469244,
+          "no_slip_baseline_accuracy": 0.6528998242530756,
+          "accuracy": 0.9622144112478032,
+          "balanced_accuracy": 0.9680988806923694,
+          "precision_slip": 0.9112149532710281,
+          "recall_slip": 0.9873417721518988,
+          "f1_slip": 0.9477521263669502,
+          "confusion_matrix_labels_0_1": [
+            [
+              705,
+              38
+            ],
+            [
+              5,
+              390
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.053256407380104065,
+            0.06492453068494797,
+            0.022740792483091354
+          ],
+          "delta_force_mae_N": [
+            0.023848291486501694,
+            0.03002811037003994,
+            0.017315572127699852
+          ],
+          "delta_force_rmse_mean_N": 0.04697391018271446,
+          "delta_force_mae_mean_N": 0.023730657994747162,
+          "mean_pred_slip_probability": 0.3778969645500183
+        },
+        "flat_batch_2_val": {
+          "n_samples": 898,
+          "positive_count": 403,
+          "positive_ratio": 0.4487750556792873,
+          "no_slip_baseline_accuracy": 0.5512249443207127,
+          "accuracy": 0.9766146993318485,
+          "balanced_accuracy": 0.9771737223350127,
+          "precision_slip": 0.9658536585365853,
+          "recall_slip": 0.9826302729528535,
+          "f1_slip": 0.974169741697417,
+          "confusion_matrix_labels_0_1": [
+            [
+              481,
+              14
+            ],
+            [
+              7,
+              396
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.059986624866724014,
+            0.05487862601876259,
+            0.022082097828388214
+          ],
+          "delta_force_mae_N": [
+            0.02947268821299076,
+            0.0275442935526371,
+            0.015805568546056747
+          ],
+          "delta_force_rmse_mean_N": 0.04564911499619484,
+          "delta_force_mae_mean_N": 0.024274185299873352,
+          "mean_pred_slip_probability": 0.4566808044910431
+        },
+        "sharp_batch_1_val": {
+          "n_samples": 1590,
+          "positive_count": 486,
+          "positive_ratio": 0.30566037735849055,
+          "no_slip_baseline_accuracy": 0.6943396226415094,
+          "accuracy": 0.9886792452830189,
+          "balanced_accuracy": 0.987816469851494,
+          "precision_slip": 0.9775510204081632,
+          "recall_slip": 0.98559670781893,
+          "f1_slip": 0.9815573770491803,
+          "confusion_matrix_labels_0_1": [
+            [
+              1093,
+              11
+            ],
+            [
+              7,
+              479
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.05169607326388359,
+            0.04228973388671875,
+            0.015287473797798157
+          ],
+          "delta_force_mae_N": [
+            0.021974895149469376,
+            0.01959475688636303,
+            0.00960491131991148
+          ],
+          "delta_force_rmse_mean_N": 0.0364244282245636,
+          "delta_force_mae_mean_N": 0.01705818809568882,
+          "mean_pred_slip_probability": 0.30674102902412415
+        },
+        "sharp_batch_2_val": {
+          "n_samples": 1439,
+          "positive_count": 428,
+          "positive_ratio": 0.2974287699791522,
+          "no_slip_baseline_accuracy": 0.7025712300208478,
+          "accuracy": 0.9833217512161223,
+          "balanced_accuracy": 0.9793729258530002,
+          "precision_slip": 0.9741784037558685,
+          "recall_slip": 0.969626168224299,
+          "f1_slip": 0.9718969555035128,
+          "confusion_matrix_labels_0_1": [
+            [
+              1000,
+              11
+            ],
+            [
+              13,
+              415
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.06284002214670181,
+            0.07116307318210602,
+            0.019304553046822548
+          ],
+          "delta_force_mae_N": [
+            0.024857884272933006,
+            0.029558928683400154,
+            0.01238296553492546
+          ],
+          "delta_force_rmse_mean_N": 0.05110255256295204,
+          "delta_force_mae_mean_N": 0.02226659096777439,
+          "mean_pred_slip_probability": 0.2985715866088867
+        },
+        "sphere_batch_1_val": {
+          "n_samples": 1437,
+          "positive_count": 315,
+          "positive_ratio": 0.21920668058455114,
+          "no_slip_baseline_accuracy": 0.7807933194154488,
+          "accuracy": 0.9867780097425192,
+          "balanced_accuracy": 0.981257957728546,
+          "precision_slip": 0.9683544303797469,
+          "recall_slip": 0.9714285714285714,
+          "f1_slip": 0.9698890649762282,
+          "confusion_matrix_labels_0_1": [
+            [
+              1112,
+              10
+            ],
+            [
+              9,
+              306
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.038109272718429565,
+            0.03239299729466438,
+            0.011422676034271717
+          ],
+          "delta_force_mae_N": [
+            0.014305238611996174,
+            0.01317258458584547,
+            0.007352092303335667
+          ],
+          "delta_force_rmse_mean_N": 0.02730831503868103,
+          "delta_force_mae_mean_N": 0.011609971523284912,
+          "mean_pred_slip_probability": 0.22138221561908722
+        },
+        "sphere_batch_2_val": {
+          "n_samples": 1481,
+          "positive_count": 336,
+          "positive_ratio": 0.22687373396353816,
+          "no_slip_baseline_accuracy": 0.7731262660364618,
+          "accuracy": 0.9932478055367995,
+          "balanced_accuracy": 0.994581773757538,
+          "precision_slip": 0.9738372093023255,
+          "recall_slip": 0.9970238095238095,
+          "f1_slip": 0.9852941176470589,
+          "confusion_matrix_labels_0_1": [
+            [
+              1136,
+              9
+            ],
+            [
+              1,
+              335
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.03153786063194275,
+            0.034200575202703476,
+            0.011610690504312515
+          ],
+          "delta_force_mae_N": [
+            0.012687969952821732,
+            0.01476462371647358,
+            0.007797766011208296
+          ],
+          "delta_force_rmse_mean_N": 0.02578304149210453,
+          "delta_force_mae_mean_N": 0.011750119738280773,
+          "mean_pred_slip_probability": 0.23502998054027557
+        },
+        "sphere_batch_3_val": {
+          "n_samples": 1530,
+          "positive_count": 293,
+          "positive_ratio": 0.19150326797385622,
+          "no_slip_baseline_accuracy": 0.8084967320261438,
+          "accuracy": 0.9901960784313726,
+          "balanced_accuracy": 0.9887278205280308,
+          "precision_slip": 0.9633333333333334,
+          "recall_slip": 0.9863481228668942,
+          "f1_slip": 0.9747048903878583,
+          "confusion_matrix_labels_0_1": [
+            [
+              1226,
+              11
+            ],
+            [
+              4,
+              289
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04584250599145889,
+            0.04494534432888031,
+            0.012721189297735691
+          ],
+          "delta_force_mae_N": [
+            0.014476783573627472,
+            0.016214244067668915,
+            0.007914824411273003
+          ],
+          "delta_force_rmse_mean_N": 0.034503012895584106,
+          "delta_force_mae_mean_N": 0.012868617661297321,
+          "mean_pred_slip_probability": 0.1956183761358261
+        },
+        "sphere_batch_4_val": {
+          "n_samples": 2104,
+          "positive_count": 373,
+          "positive_ratio": 0.17728136882129278,
+          "no_slip_baseline_accuracy": 0.8227186311787072,
+          "accuracy": 0.9947718631178707,
+          "balanced_accuracy": 0.9905128526801132,
+          "precision_slip": 0.9865591397849462,
+          "recall_slip": 0.9839142091152815,
+          "f1_slip": 0.9852348993288591,
+          "confusion_matrix_labels_0_1": [
+            [
+              1726,
+              5
+            ],
+            [
+              6,
+              367
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.04130427539348602,
+            0.04065781831741333,
+            0.013837317936122417
+          ],
+          "delta_force_mae_N": [
+            0.015163485892117023,
+            0.015314772725105286,
+            0.007782961707562208
+          ],
+          "delta_force_rmse_mean_N": 0.03193313628435135,
+          "delta_force_mae_mean_N": 0.012753739953041077,
+          "mean_pred_slip_probability": 0.1763707548379898
+        },
+        "sphere_batch_5_val": {
+          "n_samples": 1786,
+          "positive_count": 307,
+          "positive_ratio": 0.17189249720044794,
+          "no_slip_baseline_accuracy": 0.828107502799552,
+          "accuracy": 0.9888017917133258,
+          "balanced_accuracy": 0.9829138889072421,
+          "precision_slip": 0.9614147909967846,
+          "recall_slip": 0.9739413680781759,
+          "f1_slip": 0.9676375404530745,
+          "confusion_matrix_labels_0_1": [
+            [
+              1467,
+              12
+            ],
+            [
+              8,
+              299
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.040556252002716064,
+            0.043536413460969925,
+            0.017542466521263123
+          ],
+          "delta_force_mae_N": [
+            0.014532900415360928,
+            0.016182325780391693,
+            0.009001927450299263
+          ],
+          "delta_force_rmse_mean_N": 0.033878374844789505,
+          "delta_force_mae_mean_N": 0.013239051215350628,
+          "mean_pred_slip_probability": 0.17671909928321838
+        },
+        "sphere_batch_6_val": {
+          "n_samples": 1517,
+          "positive_count": 346,
+          "positive_ratio": 0.22808174027686223,
+          "no_slip_baseline_accuracy": 0.7719182597231378,
+          "accuracy": 0.985497692814766,
+          "balanced_accuracy": 0.986533914494306,
+          "precision_slip": 0.95,
+          "recall_slip": 0.9884393063583815,
+          "f1_slip": 0.9688385269121813,
+          "confusion_matrix_labels_0_1": [
+            [
+              1153,
+              18
+            ],
+            [
+              4,
+              342
+            ]
+          ],
+          "delta_force_rmse_N": [
+            0.034560948610305786,
+            0.052743446081876755,
+            0.011411228217184544
+          ],
+          "delta_force_mae_N": [
+            0.01371860783547163,
+            0.01958700641989708,
+            0.007703888695687056
+          ],
+          "delta_force_rmse_mean_N": 0.0329052098095417,
+          "delta_force_mae_mean_N": 0.013669834472239017,
+          "mean_pred_slip_probability": 0.23625555634498596
+        }
+      },
+      "model_key": "mae_allsource",
+      "eval_set": "allsource_val"
+    }
+  },
+  "wandb_summaries": {
+    "dinov2_sphere_only": {
+      "train/slip_accuracy_baseline": 0.8199999928474426,
+      "train/loss": 0.020363325253129005,
+      "global_val_step": 1175,
+      "train/slip_f1_score": 0.9230769230769231,
+      "val/slip_f1_score": 0.9230769230769231,
+      "val/error": {
+        "size": 58064,
+        "path": "media/images/val/error_215321_c7ebfed6baa3def8af88.png",
+        "format": "png",
+        "width": 2000,
+        "height": 400,
+        "_type": "image-file",
+        "sha256": "c7ebfed6baa3def8af8809f6bcc06033d20a59bd5e094e63f55e20d0e0fe51e3"
+      },
+      "val/loss": 0.019983697682619095,
+      "_step": 215321,
+      "val/slip_accuracy_baseline": 0.8199999928474426,
+      "train/rmse_∆Fz": 0.18233688175678253,
+      "val/slip_accuracy": 0.9699999690055847,
+      "val/correlation": {
+        "format": "png",
+        "width": 2000,
+        "height": 500,
+        "_type": "image-file",
+        "sha256": "28d1d6c81776b4af1316986852dbf7c2eecefefd9c4899c41c31848163c679d7",
+        "size": 121564,
+        "path": "media/images/val/correlation_215321_28d1d6c81776b4af1316.png"
+      },
+      "val/rmse_∆Fx": 0.23980820178985596,
+      "val/cm": {
+        "width": 640,
+        "height": 480,
+        "_type": "image-file",
+        "sha256": "a228402d8dbdb8906466226734547e79aa46b6688305285862fb7f2682a1d1e4",
+        "size": 16022,
+        "path": "media/images/val/cm_215320_a228402d8dbdb8906466.png",
+        "format": "png"
+      },
+      "train/slip_pred": {
+        "bins": [
+          -6.0920538902282715,
+          -5.733684539794922,
+          -5.375315189361572,
+          -5.016945838928223,
+          -4.658576488494873,
+          -4.300207138061523,
+          -3.941837787628174,
+          -3.583468437194824,
+          -3.2250990867614746,
+          -2.866729736328125,
+          -2.5083603858947754,
+          -2.149991035461426,
+          -1.7916216850280762,
+          -1.4332523345947266,
+          -1.074882984161377,
+          -0.7165136337280273,
+          -0.35814428329467773,
+          0.000225067138671875,
+          0.3585944175720215,
+          0.7169637680053711,
+          1.0753331184387207,
+          1.4337024688720703,
+          1.79207181930542,
+          2.1504406929016113,
+          2.508810520172119,
+          2.867180347442627,
+          3.2255492210388184,
+          3.5839180946350098,
+          3.9422879219055176,
+          4.300657749176025,
+          4.659026622772217,
+          5.017395496368408,
+          5.375765800476074
+        ],
+        "_type": "histogram",
+        "values": [
+          15,
+          1,
+          0,
+          1,
+          55,
+          7,
+          2,
+          2,
+          3,
+          0,
+          1,
+          1,
+          2,
+          5,
+          2,
+          2,
+          1,
+          1,
+          2,
+          4,
+          3,
+          3,
+          1,
+          0,
+          1,
+          2,
+          2,
+          3,
+          6,
+          56,
+          1,
+          15
+        ]
+      },
+      "train/rmse_∆Fx": 0.20876792073249817,
+      "_runtime": 5983,
+      "global_train_step": 22745,
+      "val/rmse_∆Fz": 0.16161195933818817,
+      "train/slip_accuracy": 0.9699999690055847,
+      "_wandb": {
+        "runtime": 5983
+      },
+      "train/rmse_∆Fy": 0.2390575259923935,
+      "train/force_pred": {
+        "bins": [
+          -0.9731171727180481,
+          -0.922793447971344,
+          -0.8724697232246399,
+          -0.8221460580825806,
+          -0.7718223333358765,
+          -0.7214986085891724,
+          -0.6711748838424683,
+          -0.6208511590957642,
+          -0.5705274343490601,
+          -0.520203709602356,
+          -0.46987998485565186,
+          -0.41955626010894775,
+          -0.3692325949668884,
+          -0.3189088702201843,
+          -0.2685851454734802,
+          -0.21826142072677612,
+          -0.16793769598007202,
+          -0.11761397123336792,
+          -0.06729024648666382,
+          -0.016966521739959717,
+          0.033357203006744385,
+          0.08368092775344849,
+          0.1340046525001526,
+          0.1843283772468567,
+          0.23465198278427124,
+          0.28497570753097534,
+          0.33529943227767944,
+          0.38562315702438354,
+          0.43594688177108765,
+          0.48627060651779175,
+          0.5365943312644958,
+          0.5869180560112,
+          0.637241780757904
+        ],
+        "_type": "histogram",
+        "values": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          2,
+          1,
+          1,
+          1,
+          0,
+          4,
+          188,
+          59,
+          34,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      "val/slip_pred": {
+        "_type": "histogram",
+        "values": [
+          12,
+          1,
+          1,
+          0,
+          51,
+          9,
+          5,
+          5,
+          2,
+          2,
+          2,
+          0,
+          3,
+          0,
+          2,
+          5,
+          0,
+          0,
+          5,
+          2,
+          0,
+          3,
+          0,
+          2,
+          3,
+          3,
+          4,
+          4,
+          5,
+          55,
+          1,
+          13
+        ],
+        "bins": [
+          -6.091403484344482,
+          -5.733055114746094,
+          -5.374706268310547,
+          -5.016357898712158,
+          -4.658009052276611,
+          -4.299660682678223,
+          -3.941312074661255,
+          -3.582963466644287,
+          -3.2246148586273193,
+          -2.8662662506103516,
+          -2.507917642593384,
+          -2.149569034576416,
+          -1.7912206649780273,
+          -1.4328718185424805,
+          -1.0745234489440918,
+          -0.7161746025085449,
+          -0.35782623291015625,
+          0.0005221366882324219,
+          0.3588709831237793,
+          0.717219352722168,
+          1.0755681991577148,
+          1.4339165687561035,
+          1.7922654151916504,
+          2.1506142616271973,
+          2.5089621543884277,
+          2.8673110008239746,
+          3.2256598472595215,
+          3.584007740020752,
+          3.942356586456299,
+          4.300705432891846,
+          4.659054279327393,
+          5.017402172088623,
+          5.37575101852417
+        ]
+      },
+      "val/force_pred": {
+        "bins": [
+          -0.4970690906047821,
+          -0.4670010805130005,
+          -0.43693307042121887,
+          -0.40686506032943726,
+          -0.376797080039978,
+          -0.346729040145874,
+          -0.3166610598564148,
+          -0.2865930497646332,
+          -0.25652503967285156,
+          -0.22645702958106995,
+          -0.19638901948928833,
+          -0.1663210093975067,
+          -0.13625302910804749,
+          -0.10618501901626587,
+          -0.07611700892448425,
+          -0.04604899883270264,
+          -0.01598098874092102,
+          0.014086991548538208,
+          0.04415503144264221,
+          0.07422301173210144,
+          0.10429105162620544,
+          0.13435903191566467,
+          0.16442707180976868,
+          0.1944950520992279,
+          0.22456303238868713,
+          0.25463107228279114,
+          0.28469905257225037,
+          0.31476709246635437,
+          0.3448350727558136,
+          0.3749031126499176,
+          0.40497109293937683,
+          0.43503913283348083,
+          0.4651070833206177
+        ],
+        "_type": "histogram",
+        "values": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          1,
+          4,
+          178,
+          16,
+          26,
+          48,
+          8,
+          2,
+          2,
+          3,
+          0,
+          2,
+          0,
+          0,
+          0,
+          1,
+          0,
+          2
+        ]
+      },
+      "val/rmse_∆Fy": 0.21370135247707367,
+      "_timestamp": 1778537951.9600341
+    },
+    "mae_sphere_only": {
+      "train/slip_pred": {
+        "values": [
+          34,
+          31,
+          13,
+          5,
+          4,
+          1,
+          0,
+          2,
+          5,
+          2,
+          0,
+          1,
+          0,
+          2,
+          0,
+          2,
+          0,
+          1,
+          2,
+          4,
+          1,
+          0,
+          2,
+          5,
+          4,
+          8,
+          14,
+          35,
+          0,
+          0,
+          0,
+          22
+        ],
+        "bins": [
+          -5.2074737548828125,
+          -4.83406400680542,
+          -4.4606547355651855,
+          -4.087244987487793,
+          -3.7138357162475586,
+          -3.340425968170166,
+          -2.9670164585113525,
+          -2.593606948852539,
+          -2.2201974391937256,
+          -1.846787929534912,
+          -1.4733784198760986,
+          -1.0999689102172852,
+          -0.7265591621398926,
+          -0.3531498908996582,
+          0.020259857177734375,
+          0.39366912841796875,
+          0.7670788764953613,
+          1.140488624572754,
+          1.5138978958129883,
+          1.8873076438903809,
+          2.2607169151306152,
+          2.634126663208008,
+          3.007535934448242,
+          3.3809452056884766,
+          3.7543554306030273,
+          4.127764701843262,
+          4.501173973083496,
+          4.874584197998047,
+          5.247993469238281,
+          5.621402740478516,
+          5.99481201171875,
+          6.368222236633301,
+          6.741631507873535
+        ],
+        "_type": "histogram"
+      },
+      "train/force_pred": {
+        "values": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          5,
+          6,
+          21,
+          169,
+          50,
+          38,
+          1,
+          0,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "bins": [
+          -1,
+          -0.9456347227096558,
+          -0.8912693858146667,
+          -0.8369040489196777,
+          -0.7825387716293335,
+          -0.7281734943389893,
+          -0.6738081574440002,
+          -0.6194428205490112,
+          -0.565077543258667,
+          -0.5107122659683228,
+          -0.45634692907333374,
+          -0.4019815921783447,
+          -0.3476163148880005,
+          -0.29325103759765625,
+          -0.23888570070266724,
+          -0.18452036380767822,
+          -0.13015508651733398,
+          -0.07578980922698975,
+          -0.021424472332000732,
+          0.03294086456298828,
+          0.08730614185333252,
+          0.14167141914367676,
+          0.19603681564331055,
+          0.2504020929336548,
+          0.304767370223999,
+          0.35913264751434326,
+          0.4134979248046875,
+          0.4678633213043213,
+          0.5222285985946655,
+          0.5765938758850098,
+          0.6309592723846436,
+          0.6853245496749878,
+          0.739689826965332
+        ],
+        "_type": "histogram"
+      },
+      "val/slip_accuracy_baseline": 0.8199999928474426,
+      "train/slip_f1_score": 0.96,
+      "train/rmse_∆Fz": 0.1638089120388031,
+      "val/loss": 0.004284351132810116,
+      "val/force_pred": {
+        "_type": "histogram",
+        "values": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          3,
+          7,
+          161,
+          26,
+          26,
+          54,
+          8,
+          1,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          2
+        ],
+        "bins": [
+          -0.54776531457901,
+          -0.5134231448173523,
+          -0.47908103466033936,
+          -0.44473886489868164,
+          -0.4103967547416687,
+          -0.376054584980011,
+          -0.34171244502067566,
+          -0.30737030506134033,
+          -0.273028165102005,
+          -0.23868602514266968,
+          -0.20434388518333435,
+          -0.17000174522399902,
+          -0.1356595754623413,
+          -0.10131743550300598,
+          -0.06697529554367065,
+          -0.032633185386657715,
+          0.001708984375,
+          0.036051154136657715,
+          0.07039326429367065,
+          0.10473543405532837,
+          0.1390775442123413,
+          0.17341971397399902,
+          0.20776182413101196,
+          0.24210399389266968,
+          0.2764461636543274,
+          0.31078827381134033,
+          0.34513044357299805,
+          0.379472553730011,
+          0.4138147234916687,
+          0.44815683364868164,
+          0.4824989438056946,
+          0.5168411135673523,
+          0.55118328332901
+        ]
+      },
+      "train/slip_accuracy_baseline": 0.7599999904632568,
+      "global_train_step": 22745,
+      "val/rmse_∆Fz": 0.1698204129934311,
+      "val/slip_pred": {
+        "values": [
+          17,
+          46,
+          11,
+          4,
+          5,
+          2,
+          3,
+          3,
+          1,
+          3,
+          3,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          3,
+          3,
+          1,
+          3,
+          3,
+          0,
+          3,
+          5,
+          3,
+          16,
+          43,
+          0,
+          1,
+          0,
+          14
+        ],
+        "bins": [
+          -5.226653575897217,
+          -4.8519744873046875,
+          -4.477294921875,
+          -4.102615833282471,
+          -3.7279365062713623,
+          -3.353257179260254,
+          -2.9785780906677246,
+          -2.603898763656616,
+          -2.229219436645508,
+          -1.8545401096343994,
+          -1.479860782623291,
+          -1.1051816940307617,
+          -0.7305026054382324,
+          -0.3558230400085449,
+          0.018856048583984375,
+          0.3935356140136719,
+          0.7682147026062012,
+          1.1428937911987305,
+          1.517573356628418,
+          1.8922524452209473,
+          2.2669320106506348,
+          2.641611099243164,
+          3.0162901878356934,
+          3.390969753265381,
+          3.765648365020752,
+          4.1403279304504395,
+          4.515007495880127,
+          4.8896870613098145,
+          5.2643656730651855,
+          5.639045238494873,
+          6.0137248039245605,
+          6.388403415679932,
+          6.763082981109619
+        ],
+        "_type": "histogram"
+      },
+      "val/slip_accuracy": 1,
+      "val/error": {
+        "format": "png",
+        "width": 2000,
+        "height": 400,
+        "_type": "image-file",
+        "sha256": "1f58257dc3ab97ca275c2143a3191fbfa08d76f70c115feb0066230eea0d015b",
+        "size": 60375,
+        "path": "media/images/val/error_215321_1f58257dc3ab97ca275c.png"
+      },
+      "train/loss": 0.010229431092739105,
+      "_wandb": {
+        "runtime": 5736
+      },
+      "train/rmse_∆Fy": 0.2328696995973587,
+      "val/rmse_∆Fy": 0.1904931515455246,
+      "_timestamp": 1778537704.886549,
+      "_step": 215321,
+      "val/cm": {
+        "size": 15851,
+        "path": "media/images/val/cm_215320_1ad62b0c39ef46c9dad0.png",
+        "format": "png",
+        "width": 640,
+        "height": 480,
+        "_type": "image-file",
+        "sha256": "1ad62b0c39ef46c9dad0d3d08e81b7269dcf1541ef664638a532272fdb53377a"
+      },
+      "_runtime": 5736,
+      "global_val_step": 1175,
+      "val/correlation": {
+        "size": 117970,
+        "path": "media/images/val/correlation_215321_f27b42f8738985b954ed.png",
+        "format": "png",
+        "width": 2000,
+        "height": 500,
+        "_type": "image-file",
+        "sha256": "f27b42f8738985b954ed78e6417233a15898002a25f2b2442ac5d607020f41c5"
+      },
+      "train/rmse_∆Fx": 0.20082628726959229,
+      "val/slip_f1_score": 1,
+      "val/rmse_∆Fx": 0.20140942931175232,
+      "train/slip_accuracy": 0.9799999594688416
+    },
+    "dinov2_allsource": {
+      "_runtime": 7155,
+      "_step": 245615,
+      "train/loss": 0.043827418237924576,
+      "train/slip_accuracy": 0.9599999785423279,
+      "val/slip_pred": {
+        "values": [
+          15,
+          1,
+          36,
+          14,
+          4,
+          5,
+          1,
+          3,
+          4,
+          1,
+          3,
+          3,
+          3,
+          2,
+          5,
+          7,
+          3,
+          4,
+          2,
+          1,
+          3,
+          1,
+          3,
+          2,
+          3,
+          3,
+          10,
+          42,
+          0,
+          0,
+          1,
+          15
+        ],
+        "bins": [
+          -5.480373859405518,
+          -5.123061180114746,
+          -4.765748500823975,
+          -4.408435821533203,
+          -4.05112361907959,
+          -3.6938107013702393,
+          -3.336498260498047,
+          -2.9791855812072754,
+          -2.621872901916504,
+          -2.2645602226257324,
+          -1.907247543334961,
+          -1.5499351024627686,
+          -1.1926226615905762,
+          -0.8353099822998047,
+          -0.4779973030090332,
+          -0.12068462371826172,
+          0.23662805557250977,
+          0.5939407348632812,
+          0.9512534141540527,
+          1.3085660934448242,
+          1.6658787727355957,
+          2.023190975189209,
+          2.3805036544799805,
+          2.737816333770752,
+          3.0951285362243652,
+          3.452441692352295,
+          3.809753894805908,
+          4.167067050933838,
+          4.524379253387451,
+          4.881692409515381,
+          5.239004611968994,
+          5.596317768096924,
+          5.953630447387695
+        ],
+        "_type": "histogram"
+      },
+      "train/slip_accuracy_baseline": 0.7899999618530273,
+      "val/slip_accuracy_baseline": 0.8199999928474426,
+      "train/rmse_∆Fz": 0.18517421185970306,
+      "train/rmse_∆Fx": 0.2684038281440735,
+      "_timestamp": 1778613629.1762066,
+      "val/rmse_∆Fx": 0.28158047795295715,
+      "train/force_pred": {
+        "values": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          1,
+          0,
+          1,
+          1,
+          2,
+          1,
+          3,
+          2,
+          2,
+          21,
+          155,
+          21,
+          36,
+          25,
+          11,
+          7,
+          2,
+          2,
+          0,
+          0,
+          1,
+          3
+        ],
+        "bins": [
+          -0.5537462830543518,
+          -0.5262436866760254,
+          -0.4987410604953766,
+          -0.47123846411705017,
+          -0.44373583793640137,
+          -0.41623324155807495,
+          -0.38873064517974854,
+          -0.3612280488014221,
+          -0.3337254226207733,
+          -0.3062227964401245,
+          -0.2787202000617981,
+          -0.2512176036834717,
+          -0.22371500730514526,
+          -0.19621238112449646,
+          -0.16870978474617004,
+          -0.14120715856552124,
+          -0.11370456218719482,
+          -0.08620196580886841,
+          -0.058699339628219604,
+          -0.0311967134475708,
+          -0.0036941170692443848,
+          0.02380847930908203,
+          0.05131107568740845,
+          0.07881367206573486,
+          0.10631626844406128,
+          0.13381892442703247,
+          0.1613215208053589,
+          0.1888241171836853,
+          0.21632671356201172,
+          0.24382930994033813,
+          0.2713319659233093,
+          0.29883456230163574,
+          0.32633718848228455
+        ],
+        "_type": "histogram"
+      },
+      "val/slip_f1_score": 0.918918918918919,
+      "val/loss": 0.28748390078544617,
+      "_wandb": {
+        "runtime": 7155
+      },
+      "val/force_pred": {
+        "values": [
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          2,
+          1,
+          0,
+          0,
+          3,
+          1,
+          2,
+          5,
+          5,
+          173,
+          12,
+          26,
+          42,
+          11,
+          4,
+          2,
+          2,
+          0,
+          2,
+          0,
+          1,
+          1,
+          1
+        ],
+        "bins": [
+          -0.5467906594276428,
+          -0.5170625448226929,
+          -0.48733440041542053,
+          -0.4576062858104706,
+          -0.42787814140319824,
+          -0.3981500267982483,
+          -0.36842191219329834,
+          -0.3386937975883484,
+          -0.30896565318107605,
+          -0.2792375385761261,
+          -0.24950939416885376,
+          -0.2197812795639038,
+          -0.19005316495895386,
+          -0.16032502055168152,
+          -0.13059690594673157,
+          -0.10086876153945923,
+          -0.07114064693450928,
+          -0.041412532329559326,
+          -0.011684417724609375,
+          0.01804375648498535,
+          0.0477718710899353,
+          0.07749998569488525,
+          0.1072281002998352,
+          0.13695621490478516,
+          0.1666843295097351,
+          0.19641250371932983,
+          0.22614061832427979,
+          0.25586873292922974,
+          0.2855968475341797,
+          0.31532496213912964,
+          0.34505313634872437,
+          0.3747812509536743,
+          0.40450936555862427
+        ],
+        "_type": "histogram"
+      },
+      "train/slip_f1_score": 0.9130434782608695,
+      "val/cm": {
+        "size": 16338,
+        "path": "media/images/val/cm_245614_1eb6337b69b4dac09f75.png",
+        "format": "png",
+        "width": 640,
+        "height": 480,
+        "_type": "image-file",
+        "sha256": "1eb6337b69b4dac09f75df8761318b4b97e06d30999e9849cec88ac2e479bda1"
+      },
+      "val/error": {
+        "sha256": "0f7e8d120807381639b594429b8d5dc81d816fcef74c0e37a6d0f1522eea290b",
+        "size": 50235,
+        "path": "media/images/val/error_245615_0f7e8d120807381639b5.png",
+        "format": "png",
+        "width": 2000,
+        "height": 400,
+        "_type": "image-file"
+      },
+      "val/correlation": {
+        "path": "media/images/val/correlation_245615_886596f958e3bda55942.png",
+        "format": "png",
+        "width": 2000,
+        "height": 500,
+        "_type": "image-file",
+        "sha256": "886596f958e3bda5594295ab5ef39d83c363127a79d5a762052c870a591bc090",
+        "size": 137727
+      },
+      "val/rmse_∆Fz": 0.23706898093223572,
+      "global_train_step": 25499,
+      "val/slip_accuracy": 0.9699999690055847,
+      "train/slip_pred": {
+        "values": [
+          17,
+          1,
+          34,
+          10,
+          3,
+          3,
+          3,
+          2,
+          5,
+          5,
+          5,
+          6,
+          2,
+          1,
+          3,
+          2,
+          2,
+          6,
+          7,
+          4,
+          4,
+          2,
+          2,
+          3,
+          3,
+          3,
+          6,
+          37,
+          0,
+          1,
+          1,
+          17
+        ],
+        "bins": [
+          -5.484065055847168,
+          -5.126569747924805,
+          -4.769073963165283,
+          -4.41157865524292,
+          -4.054082870483398,
+          -3.696587562561035,
+          -3.339092254638672,
+          -2.9815967082977295,
+          -2.624101161956787,
+          -2.2666056156158447,
+          -1.9091100692749023,
+          -1.551614761352539,
+          -1.1941194534301758,
+          -0.8366236686706543,
+          -0.479128360748291,
+          -0.12163257598876953,
+          0.23586273193359375,
+          0.593358039855957,
+          0.9508538246154785,
+          1.3083491325378418,
+          1.6658449172973633,
+          2.0233402252197266,
+          2.38083553314209,
+          2.738330841064453,
+          3.0958261489868164,
+          3.453322410583496,
+          3.8108177185058594,
+          4.168313026428223,
+          4.525808334350586,
+          4.883303642272949,
+          5.240799903869629,
+          5.598295211791992,
+          5.955790996551514
+        ],
+        "_type": "histogram"
+      },
+      "train/rmse_∆Fy": 0.2119288295507431,
+      "val/rmse_∆Fy": 0.2687400281429291,
+      "global_val_step": 1787
+    },
+    "mae_allsource": {
+      "val/cm": {
+        "sha256": "7cd038bf3afc9335e0243e9a757e85779d69db8795e460e934ea769dbc53ced3",
+        "size": 16097,
+        "path": "media/images/val/cm_245614_7cd038bf3afc9335e024.png",
+        "format": "png",
+        "width": 640,
+        "height": 480,
+        "_type": "image-file"
+      },
+      "_timestamp": 1778613328.580801,
+      "val/force_pred": {
+        "bins": [
+          -0.5366153120994568,
+          -0.5011693835258484,
+          -0.46572351455688477,
+          -0.43027758598327637,
+          -0.39483168721199036,
+          -0.35938578844070435,
+          -0.32393985986709595,
+          -0.28849396109580994,
+          -0.2530480623245239,
+          -0.21760216355323792,
+          -0.1821562647819519,
+          -0.1467103362083435,
+          -0.1112644374370575,
+          -0.07581853866577148,
+          -0.040372610092163086,
+          -0.004926741123199463,
+          0.030519187450408936,
+          0.06596511602401733,
+          0.10141098499298096,
+          0.13685691356658936,
+          0.17230278253555298,
+          0.20774871110916138,
+          0.24319463968276978,
+          0.2786405086517334,
+          0.3140864372253418,
+          0.3495323657989502,
+          0.3849782347679138,
+          0.4204241633415222,
+          0.4558700919151306,
+          0.491316020488739,
+          0.5267618298530579,
+          0.5622077584266663,
+          0.5976536273956299
+        ],
+        "_type": "histogram",
+        "values": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          2,
+          1,
+          1,
+          3,
+          5,
+          14,
+          169,
+          22,
+          50,
+          18,
+          4,
+          1,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "train/loss": 0.03860831260681152,
+      "_runtime": 6854,
+      "val/slip_accuracy": 0.9799999594688416,
+      "global_train_step": 25499,
+      "_step": 245615,
+      "val/rmse_∆Fy": 0.2129146009683609,
+      "train/force_pred": {
+        "_type": "histogram",
+        "values": [
+          2,
+          0,
+          1,
+          0,
+          4,
+          0,
+          0,
+          1,
+          1,
+          5,
+          2,
+          1,
+          2,
+          4,
+          5,
+          8,
+          167,
+          8,
+          11,
+          37,
+          31,
+          3,
+          3,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ],
+        "bins": [
+          -0.4421018958091736,
+          -0.41506481170654297,
+          -0.38802769780158997,
+          -0.36099061369895935,
+          -0.33395352959632874,
+          -0.30691641569137573,
+          -0.2798793315887451,
+          -0.2528422474861145,
+          -0.2258051484823227,
+          -0.19876804947853088,
+          -0.17173096537590027,
+          -0.14469388127326965,
+          -0.11765676736831665,
+          -0.09061968326568604,
+          -0.06358259916305542,
+          -0.03654548525810242,
+          -0.009508401155471802,
+          0.017528682947158813,
+          0.044565796852111816,
+          0.07160288095474243,
+          0.09863996505737305,
+          0.12567704916000366,
+          0.15271413326263428,
+          0.17975127696990967,
+          0.20678836107254028,
+          0.2338254451751709,
+          0.2608625292778015,
+          0.28789961338043213,
+          0.31493669748306274,
+          0.34197384119033813,
+          0.36901092529296875,
+          0.39604800939559937,
+          0.42308509349823
+        ]
+      },
+      "val/error": {
+        "path": "media/images/val/error_245615_3fd5a8a3582d2109d2eb.png",
+        "format": "png",
+        "width": 2000,
+        "height": 400,
+        "_type": "image-file",
+        "sha256": "3fd5a8a3582d2109d2ebb046063776b3f1ecb570d0883bb2fab76a3bb4ce7a2a",
+        "size": 52933
+      },
+      "val/rmse_∆Fz": 0.21543994545936584,
+      "train/slip_accuracy": 0.9899999499320984,
+      "val/rmse_∆Fx": 0.2329683005809784,
+      "val/correlation": {
+        "path": "media/images/val/correlation_245615_d837a065a50fdc15d5fd.png",
+        "format": "png",
+        "width": 2000,
+        "height": 500,
+        "_type": "image-file",
+        "sha256": "d837a065a50fdc15d5fdaf71d72e3a0028849e4ab26c269219dbe3aabfd50cf4",
+        "size": 129048
+      },
+      "train/rmse_∆Fz": 0.16792608797550201,
+      "val/slip_f1_score": 0.9473684210526315,
+      "train/slip_pred": {
+        "_type": "histogram",
+        "values": [
+          16,
+          62,
+          10,
+          2,
+          1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          2,
+          1,
+          2,
+          1,
+          2,
+          0,
+          2,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          13,
+          58,
+          1,
+          16
+        ],
+        "bins": [
+          -5.538388252258301,
+          -5.168212890625,
+          -4.798037052154541,
+          -4.42786169052124,
+          -4.057685852050781,
+          -3.6875104904174805,
+          -3.3173351287841797,
+          -2.9471595287323,
+          -2.57698392868042,
+          -2.20680832862854,
+          -1.8366327285766602,
+          -1.4664573669433594,
+          -1.0962820053100586,
+          -0.7261061668395996,
+          -0.35593080520629883,
+          0.014245033264160156,
+          0.38442039489746094,
+          0.7545957565307617,
+          1.1247715950012207,
+          1.4949469566345215,
+          1.8651227951049805,
+          2.2352981567382812,
+          2.605473518371582,
+          2.975648880004883,
+          3.3458242416381836,
+          3.716000556945801,
+          4.086175918579102,
+          4.456351280212402,
+          4.826526641845703,
+          5.196702003479004,
+          5.566878318786621,
+          5.937053680419922,
+          6.307229518890381
+        ]
+      },
+      "train/rmse_∆Fx": 0.23837728798389435,
+      "train/rmse_∆Fy": 0.22188793122768402,
+      "val/slip_accuracy_baseline": 0.8199999928474426,
+      "val/loss": 0.03663792833685875,
+      "train/slip_f1_score": 0.9787234042553191,
+      "_wandb": {
+        "runtime": 6854
+      },
+      "global_val_step": 1787,
+      "val/slip_pred": {
+        "_type": "histogram",
+        "values": [
+          15,
+          63,
+          9,
+          0,
+          3,
+          1,
+          0,
+          2,
+          0,
+          3,
+          0,
+          1,
+          1,
+          2,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          2,
+          1,
+          0,
+          2,
+          0,
+          1,
+          3,
+          0,
+          10,
+          62,
+          0,
+          15
+        ],
+        "bins": [
+          -5.541876316070557,
+          -5.171450614929199,
+          -4.801025390625,
+          -4.430599689483643,
+          -4.060173988342285,
+          -3.689748764038086,
+          -3.3193230628967285,
+          -2.94889760017395,
+          -2.578472137451172,
+          -2.2080466747283936,
+          -1.8376212120056152,
+          -1.4671955108642578,
+          -1.0967698097229004,
+          -0.7263445854187012,
+          -0.35591888427734375,
+          0.014506340026855469,
+          0.3849320411682129,
+          0.7553577423095703,
+          1.1257829666137695,
+          1.496208667755127,
+          1.8666338920593262,
+          2.2370595932006836,
+          2.607485294342041,
+          2.9779105186462402,
+          3.348336696624756,
+          3.718761920928955,
+          4.089187145233154,
+          4.4596123695373535,
+          4.830038547515869,
+          5.200463771820068,
+          5.570888996124268,
+          5.941315174102783,
+          6.311740875244141
+        ]
+      },
+      "train/slip_accuracy_baseline": 0.7599999904632568
+    }
+  },
+  "comparison": [
+    {
+      "title": "DINOv2: all-source training vs sphere-only training on sphere_val",
+      "old_key": "dinov2_sphere_only__sphere_val",
+      "new_key": "dinov2_allsource__sphere_val",
+      "old": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9785895484525622,
+        "balanced_accuracy": 0.9767195954536823,
+        "precision_slip": 0.9234472797303803,
+        "recall_slip": 0.9736040609137055,
+        "f1_slip": 0.9478626142821843,
+        "confusion_matrix_labels_0_1": [
+          [
+            7726,
+            159
+          ],
+          [
+            52,
+            1918
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.05323440581560135,
+          0.060352157801389694,
+          0.015561630018055439
+        ],
+        "delta_force_mae_N": [
+          0.02019919827580452,
+          0.021328246220946312,
+          0.009152545593678951
+        ],
+        "delta_force_rmse_mean_N": 0.043049395084381104,
+        "delta_force_mae_mean_N": 0.016893329098820686,
+        "mean_pred_slip_probability": 0.2217843234539032
+      },
+      "new": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9776763064434297,
+        "balanced_accuracy": 0.9784336383739607,
+        "precision_slip": 0.9146919431279621,
+        "recall_slip": 0.9796954314720813,
+        "f1_slip": 0.946078431372549,
+        "confusion_matrix_labels_0_1": [
+          [
+            7705,
+            180
+          ],
+          [
+            40,
+            1930
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.052642084658145905,
+          0.06376834958791733,
+          0.015507600270211697
+        ],
+        "delta_force_mae_N": [
+          0.019313741475343704,
+          0.022925596684217453,
+          0.009228454902768135
+        ],
+        "delta_force_rmse_mean_N": 0.0439726747572422,
+        "delta_force_mae_mean_N": 0.017155930399894714,
+        "mean_pred_slip_probability": 0.23076261579990387
+      },
+      "delta": {
+        "accuracy_abs": -0.0009132420091324533,
+        "f1_abs": -0.0017841829096353345,
+        "recall_abs": 0.006091370558375719,
+        "rmse_mean_abs_N": 0.0009232796728610992,
+        "rmse_mean_rel_pct": 2.144698365799047
+      }
+    },
+    {
+      "title": "DINOv2: all-source training vs sphere-only training on allsource_val",
+      "old_key": "dinov2_sphere_only__allsource_val",
+      "new_key": "dinov2_allsource__allsource_val",
+      "old": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9589142091152815,
+        "balanced_accuracy": 0.9642352047386364,
+        "precision_slip": 0.8734485276222925,
+        "recall_slip": 0.9747419880499728,
+        "f1_slip": 0.9213194711847003,
+        "confusion_matrix_labels_0_1": [
+          [
+            10718,
+            520
+          ],
+          [
+            93,
+            3589
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.06667660921812057,
+          0.07503050565719604,
+          0.021629290655255318
+        ],
+        "delta_force_mae_N": [
+          0.025111939758062363,
+          0.027011241763830185,
+          0.013588580302894115
+        ],
+        "delta_force_rmse_mean_N": 0.05444547161459923,
+        "delta_force_mae_mean_N": 0.02190391905605793,
+        "mean_pred_slip_probability": 0.2869540750980377
+      },
+      "new": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9735254691689008,
+        "balanced_accuracy": 0.9749387819455968,
+        "precision_slip": 0.9200102223358038,
+        "recall_slip": 0.977729494839761,
+        "f1_slip": 0.9479921000658328,
+        "confusion_matrix_labels_0_1": [
+          [
+            10925,
+            313
+          ],
+          [
+            82,
+            3600
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.059621915221214294,
+          0.06964648514986038,
+          0.01860387995839119
+        ],
+        "delta_force_mae_N": [
+          0.02299986407160759,
+          0.026518795639276505,
+          0.011168002150952816
+        ],
+        "delta_force_rmse_mean_N": 0.04929076135158539,
+        "delta_force_mae_mean_N": 0.020228886976838112,
+        "mean_pred_slip_probability": 0.27771520614624023
+      },
+      "delta": {
+        "accuracy_abs": 0.014611260053619346,
+        "f1_abs": 0.026672628881132532,
+        "recall_abs": 0.002987506789788208,
+        "rmse_mean_abs_N": -0.00515471026301384,
+        "rmse_mean_rel_pct": -9.467656556457548
+      }
+    },
+    {
+      "title": "MAE: all-source training vs sphere-only training on sphere_val",
+      "old_key": "mae_sphere_only__sphere_val",
+      "new_key": "mae_allsource__sphere_val",
+      "old": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9915778792491121,
+        "balanced_accuracy": 0.9844554815575419,
+        "precision_slip": 0.9850899742930591,
+        "recall_slip": 0.9725888324873097,
+        "f1_slip": 0.9787994891443167,
+        "confusion_matrix_labels_0_1": [
+          [
+            7856,
+            29
+          ],
+          [
+            54,
+            1916
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.03724128007888794,
+          0.047712139785289764,
+          0.013552812859416008
+        ],
+        "delta_force_mae_N": [
+          0.014181585051119328,
+          0.01939774677157402,
+          0.008651810698211193
+        ],
+        "delta_force_rmse_mean_N": 0.03283541277050972,
+        "delta_force_mae_mean_N": 0.014077047817409039,
+        "mean_pred_slip_probability": 0.20155338943004608
+      },
+      "new": {
+        "n_samples": 9855,
+        "positive_count": 1970,
+        "positive_ratio": 0.19989852866565194,
+        "no_slip_baseline_accuracy": 0.8001014713343481,
+        "accuracy": 0.9901572805682395,
+        "balanced_accuracy": 0.9877564224303037,
+        "precision_slip": 0.9675486769845232,
+        "recall_slip": 0.983756345177665,
+        "f1_slip": 0.9755852001006796,
+        "confusion_matrix_labels_0_1": [
+          [
+            7820,
+            65
+          ],
+          [
+            32,
+            1938
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.03916231170296669,
+          0.042036235332489014,
+          0.013457415625452995
+        ],
+        "delta_force_mae_N": [
+          0.01422302145510912,
+          0.01587422378361225,
+          0.007951566949486732
+        ],
+        "delta_force_rmse_mean_N": 0.03155198693275452,
+        "delta_force_mae_mean_N": 0.01268293708562851,
+        "mean_pred_slip_probability": 0.20401884615421295
+      },
+      "delta": {
+        "accuracy_abs": -0.0014205986808726312,
+        "f1_abs": -0.0032142890436370752,
+        "recall_abs": 0.011167512690355319,
+        "rmse_mean_abs_N": -0.0012834258377552032,
+        "rmse_mean_rel_pct": -3.908663633148779
+      }
+    },
+    {
+      "title": "MAE: all-source training vs sphere-only training on allsource_val",
+      "old_key": "mae_sphere_only__allsource_val",
+      "new_key": "mae_allsource__allsource_val",
+      "old": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9884048257372654,
+        "balanced_accuracy": 0.9815290453096255,
+        "precision_slip": 0.9848024316109423,
+        "recall_slip": 0.9679521998913634,
+        "f1_slip": 0.976304615806054,
+        "confusion_matrix_labels_0_1": [
+          [
+            11183,
+            55
+          ],
+          [
+            118,
+            3564
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.04838915541768074,
+          0.06268522143363953,
+          0.01920970343053341
+        ],
+        "delta_force_mae_N": [
+          0.018866965547204018,
+          0.025042423978447914,
+          0.01227700524032116
+        ],
+        "delta_force_rmse_mean_N": 0.04342802241444588,
+        "delta_force_mae_mean_N": 0.018728798255324364,
+        "mean_pred_slip_probability": 0.2467721849679947
+      },
+      "new": {
+        "n_samples": 14920,
+        "positive_count": 3682,
+        "positive_ratio": 0.2467828418230563,
+        "no_slip_baseline_accuracy": 0.7532171581769437,
+        "accuracy": 0.9863941018766756,
+        "balanced_accuracy": 0.9851246967131286,
+        "precision_slip": 0.9630023955283471,
+        "recall_slip": 0.9826181423139598,
+        "f1_slip": 0.9727113859389703,
+        "confusion_matrix_labels_0_1": [
+          [
+            11099,
+            139
+          ],
+          [
+            64,
+            3618
+          ]
+        ],
+        "delta_force_rmse_N": [
+          0.04595206677913666,
+          0.04846595972776413,
+          0.015788059681653976
+        ],
+        "delta_force_mae_N": [
+          0.017726833000779152,
+          0.019372589886188507,
+          0.009742091409862041
+        ],
+        "delta_force_rmse_mean_N": 0.03673535957932472,
+        "delta_force_mae_mean_N": 0.015613838098943233,
+        "mean_pred_slip_probability": 0.25255459547042847
+      },
+      "delta": {
+        "accuracy_abs": -0.002010723860589758,
+        "f1_abs": -0.003593229867083658,
+        "recall_abs": 0.014665942422596445,
+        "rmse_mean_abs_N": -0.006692662835121155,
+        "rmse_mean_rel_pct": -15.410931612890833
+      }
+    }
+  ],
+  "conclusion": "All-source slip training is useful as a diagnostic but should not automatically replace the sphere-only baseline. On allsource_val, DINOv2 F1 changes from 0.9213 to 0.9480, while MAE F1 changes from 0.9763 to 0.9727. Use the detailed table to decide the tradeoff; if the formal goal is broad flat+sharp+sphere coverage, all-source training is the relevant candidate, but if the formal goal is maximum sphere-only slip performance, keep the existing sphere-only baseline."
+}
