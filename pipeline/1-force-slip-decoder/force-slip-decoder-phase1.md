@@ -24,7 +24,7 @@
   - 对 GSmini force/slip 数据执行 dataloader smoke test。
   - 检查字段和 shape：`image [6,320,240]`、`force [3]`、`delta_force [3]`、`slip_label scalar`、`force_scale [3]`。
   - 在训练入口或 datamodule 初始化处输出并保存 data manifest：
-    - 实际加载的 `.pkl` 文件绝对路径列表；
+    - 实际加载的 `.pkl` 文件绝对路径列表
     - 每个文件的 size、mtime、sha256/hash；
     - 每个文件样本数、总样本数；
     - 是否显式排除 `org_dataset_gelsight_*.pkl`；
