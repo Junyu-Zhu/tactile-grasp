@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-05-14T20:15:00",
+  "dinov2_lambda_probe": [
+    {
+      "lambda_slip": "0.25",
+      "run_id": "phase2_b_ps_lam025_gsmini_20260514_063052",
+      "selected_epoch": 51,
+      "gate_status": "warning_band",
+      "force_rmse_mean_N": 0.047933757305145264,
+      "force_increase_pct_vs_A": 9.907664585128707,
+      "slip_f1": 0.9712737127371274,
+      "slip_f1_drop_pp_vs_A": -2.3531182791096006,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/dinov2_partially_shared_multitask/checkpoints/epoch-0051.pth",
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_b_ps_lam025_gsmini_20260514_063052_dinov2_b_partially_shared_lambda0.25",
+      "note": "previous warning-band slip-F1 best"
+    },
+    {
+      "lambda_slip": "0.20",
+      "run_id": "phase2_b_ps_dino_lam020_gsmini_20260514_160907",
+      "selected_epoch": 50,
+      "gate_status": "warning_band",
+      "force_rmse_mean_N": 0.04756537079811096,
+      "force_increase_pct_vs_A": 9.062988454378829,
+      "slip_f1": 0.9622057834566241,
+      "slip_f1_drop_pp_vs_A": -1.4463253510592744,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_dino_lam020_gsmini_20260514_160907/dinov2_partially_shared_multitask/checkpoints/epoch-0050.pth",
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_b_ps_dino_lam020_gsmini_20260514_160907_dinov2_b_partially_shared_lambda0.20",
+      "note": "new force-safer warning-band baseline used for C"
+    },
+    {
+      "lambda_slip": "0.15",
+      "run_id": "phase2_b_ps_dino_lam015_gsmini_20260514_160907",
+      "selected_epoch": 51,
+      "gate_status": "hard_fail",
+      "force_rmse_mean_N": 0.04798419401049614,
+      "force_increase_pct_vs_A": 10.023311277692226,
+      "slip_f1": 0.9541650059784775,
+      "slip_f1_drop_pp_vs_A": -0.6422476032446167,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_dino_lam015_gsmini_20260514_160907/dinov2_partially_shared_multitask/checkpoints/epoch-0051.pth",
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_b_ps_dino_lam015_gsmini_20260514_160907_dinov2_b_partially_shared_lambda0.15",
+      "note": "new lower-lambda probe"
+    }
+  ],
+  "phase2_c_consistency": [
+    {
+      "encoder": "dinov2",
+      "lambda_slip": 0.2,
+      "beta_consistency": 0.05,
+      "alpha": 10.0,
+      "tau": 0.08170319419587856,
+      "tau_source": "p65",
+      "force_rmse_mean_N": 0.04796817898750305,
+      "slip_f1": 0.966473677124007,
+      "gate_vs_A": "warning_band",
+      "force_increase_pct_vs_A": 9.98659031371183,
+      "slip_f1_drop_pp_vs_A": -1.8731147177975638,
+      "gate_vs_B": "pass",
+      "force_increase_pct_vs_B": 0.8468517802621367,
+      "slip_f1_drop_pp_vs_B": -0.4267893667382894,
+      "contradiction_reduction_pct_vs_B": 38.755727881565036,
+      "monotonic_calibration_error_reduction_pct_vs_B": 100.0,
+      "phase2_c_success": true,
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_c_consistency_gsmini_20260514_161845_dinov2_c_consistency_lam0.20_beta0.05"
+    },
+    {
+      "encoder": "mae",
+      "lambda_slip": 0.5,
+      "beta_consistency": 0.05,
+      "alpha": 10.0,
+      "tau": 0.08170319419587856,
+      "tau_source": "p65",
+      "force_rmse_mean_N": 0.033529188483953476,
+      "slip_f1": 0.9818727000136296,
+      "gate_vs_A": "pass",
+      "force_increase_pct_vs_A": 3.99036170191871,
+      "slip_f1_drop_pp_vs_A": -0.8768880755964159,
+      "gate_vs_B": "warning_band",
+      "force_increase_pct_vs_B": 5.023529415883088,
+      "slip_f1_drop_pp_vs_B": -0.19432180499735496,
+      "contradiction_reduction_pct_vs_B": 32.333333333333336,
+      "monotonic_calibration_error_reduction_pct_vs_B": -172.98971614745793,
+      "phase2_c_success": true,
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_c_consistency_gsmini_20260514_161845_mae_c_consistency_lam0.50_beta0.05"
+    }
+  ],
+  "selection_note": "For C reporting, DINOv2 uses the lambda_slip=0.20 B baseline because it is warning-band with lower force RMSE increase than lambda=0.25; lambda=0.25 remains the DINO slip-F1-best warning-band B checkpoint. MAE C uses the previous lambda_slip=0.50 B baseline.",
+  "c_report": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase2/phase2_c_consistency_gsmini_20260514_161845/phase2_c_consistency_report.md"
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 2-B shared force/slip multitask downstream training and diagnostics.
+"""Phase 2-B/C force/slip multitask downstream training and diagnostics.
 
 This script intentionally lives in tactile-grasp/sparsh-force-slip so Phase 2 code
 is versioned with the force-slip workspace. It imports the upstream Sparsh encoder,
@@ -121,6 +121,12 @@ class TrainConfig:
     decoder_variant: str = "shared"
     log_every_steps: int = 50
     data_parallel: bool = False
+    beta_consistency: float = 0.0
+    consistency_alpha: float = 10.0
+    consistency_tau: float | None = None
+    consistency_tau_source: str = "p65"
+    consistency_epsilon: float = 1.0e-6
+    consistency_detach_q: bool = True
 
 
 def json_default(obj: Any) -> Any:
@@ -337,6 +343,8 @@ def decoder_run_suffix(encoder: str, variant: str) -> str:
         return f"{encoder}_shared_multitask"
     if variant == "partially_shared":
         return f"{encoder}_partially_shared_multitask"
+    if variant == "consistency":
+        return f"{encoder}_consistency_multitask"
     raise ValueError(f"Unknown decoder variant {variant!r}")
 
 
@@ -344,6 +352,10 @@ def build_decoder(variant: str) -> nn.Module:
     if variant == "shared":
         return SharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
     if variant == "partially_shared":
+        return PartiallySharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
+    if variant == "consistency":
+        # Phase2-C keeps the lower-transfer partially-shared architecture and
+        # adds the physical consistency term in the training loss.
         return PartiallySharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
     raise ValueError(f"Unknown decoder variant {variant!r}")
 
@@ -382,6 +394,84 @@ def force_derived(force_n: np.ndarray) -> dict[str, np.ndarray]:
     fn = np.abs(force_n[:, 2])
     fmag = np.sqrt(np.square(force_n).sum(axis=1))
     return {"Fn": fn, "Ft": ft, "Fmag": fmag, "ratio_Ft_over_Fn": ft / (fn + 1.0e-6)}
+
+
+def consistency_enabled(cfg: TrainConfig) -> bool:
+    return cfg.decoder_variant == "consistency" or cfg.beta_consistency > 0.0
+
+
+def resolve_consistency_settings(cfg: TrainConfig) -> dict[str, Any] | None:
+    """Resolve C loss hyperparameters from the Step2 train/val reference only."""
+    if not consistency_enabled(cfg):
+        return None
+    if cfg.beta_consistency <= 0.0:
+        cfg.beta_consistency = 0.05
+    reference = collect_force_ratio_reference(slip_horizon=cfg.slip_horizon)
+    tau_source = cfg.consistency_tau_source
+    if cfg.consistency_tau is None:
+        if tau_source not in reference["ratio_percentiles"]:
+            raise ValueError(
+                f"Unknown consistency_tau_source={tau_source!r}; "
+                f"expected one of {sorted(reference['ratio_percentiles'])}"
+            )
+        cfg.consistency_tau = float(reference["ratio_percentiles"][tau_source])
+    else:
+        cfg.consistency_tau = float(cfg.consistency_tau)
+        tau_source = "manual"
+    return {
+        "enabled": True,
+        "loss_definition": "BCE(p_slip, sigmoid(alpha * (Ft_pred/(Fn_pred+eps) - tau)).detach())",
+        "tau_source": tau_source,
+        "tau": cfg.consistency_tau,
+        "alpha": cfg.consistency_alpha,
+        "beta_consistency": cfg.beta_consistency,
+        "epsilon": cfg.consistency_epsilon,
+        "detach_q": cfg.consistency_detach_q,
+        "reference": reference,
+        "test_set_used_for_tuning": False,
+    }
+
+
+def consistency_loss_from_outputs(
+    batch: dict[str, torch.Tensor],
+    out: dict[str, torch.Tensor],
+    cfg: TrainConfig,
+) -> tuple[torch.Tensor, dict[str, float]]:
+    """Phase2-C force-slip consistency loss.
+
+    The target q is computed from predicted Newton-unit force, then detached by
+    default so the consistency term primarily regularizes the slip head and does
+    not over-constrain force regression.
+    """
+    zero = out["force"].sum() * 0.0
+    if not consistency_enabled(cfg) or cfg.beta_consistency <= 0.0:
+        return zero, {
+            "consistency_loss": 0.0,
+            "consistency_target_mean": 0.0,
+            "pred_force_ratio_mean": 0.0,
+            "pred_slip_probability_mean": 0.0,
+        }
+    if cfg.consistency_tau is None:
+        raise ValueError("consistency_tau must be resolved before Phase2-C training")
+    eps = float(cfg.consistency_epsilon)
+    force_scale = batch["force_scale"].to(out["force"].device, non_blocking=True)
+    force_pred_n = out["force"] * force_scale
+    ft = torch.sqrt(torch.square(force_pred_n[:, 0]) + torch.square(force_pred_n[:, 1]))
+    fn = torch.abs(force_pred_n[:, 2])
+    ratio = ft / (fn + eps)
+    q = torch.sigmoid(float(cfg.consistency_alpha) * (ratio - float(cfg.consistency_tau)))
+    if cfg.consistency_detach_q:
+        q = q.detach()
+    p_slip = F.softmax(out["slip"], dim=1)[:, 1].clamp(min=eps, max=1.0 - eps)
+    loss = F.binary_cross_entropy(p_slip, q)
+    with torch.no_grad():
+        stats = {
+            "consistency_loss": float(loss.detach().cpu()),
+            "consistency_target_mean": float(q.detach().mean().cpu()),
+            "pred_force_ratio_mean": float(ratio.detach().mean().cpu()),
+            "pred_slip_probability_mean": float(p_slip.detach().mean().cpu()),
+        }
+    return loss, stats
 
 
 def summarize(force_gt_n: np.ndarray, force_pred_n: np.ndarray, label_gt: np.ndarray, slip_probs: np.ndarray) -> dict[str, Any]:
@@ -525,6 +615,7 @@ def train_epoch(
     total_loss = 0.0
     total_force_loss = 0.0
     total_slip_loss = 0.0
+    total_consistency_loss = 0.0
     total_batches = 0
     chunks: list[dict[str, np.ndarray]] = []
     iterator = tqdm(loader, desc="train", leave=False)
@@ -538,7 +629,8 @@ def train_epoch(
         out = model(x)
         loss_force = F.smooth_l1_loss(out["force"], force_gt, beta=cfg.force_beta)
         loss_slip = F.cross_entropy(out["slip"], slip_gt, weight=class_weights)
-        loss = loss_force + cfg.lambda_slip * loss_slip
+        loss_consistency, consistency_stats = consistency_loss_from_outputs(batch, out, cfg)
+        loss = loss_force + cfg.lambda_slip * loss_slip + cfg.beta_consistency * loss_consistency
         loss.backward()
         torch.nn.utils.clip_grad_norm_(unwrap_model(model).decoder.parameters(), max_norm=10.0)
         optimizer.step()
@@ -546,9 +638,11 @@ def train_epoch(
         loss_value = float(loss.detach().cpu())
         force_loss_value = float(loss_force.detach().cpu())
         slip_loss_value = float(loss_slip.detach().cpu())
+        consistency_loss_value = float(loss_consistency.detach().cpu())
         total_loss += loss_value
         total_force_loss += force_loss_value
         total_slip_loss += slip_loss_value
+        total_consistency_loss += consistency_loss_value
         total_batches += 1
         if cfg.log_every_steps > 0 and (global_step == 1 or global_step % cfg.log_every_steps == 0):
             wandb.log(
@@ -557,6 +651,11 @@ def train_epoch(
                     "train_step/loss": loss_value,
                     "train_step/force_loss": force_loss_value,
                     "train_step/slip_loss": slip_loss_value,
+                    "train_step/consistency_loss": consistency_loss_value,
+                    "train_step/weighted_consistency_loss": cfg.beta_consistency * consistency_loss_value,
+                    "train_step/consistency_target_mean": consistency_stats["consistency_target_mean"],
+                    "train_step/pred_force_ratio_mean": consistency_stats["pred_force_ratio_mean"],
+                    "train_step/pred_slip_probability_mean": consistency_stats["pred_slip_probability_mean"],
                     "train_step/epoch_index": int(epoch),
                     "train_step/batch_index": int(batch_idx),
                 },
@@ -571,6 +670,8 @@ def train_epoch(
             "loss": total_loss / max(1, total_batches),
             "force_loss": total_force_loss / max(1, total_batches),
             "slip_loss": total_slip_loss / max(1, total_batches),
+            "consistency_loss": total_consistency_loss / max(1, total_batches),
+            "weighted_consistency_loss": cfg.beta_consistency * (total_consistency_loss / max(1, total_batches)),
             "batches": total_batches,
             "global_step": int(global_step),
         }
@@ -618,8 +719,9 @@ def save_b_checkpoint(
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     core_model = unwrap_model(model)
+    stage = "c" if consistency_enabled(cfg) else "b"
     payload = {
-        "format": f"phase2_b_{cfg.decoder_variant}_multitask_v1",
+        "format": f"phase2_{stage}_{cfg.decoder_variant}_multitask_v1",
         "epoch": int(epoch),
         "train_config": asdict(cfg),
         "model_state": core_model.state_dict(),
@@ -661,6 +763,9 @@ def log_wandb(prefix: str, metrics: dict[str, Any], global_step: int, epoch: int
 
 
 def command_train(args: argparse.Namespace) -> None:
+    beta_consistency = args.beta_consistency
+    if beta_consistency is None:
+        beta_consistency = 0.05 if args.decoder_variant == "consistency" else 0.0
     cfg = TrainConfig(
         encoder=args.encoder,
         run_id=args.run_id or f"phase2_b_gsmini_{now_stamp()}",
@@ -679,7 +784,16 @@ def command_train(args: argparse.Namespace) -> None:
         decoder_variant=args.decoder_variant,
         log_every_steps=args.log_every_steps,
         data_parallel=args.data_parallel,
+        beta_consistency=beta_consistency,
+        consistency_alpha=args.consistency_alpha,
+        consistency_tau=args.consistency_tau,
+        consistency_tau_source=args.consistency_tau_source,
+        consistency_detach_q=args.consistency_detach_q,
     )
+    if consistency_enabled(cfg):
+        cfg.wandb_group = "phase2_c_consistency_multitask"
+    stage = "C" if consistency_enabled(cfg) else "B"
+    consistency_reference = resolve_consistency_settings(cfg)
     set_seed(cfg.seed)
     device = get_device()
     run_dir = PHASE2_ROOT / cfg.run_id / decoder_run_suffix(cfg.encoder, cfg.decoder_variant)
@@ -691,10 +805,10 @@ def command_train(args: argparse.Namespace) -> None:
     model: nn.Module = FrozenEncoderSharedForceSlip(cfg.encoder, decoder_variant=cfg.decoder_variant).to(device)
     if cfg.data_parallel and torch.cuda.device_count() > 1:
         model = nn.DataParallel(model)
-        print(f"[phase2-B] using DataParallel over {torch.cuda.device_count()} visible GPUs", flush=True)
+        print(f"[phase2-{stage}] using DataParallel over {torch.cuda.device_count()} visible GPUs", flush=True)
     optimizer = torch.optim.Adam([p for p in model.parameters() if p.requires_grad], lr=cfg.lr)
 
-    wandb_name = os.environ.get("WANDB_NAME", f"{cfg.run_id}_{cfg.encoder}_b_{cfg.decoder_variant}_multitask")
+    wandb_name = os.environ.get("WANDB_NAME", f"{cfg.run_id}_{cfg.encoder}_{stage.lower()}_{cfg.decoder_variant}_multitask")
     os.environ["WANDB_MODE"] = cfg.wandb_mode
     wb = wandb.init(
         project=cfg.wandb_project,
@@ -703,10 +817,10 @@ def command_train(args: argparse.Namespace) -> None:
         id=wandb_name,
         name=wandb_name,
         group=cfg.wandb_group,
-        tags=["sparsh", "tactile_grasp", "force-slip", "phase2", "B", cfg.encoder, cfg.decoder_variant, "multitask"],
+        tags=["sparsh", "tactile_grasp", "force-slip", "phase2", stage, cfg.encoder, cfg.decoder_variant, "multitask"],
         notes=(
-            "Phase2-B multitask decoder: force + slip, frozen Sparsh encoder, "
-            f"decoder_variant={cfg.decoder_variant}, no consistency loss."
+            f"Phase2-{stage} multitask decoder: force + slip, frozen Sparsh encoder, "
+            f"decoder_variant={cfg.decoder_variant}, beta_consistency={cfg.beta_consistency}."
         ),
         config={
             **asdict(cfg),
@@ -716,6 +830,8 @@ def command_train(args: argparse.Namespace) -> None:
             "val_datasets": VAL_DATASETS,
             "code_workspace": str(WORKSPACE),
             "visible_cuda_devices": os.environ.get("CUDA_VISIBLE_DEVICES", "all"),
+            "stage": stage,
+            "consistency_reference": consistency_reference,
         },
     )
     wandb.define_metric("global_step")
@@ -731,7 +847,7 @@ def command_train(args: argparse.Namespace) -> None:
     final_val: dict[str, Any] | None = None
     try:
         for epoch in range(1, cfg.max_epochs + 1):
-            print(f"[phase2-B] encoder={cfg.encoder} variant={cfg.decoder_variant} epoch={epoch}/{cfg.max_epochs}", flush=True)
+            print(f"[phase2-{stage}] encoder={cfg.encoder} variant={cfg.decoder_variant} epoch={epoch}/{cfg.max_epochs}", flush=True)
             train_metrics, global_step = train_epoch(model, train_loader, optimizer, device, cfg, epoch, global_step)
             log_wandb("train", train_metrics, global_step, epoch)
             record = {"epoch": epoch, "global_step": global_step, "train": train_metrics}
@@ -778,6 +894,7 @@ def command_train(args: argparse.Namespace) -> None:
             "run_id": cfg.run_id,
             "encoder": cfg.encoder,
             "decoder_variant": cfg.decoder_variant,
+            "stage": stage,
             "status": "completed",
             "run_dir": str(run_dir),
             "final_checkpoint": str(final_ckpt),
@@ -786,6 +903,7 @@ def command_train(args: argparse.Namespace) -> None:
             "wall_time_seconds": time.time() - start,
             "global_step": int(global_step),
             "final_val": final_eval["aggregate"],
+            "consistency_reference": consistency_reference,
             "wandb_name": wandb_name,
             "wandb_url": wb.url,
             "completed_at": datetime.now().isoformat(timespec="seconds"),
@@ -1313,6 +1431,285 @@ def command_report(args: argparse.Namespace) -> None:
     print(json.dumps({"report": str(md_path), "json": str(json_path), "conclusion": conclusion}, indent=2), flush=True)
 
 
+def encoder_b_run_id(args: argparse.Namespace, encoder: str) -> str:
+    override = getattr(args, f"b_run_id_{encoder}", None)
+    if override:
+        return override
+    return args.b_run_id
+
+
+def consistency_delta(b_eval: dict[str, Any], c_eval: dict[str, Any], diagnostic_only: bool, main_gate: dict[str, Any]) -> dict[str, Any]:
+    b_cons = b_eval["aggregate"].get("consistency", {})
+    c_cons = c_eval["aggregate"].get("consistency", {})
+
+    def reduction_pct(before: Any, after: Any) -> float | None:
+        if before is None or after is None or float(before) == 0.0:
+            return None
+        return (float(before) - float(after)) / float(before) * 100.0
+
+    def drop_pp(before: Any, after: Any) -> float | None:
+        if before is None or after is None:
+            return None
+        return (float(before) - float(after)) * 100.0
+
+    def increase_pp(before: Any, after: Any) -> float | None:
+        if before is None or after is None:
+            return None
+        return (float(after) - float(before)) * 100.0
+
+    contradiction_reduction = reduction_pct(b_cons.get("contradiction_rate"), c_cons.get("contradiction_rate"))
+    monotonic_reduction = reduction_pct(
+        b_cons.get("monotonic_calibration_error"), c_cons.get("monotonic_calibration_error")
+    )
+    high_recall_drop = drop_pp(b_cons.get("high_ratio_slip_recall"), c_cons.get("high_ratio_slip_recall"))
+    low_false_alarm_increase = increase_pp(b_cons.get("low_ratio_false_alarm"), c_cons.get("low_ratio_false_alarm"))
+    consistency_success = (
+        (contradiction_reduction is not None and contradiction_reduction >= 10.0)
+        or (monotonic_reduction is not None and monotonic_reduction >= 5.0)
+    )
+    high_recall_ok = high_recall_drop is None or high_recall_drop <= 1.0
+    low_false_alarm_ok = low_false_alarm_increase is None or low_false_alarm_increase <= 1.0
+    success = (
+        not diagnostic_only
+        and main_gate["status"] != "hard_fail"
+        and consistency_success
+        and high_recall_ok
+        and low_false_alarm_ok
+    )
+    return {
+        "contradiction_rate_B": b_cons.get("contradiction_rate"),
+        "contradiction_rate_C": c_cons.get("contradiction_rate"),
+        "contradiction_reduction_pct": contradiction_reduction,
+        "monotonic_calibration_error_B": b_cons.get("monotonic_calibration_error"),
+        "monotonic_calibration_error_C": c_cons.get("monotonic_calibration_error"),
+        "monotonic_calibration_error_reduction_pct": monotonic_reduction,
+        "high_ratio_slip_recall_B": b_cons.get("high_ratio_slip_recall"),
+        "high_ratio_slip_recall_C": c_cons.get("high_ratio_slip_recall"),
+        "high_ratio_slip_recall_drop_pp": high_recall_drop,
+        "low_ratio_false_alarm_B": b_cons.get("low_ratio_false_alarm"),
+        "low_ratio_false_alarm_C": c_cons.get("low_ratio_false_alarm"),
+        "low_ratio_false_alarm_increase_pp": low_false_alarm_increase,
+        "consistency_success": consistency_success,
+        "high_ratio_recall_guardrail_ok": high_recall_ok,
+        "low_ratio_false_alarm_guardrail_ok": low_false_alarm_ok,
+        "phase2_c_success": success,
+        "diagnostic_only": diagnostic_only,
+    }
+
+
+def render_c_report(report: dict[str, Any]) -> str:
+    def fmt(value: Any, digits: int = 4) -> str:
+        if value is None:
+            return "n/a"
+        if isinstance(value, str):
+            return value
+        return f"{float(value):.{digits}f}"
+
+    lines = [
+        "# Phase 2-C Consistency Decoder Report",
+        "",
+        f"- generated_at: `{report['generated_at']}`",
+        f"- phase2_c_run_id: `{report['c_run_id']}`",
+        f"- phase1_run_id: `{report['phase1_run_id']}`",
+        f"- derived_root: `{report['derived_root']}`",
+        "- scope: Step3 C consistency decoder training/evaluation on train+val-defined hyperparameters.",
+        "- consistency loss: `BCE(p_slip, sigmoid(alpha * (Ft_pred/(Fn_pred+eps) - tau)).detach())`.",
+        "- test set tuning: `false` (train/val only).",
+        "",
+        "## A/B/C validation comparison",
+        "",
+        "| encoder | B run id | C checkpoint | C force RMSE mean N | C slip F1 | C slip recall | B→C gate | A→C gate | diagnostic-only |",
+        "|---|---|---|---:|---:|---:|---|---|---|",
+    ]
+    for enc in report["encoders"]:
+        c_eval = report["c_evaluations"][enc]
+        c_ag = c_eval["aggregate"]
+        lines.append(
+            f"| {enc} | `{report['b_run_ids'][enc]}` | `{Path(c_eval['checkpoint']).name}` | "
+            f"{c_ag['force_rmse_mean_N']:.4f} | {c_ag['slip_f1']:.4f} | {c_ag['slip_recall']:.4f} | "
+            f"{report['gate_c_vs_b'][enc]['status']} | {report['gate_c_vs_a'][enc]['status']} | "
+            f"{str(report['diagnostic_only'][enc]).lower()} |"
+        )
+    lines.extend(["", "## Main metric gates", ""])
+    lines.append("| encoder | A force | B force | C force | C Δ vs A | C Δ vs B | A slip F1 | B slip F1 | C slip F1 | C F1 drop vs A pp | C F1 drop vs B pp |")
+    lines.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
+    for enc in report["encoders"]:
+        a = report["a_evaluations"][enc]["aggregate"]
+        b = report["b_evaluations"][enc]["aggregate"]
+        c = report["c_evaluations"][enc]["aggregate"]
+        ga = report["gate_c_vs_a"][enc]
+        gb = report["gate_c_vs_b"][enc]
+        lines.append(
+            f"| {enc} | {a['force_rmse_mean_N']:.4f} | {b['force_rmse_mean_N']:.4f} | {c['force_rmse_mean_N']:.4f} | "
+            f"{ga['force_rmse_increase_pct']:+.2f}% | {gb['force_rmse_increase_pct']:+.2f}% | "
+            f"{a['slip_f1']:.4f} | {b['slip_f1']:.4f} | {c['slip_f1']:.4f} | "
+            f"{ga['slip_f1_drop_pp']:+.2f} | {gb['slip_f1_drop_pp']:+.2f} |"
+        )
+    lines.extend(["", "## Consistency diagnostics vs B", ""])
+    lines.append("| encoder | contradiction B | contradiction C | reduction | monotonic B | monotonic C | reduction | high-recall drop pp | low-FA increase pp | C success |")
+    lines.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|---|")
+    for enc in report["encoders"]:
+        d = report["consistency_delta"][enc]
+        lines.append(
+            f"| {enc} | {fmt(d['contradiction_rate_B'])} | {fmt(d['contradiction_rate_C'])} | "
+            f"{fmt(d['contradiction_reduction_pct'], 2)}% | {fmt(d['monotonic_calibration_error_B'])} | "
+            f"{fmt(d['monotonic_calibration_error_C'])} | {fmt(d['monotonic_calibration_error_reduction_pct'], 2)}% | "
+            f"{fmt(d['high_ratio_slip_recall_drop_pp'], 2)} | {fmt(d['low_ratio_false_alarm_increase_pp'], 2)} | "
+            f"{str(d['phase2_c_success']).lower()} |"
+        )
+    lines.extend(["", "## C hyperparameters", ""])
+    lines.append("| encoder | lambda_slip | beta_consistency | alpha | tau | tau_source | detach_q |")
+    lines.append("|---|---:|---:|---:|---:|---|---|")
+    for enc in report["encoders"]:
+        cfg = report["c_evaluations"][enc].get("train_config", {})
+        lines.append(
+            f"| {enc} | {fmt(cfg.get('lambda_slip'))} | {fmt(cfg.get('beta_consistency'))} | "
+            f"{fmt(cfg.get('consistency_alpha'))} | {fmt(cfg.get('consistency_tau'), 6)} | "
+            f"`{cfg.get('consistency_tau_source')}` | `{cfg.get('consistency_detach_q')}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Conclusion",
+            "",
+            report["conclusion"],
+            "",
+            "## Artifacts",
+            "",
+            f"- JSON report: `{report['json_path']}`",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def command_report_c(args: argparse.Namespace) -> None:
+    c_run_id = args.c_run_id
+    encoders = args.encoders
+    set_seed(args.seed)
+    report_dir = REPORT_ROOT / c_run_id
+    report_dir.mkdir(parents=True, exist_ok=True)
+    reference_path = REPORT_ROOT / args.reference_run_id / "phase2_b_force_ratio_reference.json" if args.reference_run_id else None
+    if reference_path and reference_path.exists() and not args.refresh_reference:
+        reference = json.loads(reference_path.read_text(encoding="utf-8"))
+    else:
+        reference = collect_force_ratio_reference(slip_horizon=args.slip_horizon)
+        write_json(report_dir / "phase2_c_force_ratio_reference.json", reference)
+    cache_dir = report_dir / "eval_cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    a_evals: dict[str, Any] = {}
+    b_evals: dict[str, Any] = {}
+    c_evals: dict[str, Any] = {}
+    gate_b_vs_a: dict[str, Any] = {}
+    gate_c_vs_a: dict[str, Any] = {}
+    gate_c_vs_b: dict[str, Any] = {}
+    deltas: dict[str, Any] = {}
+    diagnostic_only: dict[str, bool] = {}
+    b_run_ids: dict[str, str] = {}
+    for enc in encoders:
+        b_run_id = encoder_b_run_id(args, enc)
+        b_run_ids[enc] = b_run_id
+        a_cache = cache_dir / f"a_{enc}_allsource_val.json"
+        b_cache = cache_dir / f"b_{enc}_{args.b_decoder_variant}_{b_run_id}_allsource_val.json"
+        c_cache = cache_dir / f"c_{enc}_consistency_{c_run_id}_allsource_val.json"
+        if a_cache.exists() and not args.refresh_eval:
+            a_eval = json.loads(a_cache.read_text(encoding="utf-8"))
+        else:
+            a_eval = evaluate_a_models(enc, reference, args.batch_size, args.num_workers)
+            write_json(a_cache, a_eval)
+        if b_cache.exists() and not args.refresh_eval:
+            b_eval = json.loads(b_cache.read_text(encoding="utf-8"))
+        else:
+            b_selection = select_b_checkpoint_for_gate(b_run_id, enc, args.b_decoder_variant, a_eval)
+            b_eval = evaluate_b_checkpoint_for_report(
+                b_run_id,
+                enc,
+                reference,
+                args.batch_size,
+                args.num_workers,
+                decoder_variant=args.b_decoder_variant,
+                checkpoint_path=b_selection.get("checkpoint"),
+            )
+            b_eval["checkpoint_selection"] = b_selection
+            write_json(b_cache, b_eval)
+        if c_cache.exists() and not args.refresh_eval:
+            c_eval = json.loads(c_cache.read_text(encoding="utf-8"))
+        else:
+            c_selection = select_b_checkpoint_for_gate(c_run_id, enc, "consistency", a_eval)
+            c_eval = evaluate_b_checkpoint_for_report(
+                c_run_id,
+                enc,
+                reference,
+                args.batch_size,
+                args.num_workers,
+                decoder_variant="consistency",
+                checkpoint_path=c_selection.get("checkpoint"),
+            )
+            c_eval["checkpoint_selection"] = c_selection
+            write_json(c_cache, c_eval)
+        a_evals[enc] = a_eval
+        b_evals[enc] = b_eval
+        c_evals[enc] = c_eval
+        gate_b_vs_a[enc] = gate_status(a_eval, b_eval)
+        gate_c_vs_a[enc] = gate_status(a_eval, c_eval)
+        gate_c_vs_b[enc] = gate_status(b_eval, c_eval)
+        diagnostic_only[enc] = gate_b_vs_a[enc]["status"] == "hard_fail"
+        deltas[enc] = consistency_delta(b_eval, c_eval, diagnostic_only[enc], gate_c_vs_a[enc])
+    successes = [enc for enc, delta in deltas.items() if delta["phase2_c_success"]]
+    diagnostics = [enc for enc, value in diagnostic_only.items() if value]
+    hard = [enc for enc, gate in gate_c_vs_a.items() if gate["status"] == "hard_fail"]
+    if diagnostics:
+        conclusion = (
+            "C includes diagnostic-only encoders because the selected B baseline hard-failed for "
+            + ", ".join(diagnostics)
+            + ". Do not use those C numbers as formal improvement claims."
+        )
+    elif hard:
+        conclusion = "C triggers the main-metric hard fail for " + ", ".join(hard) + "; keep A/B as fallback."
+    elif successes:
+        conclusion = "C satisfies the Step3/Step4 consistency success criteria for " + ", ".join(successes) + "."
+    else:
+        conclusion = "C completes training/evaluation but does not satisfy the consistency success criteria; keep the best B/A fallback."
+    report = {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "c_run_id": c_run_id,
+        "phase1_run_id": PHASE1_RUN_ID,
+        "derived_root": str(DERIVED_ROOT),
+        "encoders": encoders,
+        "b_run_ids": b_run_ids,
+        "b_decoder_variant": args.b_decoder_variant,
+        "a_evaluations": a_evals,
+        "b_evaluations": b_evals,
+        "c_evaluations": c_evals,
+        "gate_b_vs_a": gate_b_vs_a,
+        "gate_c_vs_a": gate_c_vs_a,
+        "gate_c_vs_b": gate_c_vs_b,
+        "diagnostic_only": diagnostic_only,
+        "consistency_delta": deltas,
+        "force_ratio_reference": reference,
+        "conclusion": conclusion,
+        "json_path": str(report_dir / "phase2_c_consistency_report.json"),
+    }
+    json_path = report_dir / "phase2_c_consistency_report.json"
+    md_path = report_dir / "phase2_c_consistency_report.md"
+    write_json(json_path, report)
+    md_path.write_text(render_c_report(report), encoding="utf-8")
+    current = REPORT_ROOT / "current_phase2_c.md"
+    current.write_text(
+        "\n".join(
+            [
+                "# Current Phase2-C",
+                "",
+                f"- c_run_id: `{c_run_id}`",
+                f"- report: `{md_path}`",
+                f"- generated_at: `{report['generated_at']}`",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    print(json.dumps({"report": str(md_path), "json": str(json_path), "conclusion": conclusion}, indent=2), flush=True)
+
+
 def command_smoke(args: argparse.Namespace) -> None:
     cfg = TrainConfig(
         encoder=args.encoder,
@@ -1345,6 +1742,11 @@ def command_smoke(args: argparse.Namespace) -> None:
         decoder_variant=cfg.decoder_variant,
         log_every_steps=cfg.log_every_steps,
         data_parallel=cfg.data_parallel,
+        beta_consistency=0.05 if cfg.decoder_variant == "consistency" else 0.0,
+        consistency_alpha=10.0,
+        consistency_tau=None,
+        consistency_tau_source="p65",
+        consistency_detach_q=True,
     )
     command_train(args_train)
 
@@ -1353,7 +1755,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
 
-    train = sub.add_parser("train", help="Train one Phase2-B shared multitask decoder")
+    train = sub.add_parser("train", help="Train one Phase2-B/C multitask decoder")
     train.add_argument("--encoder", choices=sorted(ENCODER_CHECKPOINTS), required=True)
     train.add_argument("--run-id", default=None)
     train.add_argument("--max-epochs", type=int, default=51)
@@ -1368,9 +1770,15 @@ def build_parser() -> argparse.ArgumentParser:
     train.add_argument("--limit-train-batches", type=int, default=None)
     train.add_argument("--limit-val-batches", type=int, default=None)
     train.add_argument("--wandb-mode", choices=["online", "offline", "disabled"], default=os.environ.get("WANDB_MODE", "online"))
-    train.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
+    train.add_argument("--decoder-variant", choices=["shared", "partially_shared", "consistency"], default="shared")
     train.add_argument("--log-every-steps", type=int, default=50)
     train.add_argument("--data-parallel", action="store_true")
+    train.add_argument("--beta-consistency", type=float, default=None)
+    train.add_argument("--consistency-alpha", type=float, default=10.0)
+    train.add_argument("--consistency-tau", type=float, default=None)
+    train.add_argument("--consistency-tau-source", choices=["p50", "p65", "p80", "p95"], default="p65")
+    train.add_argument("--consistency-detach-q", dest="consistency_detach_q", action="store_true", default=True)
+    train.add_argument("--no-consistency-detach-q", dest="consistency_detach_q", action="store_false")
     train.set_defaults(func=command_train)
 
     report = sub.add_parser("report", help="Evaluate A/B and write Step2 diagnostics/sweep plan")
@@ -1385,12 +1793,28 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
     report.set_defaults(func=command_report)
 
+    report_c = sub.add_parser("report-c", help="Evaluate C consistency decoder against selected A/B baselines")
+    report_c.add_argument("--c-run-id", required=True)
+    report_c.add_argument("--b-run-id", required=True)
+    report_c.add_argument("--b-run-id-dinov2", default=None)
+    report_c.add_argument("--b-run-id-mae", default=None)
+    report_c.add_argument("--reference-run-id", default=None)
+    report_c.add_argument("--b-decoder-variant", choices=["shared", "partially_shared"], default="partially_shared")
+    report_c.add_argument("--encoders", nargs="+", choices=sorted(ENCODER_CHECKPOINTS), default=["dinov2", "mae"])
+    report_c.add_argument("--batch-size", type=int, default=100)
+    report_c.add_argument("--num-workers", type=int, default=2)
+    report_c.add_argument("--slip-horizon", type=int, default=0)
+    report_c.add_argument("--seed", type=int, default=42)
+    report_c.add_argument("--refresh-eval", action="store_true")
+    report_c.add_argument("--refresh-reference", action="store_true")
+    report_c.set_defaults(func=command_report_c)
+
     smoke = sub.add_parser("smoke", help="One-batch smoke train/eval without W&B upload")
     smoke.add_argument("--encoder", choices=sorted(ENCODER_CHECKPOINTS), default="dinov2")
     smoke.add_argument("--run-id", default=None)
     smoke.add_argument("--batch-size", type=int, default=8)
     smoke.add_argument("--num-workers", type=int, default=0)
-    smoke.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
+    smoke.add_argument("--decoder-variant", choices=["shared", "partially_shared", "consistency"], default="shared")
     smoke.add_argument("--data-parallel", action="store_true")
     smoke.set_defaults(func=command_smoke)
     return parser
