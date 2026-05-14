@@ -1,0 +1,56 @@
+{
+  "run_id": "phase2_jepa_a_gsmini_20260515_014447",
+  "created_at": "2026-05-15T01:44:48",
+  "repo": "/home/zjy/document/tactile-grasp",
+  "branch": "sparsh-force-slip",
+  "derived_dataset": "/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini",
+  "strategy": "A stage: four independent tmux sessions, one single-GPU training each; CUDA_VISIBLE_DEVICES=<id>, +trainer.devices=1; W&B online tactile_grasp",
+  "nvidia_smi_before_launch": [
+    "0, 3676, 49140, 0, 0, 88.86",
+    "1, 3636, 49140, 0, 0, 103.24",
+    "2, 3640, 49140, 0, 0, 115.70",
+    "3, 3639, 49140, 68, 21, 86.83"
+  ],
+  "tasks": [
+    {
+      "encoder": "ijepa",
+      "task": "force",
+      "gpu": 0,
+      "ckpt": "/vla1/zjy/sparsh_models/sparsh-ijepa-base/ijepa_vitbase.ckpt",
+      "exp": "phase2_jepa_a_gsmini_20260515_014447_ijepa_force",
+      "session": "phase2_jepa_a_gsmini_20260515_014447_ijepa_force_gpu0",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_jepa_a_phase2_jepa_a_gsmini_20260515_014447/run_ijepa_force.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_jepa_a_gsmini_20260515_014447/ijepa_force_gpu0.log"
+    },
+    {
+      "encoder": "ijepa",
+      "task": "slip",
+      "gpu": 1,
+      "ckpt": "/vla1/zjy/sparsh_models/sparsh-ijepa-base/ijepa_vitbase.ckpt",
+      "exp": "phase2_jepa_a_gsmini_20260515_014447_ijepa_slip",
+      "session": "phase2_jepa_a_gsmini_20260515_014447_ijepa_slip_gpu1",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_jepa_a_phase2_jepa_a_gsmini_20260515_014447/run_ijepa_slip.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_jepa_a_gsmini_20260515_014447/ijepa_slip_gpu1.log"
+    },
+    {
+      "encoder": "vjepa",
+      "task": "force",
+      "gpu": 2,
+      "ckpt": "/vla1/zjy/sparsh_models/sparsh-vjepa-base/vjepa_vitbase.ckpt",
+      "exp": "phase2_jepa_a_gsmini_20260515_014447_vjepa_force",
+      "session": "phase2_jepa_a_gsmini_20260515_014447_vjepa_force_gpu2",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_jepa_a_phase2_jepa_a_gsmini_20260515_014447/run_vjepa_force.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_jepa_a_gsmini_20260515_014447/vjepa_force_gpu2.log"
+    },
+    {
+      "encoder": "vjepa",
+      "task": "slip",
+      "gpu": 3,
+      "ckpt": "/vla1/zjy/sparsh_models/sparsh-vjepa-base/vjepa_vitbase.ckpt",
+      "exp": "phase2_jepa_a_gsmini_20260515_014447_vjepa_slip",
+      "session": "phase2_jepa_a_gsmini_20260515_014447_vjepa_slip_gpu3",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_jepa_a_phase2_jepa_a_gsmini_20260515_014447/run_vjepa_slip.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_jepa_a_gsmini_20260515_014447/vjepa_slip_gpu3.log"
+    }
+  ]
+}
