@@ -1,0 +1,141 @@
+{
+  "generated_at": "2026-05-14T09:31:01",
+  "objective": "Phase2-B partially shared decoder, then loss-weight fallback if B gate hard-fails",
+  "runs": {
+    "phase2_b_ps_gsmini_20260514_035248": {
+      "decoder_variant": "partially_shared",
+      "conclusion": "B triggers a hard fail for dinov2; Phase2-C may only be run as diagnostic-only for those encoders and must not be used for a formal improvement claim.",
+      "report": "sparsh-force-slip/reports/phase2/phase2_b_ps_gsmini_20260514_035248/phase2_b_diagnostic_report.md",
+      "encoders": {
+        "dinov2": {
+          "status": "hard_fail",
+          "force_rmse_mean_N_A": 0.043612752109766006,
+          "force_rmse_mean_N_B": 0.053106456995010376,
+          "force_rmse_increase_pct": 21.76818573923127,
+          "slip_f1_A": 0.9477425299460314,
+          "slip_f1_B": 0.9630125971589386,
+          "slip_f1_drop_pp": -1.5270067212907246,
+          "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_gsmini_20260514_035248/dinov2_partially_shared_multitask/checkpoints/epoch-0051.pth",
+          "selected_epoch": 51,
+          "selection_policy": "no_gate_feasible_choose_lowest_force_hard_fail",
+          "feasible_count": 0,
+          "training": {
+            "run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_gsmini_20260514_035248/dinov2_partially_shared_multitask",
+            "global_step": 17493,
+            "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_b_ps_gsmini_20260514_035248_dinov2_b_partially_shared_multitask",
+            "batch_size": 200,
+            "data_parallel": true,
+            "lambda_slip": 1.0,
+            "log_every_steps": 25
+          }
+        },
+        "mae": {
+          "status": "warning_band",
+          "force_rmse_mean_N_A": 0.032242301851511,
+          "force_rmse_mean_N_B": 0.03410235047340393,
+          "force_rmse_increase_pct": 5.768969692236037,
+          "slip_f1_A": 0.9731038192576654,
+          "slip_f1_B": 0.9752736116740981,
+          "slip_f1_drop_pp": -0.21697924164326698,
+          "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_gsmini_20260514_035248/mae_partially_shared_multitask/checkpoints/epoch-0040.pth",
+          "selected_epoch": 40,
+          "selection_policy": "gate_feasible_then_best_slip_f1",
+          "feasible_count": 1,
+          "training": {
+            "run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_gsmini_20260514_035248/mae_partially_shared_multitask",
+            "global_step": 17493,
+            "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_b_ps_gsmini_20260514_035248_mae_b_partially_shared_multitask",
+            "batch_size": 200,
+            "data_parallel": true,
+            "lambda_slip": 1.0,
+            "log_every_steps": 25
+          }
+        }
+      }
+    },
+    "phase2_b_ps_lam050_gsmini_20260514_063052": {
+      "decoder_variant": "partially_shared",
+      "conclusion": "B triggers a hard fail for dinov2; Phase2-C may only be run as diagnostic-only for those encoders and must not be used for a formal improvement claim.",
+      "report": "sparsh-force-slip/reports/phase2/phase2_b_ps_lam050_gsmini_20260514_063052/phase2_b_diagnostic_report.md",
+      "encoders": {
+        "dinov2": {
+          "status": "hard_fail",
+          "force_rmse_mean_N_A": 0.043612752109766006,
+          "force_rmse_mean_N_B": 0.048956990242004395,
+          "force_rmse_increase_pct": 12.253842909954038,
+          "slip_f1_A": 0.9477425299460314,
+          "slip_f1_B": 0.9248110669911618,
+          "slip_f1_drop_pp": 2.2931462954869586,
+          "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam050_gsmini_20260514_063052/dinov2_partially_shared_multitask/checkpoints/epoch-0025.pth",
+          "selected_epoch": 25,
+          "selection_policy": "no_gate_feasible_choose_lowest_force_hard_fail",
+          "feasible_count": 0
+        },
+        "mae": {
+          "status": "pass",
+          "force_rmse_mean_N_A": 0.032242301851511,
+          "force_rmse_mean_N_B": 0.03192540630698204,
+          "force_rmse_increase_pct": -0.9828564535757867,
+          "slip_f1_A": 0.9731038192576654,
+          "slip_f1_B": 0.979929481963656,
+          "slip_f1_drop_pp": -0.6825662705990609,
+          "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam050_gsmini_20260514_063052/mae_partially_shared_multitask/checkpoints/epoch-0035.pth",
+          "selected_epoch": 35,
+          "selection_policy": "gate_feasible_then_best_slip_f1",
+          "feasible_count": 7
+        }
+      }
+    },
+    "phase2_b_ps_lam025_gsmini_20260514_063052": {
+      "decoder_variant": "partially_shared",
+      "conclusion": "B is inside the warning band for dinov2; Phase2-C can proceed, but reports must explicitly mark the main-metric risk.",
+      "report": "sparsh-force-slip/reports/phase2/phase2_b_ps_lam025_gsmini_20260514_063052/phase2_b_diagnostic_report.md",
+      "encoders": {
+        "dinov2": {
+          "status": "warning_band",
+          "force_rmse_mean_N_A": 0.043612752109766006,
+          "force_rmse_mean_N_B": 0.047933757305145264,
+          "force_rmse_increase_pct": 9.907664585128707,
+          "slip_f1_A": 0.9477425299460314,
+          "slip_f1_B": 0.9712737127371274,
+          "slip_f1_drop_pp": -2.3531182791096006,
+          "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/dinov2_partially_shared_multitask/checkpoints/epoch-0051.pth",
+          "selected_epoch": 51,
+          "selection_policy": "gate_feasible_then_best_slip_f1",
+          "feasible_count": 6,
+          "training": {
+            "run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/dinov2_partially_shared_multitask",
+            "global_step": 34986,
+            "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_b_ps_lam025_gsmini_20260514_063052_dinov2_b_partially_shared_lambda0.25",
+            "batch_size": 100,
+            "data_parallel": false,
+            "lambda_slip": 0.25,
+            "log_every_steps": 50
+          }
+        },
+        "mae": {
+          "status": "pass",
+          "force_rmse_mean_N_A": 0.032242301851511,
+          "force_rmse_mean_N_B": 0.031078681349754333,
+          "force_rmse_increase_pct": -3.6089870602775687,
+          "slip_f1_A": 0.9731038192576654,
+          "slip_f1_B": 0.9770598615447265,
+          "slip_f1_drop_pp": -0.39560422870610346,
+          "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/mae_partially_shared_multitask/checkpoints/epoch-0050.pth",
+          "selected_epoch": 50,
+          "selection_policy": "gate_feasible_then_best_slip_f1",
+          "feasible_count": 6,
+          "training": {
+            "run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/mae_partially_shared_multitask",
+            "global_step": 34986,
+            "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase2_b_ps_lam025_gsmini_20260514_063052_mae_b_partially_shared_lambda0.25",
+            "batch_size": 100,
+            "data_parallel": false,
+            "lambda_slip": 0.25,
+            "log_every_steps": 50
+          }
+        }
+      }
+    }
+  }
+}

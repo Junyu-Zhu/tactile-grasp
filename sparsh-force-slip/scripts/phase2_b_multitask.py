@@ -118,6 +118,9 @@ class TrainConfig:
     wandb_entity: str = "junyuzhuzjy-zhejiang-university"
     wandb_group: str = "phase2_b_shared_multitask"
     class_weights: tuple[float, float] = (0.1, 1.0)
+    decoder_variant: str = "shared"
+    log_every_steps: int = 50
+    data_parallel: bool = False
 
 
 def json_default(obj: Any) -> Any:
@@ -276,12 +279,86 @@ class SharedForceSlipDecoder(nn.Module):
         return {"force": force, "slip": slip}
 
 
+class PartiallySharedForceSlipDecoder(nn.Module):
+    """Shared pooler with task-private trunks to reduce force/slip negative transfer."""
+
+    def __init__(
+        self,
+        embed_dim_name: str = "base",
+        num_heads: int = 12,
+        depth: int = 1,
+        dropout: float = 0.0,
+    ) -> None:
+        super().__init__()
+        embed_dim = VIT_EMBED_DIMS[f"vit_{embed_dim_name}"]
+        hidden_dim = embed_dim // 2
+        trunk_dim = embed_dim // 4
+        self.pooler = AttentivePooler(
+            num_queries=1,
+            embed_dim=embed_dim,
+            num_heads=num_heads,
+            mlp_ratio=4.0,
+            depth=depth,
+            norm_layer=nn.LayerNorm,
+            init_std=0.02,
+            qkv_bias=True,
+            complete_block=True,
+        )
+        self.force_trunk = nn.Sequential(
+            nn.LayerNorm(embed_dim),
+            nn.Linear(embed_dim, hidden_dim),
+            nn.GELU(),
+            nn.Dropout(dropout) if dropout > 0.0 else nn.Identity(),
+            nn.Linear(hidden_dim, trunk_dim),
+            nn.GELU(),
+        )
+        self.slip_trunk = nn.Sequential(
+            nn.LayerNorm(embed_dim),
+            nn.Linear(embed_dim, hidden_dim),
+            nn.GELU(),
+            nn.Dropout(dropout) if dropout > 0.0 else nn.Identity(),
+            nn.Linear(hidden_dim, trunk_dim),
+            nn.GELU(),
+        )
+        self.force_head = nn.Linear(trunk_dim, 3)
+        self.slip_head = nn.Linear(trunk_dim, 2)
+
+    def forward(self, z: torch.Tensor) -> dict[str, torch.Tensor]:
+        shared = self.pooler(z).squeeze(1)
+        force_features = self.force_trunk(shared)
+        slip_features = self.slip_trunk(shared)
+        force = torch.tanh(self.force_head(force_features))
+        slip = self.slip_head(slip_features)
+        return {"force": force, "slip": slip}
+
+
+def decoder_run_suffix(encoder: str, variant: str) -> str:
+    if variant == "shared":
+        return f"{encoder}_shared_multitask"
+    if variant == "partially_shared":
+        return f"{encoder}_partially_shared_multitask"
+    raise ValueError(f"Unknown decoder variant {variant!r}")
+
+
+def build_decoder(variant: str) -> nn.Module:
+    if variant == "shared":
+        return SharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
+    if variant == "partially_shared":
+        return PartiallySharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
+    raise ValueError(f"Unknown decoder variant {variant!r}")
+
+
+def unwrap_model(model: nn.Module) -> "FrozenEncoderSharedForceSlip":
+    return model.module if isinstance(model, nn.DataParallel) else model
+
+
 class FrozenEncoderSharedForceSlip(nn.Module):
-    def __init__(self, encoder_name: str) -> None:
+    def __init__(self, encoder_name: str, decoder_variant: str = "shared") -> None:
         super().__init__()
         if encoder_name not in ENCODER_CHECKPOINTS:
             raise ValueError(f"Unknown encoder {encoder_name}; expected one of {sorted(ENCODER_CHECKPOINTS)}")
         self.encoder_name = encoder_name
+        self.decoder_variant = decoder_variant
         self.encoder = vit_base(
             img_size=[320, 240],
             in_chans=6,
@@ -291,7 +368,7 @@ class FrozenEncoderSharedForceSlip(nn.Module):
         self.load_info = load_encoder_weights(self.encoder, ENCODER_CHECKPOINTS[encoder_name], encoder_name)
         self.encoder.requires_grad_(False)
         self.encoder.eval()
-        self.decoder = SharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
+        self.decoder = build_decoder(decoder_variant)
 
     def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
         self.encoder.eval()
@@ -434,14 +511,16 @@ def batch_arrays_from_outputs(batch: dict[str, torch.Tensor], force_pred: torch.
 
 
 def train_epoch(
-    model: FrozenEncoderSharedForceSlip,
+    model: nn.Module,
     loader: DataLoader,
     optimizer: torch.optim.Optimizer,
     device: torch.device,
     cfg: TrainConfig,
-) -> dict[str, Any]:
+    epoch: int,
+    global_step: int,
+) -> tuple[dict[str, Any], int]:
     model.train()
-    model.encoder.eval()
+    unwrap_model(model).encoder.eval()
     class_weights = torch.tensor(cfg.class_weights, dtype=torch.float32, device=device)
     total_loss = 0.0
     total_force_loss = 0.0
@@ -461,14 +540,30 @@ def train_epoch(
         loss_slip = F.cross_entropy(out["slip"], slip_gt, weight=class_weights)
         loss = loss_force + cfg.lambda_slip * loss_slip
         loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.decoder.parameters(), max_norm=10.0)
+        torch.nn.utils.clip_grad_norm_(unwrap_model(model).decoder.parameters(), max_norm=10.0)
         optimizer.step()
-        total_loss += float(loss.detach().cpu())
-        total_force_loss += float(loss_force.detach().cpu())
-        total_slip_loss += float(loss_slip.detach().cpu())
+        global_step += 1
+        loss_value = float(loss.detach().cpu())
+        force_loss_value = float(loss_force.detach().cpu())
+        slip_loss_value = float(loss_slip.detach().cpu())
+        total_loss += loss_value
+        total_force_loss += force_loss_value
+        total_slip_loss += slip_loss_value
         total_batches += 1
+        if cfg.log_every_steps > 0 and (global_step == 1 or global_step % cfg.log_every_steps == 0):
+            wandb.log(
+                {
+                    "global_step": int(global_step),
+                    "train_step/loss": loss_value,
+                    "train_step/force_loss": force_loss_value,
+                    "train_step/slip_loss": slip_loss_value,
+                    "train_step/epoch_index": int(epoch),
+                    "train_step/batch_index": int(batch_idx),
+                },
+                step=global_step,
+            )
         chunks.append(batch_arrays_from_outputs(batch, out["force"].detach(), out["slip"].detach()))
-        iterator.set_postfix(loss=f"{total_loss / max(1, total_batches):.4f}")
+        iterator.set_postfix(loss=f"{total_loss / max(1, total_batches):.4f}", step=global_step)
     arrays = merge_arrays(chunks)
     metrics = arrays_to_summary(arrays)
     metrics.update(
@@ -477,14 +572,15 @@ def train_epoch(
             "force_loss": total_force_loss / max(1, total_batches),
             "slip_loss": total_slip_loss / max(1, total_batches),
             "batches": total_batches,
+            "global_step": int(global_step),
         }
     )
-    return metrics
+    return metrics, global_step
 
 
 @torch.no_grad()
 def evaluate_b_model(
-    model: FrozenEncoderSharedForceSlip,
+    model: nn.Module,
     names: list[str],
     device: torch.device,
     slip_horizon: int,
@@ -514,21 +610,22 @@ def evaluate_b_model(
 
 def save_b_checkpoint(
     path: Path,
-    model: FrozenEncoderSharedForceSlip,
+    model: nn.Module,
     optimizer: torch.optim.Optimizer | None,
     epoch: int,
     cfg: TrainConfig,
     metrics: dict[str, Any] | None = None,
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    core_model = unwrap_model(model)
     payload = {
-        "format": "phase2_b_shared_multitask_v1",
+        "format": f"phase2_b_{cfg.decoder_variant}_multitask_v1",
         "epoch": int(epoch),
         "train_config": asdict(cfg),
-        "model_state": model.state_dict(),
+        "model_state": core_model.state_dict(),
         "optimizer_state": optimizer.state_dict() if optimizer is not None else None,
         "metrics": metrics or {},
-        "encoder_load_info": model.load_info,
+        "encoder_load_info": core_model.load_info,
         "saved_at": datetime.now().isoformat(timespec="seconds"),
     }
     torch.save(payload, path)
@@ -538,15 +635,18 @@ def load_b_checkpoint(path: Path, device: torch.device) -> tuple[FrozenEncoderSh
     payload = torch.load(path, map_location="cpu", weights_only=False)
     cfg_dict = payload.get("train_config", {})
     encoder = cfg_dict.get("encoder", payload.get("encoder", "dinov2"))
-    model = FrozenEncoderSharedForceSlip(encoder)
+    decoder_variant = cfg_dict.get("decoder_variant", "shared")
+    model = FrozenEncoderSharedForceSlip(encoder, decoder_variant=decoder_variant)
     model.load_state_dict(payload["model_state"], strict=True)
     model.to(device)
     model.eval()
     return model, payload
 
 
-def log_wandb(prefix: str, metrics: dict[str, Any], epoch: int) -> None:
-    flat = {"epoch": epoch}
+def log_wandb(prefix: str, metrics: dict[str, Any], global_step: int, epoch: int | None = None) -> None:
+    flat = {"global_step": int(global_step)}
+    if epoch is not None:
+        flat[f"{prefix}/epoch_index"] = int(epoch)
     for key, value in metrics.items():
         if isinstance(value, (int, float, np.integer, np.floating)) and not isinstance(value, bool):
             flat[f"{prefix}/{key}"] = float(value)
@@ -557,7 +657,7 @@ def log_wandb(prefix: str, metrics: dict[str, Any], epoch: int) -> None:
         elif key == "force_derived_rmse_N":
             for dkey, dval in value.items():
                 flat[f"{prefix}/rmse_{dkey}"] = float(dval)
-    wandb.log(flat)
+    wandb.log(flat, step=global_step)
 
 
 def command_train(args: argparse.Namespace) -> None:
@@ -576,19 +676,25 @@ def command_train(args: argparse.Namespace) -> None:
         train_batches_limit=args.limit_train_batches,
         val_batches_limit=args.limit_val_batches,
         wandb_mode=args.wandb_mode,
+        decoder_variant=args.decoder_variant,
+        log_every_steps=args.log_every_steps,
+        data_parallel=args.data_parallel,
     )
     set_seed(cfg.seed)
     device = get_device()
-    run_dir = PHASE2_ROOT / cfg.run_id / f"{cfg.encoder}_shared_multitask"
+    run_dir = PHASE2_ROOT / cfg.run_id / decoder_run_suffix(cfg.encoder, cfg.decoder_variant)
     ckpt_dir = run_dir / "checkpoints"
     run_dir.mkdir(parents=True, exist_ok=True)
     write_json(run_dir / "train_config.json", asdict(cfg))
 
     train_loader = make_loader(TRAIN_DATASETS, cfg.slip_horizon, cfg.batch_size, cfg.num_workers, shuffle=True, drop_last=True)
-    model = FrozenEncoderSharedForceSlip(cfg.encoder).to(device)
+    model: nn.Module = FrozenEncoderSharedForceSlip(cfg.encoder, decoder_variant=cfg.decoder_variant).to(device)
+    if cfg.data_parallel and torch.cuda.device_count() > 1:
+        model = nn.DataParallel(model)
+        print(f"[phase2-B] using DataParallel over {torch.cuda.device_count()} visible GPUs", flush=True)
     optimizer = torch.optim.Adam([p for p in model.parameters() if p.requires_grad], lr=cfg.lr)
 
-    wandb_name = os.environ.get("WANDB_NAME", f"{cfg.run_id}_{cfg.encoder}_b_shared_multitask")
+    wandb_name = os.environ.get("WANDB_NAME", f"{cfg.run_id}_{cfg.encoder}_b_{cfg.decoder_variant}_multitask")
     os.environ["WANDB_MODE"] = cfg.wandb_mode
     wb = wandb.init(
         project=cfg.wandb_project,
@@ -597,8 +703,11 @@ def command_train(args: argparse.Namespace) -> None:
         id=wandb_name,
         name=wandb_name,
         group=cfg.wandb_group,
-        tags=["sparsh", "tactile_grasp", "force-slip", "phase2", "B", cfg.encoder, "shared-multitask"],
-        notes="Phase2-B shared pooler/trunk multitask decoder: force + slip, frozen Sparsh encoder, no consistency loss.",
+        tags=["sparsh", "tactile_grasp", "force-slip", "phase2", "B", cfg.encoder, cfg.decoder_variant, "multitask"],
+        notes=(
+            "Phase2-B multitask decoder: force + slip, frozen Sparsh encoder, "
+            f"decoder_variant={cfg.decoder_variant}, no consistency loss."
+        ),
         config={
             **asdict(cfg),
             "phase1_run_id": PHASE1_RUN_ID,
@@ -606,20 +715,26 @@ def command_train(args: argparse.Namespace) -> None:
             "train_datasets": TRAIN_DATASETS,
             "val_datasets": VAL_DATASETS,
             "code_workspace": str(WORKSPACE),
+            "visible_cuda_devices": os.environ.get("CUDA_VISIBLE_DEVICES", "all"),
         },
     )
+    wandb.define_metric("global_step")
+    wandb.define_metric("train_step/*", step_metric="global_step")
+    wandb.define_metric("train/*", step_metric="global_step")
+    wandb.define_metric("val/*", step_metric="global_step")
 
     history: list[dict[str, Any]] = []
+    global_step = 0
     best_f1 = -math.inf
     best_epoch = -1
     start = time.time()
     final_val: dict[str, Any] | None = None
     try:
         for epoch in range(1, cfg.max_epochs + 1):
-            print(f"[phase2-B] encoder={cfg.encoder} epoch={epoch}/{cfg.max_epochs}", flush=True)
-            train_metrics = train_epoch(model, train_loader, optimizer, device, cfg)
-            log_wandb("train", train_metrics, epoch)
-            record = {"epoch": epoch, "train": train_metrics}
+            print(f"[phase2-B] encoder={cfg.encoder} variant={cfg.decoder_variant} epoch={epoch}/{cfg.max_epochs}", flush=True)
+            train_metrics, global_step = train_epoch(model, train_loader, optimizer, device, cfg, epoch, global_step)
+            log_wandb("train", train_metrics, global_step, epoch)
+            record = {"epoch": epoch, "global_step": global_step, "train": train_metrics}
             should_val = epoch == cfg.max_epochs or epoch % cfg.validation_frequency == 0
             if should_val:
                 val_metrics = evaluate_b_model(
@@ -633,14 +748,14 @@ def command_train(args: argparse.Namespace) -> None:
                     limit_batches=cfg.val_batches_limit,
                 )["aggregate"]
                 final_val = val_metrics
-                log_wandb("val", val_metrics, epoch)
+                log_wandb("val", val_metrics, global_step, epoch)
                 record["val"] = val_metrics
                 composite = val_metrics["slip_f1"] - max(0.0, val_metrics["force_rmse_mean_N"])
                 if val_metrics["slip_f1"] > best_f1:
                     best_f1 = val_metrics["slip_f1"]
                     best_epoch = epoch
                     save_b_checkpoint(ckpt_dir / "best_f1.pth", model, optimizer, epoch, cfg, val_metrics)
-                wandb.log({"val/composite_f1_minus_force_rmse": composite, "epoch": epoch})
+                wandb.log({"global_step": int(global_step), "val/composite_f1_minus_force_rmse": composite}, step=global_step)
                 save_b_checkpoint(ckpt_dir / f"epoch-{epoch:04d}.pth", model, optimizer, epoch, cfg, val_metrics)
             save_b_checkpoint(ckpt_dir / "latest.pth", model, optimizer, epoch, cfg, record.get("val"))
             history.append(record)
@@ -662,12 +777,14 @@ def command_train(args: argparse.Namespace) -> None:
         summary = {
             "run_id": cfg.run_id,
             "encoder": cfg.encoder,
+            "decoder_variant": cfg.decoder_variant,
             "status": "completed",
             "run_dir": str(run_dir),
             "final_checkpoint": str(final_ckpt),
             "best_f1_checkpoint": str(ckpt_dir / "best_f1.pth"),
             "best_f1_epoch": best_epoch,
             "wall_time_seconds": time.time() - start,
+            "global_step": int(global_step),
             "final_val": final_eval["aggregate"],
             "wandb_name": wandb_name,
             "wandb_url": wb.url,
@@ -815,6 +932,98 @@ def evaluate_a_models(encoder: str, reference: dict[str, Any], batch_size: int, 
     }
 
 
+def select_b_checkpoint_for_gate(
+    run_id: str,
+    encoder: str,
+    decoder_variant: str,
+    a_eval: dict[str, Any],
+) -> dict[str, Any]:
+    """Select a validation checkpoint by B gate first, then slip F1.
+
+    This avoids declaring B failed only because the highest-F1 checkpoint
+    sacrifices force RMSE, while still using train/val data only.
+    """
+    run_dir = PHASE2_ROOT / run_id / decoder_run_suffix(encoder, decoder_variant)
+    history_path = run_dir / "history.json"
+    if not history_path.exists():
+        fallback = run_dir / "checkpoints/best_f1.pth"
+        return {
+            "policy": "fallback_best_f1_no_history",
+            "run_dir": str(run_dir),
+            "checkpoint": str(fallback),
+            "epoch": None,
+            "gate_from_history": None,
+            "candidates": [],
+        }
+    history = json.loads(history_path.read_text(encoding="utf-8"))
+    candidates: list[dict[str, Any]] = []
+    for record in history:
+        val = record.get("val")
+        if not val:
+            continue
+        epoch = int(record["epoch"])
+        ckpt = run_dir / "checkpoints" / f"epoch-{epoch:04d}.pth"
+        if not ckpt.exists():
+            continue
+        gate = gate_status(a_eval, {"aggregate": val})
+        candidates.append(
+            {
+                "epoch": epoch,
+                "global_step": record.get("global_step"),
+                "checkpoint": str(ckpt),
+                "force_rmse_mean_N": val.get("force_rmse_mean_N"),
+                "slip_f1": val.get("slip_f1"),
+                "slip_recall": val.get("slip_recall"),
+                "gate": gate,
+            }
+        )
+    if not candidates:
+        fallback = run_dir / "checkpoints/best_f1.pth"
+        return {
+            "policy": "fallback_best_f1_no_val_candidates",
+            "run_dir": str(run_dir),
+            "checkpoint": str(fallback),
+            "epoch": None,
+            "gate_from_history": None,
+            "candidates": [],
+        }
+    feasible = [c for c in candidates if c["gate"]["status"] != "hard_fail"]
+    if feasible:
+        selected = sorted(
+            feasible,
+            key=lambda c: (
+                float(c["slip_f1"]),
+                -float(c["gate"]["force_rmse_increase_pct"]),
+                int(c["epoch"]),
+            ),
+            reverse=True,
+        )[0]
+        policy = "gate_feasible_then_best_slip_f1"
+    else:
+        selected = sorted(
+            candidates,
+            key=lambda c: (
+                float(c["gate"]["force_rmse_increase_pct"]),
+                -float(c["gate"]["slip_f1_drop_pp"]),
+                -float(c["slip_f1"]),
+            ),
+        )[0]
+        policy = "no_gate_feasible_choose_lowest_force_hard_fail"
+    selection = {
+        "policy": policy,
+        "run_dir": str(run_dir),
+        "checkpoint": selected["checkpoint"],
+        "epoch": selected["epoch"],
+        "global_step": selected.get("global_step"),
+        "gate_from_history": selected["gate"],
+        "candidate_count": len(candidates),
+        "feasible_count": len(feasible),
+        "candidates": candidates,
+    }
+    write_json(REPORT_ROOT / run_id / f"checkpoint_selection_{encoder}_{decoder_variant}.json", selection)
+    return selection
+
+
 @torch.no_grad()
 def evaluate_b_checkpoint_for_report(
     run_id: str,
@@ -822,31 +1031,33 @@ def evaluate_b_checkpoint_for_report(
     reference: dict[str, Any],
     batch_size: int,
     num_workers: int,
+    decoder_variant: str = "shared",
+    checkpoint_path: str | Path | None = None,
 ) -> dict[str, Any]:
     device = get_device()
-    run_dir = PHASE2_ROOT / run_id / f"{encoder}_shared_multitask"
-    # Step2 is a train/val diagnostic stage, so use the validation-selected B checkpoint
-    # for A/B gate decisions. Keep epoch-0051/final checkpoints in the run directory for
-    # traceability, but avoid making C eligibility depend on a potentially overfit final epoch.
-    ckpt = run_dir / "checkpoints/best_f1.pth"
-    if not ckpt.exists():
-        ckpt = run_dir / "checkpoints/epoch-0051.pth"
-    if not ckpt.exists():
-        # Allow shorter smoke runs to be evaluated if requested.
-        ckpts = sorted((run_dir / "checkpoints").glob("epoch-*.pth"))
-        if not ckpts:
-            raise FileNotFoundError(ckpt)
-        ckpt = ckpts[-1]
+    run_dir = PHASE2_ROOT / run_id / decoder_run_suffix(encoder, decoder_variant)
+    if checkpoint_path is not None:
+        ckpt = Path(checkpoint_path)
+    else:
+        ckpt = run_dir / "checkpoints/best_f1.pth"
+        if not ckpt.exists():
+            ckpt = run_dir / "checkpoints/epoch-0051.pth"
+        if not ckpt.exists():
+            ckpts = sorted((run_dir / "checkpoints").glob("epoch-*.pth"))
+            if not ckpts:
+                raise FileNotFoundError(f"No B checkpoints found under {run_dir / 'checkpoints'}")
+            ckpt = ckpts[-1]
     model, payload = load_b_checkpoint(ckpt, device)
-    eval_res = evaluate_b_model(model, VAL_DATASETS, device, payload["train_config"].get("slip_horizon", 0), batch_size, num_workers, reference=reference)
-    return {
-        "encoder": encoder,
-        "train_data": "B shared multitask all-source",
-        "run_dir": str(run_dir),
-        "checkpoint": str(ckpt),
-        "aggregate": eval_res["aggregate"],
-        "per_dataset": eval_res["per_dataset"],
-    }
+    eval_payload = evaluate_b_model(model, VAL_DATASETS, device, 0, batch_size, num_workers, reference=reference)
+    eval_payload.update(
+        {
+            "run_dir": str(run_dir),
+            "checkpoint": str(ckpt),
+            "checkpoint_epoch": payload.get("epoch"),
+            "train_config": payload.get("train_config", {}),
+        }
+    )
+    return eval_payload
 
 
 def gate_status(a: dict[str, Any], b: dict[str, Any]) -> dict[str, Any]:
@@ -1003,6 +1214,7 @@ def render_sweep_plan(reference: dict[str, Any], run_id: str) -> str:
 def command_report(args: argparse.Namespace) -> None:
     run_id = args.run_id
     encoders = args.encoders
+    decoder_variant = args.decoder_variant
     set_seed(args.seed)
     report_dir = REPORT_ROOT / run_id
     report_dir.mkdir(parents=True, exist_ok=True)
@@ -1019,7 +1231,7 @@ def command_report(args: argparse.Namespace) -> None:
     cache_dir.mkdir(parents=True, exist_ok=True)
     for enc in encoders:
         a_cache = cache_dir / f"a_{enc}_allsource_val.json"
-        b_cache = cache_dir / f"b_{enc}_allsource_val.json"
+        b_cache = cache_dir / f"b_{enc}_{decoder_variant}_allsource_val.json"
         if a_cache.exists() and not args.refresh_eval:
             a_eval = json.loads(a_cache.read_text(encoding="utf-8"))
         else:
@@ -1028,7 +1240,17 @@ def command_report(args: argparse.Namespace) -> None:
         if b_cache.exists() and not args.refresh_eval:
             b_eval = json.loads(b_cache.read_text(encoding="utf-8"))
         else:
-            b_eval = evaluate_b_checkpoint_for_report(run_id, enc, reference, args.batch_size, args.num_workers)
+            selection = select_b_checkpoint_for_gate(run_id, enc, decoder_variant, a_eval)
+            b_eval = evaluate_b_checkpoint_for_report(
+                run_id,
+                enc,
+                reference,
+                args.batch_size,
+                args.num_workers,
+                decoder_variant=decoder_variant,
+                checkpoint_path=selection.get("checkpoint"),
+            )
+            b_eval["checkpoint_selection"] = selection
             write_json(b_cache, b_eval)
         a_evals[enc] = a_eval
         b_evals[enc] = b_eval
@@ -1057,6 +1279,7 @@ def command_report(args: argparse.Namespace) -> None:
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "run_id": run_id,
         "phase1_run_id": PHASE1_RUN_ID,
+        "decoder_variant": decoder_variant,
         "derived_root": str(DERIVED_ROOT),
         "encoders": encoders,
         "a_evaluations": a_evals,
@@ -1073,7 +1296,18 @@ def command_report(args: argparse.Namespace) -> None:
     md_path.write_text(render_report(report), encoding="utf-8")
     current = REPORT_ROOT / "current_phase2_b.md"
     current.write_text(
-        f"# Current Phase2-B\n\n- run_id: `{run_id}`\n- report: `{md_path}`\n- C sweep plan: `{sweep_md}`\n- generated_at: `{report['generated_at']}`\n",
+        "\n".join(
+            [
+                "# Current Phase2-B",
+                "",
+                f"- run_id: `{run_id}`",
+                f"- decoder_variant: `{decoder_variant}`",
+                f"- report: `{md_path}`",
+                f"- C sweep plan: `{sweep_md}`",
+                f"- generated_at: `{report['generated_at']}`",
+            ]
+        )
+        + "\n",
         encoding="utf-8",
     )
     print(json.dumps({"report": str(md_path), "json": str(json_path), "conclusion": conclusion}, indent=2), flush=True)
@@ -1089,6 +1323,9 @@ def command_smoke(args: argparse.Namespace) -> None:
         train_batches_limit=1,
         val_batches_limit=1,
         wandb_mode="disabled",
+        decoder_variant=args.decoder_variant,
+        data_parallel=args.data_parallel,
+        log_every_steps=1,
     )
     args_train = argparse.Namespace(
         encoder=cfg.encoder,
@@ -1105,6 +1342,9 @@ def command_smoke(args: argparse.Namespace) -> None:
         limit_train_batches=1,
         limit_val_batches=1,
         wandb_mode="disabled",
+        decoder_variant=cfg.decoder_variant,
+        log_every_steps=cfg.log_every_steps,
+        data_parallel=cfg.data_parallel,
     )
     command_train(args_train)
 
@@ -1128,6 +1368,9 @@ def build_parser() -> argparse.ArgumentParser:
     train.add_argument("--limit-train-batches", type=int, default=None)
     train.add_argument("--limit-val-batches", type=int, default=None)
     train.add_argument("--wandb-mode", choices=["online", "offline", "disabled"], default=os.environ.get("WANDB_MODE", "online"))
+    train.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
+    train.add_argument("--log-every-steps", type=int, default=50)
+    train.add_argument("--data-parallel", action="store_true")
     train.set_defaults(func=command_train)
 
     report = sub.add_parser("report", help="Evaluate A/B and write Step2 diagnostics/sweep plan")
@@ -1139,6 +1382,7 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--seed", type=int, default=42)
     report.add_argument("--refresh-eval", action="store_true")
     report.add_argument("--refresh-reference", action="store_true")
+    report.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
     report.set_defaults(func=command_report)
 
     smoke = sub.add_parser("smoke", help="One-batch smoke train/eval without W&B upload")
@@ -1146,6 +1390,8 @@ def build_parser() -> argparse.ArgumentParser:
     smoke.add_argument("--run-id", default=None)
     smoke.add_argument("--batch-size", type=int, default=8)
     smoke.add_argument("--num-workers", type=int, default=0)
+    smoke.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
+    smoke.add_argument("--data-parallel", action="store_true")
     smoke.set_defaults(func=command_smoke)
     return parser
 
