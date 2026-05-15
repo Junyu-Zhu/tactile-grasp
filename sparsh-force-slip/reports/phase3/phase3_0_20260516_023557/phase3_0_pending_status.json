@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-16T02:55:14",
+  "stamp": "20260516_023557",
+  "status": "pending",
+  "missing": [
+    "force-only summary missing: mae /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/mae_partially_shared_multitask/training_summary.json",
+    "force-only summary missing: dino /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json",
+    "force-only summary missing: dinov2 /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/dinov2_partially_shared_multitask/training_summary.json",
+    "force-only summary missing: ijepa /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/ijepa_partially_shared_multitask/training_summary.json",
+    "force-only summary missing: vjepa /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/vjepa_partially_shared_multitask/training_summary.json",
+    "DINO B lambda=0.25 summary missing: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json",
+    "DINO B lambda=0.50 summary missing: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json",
+    "DINO A force experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_force' under /vla1/zjy/sparsh_runs/experiments",
+    "DINO A slip experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_slip_allsource' under /vla1/zjy/sparsh_runs/experiments"
+  ]
+}
