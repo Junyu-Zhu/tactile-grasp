@@ -81,6 +81,7 @@ VAL_DATASETS = [
 ]
 
 ENCODER_CHECKPOINTS = {
+    "dino": Path("/vla1/zjy/sparsh_models/sparsh-dino-base/dino_vitbase.ckpt"),
     "dinov2": Path("/vla1/zjy/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.ckpt"),
     "mae": Path("/vla1/zjy/sparsh_models/sparsh-mae-base/mae_vitbase.ckpt"),
     "ijepa": Path("/vla1/zjy/sparsh_models/sparsh-ijepa-base/ijepa_vitbase.ckpt"),
@@ -88,12 +89,16 @@ ENCODER_CHECKPOINTS = {
 }
 
 A_FORCE_EXPS = {
+    # DINO Phase3-A experiments are created after this script revision; resolve latest matching dir.
+    "dino": "latest:phase3_0_dino_a_*_dino_force",
     "dinov2": "2026.05.12_04-39_phase1_gsmini_20260512_043331_dinov2_force_gsmini_20260512_043652",
     "mae": "2026.05.12_04-39_phase1_gsmini_20260512_043331_mae_force_gsmini_20260512_043652",
     "ijepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_ijepa_force",
     "vjepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_vjepa_force",
 }
 A_SLIP_EXPS = {
+    # DINO Phase3-A all-source slip baseline; resolve latest matching dir.
+    "dino": "latest:phase3_0_dino_a_*_dino_slip_allsource",
     "dinov2": "2026.05.13_01-21_phase1_gsmini_20260512_043331_dinov2_slip_allsource_diag_gsmini_20260513_012000",
     "mae": "2026.05.13_01-21_phase1_gsmini_20260512_043331_mae_slip_allsource_diag_gsmini_20260513_012000",
     "ijepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_ijepa_slip",
@@ -104,6 +109,7 @@ DEFAULT_MAX_ABS_FORCE = [1.5, 1.5, 2.0]
 DEFAULT_MAX_DELTA_FORCE = [0.80, 0.80, 0.40]
 
 ENCODER_INPUT_CONFIGS = {
+    "dino": {"out_format": "concat_ch_img", "num_frames": 2, "frame_stride": 5, "in_chans": 6, "model_kwargs": {}},
     "dinov2": {"out_format": "concat_ch_img", "num_frames": 2, "frame_stride": 5, "in_chans": 6, "model_kwargs": {}},
     "mae": {"out_format": "concat_ch_img", "num_frames": 2, "frame_stride": 5, "in_chans": 6, "model_kwargs": {}},
     "ijepa": {"out_format": "concat_ch_img", "num_frames": 2, "frame_stride": 5, "in_chans": 6, "model_kwargs": {}},
@@ -161,6 +167,25 @@ def json_default(obj: Any) -> Any:
     if isinstance(obj, torch.Tensor):
         return obj.detach().cpu().tolist()
     return str(obj)
+
+
+def resolve_experiment_dir(spec: str) -> Path:
+    """Resolve a Sparsh downstream experiment directory.
+
+    Existing Phase1/2 baselines store fixed relative directory names. Phase3 DINO
+    baselines are launched with timestamped Hydra experiment folders, so specs of
+    the form ``latest:<glob>`` select the newest matching directory under EXP_ROOT.
+    """
+    if spec.startswith("latest:"):
+        pattern = spec.split(":", 1)[1]
+        matches = sorted([path for path in EXP_ROOT.glob(pattern) if path.is_dir()], key=lambda path: path.stat().st_mtime)
+        if not matches:
+            raise FileNotFoundError(f"No experiment directory matching {pattern!r} under {EXP_ROOT}")
+        return matches[-1]
+    path = EXP_ROOT / spec
+    if not path.exists():
+        raise FileNotFoundError(path)
+    return path
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -1046,8 +1071,8 @@ def collect_force_ratio_reference(slip_horizon: int = 0) -> dict[str, Any]:
 @torch.no_grad()
 def evaluate_a_models(encoder: str, reference: dict[str, Any], batch_size: int, num_workers: int) -> dict[str, Any]:
     device = get_device()
-    force_exp = EXP_ROOT / A_FORCE_EXPS[encoder]
-    slip_exp = EXP_ROOT / A_SLIP_EXPS[encoder]
+    force_exp = resolve_experiment_dir(A_FORCE_EXPS[encoder])
+    slip_exp = resolve_experiment_dir(A_SLIP_EXPS[encoder])
     force_ckpt = force_exp / "checkpoints/epoch-0051.pth"
     slip_ckpt = slip_exp / "checkpoints/epoch-0051.pth"
     if not force_ckpt.exists():
@@ -1834,6 +1859,7 @@ def build_parser() -> argparse.ArgumentParser:
     report_c = sub.add_parser("report-c", help="Evaluate C consistency decoder against selected A/B baselines", prefix_chars="-+")
     report_c.add_argument("--c-run-id", required=True)
     report_c.add_argument("--b-run-id", required=True)
+    report_c.add_argument("--b-run-id-dino", default=None)
     report_c.add_argument("--b-run-id-dinov2", default=None)
     report_c.add_argument("--b-run-id-mae", default=None)
     report_c.add_argument("--b-run-id-ijepa", default=None)
