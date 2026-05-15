@@ -1,0 +1,70 @@
+{
+  "launch_id": "phase2_b_jepa_ps_gsmini_20260515_075611",
+  "created_at": "2026-05-15T07:56:11",
+  "repo": "/home/zjy/document/tactile-grasp",
+  "branch": "sparsh-force-slip",
+  "script": "/home/zjy/document/tactile-grasp/sparsh-force-slip/scripts/phase2_b_multitask.py",
+  "run_ids": {
+    "0.25": "phase2_b_jepa_lam025_gsmini_20260515_075611",
+    "0.50": "phase2_b_jepa_lam050_gsmini_20260515_075611"
+  },
+  "derived_root": "/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini",
+  "max_concurrent_trainings": 4,
+  "single_gpu_constraint": "Each run uses CUDA_VISIBLE_DEVICES=<one gpu> and +trainer.devices=1; no --data-parallel.",
+  "gpu_snapshot_before_launch": "0, NVIDIA GeForce RTX 4090, 3676 MiB, 49140 MiB, 0 %\n1, NVIDIA GeForce RTX 4090, 3636 MiB, 49140 MiB, 33 %\n2, NVIDIA GeForce RTX 4090, 3640 MiB, 49140 MiB, 6 %\n3, NVIDIA GeForce RTX 4090, 3639 MiB, 49140 MiB, 67 %\n",
+  "nvidia_smi_before_launch": "Fri May 15 07:56:11 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.4     |\n|-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 4090        On  |   00000000:81:00.0 Off |                  Off |\n| 30%   45C    P0             92W /  450W |    3676MiB /  49140MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n|   1  NVIDIA GeForce RTX 4090        On  |   00000000:A1:00.0 Off |                  Off |\n| 47%   44C    P0             98W /  450W |    3636MiB /  49140MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n|   2  NVIDIA GeForce RTX 4090        On  |   00000000:C1:00.0 Off |                  Off |\n| 30%   48C    P0             79W /  450W |    3640MiB /  49140MiB |      6%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n|   3  NVIDIA GeForce RTX 4090        On  |   00000000:E1:00.0 Off |                  Off |\n| 30%   43C    P0            102W /  450W |    3639MiB /  49140MiB |     67%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n                                                                                         \n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A     17496      G   /usr/lib/xorg/Xorg                             29MiB |\n|    0   N/A  N/A     17591      G   /usr/bin/gnome-shell                           12MiB |\n|    0   N/A  N/A    787748      C   ...forge3/envs/2026iros/bin/python3.10       3602MiB |\n|    1   N/A  N/A     17496      G   /usr/lib/xorg/Xorg                              4MiB |\n|    1   N/A  N/A    787749      C   ...forge3/envs/2026iros/bin/python3.10       3602MiB |\n|    2   N/A  N/A     17496      G   /usr/lib/xorg/Xorg                              4MiB |\n|    2   N/A  N/A    787750      C   ...forge3/envs/2026iros/bin/python3.10       3602MiB |\n|    3   N/A  N/A     17496      G   /usr/lib/xorg/Xorg                              4MiB |\n|    3   N/A  N/A    787751      C   ...forge3/envs/2026iros/bin/python3.10       3602MiB |\n+-----------------------------------------------------------------------------------------+\n",
+  "tasks": [
+    {
+      "encoder": "ijepa",
+      "lambda": "0.25",
+      "gpu": "0",
+      "session": "p2b_jepa_20260515_075611_ijepa_l025_g0",
+      "run_id": "phase2_b_jepa_lam025_gsmini_20260515_075611",
+      "wandb_name": "phase2_b_jepa_lam025_gsmini_20260515_075611_ijepa_partially_shared_lambda025",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_ijepa_lambda025_gpu0.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_b_jepa_ps_gsmini_20260515_075611/p2b_jepa_20260515_075611_ijepa_l025_g0.log",
+      "command": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_ijepa_lambda025_gpu0.sh",
+      "expected_run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam025_gsmini_20260515_075611/ijepa_partially_shared_multitask",
+      "expected_checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam025_gsmini_20260515_075611/ijepa_partially_shared_multitask/checkpoints/epoch-0051.pth"
+    },
+    {
+      "encoder": "ijepa",
+      "lambda": "0.50",
+      "gpu": "1",
+      "session": "p2b_jepa_20260515_075611_ijepa_l050_g1",
+      "run_id": "phase2_b_jepa_lam050_gsmini_20260515_075611",
+      "wandb_name": "phase2_b_jepa_lam050_gsmini_20260515_075611_ijepa_partially_shared_lambda050",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_ijepa_lambda050_gpu1.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_b_jepa_ps_gsmini_20260515_075611/p2b_jepa_20260515_075611_ijepa_l050_g1.log",
+      "command": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_ijepa_lambda050_gpu1.sh",
+      "expected_run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/ijepa_partially_shared_multitask",
+      "expected_checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/ijepa_partially_shared_multitask/checkpoints/epoch-0051.pth"
+    },
+    {
+      "encoder": "vjepa",
+      "lambda": "0.25",
+      "gpu": "2",
+      "session": "p2b_jepa_20260515_075611_vjepa_l025_g2",
+      "run_id": "phase2_b_jepa_lam025_gsmini_20260515_075611",
+      "wandb_name": "phase2_b_jepa_lam025_gsmini_20260515_075611_vjepa_partially_shared_lambda025",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_vjepa_lambda025_gpu2.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_b_jepa_ps_gsmini_20260515_075611/p2b_jepa_20260515_075611_vjepa_l025_g2.log",
+      "command": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_vjepa_lambda025_gpu2.sh",
+      "expected_run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam025_gsmini_20260515_075611/vjepa_partially_shared_multitask",
+      "expected_checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam025_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0051.pth"
+    },
+    {
+      "encoder": "vjepa",
+      "lambda": "0.50",
+      "gpu": "3",
+      "session": "p2b_jepa_20260515_075611_vjepa_l050_g3",
+      "run_id": "phase2_b_jepa_lam050_gsmini_20260515_075611",
+      "wandb_name": "phase2_b_jepa_lam050_gsmini_20260515_075611_vjepa_partially_shared_lambda050",
+      "runbook": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_vjepa_lambda050_gpu3.sh",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase2/phase2_b_jepa_ps_gsmini_20260515_075611/p2b_jepa_20260515_075611_vjepa_l050_g3.log",
+      "command": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase2_b_jepa_ps_gsmini_20260515_075611/run_vjepa_lambda050_gpu3.sh",
+      "expected_run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask",
+      "expected_checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0051.pth"
+    }
+  ]
+}

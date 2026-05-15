@@ -83,19 +83,38 @@ VAL_DATASETS = [
 ENCODER_CHECKPOINTS = {
     "dinov2": Path("/vla1/zjy/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.ckpt"),
     "mae": Path("/vla1/zjy/sparsh_models/sparsh-mae-base/mae_vitbase.ckpt"),
+    "ijepa": Path("/vla1/zjy/sparsh_models/sparsh-ijepa-base/ijepa_vitbase.ckpt"),
+    "vjepa": Path("/vla1/zjy/sparsh_models/sparsh-vjepa-base/vjepa_vitbase.ckpt"),
 }
 
 A_FORCE_EXPS = {
     "dinov2": "2026.05.12_04-39_phase1_gsmini_20260512_043331_dinov2_force_gsmini_20260512_043652",
     "mae": "2026.05.12_04-39_phase1_gsmini_20260512_043331_mae_force_gsmini_20260512_043652",
+    "ijepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_ijepa_force",
+    "vjepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_vjepa_force",
 }
 A_SLIP_EXPS = {
     "dinov2": "2026.05.13_01-21_phase1_gsmini_20260512_043331_dinov2_slip_allsource_diag_gsmini_20260513_012000",
     "mae": "2026.05.13_01-21_phase1_gsmini_20260512_043331_mae_slip_allsource_diag_gsmini_20260513_012000",
+    "ijepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_ijepa_slip",
+    "vjepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_vjepa_slip",
 }
 
 DEFAULT_MAX_ABS_FORCE = [1.5, 1.5, 2.0]
 DEFAULT_MAX_DELTA_FORCE = [0.80, 0.80, 0.40]
+
+ENCODER_INPUT_CONFIGS = {
+    "dinov2": {"out_format": "concat_ch_img", "num_frames": 2, "frame_stride": 5, "in_chans": 6, "model_kwargs": {}},
+    "mae": {"out_format": "concat_ch_img", "num_frames": 2, "frame_stride": 5, "in_chans": 6, "model_kwargs": {}},
+    "ijepa": {"out_format": "concat_ch_img", "num_frames": 2, "frame_stride": 5, "in_chans": 6, "model_kwargs": {}},
+    "vjepa": {"out_format": "video", "num_frames": 4, "frame_stride": 2, "in_chans": 3, "model_kwargs": {"num_frames": 4}},
+}
+
+
+def encoder_input_config(encoder: str) -> dict[str, Any]:
+    if encoder not in ENCODER_INPUT_CONFIGS:
+        raise ValueError(f"Unknown encoder input config {encoder!r}; expected one of {sorted(ENCODER_INPUT_CONFIGS)}")
+    return ENCODER_INPUT_CONFIGS[encoder]
 
 
 @dataclass
@@ -121,6 +140,7 @@ class TrainConfig:
     decoder_variant: str = "shared"
     log_every_steps: int = 50
     data_parallel: bool = False
+    trainer_devices: str = "1"
     beta_consistency: float = 0.0
     consistency_alpha: float = 10.0
     consistency_tau: float | None = None
@@ -165,14 +185,15 @@ def get_device() -> torch.device:
     return torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def dataset_cfg(slip_horizon: int = 0) -> Any:
+def dataset_cfg(slip_horizon: int = 0, encoder: str = "dinov2") -> Any:
+    input_cfg = encoder_input_config(encoder)
     return OmegaConf.create(
         {
             "sensor": "gelsight",
             "remove_bg": True,
-            "out_format": "concat_ch_img",
-            "num_frames": 2,
-            "frame_stride": 5,
+            "out_format": input_cfg["out_format"],
+            "num_frames": input_cfg["num_frames"],
+            "frame_stride": input_cfg["frame_stride"],
             "path_dataset": str(DERIVED_ROOT),
             "look_in_folder": False,
             "slip_horizon": int(slip_horizon),
@@ -183,12 +204,12 @@ def dataset_cfg(slip_horizon: int = 0) -> Any:
     )
 
 
-def make_dataset(name: str, slip_horizon: int = 0) -> VisionForceSlipDataset:
-    return VisionForceSlipDataset(config=dataset_cfg(slip_horizon), dataset_name=name)
+def make_dataset(name: str, slip_horizon: int = 0, encoder: str = "dinov2") -> VisionForceSlipDataset:
+    return VisionForceSlipDataset(config=dataset_cfg(slip_horizon, encoder), dataset_name=name)
 
 
-def make_concat(names: Iterable[str], slip_horizon: int = 0) -> ConcatDataset:
-    return ConcatDataset([make_dataset(name, slip_horizon) for name in names])
+def make_concat(names: Iterable[str], slip_horizon: int = 0, encoder: str = "dinov2") -> ConcatDataset:
+    return ConcatDataset([make_dataset(name, slip_horizon, encoder) for name in names])
 
 
 def make_loader(
@@ -198,8 +219,9 @@ def make_loader(
     num_workers: int,
     shuffle: bool,
     drop_last: bool,
+    encoder: str = "dinov2",
 ) -> DataLoader:
-    dataset = make_concat(names, slip_horizon)
+    dataset = make_concat(names, slip_horizon, encoder)
     return DataLoader(
         dataset,
         batch_size=batch_size,
@@ -371,11 +393,13 @@ class FrozenEncoderSharedForceSlip(nn.Module):
             raise ValueError(f"Unknown encoder {encoder_name}; expected one of {sorted(ENCODER_CHECKPOINTS)}")
         self.encoder_name = encoder_name
         self.decoder_variant = decoder_variant
+        input_cfg = encoder_input_config(encoder_name)
         self.encoder = vit_base(
             img_size=[320, 240],
-            in_chans=6,
+            in_chans=input_cfg["in_chans"],
             pos_embed_fn="sinusoidal",
             num_register_tokens=1,
+            **input_cfg["model_kwargs"],
         )
         self.load_info = load_encoder_weights(self.encoder, ENCODER_CHECKPOINTS[encoder_name], encoder_name)
         self.encoder.requires_grad_(False)
@@ -691,10 +715,11 @@ def evaluate_b_model(
     limit_batches: int | None = None,
 ) -> dict[str, Any]:
     model.eval()
+    encoder_name = getattr(unwrap_model(model), "encoder_name", "dinov2")
     chunks_all: list[dict[str, np.ndarray]] = []
     per_dataset: dict[str, Any] = {}
     for name in names:
-        loader = make_loader([name], slip_horizon, batch_size, num_workers, shuffle=False, drop_last=False)
+        loader = make_loader([name], slip_horizon, batch_size, num_workers, shuffle=False, drop_last=False, encoder=encoder_name)
         chunks: list[dict[str, np.ndarray]] = []
         for batch_idx, batch in enumerate(tqdm(loader, desc=f"eval:{name}", leave=False)):
             if limit_batches is not None and batch_idx >= limit_batches:
@@ -784,12 +809,15 @@ def command_train(args: argparse.Namespace) -> None:
         decoder_variant=args.decoder_variant,
         log_every_steps=args.log_every_steps,
         data_parallel=args.data_parallel,
+        trainer_devices=str(getattr(args, "trainer_devices", "1")),
         beta_consistency=beta_consistency,
         consistency_alpha=args.consistency_alpha,
         consistency_tau=args.consistency_tau,
         consistency_tau_source=args.consistency_tau_source,
         consistency_detach_q=args.consistency_detach_q,
     )
+    if cfg.trainer_devices != "1":
+        raise ValueError("phase2_b_multitask.py is a custom single-process trainer; use +trainer.devices=1 with CUDA_VISIBLE_DEVICES=<single_gpu>.")
     if consistency_enabled(cfg):
         cfg.wandb_group = "phase2_c_consistency_multitask"
     stage = "C" if consistency_enabled(cfg) else "B"
@@ -801,7 +829,15 @@ def command_train(args: argparse.Namespace) -> None:
     run_dir.mkdir(parents=True, exist_ok=True)
     write_json(run_dir / "train_config.json", asdict(cfg))
 
-    train_loader = make_loader(TRAIN_DATASETS, cfg.slip_horizon, cfg.batch_size, cfg.num_workers, shuffle=True, drop_last=True)
+    train_loader = make_loader(
+        TRAIN_DATASETS,
+        cfg.slip_horizon,
+        cfg.batch_size,
+        cfg.num_workers,
+        shuffle=True,
+        drop_last=True,
+        encoder=cfg.encoder,
+    )
     model: nn.Module = FrozenEncoderSharedForceSlip(cfg.encoder, decoder_variant=cfg.decoder_variant).to(device)
     if cfg.data_parallel and torch.cuda.device_count() > 1:
         model = nn.DataParallel(model)
@@ -1027,7 +1063,7 @@ def evaluate_a_models(encoder: str, reference: dict[str, Any], batch_size: int, 
     chunks_all: list[dict[str, np.ndarray]] = []
     per_dataset: dict[str, Any] = {}
     for name in VAL_DATASETS:
-        loader = make_loader([name], 0, batch_size, num_workers, shuffle=False, drop_last=False)
+        loader = make_loader([name], 0, batch_size, num_workers, shuffle=False, drop_last=False, encoder=encoder)
         chunks = []
         for batch in tqdm(loader, desc=f"eval-A-{encoder}:{name}", leave=False):
             x = batch["image"].to(device, non_blocking=True)
@@ -1742,6 +1778,7 @@ def command_smoke(args: argparse.Namespace) -> None:
         decoder_variant=cfg.decoder_variant,
         log_every_steps=cfg.log_every_steps,
         data_parallel=cfg.data_parallel,
+        trainer_devices="1",
         beta_consistency=0.05 if cfg.decoder_variant == "consistency" else 0.0,
         consistency_alpha=10.0,
         consistency_tau=None,
@@ -1752,10 +1789,10 @@ def command_smoke(args: argparse.Namespace) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, prefix_chars="-+")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    train = sub.add_parser("train", help="Train one Phase2-B/C multitask decoder")
+    train = sub.add_parser("train", help="Train one Phase2-B/C multitask decoder", prefix_chars="-+")
     train.add_argument("--encoder", choices=sorted(ENCODER_CHECKPOINTS), required=True)
     train.add_argument("--run-id", default=None)
     train.add_argument("--max-epochs", type=int, default=51)
@@ -1773,6 +1810,7 @@ def build_parser() -> argparse.ArgumentParser:
     train.add_argument("--decoder-variant", choices=["shared", "partially_shared", "consistency"], default="shared")
     train.add_argument("--log-every-steps", type=int, default=50)
     train.add_argument("--data-parallel", action="store_true")
+    train.add_argument("+trainer.devices", dest="trainer_devices", default="1", help="Compatibility marker for single-GPU launch; must remain 1.")
     train.add_argument("--beta-consistency", type=float, default=None)
     train.add_argument("--consistency-alpha", type=float, default=10.0)
     train.add_argument("--consistency-tau", type=float, default=None)
@@ -1781,7 +1819,7 @@ def build_parser() -> argparse.ArgumentParser:
     train.add_argument("--no-consistency-detach-q", dest="consistency_detach_q", action="store_false")
     train.set_defaults(func=command_train)
 
-    report = sub.add_parser("report", help="Evaluate A/B and write Step2 diagnostics/sweep plan")
+    report = sub.add_parser("report", help="Evaluate A/B and write Step2 diagnostics/sweep plan", prefix_chars="-+")
     report.add_argument("--run-id", required=True)
     report.add_argument("--encoders", nargs="+", choices=sorted(ENCODER_CHECKPOINTS), default=["dinov2", "mae"])
     report.add_argument("--batch-size", type=int, default=100)
@@ -1793,11 +1831,13 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
     report.set_defaults(func=command_report)
 
-    report_c = sub.add_parser("report-c", help="Evaluate C consistency decoder against selected A/B baselines")
+    report_c = sub.add_parser("report-c", help="Evaluate C consistency decoder against selected A/B baselines", prefix_chars="-+")
     report_c.add_argument("--c-run-id", required=True)
     report_c.add_argument("--b-run-id", required=True)
     report_c.add_argument("--b-run-id-dinov2", default=None)
     report_c.add_argument("--b-run-id-mae", default=None)
+    report_c.add_argument("--b-run-id-ijepa", default=None)
+    report_c.add_argument("--b-run-id-vjepa", default=None)
     report_c.add_argument("--reference-run-id", default=None)
     report_c.add_argument("--b-decoder-variant", choices=["shared", "partially_shared"], default="partially_shared")
     report_c.add_argument("--encoders", nargs="+", choices=sorted(ENCODER_CHECKPOINTS), default=["dinov2", "mae"])
@@ -1809,7 +1849,7 @@ def build_parser() -> argparse.ArgumentParser:
     report_c.add_argument("--refresh-reference", action="store_true")
     report_c.set_defaults(func=command_report_c)
 
-    smoke = sub.add_parser("smoke", help="One-batch smoke train/eval without W&B upload")
+    smoke = sub.add_parser("smoke", help="One-batch smoke train/eval without W&B upload", prefix_chars="-+")
     smoke.add_argument("--encoder", choices=sorted(ENCODER_CHECKPOINTS), default="dinov2")
     smoke.add_argument("--run-id", default=None)
     smoke.add_argument("--batch-size", type=int, default=8)

@@ -1,0 +1,255 @@
+{
+  "policy": "no_gate_feasible_choose_lowest_force_hard_fail",
+  "run_dir": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask",
+  "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0051.pth",
+  "epoch": 51,
+  "global_step": 34986,
+  "gate_from_history": {
+    "status": "hard_fail",
+    "force_rmse_mean_N_A": 0.046088505536317825,
+    "force_rmse_mean_N_B": 0.052816689014434814,
+    "force_rmse_increase_pct": 14.598398016649018,
+    "slip_f1_A": 0.9670865501828525,
+    "slip_f1_B": 0.9495163641181926,
+    "slip_f1_drop_pp": 1.7570186064659876,
+    "force_warning": false,
+    "slip_warning": true,
+    "force_hard_fail": true,
+    "slip_hard_fail": false
+  },
+  "candidate_count": 11,
+  "feasible_count": 0,
+  "candidates": [
+    {
+      "epoch": 5,
+      "global_step": 3430,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0005.pth",
+      "force_rmse_mean_N": 0.07743525505065918,
+      "slip_f1": 0.9467218587261317,
+      "slip_recall": 0.9627919608908202,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.07743525505065918,
+        "force_rmse_increase_pct": 68.01424595909292,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9467218587261317,
+        "slip_f1_drop_pp": 2.036469145672082,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": true
+      }
+    },
+    {
+      "epoch": 10,
+      "global_step": 6860,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0010.pth",
+      "force_rmse_mean_N": 0.07069740444421768,
+      "slip_f1": 0.9576634512325831,
+      "slip_recall": 0.9706681151548072,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.07069740444421768,
+        "force_rmse_increase_pct": 53.394872802955184,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9576634512325831,
+        "slip_f1_drop_pp": 0.9423098950269382,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 15,
+      "global_step": 10290,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0015.pth",
+      "force_rmse_mean_N": 0.06570694595575333,
+      "slip_f1": 0.9136334812935955,
+      "slip_recall": 0.9782726778924498,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.06570694595575333,
+        "force_rmse_increase_pct": 42.566883415163325,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9136334812935955,
+        "slip_f1_drop_pp": 5.345306888925705,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": true
+      }
+    },
+    {
+      "epoch": 20,
+      "global_step": 13720,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0020.pth",
+      "force_rmse_mean_N": 0.058720242232084274,
+      "slip_f1": 0.9518745014623771,
+      "slip_recall": 0.9722976643128735,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.058720242232084274,
+        "force_rmse_increase_pct": 27.40756409602525,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9518745014623771,
+        "slip_f1_drop_pp": 1.5212048720475435,
+        "force_warning": false,
+        "slip_warning": true,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 25,
+      "global_step": 17150,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0025.pth",
+      "force_rmse_mean_N": 0.05691792443394661,
+      "slip_f1": 0.9707650273224043,
+      "slip_recall": 0.9649646931015752,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.05691792443394661,
+        "force_rmse_increase_pct": 23.497005970599716,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9707650273224043,
+        "slip_f1_drop_pp": -0.3678477139551828,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 30,
+      "global_step": 20580,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0030.pth",
+      "force_rmse_mean_N": 0.0542435459792614,
+      "slip_f1": 0.9646485168630637,
+      "slip_recall": 0.9671374253123303,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.0542435459792614,
+        "force_rmse_increase_pct": 17.69430435646777,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9646485168630637,
+        "slip_f1_drop_pp": 0.24380333197887571,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 35,
+      "global_step": 24010,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0035.pth",
+      "force_rmse_mean_N": 0.05774174630641937,
+      "slip_f1": 0.9658338960162053,
+      "slip_recall": 0.971211298207496,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.05774174630641937,
+        "force_rmse_increase_pct": 25.284483917402724,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9658338960162053,
+        "slip_f1_drop_pp": 0.12526541666472157,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 40,
+      "global_step": 27440,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0040.pth",
+      "force_rmse_mean_N": 0.053568702191114426,
+      "slip_f1": 0.9660121868652675,
+      "slip_recall": 0.9687669744703965,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.053568702191114426,
+        "force_rmse_increase_pct": 16.230069879141972,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9660121868652675,
+        "slip_f1_drop_pp": 0.10743633175850364,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 45,
+      "global_step": 30870,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0045.pth",
+      "force_rmse_mean_N": 0.05518171191215515,
+      "slip_f1": 0.959323399113975,
+      "slip_recall": 0.9703965236284627,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.05518171191215515,
+        "force_rmse_increase_pct": 19.729879001331163,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.959323399113975,
+        "slip_f1_drop_pp": 0.7763151068877483,
+        "force_warning": false,
+        "slip_warning": false,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 50,
+      "global_step": 34300,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0050.pth",
+      "force_rmse_mean_N": 0.05656833574175835,
+      "slip_f1": 0.949814126394052,
+      "slip_recall": 0.9714828897338403,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.05656833574175835,
+        "force_rmse_increase_pct": 22.738489962931,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.949814126394052,
+        "slip_f1_drop_pp": 1.727242378880045,
+        "force_warning": false,
+        "slip_warning": true,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    },
+    {
+      "epoch": 51,
+      "global_step": 34986,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_jepa_lam050_gsmini_20260515_075611/vjepa_partially_shared_multitask/checkpoints/epoch-0051.pth",
+      "force_rmse_mean_N": 0.052816689014434814,
+      "slip_f1": 0.9495163641181926,
+      "slip_recall": 0.9731124388919066,
+      "gate": {
+        "status": "hard_fail",
+        "force_rmse_mean_N_A": 0.046088505536317825,
+        "force_rmse_mean_N_B": 0.052816689014434814,
+        "force_rmse_increase_pct": 14.598398016649018,
+        "slip_f1_A": 0.9670865501828525,
+        "slip_f1_B": 0.9495163641181926,
+        "slip_f1_drop_pp": 1.7570186064659876,
+        "force_warning": false,
+        "slip_warning": true,
+        "force_hard_fail": true,
+        "slip_hard_fail": false
+      }
+    }
+  ]
+}
