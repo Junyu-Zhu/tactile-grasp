@@ -1,0 +1,18 @@
+stamp=20260516_023557
+repo=/home/zjy/document/tactile-grasp
+branch=sparsh-force-slip
+status=## sparsh-force-slip...origin/sparsh-force-slip [ahead 6]
+?? sparsh-force-slip/reports/phase3/
+derived=/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini
+run_id=phase3_0_forceonly_gsmini_20260516_023557
+dino_a_prefix=phase3_0_dino_a_gsmini_20260516_023557
+dino_b_l025=phase3_0_dino_b_lam025_gsmini_20260516_023557
+dino_b_l050=phase3_0_dino_b_lam050_gsmini_20260516_023557
+--- nvidia-smi ---
+0, NVIDIA GeForce RTX 4090, 5318, 49140, 41
+1, NVIDIA GeForce RTX 4090, 5274, 49140, 0
+2, NVIDIA GeForce RTX 4090, 5284, 49140, 94
+3, NVIDIA GeForce RTX 4090, 5282, 49140, 10
+--- tmux ---
+--- zjy training procs ---
+zjy       941493  941492  0 02:35 ?        00:00:00 bash ./sparsh-force-slip/runbooks/launch_phase3_0_sanity_dino_abc_tmux.sh

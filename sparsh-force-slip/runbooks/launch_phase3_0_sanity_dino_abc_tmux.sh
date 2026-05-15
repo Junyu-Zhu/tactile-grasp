@@ -205,7 +205,7 @@ payload = {
 path = pathlib.Path("$REPORT_DIR/launch_manifest.json")
 path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 md = pathlib.Path("$REPORT_DIR/launch_manifest.md")
-md.write_text("# Phase3-0 launch manifest\\n\\n```json\\n" + json.dumps(payload, indent=2) + "\\n```\\n", encoding="utf-8")
+md.write_text("# Phase3-0 launch manifest\n\n" + json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 PY
 
 for gpu in 0 1 2 3; do
