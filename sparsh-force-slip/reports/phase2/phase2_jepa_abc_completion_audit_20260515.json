@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-05-15T20:01:38",
+  "tmux_ls": "",
+  "nvidia_smi_compute_apps": "GPU-ef66da50-a8fa-70aa-ea28-01d2bf318dc5, 787748, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 3602 MiB\nGPU-ef66da50-a8fa-70aa-ea28-01d2bf318dc5, 883826, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 1632 MiB\nGPU-06d17e41-08f5-8da7-a363-528fb38b64cf, 787749, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 3602 MiB\nGPU-06d17e41-08f5-8da7-a363-528fb38b64cf, 883827, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 1630 MiB\nGPU-b963db89-f3a6-0999-6bab-49ef50deac70, 787750, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 3602 MiB\nGPU-b963db89-f3a6-0999-6bab-49ef50deac70, 883828, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 1632 MiB\nGPU-3e6342de-1fca-ed96-062e-49a40709e208, 787751, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 3602 MiB\nGPU-3e6342de-1fca-ed96-062e-49a40709e208, 883829, /home/dekc/miniforge3/envs/2026iros/bin/python3.10, 1632 MiB\n",
+  "git_status_before_commit": "## sparsh-force-slip...origin/sparsh-force-slip [ahead 4]\n M sparsh-force-slip/reports/phase2/current_phase2_c.md\n?? sparsh-force-slip/reports/phase2/current_jepa_c.md\n?? sparsh-force-slip/reports/phase2/phase2_c_jepa_diagnostic_only_20260515/\n?? sparsh-force-slip/reports/phase2/phase2_jepa_abc_summary_20260515.json\n?? sparsh-force-slip/reports/phase2/phase2_jepa_abc_summary_20260515.md\n",
+  "reports": {
+    "c_diagnostic_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase2/phase2_c_jepa_diagnostic_only_20260515/phase2_c_diagnostic_report.json",
+    "c_diagnostic_md": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase2/phase2_c_jepa_diagnostic_only_20260515/phase2_c_diagnostic_report.md",
+    "final_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase2/phase2_jepa_abc_summary_20260515.json",
+    "final_md": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase2/phase2_jepa_abc_summary_20260515.md"
+  },
+  "push_performed": false,
+  "completion_state": "complete_after_final_audit_amend",
+  "updated_at_before_c_commit": "2026-05-15T20:02:42",
+  "git_status_before_c_commit": "## sparsh-force-slip...origin/sparsh-force-slip [ahead 4]\n M sparsh-force-slip/reports/phase2/current_phase2_c.md\n?? sparsh-force-slip/reports/phase2/current_jepa_c.md\n?? sparsh-force-slip/reports/phase2/phase2_c_jepa_diagnostic_only_20260515/\n?? sparsh-force-slip/reports/phase2/phase2_jepa_abc_completion_audit_20260515.json\n?? sparsh-force-slip/reports/phase2/phase2_jepa_abc_summary_20260515.json\n?? sparsh-force-slip/reports/phase2/phase2_jepa_abc_summary_20260515.md\n",
+  "recent_commits_before_c_commit": "076938e Enable JEPA multitask gating before consistency triage\n958280f Establish JEPA baselines for force-slip multitask gating\n9aec422 Validate consistency regularization after DINO lambda narrowing\n49e5080 Reduce force-slip negative transfer before consistency experiments\ne707c3f multitask_training_pahse.md for B\n150727a Diagnose whether shared force-slip heads can replace separate baselines\n",
+  "updated_at_after_c_commit": "2026-05-15T20:02:53",
+  "git_status_after_c_commit": "## sparsh-force-slip...origin/sparsh-force-slip [ahead 5]\n",
+  "recent_commits_after_c_commit": "eebffbd Document JEPA hard-fail diagnostic outcome for Phase2-C\n076938e Enable JEPA multitask gating before consistency triage\n958280f Establish JEPA baselines for force-slip multitask gating\n9aec422 Validate consistency regularization after DINO lambda narrowing\n49e5080 Reduce force-slip negative transfer before consistency experiments\ne707c3f multitask_training_pahse.md for B\n150727a Diagnose whether shared force-slip heads can replace separate baselines\n0c739f8 Compare all-source slip diagnostics against sphere-only baselines\n",
+  "final_audit_updated_at": "2026-05-15T20:03:17",
+  "git_status_observed_clean_before_final_audit_update": "## sparsh-force-slip...origin/sparsh-force-slip [ahead 5]\n",
+  "head_observed_before_final_audit_amend": "71218b3",
+  "recent_commits_observed_before_final_audit_amend": "71218b3 Document JEPA hard-fail diagnostic outcome for Phase2-C\n076938e Enable JEPA multitask gating before consistency triage\n958280f Establish JEPA baselines for force-slip multitask gating\n9aec422 Validate consistency regularization after DINO lambda narrowing\n49e5080 Reduce force-slip negative transfer before consistency experiments\ne707c3f multitask_training_pahse.md for B\n150727a Diagnose whether shared force-slip heads can replace separate baselines\n0c739f8 Compare all-source slip diagnostics against sphere-only baselines\n",
+  "final_report_c_diagnostic_fields_verified": true,
+  "final_report_c_diagnostic_fields_updated_at": "2026-05-15T20:04:08"
+}
