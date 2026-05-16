@@ -13,8 +13,12 @@ log() { echo "[$(date '+%F %T')] $*"; }
 summary_exists() { [[ -f "$1" ]]; }
 
 is_run_running() {
-  local pattern="$1"
-  ps -u zjy -f | grep -E 'train_task.py|phase2_b_multitask.py' | grep -v grep | grep -q "$pattern"
+  local run_id="$1" encoder="$2"
+  ps -u zjy -ww -o args= \
+    | grep -E 'phase2_b_multitask.py' \
+    | grep -F -- "$run_id" \
+    | grep -F -- "--encoder $encoder" \
+    | grep -q .
 }
 
 free_gpu() {
@@ -79,7 +83,7 @@ launch_multitask_if_possible() {
     log "$label already complete: $summary"
     return 0
   fi
-  if is_run_running "$run_id.*--encoder $encoder"; then
+  if is_run_running "$run_id" "$encoder"; then
     log "$label already running"
     return 0
   fi
@@ -98,6 +102,9 @@ launch_multitask_if_possible() {
   local log_file="$LOG_DIR/${session}.log"
   tmux new-session -d -s "$session" "bash '$script' 2>&1 | tee '$log_file'"
   log "launched $label on GPU $gpu as $session"
+  # Give the new trainer time to initialize CUDA so subsequent queue checks do not
+  # see the same GPU as free and launch multiple single-GPU jobs onto it.
+  sleep 120
 }
 
 all_prereqs_done() {

@@ -90,7 +90,7 @@ ENCODER_CHECKPOINTS = {
 
 A_FORCE_EXPS = {
     # DINO Phase3-A experiments are created after this script revision; resolve latest matching dir.
-    "dino": "latest:phase3_0_dino_a_*_dino_force",
+    "dino": "latest:*phase3_0_dino_a_*_dino_force",
     "dinov2": "2026.05.12_04-39_phase1_gsmini_20260512_043331_dinov2_force_gsmini_20260512_043652",
     "mae": "2026.05.12_04-39_phase1_gsmini_20260512_043331_mae_force_gsmini_20260512_043652",
     "ijepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_ijepa_force",
@@ -98,7 +98,7 @@ A_FORCE_EXPS = {
 }
 A_SLIP_EXPS = {
     # DINO Phase3-A all-source slip baseline; resolve latest matching dir.
-    "dino": "latest:phase3_0_dino_a_*_dino_slip_allsource",
+    "dino": "latest:*phase3_0_dino_a_*_dino_slip_allsource",
     "dinov2": "2026.05.13_01-21_phase1_gsmini_20260512_043331_dinov2_slip_allsource_diag_gsmini_20260513_012000",
     "mae": "2026.05.13_01-21_phase1_gsmini_20260512_043331_mae_slip_allsource_diag_gsmini_20260513_012000",
     "ijepa": "2026.05.15_01-44_phase2_jepa_a_gsmini_20260515_014447_ijepa_slip",

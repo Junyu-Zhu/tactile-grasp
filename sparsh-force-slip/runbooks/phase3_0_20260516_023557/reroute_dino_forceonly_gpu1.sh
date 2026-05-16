@@ -5,15 +5,12 @@ if [[ -f "$SUMMARY" ]]; then
   echo "SKIP existing summary: $SUMMARY"
   exit 0
 fi
-if ps -u zjy -ww -o args= | grep -F -- 'phase2_b_multitask.py' | grep -F -- 'phase3_0_forceonly_gsmini_20260516_023557' | grep -F -- '--encoder dino' | grep -q .; then
-  echo "SKIP already-running matching trainer for phase3_0_forceonly_gsmini_20260516_023557/dino"
-  exit 0
-fi
 cd "/home/zjy/document/tactile-grasp"
-source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh
-export CUDA_VISIBLE_DEVICES=3
+source /home/zjy/miniconda3/etc/profile.d/conda.sh
+conda activate sparsh
+export CUDA_VISIBLE_DEVICES=1
 export WANDB_MODE=online
-export WANDB_NAME="phase3_0_forceonly_gsmini_20260516_023557_dino_forceonly_lambda0"
+export WANDB_NAME="phase3_0_forceonly_gsmini_20260516_023557_dino_partially_shared_lambda00_reroute"
 export PYTHONPATH=/home/zjy/document/sparsh:.
 python sparsh-force-slip/scripts/phase2_b_multitask.py train \
   --encoder dino \
