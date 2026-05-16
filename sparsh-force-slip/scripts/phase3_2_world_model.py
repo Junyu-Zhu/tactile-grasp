@@ -567,22 +567,20 @@ def train_stage(
             "selection_score": score,
         }
         history.append(record)
-        wandb.log(
-            {
-                "epoch": epoch,
-                "train/loss": record["train_loss"],
-                "train/bce_loss": record["train_bce_loss"],
-                "train/latent_loss": record["train_latent_loss"],
-                "val/selection_score": score,
-                "val/future_slip_f1": primary.get("future_slip_f1"),
-                "val/future_slip_auroc": primary.get("future_slip_auroc"),
-                "val/future_slip_auprc": primary.get("future_slip_auprc"),
-                "val/future_stability_auroc": primary.get("future_stability_auroc"),
-                "val/future_stability_auprc": primary.get("future_stability_auprc"),
-                "val/stability_calibration_error": primary.get("stability_calibration_error"),
-            },
-            step=epoch,
-        )
+        log_payload = {
+            "epoch": epoch,
+            "train/loss": record["train_loss"],
+            "train/bce_loss": record["train_bce_loss"],
+            "train/latent_loss": record["train_latent_loss"],
+            "val/selection_score": score,
+            "val/future_slip_f1": primary.get("future_slip_f1"),
+            "val/future_slip_auroc": primary.get("future_slip_auroc"),
+            "val/future_slip_auprc": primary.get("future_slip_auprc"),
+            "val/future_stability_auroc": primary.get("future_stability_auroc"),
+            "val/future_stability_auprc": primary.get("future_stability_auprc"),
+            "val/stability_calibration_error": primary.get("stability_calibration_error"),
+        }
+        wandb.log({k: v for k, v in log_payload.items() if v is not None}, step=epoch)
         if score > best_score:
             best_score = score
             best_payload = record
@@ -727,7 +725,7 @@ def render_summary(report: dict[str, Any]) -> str:
             "",
             "## Frozen decoupled current-task metrics retained during P3-2",
             "",
-            f"- force_rmSE_mean_N: `{fmt(base.get('force_rmse_mean_N'))}`",
+            f"- force_rmse_mean_N: `{fmt(base.get('force_rmse_mean_N'))}`",
             f"- slip_f1: `{fmt(base.get('slip_f1'))}`",
             f"- slip_accuracy: `{fmt(base.get('slip_accuracy'))}`",
             f"- contradiction_rate: `{fmt(con.get('contradiction_rate'))}`",
