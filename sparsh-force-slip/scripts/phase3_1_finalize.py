@@ -142,6 +142,75 @@ def row_from_eval(encoder: str, a_eval: dict[str, Any], b_eval: dict[str, Any]) 
     }
 
 
+
+
+def select_decoupled_checkpoint_for_phase3(run_id: str, encoder: str, a_eval: dict[str, Any]) -> dict[str, Any]:
+    """Select a Phase3-1 checkpoint using the stated backbone priority.
+
+    The shared Phase2 selector prioritizes slip F1 after gate feasibility. Phase3-1
+    instead treats force RMSE non-degradation as the primary criterion before slip
+    retention, because the experiment is explicitly testing whether decoupling
+    reduces slip-to-force negative transfer.
+    """
+    run_dir = p2.PHASE2_ROOT / run_id / p2.decoder_run_suffix(encoder, DECODER_VARIANT)
+    history_path = run_dir / "history.json"
+    if not history_path.exists():
+        raise FileNotFoundError(history_path)
+    history = read_json(history_path)
+    candidates: list[dict[str, Any]] = []
+    for record in history:
+        val = record.get("val")
+        if not val:
+            continue
+        epoch = int(record["epoch"])
+        ckpt = run_dir / "checkpoints" / f"epoch-{epoch:04d}.pth"
+        if not ckpt.exists():
+            continue
+        gate = p2.gate_status(a_eval, {"aggregate": val})
+        force_inc = float(gate.get("force_rmse_increase_pct", 1.0e9))
+        slip_drop = float(gate.get("slip_f1_drop_pp", 1.0e9))
+        force_tier = 0 if force_inc <= 5.0 else 1 if force_inc <= 10.0 else 2
+        slip_tier = 0 if slip_drop <= 0.0 else 1 if slip_drop <= 1.0 else 2 if slip_drop <= 2.0 else 3
+        candidates.append(
+            {
+                "epoch": epoch,
+                "global_step": record.get("global_step"),
+                "checkpoint": str(ckpt),
+                "force_rmse_mean_N": val.get("force_rmse_mean_N"),
+                "slip_f1": val.get("slip_f1"),
+                "slip_accuracy": val.get("slip_accuracy"),
+                "gate": gate,
+                "force_tier": force_tier,
+                "slip_tier": slip_tier,
+            }
+        )
+    if not candidates:
+        raise RuntimeError(f"No validation candidates found for {encoder} in {history_path}")
+    selected = sorted(
+        candidates,
+        key=lambda c: (
+            int(c["force_tier"]),
+            float(c["gate"]["force_rmse_increase_pct"]),
+            int(c["slip_tier"]),
+            -float(c.get("slip_f1") or 0.0),
+            int(c["epoch"]),
+        ),
+    )[0]
+    feasible = [c for c in candidates if c["gate"]["status"] != "hard_fail"]
+    selection = {
+        "policy": "phase3_force_non_degradation_then_slip_retention",
+        "run_dir": str(run_dir),
+        "checkpoint": selected["checkpoint"],
+        "epoch": selected["epoch"],
+        "global_step": selected.get("global_step"),
+        "gate_from_history": selected["gate"],
+        "candidate_count": len(candidates),
+        "feasible_count": len(feasible),
+        "candidates": candidates,
+    }
+    write_json(PHASE3_REPORT_ROOT / f"phase3_1_{run_id.replace('phase3_1_decoupled_gsmini_', '')}" / f"checkpoint_selection_{encoder}_{DECODER_VARIANT}.json", selection)
+    return selection
+
 def rank_key(row: dict[str, Any]) -> tuple[Any, ...]:
     gate = row["gate_vs_A"]
     force_inc = float(gate.get("force_rmse_increase_pct", 1e9))
@@ -267,7 +336,7 @@ def main() -> None:
         if b_cache.exists() and not args.refresh_eval:
             b_eval = read_json(b_cache)
         else:
-            selection = p2.select_b_checkpoint_for_gate(args.run_id, enc, DECODER_VARIANT, a_eval)
+            selection = select_decoupled_checkpoint_for_phase3(args.run_id, enc, a_eval)
             b_eval = p2.evaluate_b_checkpoint_for_report(
                 args.run_id,
                 enc,
