@@ -94,7 +94,9 @@ SCRIPT
 }
 
 launch_train() {
-  local encoder="$1" gpu="$2" session="p31_${STAMP}_${encoder}_g${gpu}"
+  local encoder="$1"
+  local gpu="$2"
+  local session="p31_${STAMP}_${encoder}_g${gpu}"
   local summary script log_file
   summary=$(summary_path "$encoder")
   if [[ -f "$summary" ]]; then
@@ -210,7 +212,10 @@ SCRIPT
   chmod +x "$script"
 }
 launch_train() {
-  local encoder="$1" gpu="$2" session="p31_${STAMP}_${encoder}_g${gpu}" summary script log_file
+  local encoder="$1"
+  local gpu="$2"
+  local session="p31_${STAMP}_${encoder}_g${gpu}"
+  local summary script log_file
   summary=$(summary_path "$encoder")
   if [[ -f "$summary" ]]; then log "$encoder already complete"; return 0; fi
   if is_encoder_running "$encoder"; then log "$encoder already running"; return 0; fi
