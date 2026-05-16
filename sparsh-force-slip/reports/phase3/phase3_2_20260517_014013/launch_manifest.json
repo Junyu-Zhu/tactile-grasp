@@ -1,0 +1,12 @@
+{
+  "stamp": "20260517_014013",
+  "run_id": "phase3_2_world_model_mae_20260517_014013",
+  "phase3_1_report": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase3/phase3_1_20260516_154730/phase3_1_decoupled_multitask_report.json",
+  "repo": "/home/zjy/document/tactile-grasp",
+  "branch": "sparsh-force-slip",
+  "single_process_single_gpu": true,
+  "auto_push_pull": false,
+  "wandb_mode": "online",
+  "created_at": "2026-05-17T01:40:13+08:00",
+  "visible_gpu": "0"
+}

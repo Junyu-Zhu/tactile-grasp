@@ -1,0 +1,34 @@
+    PID     ELAPSED %CPU %MEM COMMAND
+  85935  3-02:50:46  0.0  0.0 /usr/bin/zsh
+1020516       28:37  0.0  0.0 sshd: zjy@notty
+1020517       28:37  0.0  0.0 -zsh
+1020519       28:37  0.0  0.0 sh
+1020537       28:37  0.2  0.0 /home/zjy/.vscode-server/code-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409 command-shell --cli-data-dir /home/zjy/.vscode-server/cli --parent-process-id 1020519 --on-host=127.0.0.1 --on-port
+1020692       28:36  1.4  0.2 /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/node --dns-result-order=ipv4first /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/out/bootstrap-fork --type=extensionHost --transformURIs --useHostProxy=false
+1020703       28:36  0.2  0.0 /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/node /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/out/bootstrap-fork --type=fileWatcher
+1020752       28:33  0.0  0.0 /home/zjy/.vscode-server/extensions/ms-python.vscode-python-envs-1.30.0-linux-x64/python-env-tools/bin/pet server
+1020960       28:32  0.0  0.0 /bin/sh
+1020979       28:32  0.1  0.0 /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/node /home/zjy/.vscode-server/extensions/streetsidesoftware.code-spell-checker-4.5.6/packages/_server/dist/main.cjs --node-ipc --clientProcessId=1020692
+1021051       28:32  0.0  0.0 /usr/bin/zsh -i
+1021179       28:31  1.7  0.2 /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/node /home/zjy/.vscode-server/extensions/ms-python.vscode-pylance-2026.2.1/dist/server.bundle.js --cancellationReceive=file:6c6b6afe03acff842518e2ef2e61d877bf1e981e54 --node-ipc --clientProcessId=1020692
+1021621       27:55  0.0  0.0 sshd: zjy@pts/16
+1021622       27:55  0.0  0.0 -zsh
+1021662       27:51  5.0  0.0 /home/zjy/miniconda3/bin/python3.13 /home/zjy/miniconda3/bin/nvitop
+1025120       01:36  0.0  0.0 sleep 180
+1025425       00:01  0.0  0.0 sshd: zjy@notty
+1025426       00:01  0.0  0.0 bash -s
+1025428       00:01  0.0  0.0 bash sparsh-force-slip/runbooks/launch_phase3_2_world_model_tmux.sh /home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase3/phase3_1_20260516_154730/phase3_1_decoupled_multitask_report.json 20260517_014013
+1025462       00:00  0.0  0.0 ps -u zjy -ww -o pid,etime,pcpu,pmem,args
+4131816  5-11:01:39  0.0  0.0 /lib/systemd/systemd --user
+4131817  5-11:01:39  0.0  0.0 (sd-pam)
+4131824  5-11:01:39  0.0  0.0 /usr/bin/pipewire
+4131825  5-11:01:39  0.0  0.0 /usr/bin/pipewire-media-session
+4131827  5-11:01:39  0.0  0.0 /snap/snapd-desktop-integration/361/usr/bin/snapd-desktop-integration
+4131882  5-11:01:39  0.0  0.0 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+4131896  5-11:01:39  0.0  0.0 /usr/libexec/xdg-document-portal
+4131899  5-11:01:39  0.0  0.0 /usr/libexec/xdg-permission-store
+4131990  5-11:01:39  0.0  0.0 /snap/snapd-desktop-integration/361/usr/bin/snapd-desktop-integration
+4160962  4-22:44:37  0.0  0.0 ssh-agent -s
+4161858  4-22:14:45  0.0  0.0 sh /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/bin/code-server --connection-token=remotessh --accept-server-license-terms --start-server --enable-remote-auto-shutdown --socket-path=/tmp/code-1b797d61-11e1-4d4f-87c1-476099b9a6a1
+4161862  4-22:14:45  0.2  0.0 /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/node /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/out/server-main.js --connection-token=remotessh --accept-server-license-terms --start-server --enable-remote-auto-shutdown --socket-path=/tmp/code-1b797d61-11e1-4d4f-87c1-476099b9a6a1
+4161907  4-22:14:45  0.1  0.0 /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/node /home/zjy/.vscode-server/cli/servers/Stable-10c8e557c8b9f9ed0a87f61f1c9a44bde731c409/server/out/bootstrap-fork --type=ptyHost --logsPath /home/zjy/.vscode-server/data/logs/20260512T032528
