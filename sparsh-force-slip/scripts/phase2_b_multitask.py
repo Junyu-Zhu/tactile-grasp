@@ -385,11 +385,83 @@ class PartiallySharedForceSlipDecoder(nn.Module):
         return {"force": force, "slip": slip}
 
 
+class DecoupledForceSlipDecoder(nn.Module):
+    """Task-private poolers/trunks/heads with only the frozen encoder shared.
+
+    Phase3-1 uses this variant to test whether removing the shared decoder
+    bottleneck reduces slip-to-force negative transfer while keeping the same
+    upstream Sparsh encoder and data/evaluation path.
+    """
+
+    def __init__(
+        self,
+        embed_dim_name: str = "base",
+        num_heads: int = 12,
+        depth: int = 1,
+        dropout: float = 0.0,
+    ) -> None:
+        super().__init__()
+        embed_dim = VIT_EMBED_DIMS[f"vit_{embed_dim_name}"]
+        hidden_dim = embed_dim // 2
+        trunk_dim = embed_dim // 4
+        self.force_pooler = AttentivePooler(
+            num_queries=1,
+            embed_dim=embed_dim,
+            num_heads=num_heads,
+            mlp_ratio=4.0,
+            depth=depth,
+            norm_layer=nn.LayerNorm,
+            init_std=0.02,
+            qkv_bias=True,
+            complete_block=True,
+        )
+        self.slip_pooler = AttentivePooler(
+            num_queries=1,
+            embed_dim=embed_dim,
+            num_heads=num_heads,
+            mlp_ratio=4.0,
+            depth=depth,
+            norm_layer=nn.LayerNorm,
+            init_std=0.02,
+            qkv_bias=True,
+            complete_block=True,
+        )
+        self.force_trunk = nn.Sequential(
+            nn.LayerNorm(embed_dim),
+            nn.Linear(embed_dim, hidden_dim),
+            nn.GELU(),
+            nn.Dropout(dropout) if dropout > 0.0 else nn.Identity(),
+            nn.Linear(hidden_dim, trunk_dim),
+            nn.GELU(),
+        )
+        self.slip_trunk = nn.Sequential(
+            nn.LayerNorm(embed_dim),
+            nn.Linear(embed_dim, hidden_dim),
+            nn.GELU(),
+            nn.Dropout(dropout) if dropout > 0.0 else nn.Identity(),
+            nn.Linear(hidden_dim, trunk_dim),
+            nn.GELU(),
+        )
+        self.force_head = nn.Linear(trunk_dim, 3)
+        self.slip_head = nn.Linear(trunk_dim, 2)
+
+    def forward(self, z: torch.Tensor) -> dict[str, torch.Tensor]:
+        force_shared = self.force_pooler(z).squeeze(1)
+        slip_shared = self.slip_pooler(z).squeeze(1)
+        force_features = self.force_trunk(force_shared)
+        slip_features = self.slip_trunk(slip_shared)
+        force = torch.tanh(self.force_head(force_features))
+        slip = self.slip_head(slip_features)
+        return {"force": force, "slip": slip}
+
+
 def decoder_run_suffix(encoder: str, variant: str) -> str:
     if variant == "shared":
         return f"{encoder}_shared_multitask"
     if variant == "partially_shared":
         return f"{encoder}_partially_shared_multitask"
+    if variant == "decoupled":
+        return f"{encoder}_decoupled_multitask"
     if variant == "consistency":
         return f"{encoder}_consistency_multitask"
     raise ValueError(f"Unknown decoder variant {variant!r}")
@@ -400,6 +472,8 @@ def build_decoder(variant: str) -> nn.Module:
         return SharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
     if variant == "partially_shared":
         return PartiallySharedForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
+    if variant == "decoupled":
+        return DecoupledForceSlipDecoder(embed_dim_name="base", num_heads=12, depth=1, dropout=0.0)
     if variant == "consistency":
         # Phase2-C keeps the lower-transfer partially-shared architecture and
         # adds the physical consistency term in the training loss.
@@ -845,7 +919,10 @@ def command_train(args: argparse.Namespace) -> None:
         raise ValueError("phase2_b_multitask.py is a custom single-process trainer; use +trainer.devices=1 with CUDA_VISIBLE_DEVICES=<single_gpu>.")
     if consistency_enabled(cfg):
         cfg.wandb_group = "phase2_c_consistency_multitask"
+    elif cfg.decoder_variant == "decoupled":
+        cfg.wandb_group = "phase3_1_decoupled_multitask"
     stage = "C" if consistency_enabled(cfg) else "B"
+    phase_tag = "phase3_1" if cfg.decoder_variant == "decoupled" else "phase2"
     consistency_reference = resolve_consistency_settings(cfg)
     set_seed(cfg.seed)
     device = get_device()
@@ -878,7 +955,7 @@ def command_train(args: argparse.Namespace) -> None:
         id=wandb_name,
         name=wandb_name,
         group=cfg.wandb_group,
-        tags=["sparsh", "tactile_grasp", "force-slip", "phase2", stage, cfg.encoder, cfg.decoder_variant, "multitask"],
+        tags=["sparsh", "tactile_grasp", "force-slip", phase_tag, stage, cfg.encoder, cfg.decoder_variant, "multitask"],
         notes=(
             f"Phase2-{stage} multitask decoder: force + slip, frozen Sparsh encoder, "
             f"decoder_variant={cfg.decoder_variant}, beta_consistency={cfg.beta_consistency}."
@@ -1832,7 +1909,7 @@ def build_parser() -> argparse.ArgumentParser:
     train.add_argument("--limit-train-batches", type=int, default=None)
     train.add_argument("--limit-val-batches", type=int, default=None)
     train.add_argument("--wandb-mode", choices=["online", "offline", "disabled"], default=os.environ.get("WANDB_MODE", "online"))
-    train.add_argument("--decoder-variant", choices=["shared", "partially_shared", "consistency"], default="shared")
+    train.add_argument("--decoder-variant", choices=["shared", "partially_shared", "decoupled", "consistency"], default="shared")
     train.add_argument("--log-every-steps", type=int, default=50)
     train.add_argument("--data-parallel", action="store_true")
     train.add_argument("+trainer.devices", dest="trainer_devices", default="1", help="Compatibility marker for single-GPU launch; must remain 1.")
@@ -1853,7 +1930,7 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--seed", type=int, default=42)
     report.add_argument("--refresh-eval", action="store_true")
     report.add_argument("--refresh-reference", action="store_true")
-    report.add_argument("--decoder-variant", choices=["shared", "partially_shared"], default="shared")
+    report.add_argument("--decoder-variant", choices=["shared", "partially_shared", "decoupled"], default="shared")
     report.set_defaults(func=command_report)
 
     report_c = sub.add_parser("report-c", help="Evaluate C consistency decoder against selected A/B baselines", prefix_chars="-+")
@@ -1865,7 +1942,7 @@ def build_parser() -> argparse.ArgumentParser:
     report_c.add_argument("--b-run-id-ijepa", default=None)
     report_c.add_argument("--b-run-id-vjepa", default=None)
     report_c.add_argument("--reference-run-id", default=None)
-    report_c.add_argument("--b-decoder-variant", choices=["shared", "partially_shared"], default="partially_shared")
+    report_c.add_argument("--b-decoder-variant", choices=["shared", "partially_shared", "decoupled"], default="partially_shared")
     report_c.add_argument("--encoders", nargs="+", choices=sorted(ENCODER_CHECKPOINTS), default=["dinov2", "mae"])
     report_c.add_argument("--batch-size", type=int, default=100)
     report_c.add_argument("--num-workers", type=int, default=2)
@@ -1880,7 +1957,7 @@ def build_parser() -> argparse.ArgumentParser:
     smoke.add_argument("--run-id", default=None)
     smoke.add_argument("--batch-size", type=int, default=8)
     smoke.add_argument("--num-workers", type=int, default=0)
-    smoke.add_argument("--decoder-variant", choices=["shared", "partially_shared", "consistency"], default="shared")
+    smoke.add_argument("--decoder-variant", choices=["shared", "partially_shared", "decoupled", "consistency"], default="shared")
     smoke.add_argument("--data-parallel", action="store_true")
     smoke.set_defaults(func=command_smoke)
     return parser
