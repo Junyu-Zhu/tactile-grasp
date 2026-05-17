@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-05-18T01:47:23",
+  "phase": "phase5_future_head",
+  "condition": "separate_late_fusion",
+  "feature_run_id": "phase4_2_separate_features_20260517_171500",
+  "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase4",
+  "experiment_name": "phase6_2_separate_late_fusion_20260518_0146",
+  "input_schema": [
+    "z_t_mean_pooled",
+    "Fn_pred_N",
+    "Ft_pred_N",
+    "Ft_over_Fn_pred",
+    "p_slip_current"
+  ],
+  "train_count": 52081,
+  "val_count": 2799,
+  "horizons": [
+    1,
+    3,
+    5
+  ],
+  "best_epoch": 37,
+  "best_selection_score_mean_auprc": 0.9457990045362683,
+  "best_val": {
+    "n_samples": 2799,
+    "horizons": [
+      1,
+      3,
+      5
+    ],
+    "H1": {
+      "future_slip_positive_count": 730,
+      "future_slip_positive_ratio": 0.26080743122543765,
+      "future_slip_f1": 0.9556025369978859,
+      "future_slip_accuracy": 0.977491961414791,
+      "future_slip_precision": 0.9840348330914369,
+      "future_slip_recall": 0.9287671232876712,
+      "future_slip_auroc": 0.980463065341605,
+      "future_slip_auprc": 0.9764629160596814,
+      "future_stability_positive_count": 2069,
+      "future_stability_positive_ratio": 0.7391925687745623,
+      "future_stability_f1": 0.9849246231155779,
+      "future_stability_accuracy": 0.977491961414791,
+      "future_stability_precision": 0.9753554502369668,
+      "future_stability_recall": 0.9946834219429677,
+      "future_stability_auroc": 0.9804630653416051,
+      "future_stability_auprc": 0.9883775347400616,
+      "stability_calibration_error": 0.024107691444917097,
+      "high_risk_count": 497,
+      "low_risk_count": 555,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 1.0,
+      "low_risk_model_false_alarm_on_future_stable": 0.0,
+      "lead_time_to_slip_onset_steps_mean": 2.857142857142857,
+      "lead_time_to_slip_onset_steps_median": 1.0,
+      "lead_time_detected_trajectories": 14,
+      "lead_time_missed_trajectories": 31
+    },
+    "H3": {
+      "future_slip_positive_count": 818,
+      "future_slip_positive_ratio": 0.29224723115398354,
+      "future_slip_f1": 0.9031007751937985,
+      "future_slip_accuracy": 0.9464094319399786,
+      "future_slip_precision": 0.9575342465753425,
+      "future_slip_recall": 0.8545232273838631,
+      "future_slip_auroc": 0.9499147771802787,
+      "future_slip_auprc": 0.9434920169662449,
+      "future_stability_positive_count": 1981,
+      "future_stability_positive_ratio": 0.7077527688460165,
+      "future_stability_f1": 0.9629629629629629,
+      "future_stability_accuracy": 0.9464094319399786,
+      "future_stability_precision": 0.9424842919284678,
+      "future_stability_recall": 0.9843513377082281,
+      "future_stability_auroc": 0.9499147771802786,
+      "future_stability_auprc": 0.9642796697839667,
+      "stability_calibration_error": 0.03524947379276197,
+      "high_risk_count": 497,
+      "low_risk_count": 555,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 1.0,
+      "low_risk_model_false_alarm_on_future_stable": 0.007751937984496124
+    },
+    "H5": {
+      "future_slip_positive_count": 904,
+      "future_slip_positive_ratio": 0.3229724901750625,
+      "future_slip_f1": 0.8614457831325302,
+      "future_slip_accuracy": 0.9178277956413005,
+      "future_slip_precision": 0.9457671957671958,
+      "future_slip_recall": 0.790929203539823,
+      "future_slip_auroc": 0.9209584491092068,
+      "future_slip_auprc": 0.9174420805828787,
+      "future_stability_positive_count": 1895,
+      "future_stability_positive_ratio": 0.6770275098249374,
+      "future_stability_f1": 0.941594718131031,
+      "future_stability_accuracy": 0.9178277956413005,
+      "future_stability_precision": 0.9074889867841409,
+      "future_stability_recall": 0.9783641160949869,
+      "future_stability_auroc": 0.9209584491092069,
+      "future_stability_auprc": 0.9330893468667367,
+      "stability_calibration_error": 0.03991474143799899,
+      "high_risk_count": 497,
+      "low_risk_count": 555,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 1.0,
+      "low_risk_model_false_alarm_on_future_stable": 0.008264462809917356
+    }
+  },
+  "current_metrics_val_subset": {
+    "n_samples": 2799,
+    "positive_count": 684,
+    "positive_ratio": 0.24437299035369775,
+    "force_rmse_xyz_N": [
+      0.05845250189304352,
+      0.04871659725904465,
+      0.021485714241862297
+    ],
+    "force_rmse_mean_N": 0.042884934693574905,
+    "force_mae_xyz_N": [
+      0.020236875861883163,
+      0.01735021360218525,
+      0.015610529109835625
+    ],
+    "force_mae_mean_N": 0.017732540145516396,
+    "force_derived_rmse_N": {
+      "Fn": 0.021485714241862297,
+      "Ft": 0.054184913635253906,
+      "Fmag": 0.03844473510980606
+    },
+    "slip_accuracy": 0.9853519113969275,
+    "slip_balanced_accuracy": 0.9809101654846335,
+    "slip_precision": 0.9679767103347889,
+    "slip_recall": 0.9722222222222222,
+    "slip_f1": 0.9700948212983224,
+    "slip_confusion_matrix_labels_0_1": [
+      [
+        2093,
+        22
+      ],
+      [
+        19,
+        665
+      ]
+    ],
+    "mean_pred_slip_probability": 0.24605873227119446,
+    "consistency": {
+      "ratio_source": "model_predicted_force_N",
+      "threshold_source": "train_val_ground_truth_force_ratio",
+      "high_ratio_threshold_p80": 0.7100012031912489,
+      "low_ratio_threshold_p20": 0.027921536146272716,
+      "high_ratio_count": 520,
+      "low_ratio_count": 206,
+      "high_ratio_no_slip_contradiction": 0.0,
+      "low_ratio_slip_contradiction": 0.0048543689320388345,
+      "contradiction_rate": 0.0013774104683195593,
+      "high_ratio_slip_recall": 1.0,
+      "low_ratio_false_alarm": 0.0,
+      "monotonic_calibration_error": 0.0008251074817962944,
+      "calibration_bins": [
+        {
+          "bin": 0,
+          "n": 43,
+          "ratio_mean": 0.01718212477862835,
+          "p_slip_mean": 4.472296132007614e-05,
+          "violation": 0.0
+        },
+        {
+          "bin": 1,
+          "n": 163,
+          "ratio_mean": 0.02514515072107315,
+          "p_slip_mean": 0.0055320980027318,
+          "violation": 0.0
+        },
+        {
+          "bin": 2,
+          "n": 242,
+          "ratio_mean": 0.031553804874420166,
+          "p_slip_mean": 0.0034287404268980026,
+          "violation": 0.0021033575758337975
+        },
+        {
+          "bin": 3,
+          "n": 366,
+          "ratio_mean": 0.03711709752678871,
+          "p_slip_mean": 0.000564493122510612,
+          "violation": 0.0028642473043873906
+        },
+        {
+          "bin": 4,
+          "n": 350,
+          "ratio_mean": 0.044953349977731705,
+          "p_slip_mean": 0.013712331652641296,
+          "violation": 0.0
+        },
+        {
+          "bin": 5,
+          "n": 465,
+          "ratio_mean": 0.057688191533088684,
+          "p_slip_mean": 0.01042886171489954,
+          "violation": 0.0032834699377417564
+        },
+        {
+          "bin": 6,
+          "n": 381,
+          "ratio_mean": 0.08142109960317612,
+          "p_slip_mean": 0.018693411722779274,
+          "violation": 0.0
+        },
+        {
+          "bin": 7,
+          "n": 269,
+          "ratio_mean": 0.33510419726371765,
+          "p_slip_mean": 0.5583789348602295,
+          "violation": 0.0
+        },
+        {
+          "bin": 8,
+          "n": 332,
+          "ratio_mean": 0.8673807978630066,
+          "p_slip_mean": 0.999596357345581,
+          "violation": 0.0
+        },
+        {
+          "bin": 9,
+          "n": 188,
+          "ratio_mean": 1.0584311485290527,
+          "p_slip_mean": 0.9996677041053772,
+          "violation": 0.0
+        }
+      ]
+    }
+  },
+  "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_2_separate_features_20260517_171500/features/feature_manifest.json",
+  "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_2_separate_features_20260517_171500/heads/phase6_2_separate_late_fusion_20260518_0146/checkpoints/best.pth",
+  "wall_time_seconds": 75.55279421806335,
+  "wandb_mode": "online",
+  "raw_data_modified": false,
+  "manifest_feature_kind": "separate_late_fusion",
+  "wandb_finish_status": "finished"
+}
