@@ -14,6 +14,7 @@ import math
 import os
 import random
 import shutil
+import signal
 import sys
 import time
 from dataclasses import dataclass
@@ -565,7 +566,8 @@ def train_future_head(
     os.environ["WANDB_MODE"] = wandb_mode
     wb = None
     if wandb_mode != "disabled":
-        wb_name = os.environ.get("WANDB_NAME", experiment_name)
+        wb_base = os.environ.get("WANDB_NAME")
+        wb_name = f"{wb_base}_{condition}" if wb_base else experiment_name
         wb = wandb.init(
             project="sparsh-finetune-tactile-grasp",
             entity="junyuzhuzjy-zhejiang-university",
@@ -641,8 +643,6 @@ def train_future_head(
                 "seed": seed,
             }, ckpt_dir / "best.pth")
         write_json(head_dir / "history.json", history)
-    if wb is not None:
-        wb.finish()
     manifest = read_json(run_dir / "features/feature_manifest.json") if (run_dir / "features/feature_manifest.json").exists() else {}
     val_payload = torch.load(run_dir / "features/val_features.pt", map_location="cpu", weights_only=False)
     summary = {
@@ -670,6 +670,20 @@ def train_future_head(
     report_dir.mkdir(parents=True, exist_ok=True)
     write_json(report_dir / f"{experiment_name}_report.json", summary)
     (report_dir / f"{experiment_name}_report.md").write_text(render_head_report(summary), encoding="utf-8")
+    if wb is not None:
+        def _wandb_timeout(_signum, _frame):
+            raise TimeoutError("wandb.finish timed out")
+        old_handler = signal.signal(signal.SIGALRM, _wandb_timeout)
+        signal.alarm(30)
+        try:
+            wb.finish()
+            summary["wandb_finish_status"] = "finished"
+        except Exception as exc:
+            summary["wandb_finish_status"] = f"best_effort_timeout_or_error: {exc}"
+        finally:
+            signal.alarm(0)
+            signal.signal(signal.SIGALRM, old_handler)
+            write_json(report_dir / f"{experiment_name}_report.json", summary)
     return summary
 
 
