@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-05-17T14:55:03",
+  "phase": "phase4_4_mae_architecture_ablation",
+  "backbone": "mae",
+  "split": "Phase1 derived all-source train/val split reused from Phase2/Phase3",
+  "raw_data_modified": false,
+  "base_separate_metrics": {
+    "force_rmse_mean_N": 0.03224234655499458,
+    "slip_f1": 0.9731038192576654,
+    "slip_accuracy": 0.9865951742627346
+  },
+  "rows": [
+    {
+      "condition": "separate_baseline",
+      "architecture": "SPARSH-style separate force-only + slip-only",
+      "force_rmse_mean_N": 0.03224234655499458,
+      "slip_f1": 0.9731038192576654,
+      "slip_accuracy": 0.9865951742627346,
+      "force_rmse_delta_vs_separate_pct": 0.0,
+      "slip_f1_delta_vs_separate_pp": 0.0
+    },
+    {
+      "condition": "naive_shared_multitask",
+      "architecture": "one shared decoder trunk for force and slip",
+      "force_rmse_mean_N": 0.03639667108654976,
+      "slip_f1": 0.9783996739573427,
+      "slip_accuracy": 0.989343163538874,
+      "force_rmse_delta_vs_separate_pct": 12.884684197749996,
+      "slip_f1_delta_vs_separate_pp": 0.5295854699677305,
+      "source": "phase2_b_gsmini_20260513_163448"
+    },
+    {
+      "condition": "partially_shared_lambda_0.25",
+      "architecture": "shared pooler with task-private trunks",
+      "force_rmse_mean_N": 0.031078681349754333,
+      "slip_f1": 0.9770598615447265,
+      "slip_accuracy": 0.9886729222520108,
+      "force_rmse_delta_vs_separate_pct": -3.60912070483278,
+      "slip_f1_delta_vs_separate_pp": 0.39560422870610346,
+      "source": "phase2_b_ps_lam025_gsmini_20260514_063052"
+    },
+    {
+      "condition": "partially_shared_lambda_0.50",
+      "architecture": "shared pooler with task-private trunks",
+      "force_rmse_mean_N": 0.03192540630698204,
+      "slip_f1": 0.979929481963656,
+      "slip_accuracy": 0.9900804289544236,
+      "force_rmse_delta_vs_separate_pct": -0.9829937392179189,
+      "slip_f1_delta_vs_separate_pp": 0.6825662705990609,
+      "source": "phase2_b_ps_lam050_gsmini_20260514_063052"
+    },
+    {
+      "condition": "consistency_decoder",
+      "architecture": "partially shared + force/slip consistency regularizer",
+      "force_rmse_mean_N": 0.033529188483953476,
+      "slip_f1": 0.9818727000136296,
+      "slip_accuracy": 0.9910857908847185,
+      "force_rmse_delta_vs_separate_pct": 3.99115469701925,
+      "slip_f1_delta_vs_separate_pp": 0.8768880755964159,
+      "source": "phase2_c_consistency_gsmini_20260514_161845"
+    },
+    {
+      "condition": "decoupled_multitask",
+      "architecture": "task-private force/slip poolers and heads",
+      "force_rmse_mean_N": 0.03038850985467434,
+      "slip_f1": 0.9652046393814158,
+      "slip_accuracy": 0.9825067024128686,
+      "force_rmse_delta_vs_separate_pct": -5.7496953491217635,
+      "slip_f1_delta_vs_separate_pp": -0.7899179876249662,
+      "source": "phase3_1_decoupled_gsmini_20260516_154730"
+    },
+    {
+      "condition": "decoupled_plus_world_model",
+      "architecture": "decoupled current-task model + lightweight multi-horizon future-stability head",
+      "force_rmse_mean_N": 0.03038850985467434,
+      "slip_f1": 0.9652046393814158,
+      "slip_accuracy": 0.9825067024128686,
+      "force_rmse_delta_vs_separate_pct": -5.7496953491217635,
+      "slip_f1_delta_vs_separate_pp": -0.7899179876249662,
+      "future_H1_slip_f1": 0.964482547458665,
+      "future_H1_slip_auroc": 0.9976676028058438,
+      "future_H1_slip_auprc": 0.9946735665955866,
+      "future_H1_stability_ece": 0.005343646819883762,
+      "future_H3_slip_f1": 0.9506172839506173,
+      "future_H5_slip_f1": 0.9221572119053676,
+      "source": "phase3_2_20260517_014013"
+    }
+  ],
+  "source_artifacts": {
+    "separate": "sparsh-force-slip/reports/phase3/phase3_1_20260516_154730/eval_cache/a_mae_allsource_val.json",
+    "shared": "sparsh-force-slip/reports/phase2/phase2_b_gsmini_20260513_163448/phase2_b_diagnostic_report.json",
+    "partially_shared_025": "sparsh-force-slip/reports/phase2/phase2_b_ps_lam025_gsmini_20260514_063052/eval_cache/b_mae_partially_shared_allsource_val.json",
+    "partially_shared_050": "sparsh-force-slip/reports/phase2/phase2_b_ps_lam050_gsmini_20260514_063052/eval_cache/b_mae_partially_shared_allsource_val.json",
+    "consistency": "sparsh-force-slip/reports/phase2/phase2_c_consistency_gsmini_20260514_161845/eval_cache/c_mae_consistency_phase2_c_consistency_gsmini_20260514_161845_allsource_val.json",
+    "decoupled": "sparsh-force-slip/reports/phase3/phase3_1_20260516_154730/eval_cache/decoupled_mae_phase3_1_decoupled_gsmini_20260516_154730_allsource_val.json",
+    "world_model": "sparsh-force-slip/reports/phase3/phase3_2_20260517_014013/phase3_world_model_summary.json"
+  },
+  "interpretation": [
+    "Naive shared multitask improves slip F1 but increases MAE force RMSE by about 12.9%, showing negative transfer for force regression.",
+    "Partially shared decoders mitigate this conflict: lambda=0.25 improves force RMSE versus separate while keeping slip F1 above separate; lambda=0.50 favors slip slightly more.",
+    "The consistency decoder reaches the highest current-slip F1 among reused MAE rows but worsens force RMSE versus separate, so it is a useful ablation rather than the safest main method.",
+    "Decoupled multitask gives the best force RMSE among these rows, but current slip F1 is lower than separate; therefore the paper should not claim decoupled dominates every current-task metric.",
+    "Decoupled + world model keeps decoupled current-task metrics and adds multi-horizon future instability prediction, which is the clearest architecture-level novelty beyond SPARSH-style separate probing."
+  ],
+  "json_path": "sparsh-force-slip/reports/phase4/phase4_4_architecture_ablation_20260517/phase4_4_architecture_ablation_report.json",
+  "md_path": "sparsh-force-slip/reports/phase4/phase4_4_architecture_ablation_20260517/phase4_4_architecture_ablation_report.md"
+}
