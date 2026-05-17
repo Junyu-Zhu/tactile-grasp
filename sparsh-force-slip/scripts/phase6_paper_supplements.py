@@ -364,7 +364,7 @@ class JointForceSlipFutureHead(nn.Module):
         self.trunk = nn.Sequential(nn.LayerNorm(in_dim), nn.Linear(in_dim, hidden_dim), nn.GELU(), nn.Dropout(dropout), nn.Linear(hidden_dim, hidden_dim), nn.GELU(), nn.Dropout(dropout))
         self.force_head = nn.Linear(hidden_dim, 3)
         self.slip_head = nn.Linear(hidden_dim, 1)
-        self.future_head = nn.Sequential(nn.Linear(hidden_dim + 5, hidden_dim // 2), nn.GELU(), nn.Dropout(dropout), nn.Linear(hidden_dim // 2, horizons))
+        self.future_head = nn.Sequential(nn.Linear(hidden_dim + 6, hidden_dim // 2), nn.GELU(), nn.Dropout(dropout), nn.Linear(hidden_dim // 2, horizons))
     def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
         h = self.trunk(x)
         force = self.force_head(h)
