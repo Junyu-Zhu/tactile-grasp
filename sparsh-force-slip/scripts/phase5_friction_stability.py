@@ -906,7 +906,15 @@ def choose_visual_cases(payload: dict[str, Any], stable_prob: np.ndarray, thresh
         idxs = np.flatnonzero((groups == g) & (future == 1))
         if len(idxs): cases.append((label, int(idxs[np.argmax(p_inst[idxs])])))
     idxs = np.flatnonzero((current_slip == 0) & (r >= thresholds["ratio_p80"]))
-    if len(idxs): cases.append(("high_force_no_current_slip", int(idxs[np.argmax(r[idxs])])))
+    if len(idxs):
+        cases.append(("high_force_no_current_slip", int(idxs[np.argmax(r[idxs])])))
+    else:
+        # In this split the train-derived high Ft/Fn region may be almost all slip;
+        # still include a force-high/no-current-slip counterexample by Fmag.
+        fmag = force_components(payload, "pred")["Fmag"]
+        idxs = np.flatnonzero(current_slip == 0)
+        if len(idxs):
+            cases.append(("high_force_no_current_slip", int(idxs[np.argmax(fmag[idxs])])))
     idxs = np.flatnonzero((current_slip == 1) & (r <= thresholds["ratio_p20"]))
     if len(idxs): cases.append(("slip_with_low_friction_ratio_failure", int(idxs[0])))
     # Deduplicate by trajectory and keep requested labels.
