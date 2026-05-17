@@ -1,0 +1,6 @@
+force_seed1	/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase4_1_20260517_144424/run_force_seed1.sh
+slip_seed1	/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase4_1_20260517_144424/run_slip_seed1.sh
+decoupled_seed1	/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase4_1_20260517_144424/run_decoupled_seed1.sh
+force_seed2	/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase4_1_20260517_144424/run_force_seed2.sh
+slip_seed2	/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase4_1_20260517_144424/run_slip_seed2.sh
+decoupled_seed2	/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase4_1_20260517_144424/run_decoupled_seed2.sh
