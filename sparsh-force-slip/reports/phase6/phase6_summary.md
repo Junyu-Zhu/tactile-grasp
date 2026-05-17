@@ -1,6 +1,6 @@
 # Phase6 Summary
 
-- generated_at: `2026-05-18T02:07:43`
+- generated_at: `2026-05-18T02:09:10`
 - raw_data_modified: `False`
 
 ## Reports
@@ -41,3 +41,12 @@ Two-stage MAE decoupled force/slip perception + friction-aware tactile dynamics 
 
 - All experiments remain on derived GSmini datasets, not live robot trials.
 - Phase6-3 joint training is a frozen-feature proxy, not a full SPARSH backbone finetune.
+
+## Runtime provenance
+
+| phase | tmux | gpu | W&B runs | checkpoints |
+|---|---|---|---:|---:|
+| phase6_1 | `p61_20260518_0130` | `CUDA_VISIBLE_DEVICES=1` | 6 | 6 |
+| phase6_2 | `p62_20260518_0146` | `CUDA_VISIBLE_DEVICES=1` | 4 | 4 |
+| phase6_3 | `p63_20260518_0154 then p63_20260518_0200 after joint-head dimension fix` | `CUDA_VISIBLE_DEVICES=1` | 2 | 2 |
+| phase6_4 | `None` | `CUDA_VISIBLE_DEVICES=1 for inference only` | 0 | 1 |

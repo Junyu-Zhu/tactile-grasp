@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T02:07:43",
+  "generated_at": "2026-05-18T02:09:10",
   "phase": "phase6_summary",
   "phase_reports": {
     "phase6_1": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_1_multiseed_stability/phase6_1_multiseed_stability_report.md",
@@ -30,6 +30,72 @@
   "remaining_risks": [
     "All experiments remain on derived GSmini datasets, not live robot trials.",
     "Phase6-3 joint training is a frozen-feature proxy, not a full SPARSH backbone finetune."
+  ],
+  "runtime_provenance": [
+    {
+      "phase": "phase6_1",
+      "tmux_session": "p61_20260518_0130",
+      "gpu": "CUDA_VISIBLE_DEVICES=1",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/p61_20260518_0130.log",
+      "wandb_names": [
+        "phase6_1_full_dynamics_baseline_seed42_20260518_0130",
+        "phase6_1_full_plus_q_seed42_20260518_0130",
+        "phase6_1_full_dynamics_baseline_seed43_20260518_0130",
+        "phase6_1_full_plus_q_seed43_20260518_0130",
+        "phase6_1_full_dynamics_baseline_seed44_20260518_0130",
+        "phase6_1_full_plus_q_seed44_20260518_0130"
+      ],
+      "checkpoints": [
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed42_20260518_0130/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed42_20260518_0130/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed43_20260518_0130/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed43_20260518_0130/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed44_20260518_0130/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed44_20260518_0130/checkpoints/best.pth"
+      ]
+    },
+    {
+      "phase": "phase6_2",
+      "tmux_session": "p62_20260518_0146",
+      "gpu": "CUDA_VISIBLE_DEVICES=1",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/p62_20260518_0146.log",
+      "wandb_names": [
+        "phase6_2_separate_late_fusion_20260518_0146",
+        "phase6_2_decoupled_static_20260518_0146",
+        "phase6_2_decoupled_dynamics_20260518_0146",
+        "phase6_2_decoupled_dynamics_friction_20260518_0146"
+      ],
+      "checkpoints": [
+        "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_2_separate_features_20260517_171500/heads/phase6_2_separate_late_fusion_20260518_0146/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase6_2_decoupled_static_20260518_0146/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase6_2_decoupled_dynamics_20260518_0146/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_2_friction_features_20260518_0146/heads/phase6_2_decoupled_dynamics_friction_20260518_0146/checkpoints/best.pth"
+      ]
+    },
+    {
+      "phase": "phase6_3",
+      "tmux_session": "p63_20260518_0154 then p63_20260518_0200 after joint-head dimension fix",
+      "gpu": "CUDA_VISIBLE_DEVICES=1",
+      "log": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/p63_20260518_0154.log; /home/zjy/document/tactile-grasp/sparsh-force-slip/logs/p63_20260518_0200.log",
+      "wandb_names": [
+        "phase6_3_frozen_full_plus_q_seed42_20260518_0154",
+        "phase6_3_joint_lightweight_seed42_20260518_0154"
+      ],
+      "checkpoints": [
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_frozen_full_plus_q_seed42_20260518_0154/checkpoints/best.pth",
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_joint_lightweight_seed42_20260518_0154/checkpoints/best.pth"
+      ]
+    },
+    {
+      "phase": "phase6_4",
+      "tmux_session": null,
+      "gpu": "CUDA_VISIBLE_DEVICES=1 for inference only",
+      "log": null,
+      "wandb_names": [],
+      "checkpoints": [
+        "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed42_20260518_0130/checkpoints/best.pth"
+      ]
+    }
   ],
   "raw_data_modified": false,
   "json_path": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_summary.json",
