@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-05-18T02:07:39",
+  "phase": "phase6_4_early_warning_analysis",
+  "selected_condition": "full_plus_q",
+  "selected_seed": 42,
+  "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed42_20260518_0130/checkpoints/best.pth",
+  "early_warning_summary": {
+    "trajectory_count": 228,
+    "slip_trajectories": 215,
+    "detected_pre_slip_trajectories": 108,
+    "late_warning_trajectories": 107,
+    "missed_slip_trajectories": 0,
+    "false_alarm_trajectories": 0,
+    "early_warning_recall": 0.5023255813953489,
+    "lead_time_to_slip_onset_steps_mean": 5.601851851851852,
+    "lead_time_to_slip_onset_steps_median": 1.0
+  },
+  "cases": [
+    {
+      "dataset": "sharp_batch_1_val",
+      "trajectory": "9",
+      "n": 91,
+      "onset": 74,
+      "max_prob": 1.0,
+      "has_prediction": true,
+      "status": "detected_pre",
+      "lead": 73,
+      "first_pred": 1,
+      "label": "success_early_warning",
+      "figure": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_success_early_warning_sharp_batch_1_val_9.png"
+    },
+    {
+      "dataset": "flat_batch_1_val",
+      "trajectory": "17",
+      "n": 56,
+      "onset": 39,
+      "max_prob": 1.0,
+      "has_prediction": true,
+      "status": "late",
+      "lead": 0,
+      "first_pred": 39,
+      "label": "late_warning",
+      "figure": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_late_warning_flat_batch_1_val_17.png"
+    },
+    {
+      "dataset": "flat_batch_2_val",
+      "trajectory": "15",
+      "n": 31,
+      "onset": 14,
+      "max_prob": 0.9996459484100342,
+      "has_prediction": true,
+      "status": "late",
+      "lead": 0,
+      "first_pred": 17,
+      "label": "missed_warning_absence_check",
+      "case_note": "No true missed-warning trajectory at threshold 0.5; this is the lowest-risk slip trajectory.",
+      "figure": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_missed_warning_absence_check_flat_batch_2_val_15.png"
+    },
+    {
+      "dataset": "sphere_batch_3_val",
+      "trajectory": "7",
+      "n": 95,
+      "onset": null,
+      "max_prob": 0.47100865840911865,
+      "has_prediction": false,
+      "status": "true_negative",
+      "lead": null,
+      "first_pred": null,
+      "label": "false_alarm_absence_check",
+      "case_note": "No true false-alarm trajectory at threshold 0.5; this is the highest-risk no-slip trajectory.",
+      "figure": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_false_alarm_absence_check_sphere_batch_3_val_7.png"
+    },
+    {
+      "dataset": "sharp_batch_1_val",
+      "trajectory": "0",
+      "n": 76,
+      "onset": 58,
+      "max_prob": 1.0,
+      "has_prediction": true,
+      "status": "late",
+      "lead": 0,
+      "first_pred": 58,
+      "label": "heldout_contact_case",
+      "figure": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/heldout_heldout_contact_case_sharp_batch_1_val_0.png"
+    }
+  ],
+  "figures": [
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_success_early_warning_sharp_batch_1_val_9.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_late_warning_flat_batch_1_val_17.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_missed_warning_absence_check_flat_batch_2_val_15.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/main_false_alarm_absence_check_sphere_batch_3_val_7.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/figures/heldout_heldout_contact_case_sharp_batch_1_val_0.png"
+  ],
+  "raw_data_modified": false,
+  "notes": [
+    "Warnings use H1 future instability probability with threshold 0.5.",
+    "Figures overlay GT slip onset, current slip probability, H1/H3/H5 future instability, friction q/FtFn, and predicted force components."
+  ],
+  "json_path": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/phase6_4_early_warning_analysis_report.json",
+  "md_path": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_4_early_warning_analysis/phase6_4_early_warning_analysis_report.md"
+}

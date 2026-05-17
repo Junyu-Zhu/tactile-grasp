@@ -619,9 +619,27 @@ def command_phase6_4(args: argparse.Namespace) -> None:
         else: r=max(xs,key=lambda r:r.get("max_prob") or 0)
         out=dict(r); out["label"]=label; return out
     cases=[]
-    for status,label in [("detected_pre","success_early_warning"),("late","late_warning"),("missed","missed_warning"),("false_alarm","false_alarm")]:
+    for status,label in [("detected_pre","success_early_warning"),("late","late_warning")]:
         c=pick(status,label)
         if c: cases.append(c)
+    c=pick("missed","missed_warning")
+    if c is None:
+        slip_recs=[r for r in recs if r["onset"] is not None]
+        if slip_recs:
+            # No actual miss at threshold 0.5: plot the weakest slip trajectory as an absence check.
+            c=dict(min(slip_recs, key=lambda r: r.get("max_prob") or 0.0))
+            c["label"]="missed_warning_absence_check"
+            c["case_note"]="No true missed-warning trajectory at threshold 0.5; this is the lowest-risk slip trajectory."
+    if c: cases.append(c)
+    c=pick("false_alarm","false_alarm")
+    if c is None:
+        nonslip=[r for r in recs if r["onset"] is None]
+        if nonslip:
+            # No actual false alarm at threshold 0.5: plot the highest-risk no-slip trajectory as an absence check.
+            c=dict(max(nonslip, key=lambda r: r.get("max_prob") or 0.0))
+            c["label"]="false_alarm_absence_check"
+            c["case_note"]="No true false-alarm trajectory at threshold 0.5; this is the highest-risk no-slip trajectory."
+    if c: cases.append(c)
     # Held-out sharp case from Phase6-2 friction model, if available.
     p62=read_json(PHASE6_REPORT_ROOT/"phase6_2_heldout_sharp_generalization/phase6_2_heldout_sharp_generalization_report.json")
     fr=[r for r in p62["conditions"] if r["condition"]=="decoupled_dynamics_friction"]
@@ -645,8 +663,8 @@ def command_phase6_4(args: argparse.Namespace) -> None:
     payload_out["json_path"]=str(json_path); payload_out["md_path"]=str(md_path); write_json(json_path,payload_out)
     lines=["# Phase6-4 Early-warning Analysis", "", f"- generated_at: `{payload_out['generated_at']}`", f"- selected_condition: `{best['condition']}` seed `{best.get('seed')}`", f"- checkpoint: `{best['checkpoint']}`", "- raw_data_modified: `False`", "", "## Early-warning summary", "", "| metric | value |", "|---|---:|"]
     for k,v in summ.items(): lines.append(f"| {k} | {fmt(v) if isinstance(v,float) or v is None else v} |")
-    lines += ["", "## Cases", "", "| label | status | dataset | trajectory | onset | first warning | figure |", "|---|---|---|---|---:|---:|---|"]
-    for c in cases: lines.append(f"| {c['label']} | {c['status']} | {c['dataset']} | {c['trajectory']} | {c.get('onset')} | {c.get('first_pred')} | `{c.get('figure')}` |")
+    lines += ["", "## Cases", "", "| label | status | dataset | trajectory | onset | first warning | note | figure |", "|---|---|---|---|---:|---:|---|---|"]
+    for c in cases: lines.append(f"| {c['label']} | {c['status']} | {c['dataset']} | {c['trajectory']} | {c.get('onset')} | {c.get('first_pred')} | {c.get('case_note','')} | `{c.get('figure')}` |")
     md_path.write_text("\n".join(lines)+"\n",encoding="utf-8"); print(md_path)
 
 
