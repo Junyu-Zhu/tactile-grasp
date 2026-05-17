@@ -1,0 +1,1609 @@
+{
+  "generated_at": "2026-05-18T01:44:10",
+  "phase": "phase6_1_multiseed_stability",
+  "stamp": "20260518_0130",
+  "feature_run_id": "phase6_1_friction_features_20260518_0130",
+  "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "conditions": [
+    "full_dynamics_baseline",
+    "full_plus_q"
+  ],
+  "rows": [
+    {
+      "generated_at": "2026-05-18T01:34:39",
+      "phase": "phase5_future_head",
+      "condition": "full_dynamics_baseline",
+      "feature_run_id": "phase6_1_friction_features_20260518_0130",
+      "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase6",
+      "experiment_name": "phase6_1_full_dynamics_baseline_seed42_20260518_0130",
+      "input_schema": [
+        "z_t_mean_pooled",
+        "Fn_pred_N",
+        "Ft_pred_N",
+        "Ft_over_Fn_pred",
+        "p_slip_current",
+        "dFx_causal_N",
+        "dFy_causal_N",
+        "dFz_causal_N"
+      ],
+      "train_count": 65938,
+      "val_count": 14328,
+      "horizons": [
+        1,
+        3,
+        5
+      ],
+      "best_epoch": 39,
+      "best_selection_score_mean_auprc": 0.9897904507090131,
+      "best_val": {
+        "n_samples": 14328,
+        "horizons": [
+          1,
+          3,
+          5
+        ],
+        "H1": {
+          "future_slip_positive_count": 3327,
+          "future_slip_positive_ratio": 0.23220268006700168,
+          "future_slip_f1": 0.9666360575451485,
+          "future_slip_accuracy": 0.984785036292574,
+          "future_slip_precision": 0.9847209229809791,
+          "future_slip_recall": 0.9492034866245868,
+          "future_slip_auroc": 0.997927013056468,
+          "future_slip_auprc": 0.9952429604751886,
+          "future_stability_positive_count": 11001,
+          "future_stability_positive_ratio": 0.7677973199329984,
+          "future_stability_f1": 0.990145556459633,
+          "future_stability_accuracy": 0.984785036292574,
+          "future_stability_precision": 0.984803524862872,
+          "future_stability_recall": 0.9955458594673211,
+          "future_stability_auroc": 0.997927013056468,
+          "future_stability_auprc": 0.9991748643398448,
+          "stability_calibration_error": 0.005187274216730384,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9950076804915514,
+          "low_risk_model_false_alarm_on_future_stable": 0.00117096018735363,
+          "lead_time_to_slip_onset_steps_mean": 4.585585585585585,
+          "lead_time_to_slip_onset_steps_median": 1.0,
+          "lead_time_detected_trajectories": 111,
+          "lead_time_missed_trajectories": 104
+        },
+        "H3": {
+          "future_slip_positive_count": 3756,
+          "future_slip_positive_ratio": 0.26214405360134,
+          "future_slip_f1": 0.9563913872989915,
+          "future_slip_accuracy": 0.9776661083193746,
+          "future_slip_precision": 0.9796203238414294,
+          "future_slip_recall": 0.9342385516506923,
+          "future_slip_auroc": 0.9969212206616468,
+          "future_slip_auprc": 0.9936484543082521,
+          "future_stability_positive_count": 10572,
+          "future_stability_positive_ratio": 0.7378559463986599,
+          "future_stability_f1": 0.9849892109954029,
+          "future_stability_accuracy": 0.9776661083193746,
+          "future_stability_precision": 0.9770147031453564,
+          "future_stability_recall": 0.9930949678395763,
+          "future_stability_auroc": 0.9969212206616468,
+          "future_stability_auprc": 0.9985142728805623,
+          "stability_calibration_error": 0.007870173551869444,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9957757296466974,
+          "low_risk_model_false_alarm_on_future_stable": 0.0004033884630899556
+        },
+        "H5": {
+          "future_slip_positive_count": 4179,
+          "future_slip_positive_ratio": 0.2916666666666667,
+          "future_slip_f1": 0.9338345864661655,
+          "future_slip_accuracy": 0.9631490787269682,
+          "future_slip_precision": 0.9802683504340963,
+          "future_slip_recall": 0.8916008614501076,
+          "future_slip_auroc": 0.9863900460312909,
+          "future_slip_auprc": 0.9804799373435986,
+          "future_stability_positive_count": 10149,
+          "future_stability_positive_ratio": 0.7083333333333334,
+          "future_stability_f1": 0.9744631456761462,
+          "future_stability_accuracy": 0.9631490787269682,
+          "future_stability_precision": 0.9569677970931889,
+          "future_stability_recall": 0.9926101093703813,
+          "future_stability_auroc": 0.986390046031291,
+          "future_stability_auprc": 0.9922252966389878,
+          "stability_calibration_error": 0.012978894749769002,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9965437788018433,
+          "low_risk_model_false_alarm_on_future_stable": 0.0
+        }
+      },
+      "current_metrics_val_subset": {
+        "n_samples": 14328,
+        "positive_count": 3112,
+        "positive_ratio": 0.2171970965940815,
+        "force_rmse_xyz_N": [
+          0.02712060511112213,
+          0.029719717800617218,
+          0.02850577048957348
+        ],
+        "force_rmse_mean_N": 0.028448699042201042,
+        "force_mae_xyz_N": [
+          0.011225287802517414,
+          0.011489075608551502,
+          0.015507495030760765
+        ],
+        "force_mae_mean_N": 0.012740619480609894,
+        "force_derived_rmse_N": {
+          "Fn": 0.02850581519305706,
+          "Ft": 0.033900875598192215,
+          "Fmag": 0.03740435093641281
+        },
+        "slip_accuracy": 0.9819235064209939,
+        "slip_balanced_accuracy": 0.981604731030588,
+        "slip_precision": 0.9385182908084845,
+        "slip_recall": 0.9810411311053985,
+        "slip_f1": 0.9593087195600942,
+        "slip_confusion_matrix_labels_0_1": [
+          [
+            11016,
+            200
+          ],
+          [
+            59,
+            3053
+          ]
+        ],
+        "mean_pred_slip_probability": 0.2330310344696045,
+        "consistency": {
+          "ratio_source": "model_predicted_force_N",
+          "threshold_source": "train_val_ground_truth_force_ratio",
+          "high_ratio_threshold_p80": 0.7100012031912489,
+          "low_ratio_threshold_p20": 0.027921536146272716,
+          "high_ratio_count": 2447,
+          "low_ratio_count": 1837,
+          "high_ratio_no_slip_contradiction": 0.0,
+          "low_ratio_slip_contradiction": 0.003810560696788242,
+          "contradiction_rate": 0.0016339869281045752,
+          "high_ratio_slip_recall": 1.0,
+          "low_ratio_false_alarm": 0.0032768978700163844,
+          "monotonic_calibration_error": 0.00020289402455091475,
+          "calibration_bins": [
+            {
+              "bin": 0,
+              "n": 741,
+              "ratio_mean": 0.015379889868199825,
+              "p_slip_mean": 0.009696799330413342,
+              "violation": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1096,
+              "ratio_mean": 0.024925364181399345,
+              "p_slip_mean": 0.00898492056876421,
+              "violation": 0.0007118787616491318
+            },
+            {
+              "bin": 2,
+              "n": 1519,
+              "ratio_mean": 0.03113291971385479,
+              "p_slip_mean": 0.014599177055060863,
+              "violation": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 1902,
+              "ratio_mean": 0.03723122924566269,
+              "p_slip_mean": 0.013282115571200848,
+              "violation": 0.0013170614838600159
+            },
+            {
+              "bin": 4,
+              "n": 1975,
+              "ratio_mean": 0.045183733105659485,
+              "p_slip_mean": 0.024295665323734283,
+              "violation": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 1593,
+              "ratio_mean": 0.05714768171310425,
+              "p_slip_mean": 0.025083040818572044,
+              "violation": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1474,
+              "ratio_mean": 0.0811336413025856,
+              "p_slip_mean": 0.0391453355550766,
+              "violation": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1581,
+              "ratio_mean": 0.2790696918964386,
+              "p_slip_mean": 0.43138161301612854,
+              "violation": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1414,
+              "ratio_mean": 0.8776255249977112,
+              "p_slip_mean": 0.9998340606689453,
+              "violation": 0.0
+            },
+            {
+              "bin": 9,
+              "n": 1033,
+              "ratio_mean": 1.036546230316162,
+              "p_slip_mean": 0.9999766945838928,
+              "violation": 0.0
+            }
+          ]
+        }
+      },
+      "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed42_20260518_0130/checkpoints/best.pth",
+      "wall_time_seconds": 104.1970112323761,
+      "wandb_mode": "online",
+      "raw_data_modified": false,
+      "manifest_feature_kind": "decoupled_joint_friction_augmented",
+      "wandb_finish_status": "finished",
+      "seed": 42
+    },
+    {
+      "generated_at": "2026-05-18T01:36:26",
+      "phase": "phase5_future_head",
+      "condition": "full_plus_q",
+      "feature_run_id": "phase6_1_friction_features_20260518_0130",
+      "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase6",
+      "experiment_name": "phase6_1_full_plus_q_seed42_20260518_0130",
+      "input_schema": [
+        "z_t_mean_pooled",
+        "Fn_pred_N",
+        "Ft_pred_N",
+        "Ft_over_Fn_pred",
+        "p_slip_current",
+        "dFx_causal_N",
+        "dFy_causal_N",
+        "dFz_causal_N",
+        "friction_q_pred"
+      ],
+      "train_count": 65938,
+      "val_count": 14328,
+      "horizons": [
+        1,
+        3,
+        5
+      ],
+      "best_epoch": 40,
+      "best_selection_score_mean_auprc": 0.9906319812549557,
+      "best_val": {
+        "n_samples": 14328,
+        "horizons": [
+          1,
+          3,
+          5
+        ],
+        "H1": {
+          "future_slip_positive_count": 3327,
+          "future_slip_positive_ratio": 0.23220268006700168,
+          "future_slip_f1": 0.9668347852666972,
+          "future_slip_accuracy": 0.9848548297040759,
+          "future_slip_precision": 0.9835199004975125,
+          "future_slip_recall": 0.9507063420498948,
+          "future_slip_auroc": 0.9983395776764509,
+          "future_slip_auprc": 0.9958763886466231,
+          "future_stability_positive_count": 11001,
+          "future_stability_positive_ratio": 0.7677973199329984,
+          "future_stability_f1": 0.9901867679645457,
+          "future_stability_accuracy": 0.9848548297040759,
+          "future_stability_precision": 0.9852411807055436,
+          "future_stability_recall": 0.9951822561585311,
+          "future_stability_auroc": 0.9983395776764507,
+          "future_stability_auprc": 0.9993948447797876,
+          "stability_calibration_error": 0.005336505846915818,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9980798771121352,
+          "low_risk_model_false_alarm_on_future_stable": 0.00156128024980484,
+          "lead_time_to_slip_onset_steps_mean": 5.601851851851852,
+          "lead_time_to_slip_onset_steps_median": 1.0,
+          "lead_time_detected_trajectories": 108,
+          "lead_time_missed_trajectories": 107
+        },
+        "H3": {
+          "future_slip_positive_count": 3756,
+          "future_slip_positive_ratio": 0.26214405360134,
+          "future_slip_f1": 0.9593385741393331,
+          "future_slip_accuracy": 0.9790619765494137,
+          "future_slip_precision": 0.9770844837106571,
+          "future_slip_recall": 0.9422257720979765,
+          "future_slip_auroc": 0.9975278802245328,
+          "future_slip_auprc": 0.9945106578601473,
+          "future_stability_positive_count": 10572,
+          "future_stability_positive_ratio": 0.7378559463986599,
+          "future_stability_f1": 0.9859009305385844,
+          "future_stability_accuracy": 0.9790619765494137,
+          "future_stability_precision": 0.9797309919671212,
+          "future_stability_recall": 0.9921490730230799,
+          "future_stability_auroc": 0.9975278802245328,
+          "future_stability_auprc": 0.9989460741324812,
+          "stability_calibration_error": 0.005361487819490925,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9980798771121352,
+          "low_risk_model_false_alarm_on_future_stable": 0.0008067769261799112
+        },
+        "H5": {
+          "future_slip_positive_count": 4179,
+          "future_slip_positive_ratio": 0.2916666666666667,
+          "future_slip_f1": 0.9380905022376926,
+          "future_slip_accuracy": 0.9652428810720268,
+          "future_slip_precision": 0.9761966364812419,
+          "future_slip_recall": 0.9028475711892797,
+          "future_slip_auroc": 0.9871645669285954,
+          "future_slip_auprc": 0.9815088972580965,
+          "future_stability_positive_count": 10149,
+          "future_stability_positive_ratio": 0.7083333333333334,
+          "future_stability_f1": 0.975839316902775,
+          "future_stability_accuracy": 0.9652428810720268,
+          "future_stability_precision": 0.961196597534168,
+          "future_stability_recall": 0.9909350674943345,
+          "future_stability_auroc": 0.9871645669285954,
+          "future_stability_auprc": 0.992618052824025,
+          "stability_calibration_error": 0.007847690870206713,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9984639016897081,
+          "low_risk_model_false_alarm_on_future_stable": 0.0
+        }
+      },
+      "current_metrics_val_subset": {
+        "n_samples": 14328,
+        "positive_count": 3112,
+        "positive_ratio": 0.2171970965940815,
+        "force_rmse_xyz_N": [
+          0.02712060511112213,
+          0.029719717800617218,
+          0.02850577048957348
+        ],
+        "force_rmse_mean_N": 0.028448699042201042,
+        "force_mae_xyz_N": [
+          0.011225287802517414,
+          0.011489075608551502,
+          0.015507495030760765
+        ],
+        "force_mae_mean_N": 0.012740619480609894,
+        "force_derived_rmse_N": {
+          "Fn": 0.02850581519305706,
+          "Ft": 0.033900875598192215,
+          "Fmag": 0.03740435093641281
+        },
+        "slip_accuracy": 0.9819235064209939,
+        "slip_balanced_accuracy": 0.981604731030588,
+        "slip_precision": 0.9385182908084845,
+        "slip_recall": 0.9810411311053985,
+        "slip_f1": 0.9593087195600942,
+        "slip_confusion_matrix_labels_0_1": [
+          [
+            11016,
+            200
+          ],
+          [
+            59,
+            3053
+          ]
+        ],
+        "mean_pred_slip_probability": 0.2330310344696045,
+        "consistency": {
+          "ratio_source": "model_predicted_force_N",
+          "threshold_source": "train_val_ground_truth_force_ratio",
+          "high_ratio_threshold_p80": 0.7100012031912489,
+          "low_ratio_threshold_p20": 0.027921536146272716,
+          "high_ratio_count": 2447,
+          "low_ratio_count": 1837,
+          "high_ratio_no_slip_contradiction": 0.0,
+          "low_ratio_slip_contradiction": 0.003810560696788242,
+          "contradiction_rate": 0.0016339869281045752,
+          "high_ratio_slip_recall": 1.0,
+          "low_ratio_false_alarm": 0.0032768978700163844,
+          "monotonic_calibration_error": 0.00020289402455091475,
+          "calibration_bins": [
+            {
+              "bin": 0,
+              "n": 741,
+              "ratio_mean": 0.015379889868199825,
+              "p_slip_mean": 0.009696799330413342,
+              "violation": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1096,
+              "ratio_mean": 0.024925364181399345,
+              "p_slip_mean": 0.00898492056876421,
+              "violation": 0.0007118787616491318
+            },
+            {
+              "bin": 2,
+              "n": 1519,
+              "ratio_mean": 0.03113291971385479,
+              "p_slip_mean": 0.014599177055060863,
+              "violation": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 1902,
+              "ratio_mean": 0.03723122924566269,
+              "p_slip_mean": 0.013282115571200848,
+              "violation": 0.0013170614838600159
+            },
+            {
+              "bin": 4,
+              "n": 1975,
+              "ratio_mean": 0.045183733105659485,
+              "p_slip_mean": 0.024295665323734283,
+              "violation": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 1593,
+              "ratio_mean": 0.05714768171310425,
+              "p_slip_mean": 0.025083040818572044,
+              "violation": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1474,
+              "ratio_mean": 0.0811336413025856,
+              "p_slip_mean": 0.0391453355550766,
+              "violation": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1581,
+              "ratio_mean": 0.2790696918964386,
+              "p_slip_mean": 0.43138161301612854,
+              "violation": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1414,
+              "ratio_mean": 0.8776255249977112,
+              "p_slip_mean": 0.9998340606689453,
+              "violation": 0.0
+            },
+            {
+              "bin": 9,
+              "n": 1033,
+              "ratio_mean": 1.036546230316162,
+              "p_slip_mean": 0.9999766945838928,
+              "violation": 0.0
+            }
+          ]
+        }
+      },
+      "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed42_20260518_0130/checkpoints/best.pth",
+      "wall_time_seconds": 93.57271718978882,
+      "wandb_mode": "online",
+      "raw_data_modified": false,
+      "manifest_feature_kind": "decoupled_joint_friction_augmented",
+      "wandb_finish_status": "finished",
+      "seed": 42
+    },
+    {
+      "generated_at": "2026-05-18T01:38:04",
+      "phase": "phase5_future_head",
+      "condition": "full_dynamics_baseline",
+      "feature_run_id": "phase6_1_friction_features_20260518_0130",
+      "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase6",
+      "experiment_name": "phase6_1_full_dynamics_baseline_seed43_20260518_0130",
+      "input_schema": [
+        "z_t_mean_pooled",
+        "Fn_pred_N",
+        "Ft_pred_N",
+        "Ft_over_Fn_pred",
+        "p_slip_current",
+        "dFx_causal_N",
+        "dFy_causal_N",
+        "dFz_causal_N"
+      ],
+      "train_count": 65938,
+      "val_count": 14328,
+      "horizons": [
+        1,
+        3,
+        5
+      ],
+      "best_epoch": 39,
+      "best_selection_score_mean_auprc": 0.9903205755603842,
+      "best_val": {
+        "n_samples": 14328,
+        "horizons": [
+          1,
+          3,
+          5
+        ],
+        "H1": {
+          "future_slip_positive_count": 3327,
+          "future_slip_positive_ratio": 0.23220268006700168,
+          "future_slip_f1": 0.9642857142857143,
+          "future_slip_accuracy": 0.9838079285315466,
+          "future_slip_precision": 0.9883243925528558,
+          "future_slip_recall": 0.9413886384129847,
+          "future_slip_auroc": 0.9980178455782649,
+          "future_slip_auprc": 0.9953893013041264,
+          "future_stability_positive_count": 11001,
+          "future_stability_positive_ratio": 0.7677973199329984,
+          "future_stability_f1": 0.9895306859205776,
+          "future_stability_accuracy": 0.9838079285315466,
+          "future_stability_precision": 0.9825253158885204,
+          "future_stability_recall": 0.9966366693936914,
+          "future_stability_auroc": 0.998017845578265,
+          "future_stability_auprc": 0.9991481191631091,
+          "stability_calibration_error": 0.00639559955430791,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9950076804915514,
+          "low_risk_model_false_alarm_on_future_stable": 0.00117096018735363,
+          "lead_time_to_slip_onset_steps_mean": 3.967391304347826,
+          "lead_time_to_slip_onset_steps_median": 1.0,
+          "lead_time_detected_trajectories": 92,
+          "lead_time_missed_trajectories": 123
+        },
+        "H3": {
+          "future_slip_positive_count": 3756,
+          "future_slip_positive_ratio": 0.26214405360134,
+          "future_slip_f1": 0.9568766154264726,
+          "future_slip_accuracy": 0.9778754885538805,
+          "future_slip_precision": 0.9783031988873435,
+          "future_slip_recall": 0.9363684771033014,
+          "future_slip_auroc": 0.9971806491880616,
+          "future_slip_auprc": 0.994024861990163,
+          "future_stability_positive_count": 10572,
+          "future_stability_positive_ratio": 0.7378559463986599,
+          "future_stability_f1": 0.9851208636470312,
+          "future_stability_accuracy": 0.9778754885538805,
+          "future_stability_precision": 0.9777322277089351,
+          "future_stability_recall": 0.9926220204313281,
+          "future_stability_auroc": 0.9971806491880616,
+          "future_stability_auprc": 0.9985796904251888,
+          "stability_calibration_error": 0.00831438714926567,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9961597542242704,
+          "low_risk_model_false_alarm_on_future_stable": 0.0008067769261799112
+        },
+        "H5": {
+          "future_slip_positive_count": 4179,
+          "future_slip_positive_ratio": 0.2916666666666667,
+          "future_slip_f1": 0.934847728407389,
+          "future_slip_accuracy": 0.9635678391959799,
+          "future_slip_precision": 0.9770414818679886,
+          "future_slip_recall": 0.8961474036850922,
+          "future_slip_auroc": 0.9875824962780582,
+          "future_slip_auprc": 0.9815475633868632,
+          "future_stability_positive_count": 10149,
+          "future_stability_positive_ratio": 0.7083333333333334,
+          "future_stability_f1": 0.9747142026739004,
+          "future_stability_accuracy": 0.9635678391959799,
+          "future_stability_precision": 0.9586469747498809,
+          "future_stability_recall": 0.9913291949945807,
+          "future_stability_auroc": 0.9875824962780582,
+          "future_stability_auprc": 0.9930263779410164,
+          "stability_calibration_error": 0.009838704653097895,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9965437788018433,
+          "low_risk_model_false_alarm_on_future_stable": 0.0
+        }
+      },
+      "current_metrics_val_subset": {
+        "n_samples": 14328,
+        "positive_count": 3112,
+        "positive_ratio": 0.2171970965940815,
+        "force_rmse_xyz_N": [
+          0.02712060511112213,
+          0.029719717800617218,
+          0.02850577048957348
+        ],
+        "force_rmse_mean_N": 0.028448699042201042,
+        "force_mae_xyz_N": [
+          0.011225287802517414,
+          0.011489075608551502,
+          0.015507495030760765
+        ],
+        "force_mae_mean_N": 0.012740619480609894,
+        "force_derived_rmse_N": {
+          "Fn": 0.02850581519305706,
+          "Ft": 0.033900875598192215,
+          "Fmag": 0.03740435093641281
+        },
+        "slip_accuracy": 0.9819235064209939,
+        "slip_balanced_accuracy": 0.981604731030588,
+        "slip_precision": 0.9385182908084845,
+        "slip_recall": 0.9810411311053985,
+        "slip_f1": 0.9593087195600942,
+        "slip_confusion_matrix_labels_0_1": [
+          [
+            11016,
+            200
+          ],
+          [
+            59,
+            3053
+          ]
+        ],
+        "mean_pred_slip_probability": 0.2330310344696045,
+        "consistency": {
+          "ratio_source": "model_predicted_force_N",
+          "threshold_source": "train_val_ground_truth_force_ratio",
+          "high_ratio_threshold_p80": 0.7100012031912489,
+          "low_ratio_threshold_p20": 0.027921536146272716,
+          "high_ratio_count": 2447,
+          "low_ratio_count": 1837,
+          "high_ratio_no_slip_contradiction": 0.0,
+          "low_ratio_slip_contradiction": 0.003810560696788242,
+          "contradiction_rate": 0.0016339869281045752,
+          "high_ratio_slip_recall": 1.0,
+          "low_ratio_false_alarm": 0.0032768978700163844,
+          "monotonic_calibration_error": 0.00020289402455091475,
+          "calibration_bins": [
+            {
+              "bin": 0,
+              "n": 741,
+              "ratio_mean": 0.015379889868199825,
+              "p_slip_mean": 0.009696799330413342,
+              "violation": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1096,
+              "ratio_mean": 0.024925364181399345,
+              "p_slip_mean": 0.00898492056876421,
+              "violation": 0.0007118787616491318
+            },
+            {
+              "bin": 2,
+              "n": 1519,
+              "ratio_mean": 0.03113291971385479,
+              "p_slip_mean": 0.014599177055060863,
+              "violation": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 1902,
+              "ratio_mean": 0.03723122924566269,
+              "p_slip_mean": 0.013282115571200848,
+              "violation": 0.0013170614838600159
+            },
+            {
+              "bin": 4,
+              "n": 1975,
+              "ratio_mean": 0.045183733105659485,
+              "p_slip_mean": 0.024295665323734283,
+              "violation": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 1593,
+              "ratio_mean": 0.05714768171310425,
+              "p_slip_mean": 0.025083040818572044,
+              "violation": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1474,
+              "ratio_mean": 0.0811336413025856,
+              "p_slip_mean": 0.0391453355550766,
+              "violation": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1581,
+              "ratio_mean": 0.2790696918964386,
+              "p_slip_mean": 0.43138161301612854,
+              "violation": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1414,
+              "ratio_mean": 0.8776255249977112,
+              "p_slip_mean": 0.9998340606689453,
+              "violation": 0.0
+            },
+            {
+              "bin": 9,
+              "n": 1033,
+              "ratio_mean": 1.036546230316162,
+              "p_slip_mean": 0.9999766945838928,
+              "violation": 0.0
+            }
+          ]
+        }
+      },
+      "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed43_20260518_0130/checkpoints/best.pth",
+      "wall_time_seconds": 92.85297536849976,
+      "wandb_mode": "online",
+      "raw_data_modified": false,
+      "manifest_feature_kind": "decoupled_joint_friction_augmented",
+      "wandb_finish_status": "finished",
+      "seed": 43
+    },
+    {
+      "generated_at": "2026-05-18T01:39:43",
+      "phase": "phase5_future_head",
+      "condition": "full_plus_q",
+      "feature_run_id": "phase6_1_friction_features_20260518_0130",
+      "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase6",
+      "experiment_name": "phase6_1_full_plus_q_seed43_20260518_0130",
+      "input_schema": [
+        "z_t_mean_pooled",
+        "Fn_pred_N",
+        "Ft_pred_N",
+        "Ft_over_Fn_pred",
+        "p_slip_current",
+        "dFx_causal_N",
+        "dFy_causal_N",
+        "dFz_causal_N",
+        "friction_q_pred"
+      ],
+      "train_count": 65938,
+      "val_count": 14328,
+      "horizons": [
+        1,
+        3,
+        5
+      ],
+      "best_epoch": 36,
+      "best_selection_score_mean_auprc": 0.9903639847903394,
+      "best_val": {
+        "n_samples": 14328,
+        "horizons": [
+          1,
+          3,
+          5
+        ],
+        "H1": {
+          "future_slip_positive_count": 3327,
+          "future_slip_positive_ratio": 0.23220268006700168,
+          "future_slip_f1": 0.9645717806531116,
+          "future_slip_accuracy": 0.9839475153545505,
+          "future_slip_precision": 0.9892575039494471,
+          "future_slip_recall": 0.941088067327923,
+          "future_slip_auroc": 0.9982196060707328,
+          "future_slip_auprc": 0.9956495547403482,
+          "future_stability_positive_count": 11001,
+          "future_stability_positive_ratio": 0.7677973199329984,
+          "future_stability_f1": 0.9896228117668291,
+          "future_stability_accuracy": 0.9839475153545505,
+          "future_stability_precision": 0.982441995879244,
+          "future_stability_recall": 0.9969093718752841,
+          "future_stability_auroc": 0.9982196060707326,
+          "future_stability_auprc": 0.9993190491973793,
+          "stability_calibration_error": 0.008475008786962866,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9973118279569892,
+          "low_risk_model_false_alarm_on_future_stable": 0.00078064012490242,
+          "lead_time_to_slip_onset_steps_mean": 3.5555555555555554,
+          "lead_time_to_slip_onset_steps_median": 1.0,
+          "lead_time_detected_trajectories": 90,
+          "lead_time_missed_trajectories": 125
+        },
+        "H3": {
+          "future_slip_positive_count": 3756,
+          "future_slip_positive_ratio": 0.26214405360134,
+          "future_slip_f1": 0.9503036996134733,
+          "future_slip_accuracy": 0.9748743718592965,
+          "future_slip_precision": 0.9868119266055045,
+          "future_slip_recall": 0.9164004259850905,
+          "future_slip_auroc": 0.997318617365702,
+          "future_slip_auprc": 0.9940529142211696,
+          "future_stability_positive_count": 10572,
+          "future_stability_positive_ratio": 0.7378559463986599,
+          "future_stability_f1": 0.9831869979450776,
+          "future_stability_accuracy": 0.9748743718592965,
+          "future_stability_precision": 0.9710332103321033,
+          "future_stability_recall": 0.9956488838441165,
+          "future_stability_auroc": 0.997318617365702,
+          "future_stability_auprc": 0.9988452132332679,
+          "stability_calibration_error": 0.016171146907592984,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9976958525345622,
+          "low_risk_model_false_alarm_on_future_stable": 0.0
+        },
+        "H5": {
+          "future_slip_positive_count": 4179,
+          "future_slip_positive_ratio": 0.2916666666666667,
+          "future_slip_f1": 0.924764090793165,
+          "future_slip_accuracy": 0.958821887213847,
+          "future_slip_precision": 0.98989898989899,
+          "future_slip_recall": 0.8676716917922948,
+          "future_slip_auroc": 0.98749531714237,
+          "future_slip_auprc": 0.9813894854095003,
+          "future_stability_positive_count": 10149,
+          "future_stability_positive_ratio": 0.7083333333333334,
+          "future_stability_f1": 0.9716536946286154,
+          "future_stability_accuracy": 0.958821887213847,
+          "future_stability_precision": 0.9481481481481482,
+          "future_stability_recall": 0.9963543206227214,
+          "future_stability_auroc": 0.98749531714237,
+          "future_stability_auprc": 0.9929286752384356,
+          "stability_calibration_error": 0.027031228044171678,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9976958525345622,
+          "low_risk_model_false_alarm_on_future_stable": 0.0
+        }
+      },
+      "current_metrics_val_subset": {
+        "n_samples": 14328,
+        "positive_count": 3112,
+        "positive_ratio": 0.2171970965940815,
+        "force_rmse_xyz_N": [
+          0.02712060511112213,
+          0.029719717800617218,
+          0.02850577048957348
+        ],
+        "force_rmse_mean_N": 0.028448699042201042,
+        "force_mae_xyz_N": [
+          0.011225287802517414,
+          0.011489075608551502,
+          0.015507495030760765
+        ],
+        "force_mae_mean_N": 0.012740619480609894,
+        "force_derived_rmse_N": {
+          "Fn": 0.02850581519305706,
+          "Ft": 0.033900875598192215,
+          "Fmag": 0.03740435093641281
+        },
+        "slip_accuracy": 0.9819235064209939,
+        "slip_balanced_accuracy": 0.981604731030588,
+        "slip_precision": 0.9385182908084845,
+        "slip_recall": 0.9810411311053985,
+        "slip_f1": 0.9593087195600942,
+        "slip_confusion_matrix_labels_0_1": [
+          [
+            11016,
+            200
+          ],
+          [
+            59,
+            3053
+          ]
+        ],
+        "mean_pred_slip_probability": 0.2330310344696045,
+        "consistency": {
+          "ratio_source": "model_predicted_force_N",
+          "threshold_source": "train_val_ground_truth_force_ratio",
+          "high_ratio_threshold_p80": 0.7100012031912489,
+          "low_ratio_threshold_p20": 0.027921536146272716,
+          "high_ratio_count": 2447,
+          "low_ratio_count": 1837,
+          "high_ratio_no_slip_contradiction": 0.0,
+          "low_ratio_slip_contradiction": 0.003810560696788242,
+          "contradiction_rate": 0.0016339869281045752,
+          "high_ratio_slip_recall": 1.0,
+          "low_ratio_false_alarm": 0.0032768978700163844,
+          "monotonic_calibration_error": 0.00020289402455091475,
+          "calibration_bins": [
+            {
+              "bin": 0,
+              "n": 741,
+              "ratio_mean": 0.015379889868199825,
+              "p_slip_mean": 0.009696799330413342,
+              "violation": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1096,
+              "ratio_mean": 0.024925364181399345,
+              "p_slip_mean": 0.00898492056876421,
+              "violation": 0.0007118787616491318
+            },
+            {
+              "bin": 2,
+              "n": 1519,
+              "ratio_mean": 0.03113291971385479,
+              "p_slip_mean": 0.014599177055060863,
+              "violation": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 1902,
+              "ratio_mean": 0.03723122924566269,
+              "p_slip_mean": 0.013282115571200848,
+              "violation": 0.0013170614838600159
+            },
+            {
+              "bin": 4,
+              "n": 1975,
+              "ratio_mean": 0.045183733105659485,
+              "p_slip_mean": 0.024295665323734283,
+              "violation": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 1593,
+              "ratio_mean": 0.05714768171310425,
+              "p_slip_mean": 0.025083040818572044,
+              "violation": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1474,
+              "ratio_mean": 0.0811336413025856,
+              "p_slip_mean": 0.0391453355550766,
+              "violation": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1581,
+              "ratio_mean": 0.2790696918964386,
+              "p_slip_mean": 0.43138161301612854,
+              "violation": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1414,
+              "ratio_mean": 0.8776255249977112,
+              "p_slip_mean": 0.9998340606689453,
+              "violation": 0.0
+            },
+            {
+              "bin": 9,
+              "n": 1033,
+              "ratio_mean": 1.036546230316162,
+              "p_slip_mean": 0.9999766945838928,
+              "violation": 0.0
+            }
+          ]
+        }
+      },
+      "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed43_20260518_0130/checkpoints/best.pth",
+      "wall_time_seconds": 91.77529120445251,
+      "wandb_mode": "online",
+      "raw_data_modified": false,
+      "manifest_feature_kind": "decoupled_joint_friction_augmented",
+      "wandb_finish_status": "finished",
+      "seed": 43
+    },
+    {
+      "generated_at": "2026-05-18T01:41:22",
+      "phase": "phase5_future_head",
+      "condition": "full_dynamics_baseline",
+      "feature_run_id": "phase6_1_friction_features_20260518_0130",
+      "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase6",
+      "experiment_name": "phase6_1_full_dynamics_baseline_seed44_20260518_0130",
+      "input_schema": [
+        "z_t_mean_pooled",
+        "Fn_pred_N",
+        "Ft_pred_N",
+        "Ft_over_Fn_pred",
+        "p_slip_current",
+        "dFx_causal_N",
+        "dFy_causal_N",
+        "dFz_causal_N"
+      ],
+      "train_count": 65938,
+      "val_count": 14328,
+      "horizons": [
+        1,
+        3,
+        5
+      ],
+      "best_epoch": 40,
+      "best_selection_score_mean_auprc": 0.9899011415634021,
+      "best_val": {
+        "n_samples": 14328,
+        "horizons": [
+          1,
+          3,
+          5
+        ],
+        "H1": {
+          "future_slip_positive_count": 3327,
+          "future_slip_positive_ratio": 0.23220268006700168,
+          "future_slip_f1": 0.9633846153846154,
+          "future_slip_accuracy": 0.9833891680625348,
+          "future_slip_precision": 0.9867633154743145,
+          "future_slip_recall": 0.941088067327923,
+          "future_slip_auroc": 0.9977791455251206,
+          "future_slip_auprc": 0.9951960724575113,
+          "future_stability_positive_count": 11001,
+          "future_stability_positive_ratio": 0.7677973199329984,
+          "future_stability_f1": 0.9892579888066438,
+          "future_stability_accuracy": 0.9833891680625348,
+          "future_stability_precision": 0.9824294038547736,
+          "future_stability_recall": 0.9961821652577039,
+          "future_stability_auroc": 0.9977791455251206,
+          "future_stability_auprc": 0.9989229300291989,
+          "stability_calibration_error": 0.007356907456773929,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9953917050691244,
+          "low_risk_model_false_alarm_on_future_stable": 0.00078064012490242,
+          "lead_time_to_slip_onset_steps_mean": 5.21505376344086,
+          "lead_time_to_slip_onset_steps_median": 1.0,
+          "lead_time_detected_trajectories": 93,
+          "lead_time_missed_trajectories": 122
+        },
+        "H3": {
+          "future_slip_positive_count": 3756,
+          "future_slip_positive_ratio": 0.26214405360134,
+          "future_slip_f1": 0.955288985823337,
+          "future_slip_accuracy": 0.977107761027359,
+          "future_slip_precision": 0.9787709497206704,
+          "future_slip_recall": 0.9329073482428115,
+          "future_slip_auroc": 0.9968416783619156,
+          "future_slip_auprc": 0.9935756688223744,
+          "future_stability_positive_count": 10572,
+          "future_stability_positive_ratio": 0.7378559463986599,
+          "future_stability_f1": 0.9846153846153847,
+          "future_stability_accuracy": 0.977107761027359,
+          "future_stability_precision": 0.9765537774469669,
+          "future_stability_recall": 0.9928111993946274,
+          "future_stability_auroc": 0.9968416783619157,
+          "future_stability_auprc": 0.9981760938126549,
+          "stability_calibration_error": 0.008098803624869696,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9961597542242704,
+          "low_risk_model_false_alarm_on_future_stable": 0.0004033884630899556
+        },
+        "H5": {
+          "future_slip_positive_count": 4179,
+          "future_slip_positive_ratio": 0.2916666666666667,
+          "future_slip_f1": 0.932334581772784,
+          "future_slip_accuracy": 0.9621719709659409,
+          "future_slip_precision": 0.9746802401461759,
+          "future_slip_recall": 0.8935151950227327,
+          "future_slip_auroc": 0.9869331856038965,
+          "future_slip_auprc": 0.980931683410321,
+          "future_stability_positive_count": 10149,
+          "future_stability_positive_ratio": 0.7083333333333334,
+          "future_stability_f1": 0.973747941489877,
+          "future_stability_accuracy": 0.9621719709659409,
+          "future_stability_precision": 0.9576069353148519,
+          "future_stability_recall": 0.9904424081190265,
+          "future_stability_auroc": 0.9869331856038965,
+          "future_stability_auprc": 0.9922360479044736,
+          "stability_calibration_error": 0.011202661279682034,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9961597542242704,
+          "low_risk_model_false_alarm_on_future_stable": 0.0
+        }
+      },
+      "current_metrics_val_subset": {
+        "n_samples": 14328,
+        "positive_count": 3112,
+        "positive_ratio": 0.2171970965940815,
+        "force_rmse_xyz_N": [
+          0.02712060511112213,
+          0.029719717800617218,
+          0.02850577048957348
+        ],
+        "force_rmse_mean_N": 0.028448699042201042,
+        "force_mae_xyz_N": [
+          0.011225287802517414,
+          0.011489075608551502,
+          0.015507495030760765
+        ],
+        "force_mae_mean_N": 0.012740619480609894,
+        "force_derived_rmse_N": {
+          "Fn": 0.02850581519305706,
+          "Ft": 0.033900875598192215,
+          "Fmag": 0.03740435093641281
+        },
+        "slip_accuracy": 0.9819235064209939,
+        "slip_balanced_accuracy": 0.981604731030588,
+        "slip_precision": 0.9385182908084845,
+        "slip_recall": 0.9810411311053985,
+        "slip_f1": 0.9593087195600942,
+        "slip_confusion_matrix_labels_0_1": [
+          [
+            11016,
+            200
+          ],
+          [
+            59,
+            3053
+          ]
+        ],
+        "mean_pred_slip_probability": 0.2330310344696045,
+        "consistency": {
+          "ratio_source": "model_predicted_force_N",
+          "threshold_source": "train_val_ground_truth_force_ratio",
+          "high_ratio_threshold_p80": 0.7100012031912489,
+          "low_ratio_threshold_p20": 0.027921536146272716,
+          "high_ratio_count": 2447,
+          "low_ratio_count": 1837,
+          "high_ratio_no_slip_contradiction": 0.0,
+          "low_ratio_slip_contradiction": 0.003810560696788242,
+          "contradiction_rate": 0.0016339869281045752,
+          "high_ratio_slip_recall": 1.0,
+          "low_ratio_false_alarm": 0.0032768978700163844,
+          "monotonic_calibration_error": 0.00020289402455091475,
+          "calibration_bins": [
+            {
+              "bin": 0,
+              "n": 741,
+              "ratio_mean": 0.015379889868199825,
+              "p_slip_mean": 0.009696799330413342,
+              "violation": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1096,
+              "ratio_mean": 0.024925364181399345,
+              "p_slip_mean": 0.00898492056876421,
+              "violation": 0.0007118787616491318
+            },
+            {
+              "bin": 2,
+              "n": 1519,
+              "ratio_mean": 0.03113291971385479,
+              "p_slip_mean": 0.014599177055060863,
+              "violation": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 1902,
+              "ratio_mean": 0.03723122924566269,
+              "p_slip_mean": 0.013282115571200848,
+              "violation": 0.0013170614838600159
+            },
+            {
+              "bin": 4,
+              "n": 1975,
+              "ratio_mean": 0.045183733105659485,
+              "p_slip_mean": 0.024295665323734283,
+              "violation": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 1593,
+              "ratio_mean": 0.05714768171310425,
+              "p_slip_mean": 0.025083040818572044,
+              "violation": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1474,
+              "ratio_mean": 0.0811336413025856,
+              "p_slip_mean": 0.0391453355550766,
+              "violation": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1581,
+              "ratio_mean": 0.2790696918964386,
+              "p_slip_mean": 0.43138161301612854,
+              "violation": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1414,
+              "ratio_mean": 0.8776255249977112,
+              "p_slip_mean": 0.9998340606689453,
+              "violation": 0.0
+            },
+            {
+              "bin": 9,
+              "n": 1033,
+              "ratio_mean": 1.036546230316162,
+              "p_slip_mean": 0.9999766945838928,
+              "violation": 0.0
+            }
+          ]
+        }
+      },
+      "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed44_20260518_0130/checkpoints/best.pth",
+      "wall_time_seconds": 94.75865268707275,
+      "wandb_mode": "online",
+      "raw_data_modified": false,
+      "manifest_feature_kind": "decoupled_joint_friction_augmented",
+      "wandb_finish_status": "finished",
+      "seed": 44
+    },
+    {
+      "generated_at": "2026-05-18T01:43:04",
+      "phase": "phase5_future_head",
+      "condition": "full_plus_q",
+      "feature_run_id": "phase6_1_friction_features_20260518_0130",
+      "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase6",
+      "experiment_name": "phase6_1_full_plus_q_seed44_20260518_0130",
+      "input_schema": [
+        "z_t_mean_pooled",
+        "Fn_pred_N",
+        "Ft_pred_N",
+        "Ft_over_Fn_pred",
+        "p_slip_current",
+        "dFx_causal_N",
+        "dFy_causal_N",
+        "dFz_causal_N",
+        "friction_q_pred"
+      ],
+      "train_count": 65938,
+      "val_count": 14328,
+      "horizons": [
+        1,
+        3,
+        5
+      ],
+      "best_epoch": 38,
+      "best_selection_score_mean_auprc": 0.9903220863435808,
+      "best_val": {
+        "n_samples": 14328,
+        "horizons": [
+          1,
+          3,
+          5
+        ],
+        "H1": {
+          "future_slip_positive_count": 3327,
+          "future_slip_positive_ratio": 0.23220268006700168,
+          "future_slip_f1": 0.9643573522604536,
+          "future_slip_accuracy": 0.9838777219430486,
+          "future_slip_precision": 0.9908053265694357,
+          "future_slip_recall": 0.9392846408175534,
+          "future_slip_auroc": 0.9983841811030814,
+          "future_slip_auprc": 0.9958277640508895,
+          "future_stability_positive_count": 11001,
+          "future_stability_positive_ratio": 0.7677973199329984,
+          "future_stability_f1": 0.9895828635851184,
+          "future_stability_accuracy": 0.9838777219430486,
+          "future_stability_precision": 0.981922319670664,
+          "future_stability_recall": 0.9973638760112717,
+          "future_stability_auroc": 0.9983841811030815,
+          "future_stability_auprc": 0.9994522741295199,
+          "stability_calibration_error": 0.008416570237156048,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9973118279569892,
+          "low_risk_model_false_alarm_on_future_stable": 0.00039032006245121,
+          "lead_time_to_slip_onset_steps_mean": 4.154761904761905,
+          "lead_time_to_slip_onset_steps_median": 1.0,
+          "lead_time_detected_trajectories": 84,
+          "lead_time_missed_trajectories": 131
+        },
+        "H3": {
+          "future_slip_positive_count": 3756,
+          "future_slip_positive_ratio": 0.26214405360134,
+          "future_slip_f1": 0.9542465753424657,
+          "future_slip_accuracy": 0.9766890005583473,
+          "future_slip_precision": 0.9827878103837472,
+          "future_slip_recall": 0.9273162939297125,
+          "future_slip_auroc": 0.9974668856226809,
+          "future_slip_auprc": 0.994186017386822,
+          "future_stability_positive_count": 10572,
+          "future_stability_positive_ratio": 0.7378559463986599,
+          "future_stability_f1": 0.9843603671099457,
+          "future_stability_accuracy": 0.9766890005583473,
+          "future_stability_precision": 0.9746847181008902,
+          "future_stability_recall": 0.9942300416193719,
+          "future_stability_auroc": 0.9974668856226807,
+          "future_stability_auprc": 0.9990092231051102,
+          "stability_calibration_error": 0.010349409234640344,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9984639016897081,
+          "low_risk_model_false_alarm_on_future_stable": 0.0004033884630899556
+        },
+        "H5": {
+          "future_slip_positive_count": 4179,
+          "future_slip_positive_ratio": 0.2916666666666667,
+          "future_slip_f1": 0.9311516677155444,
+          "future_slip_accuracy": 0.961823003908431,
+          "future_slip_precision": 0.9822092405735529,
+          "future_slip_recall": 0.8851399856424982,
+          "future_slip_auroc": 0.987181012485632,
+          "future_slip_auprc": 0.980952477593031,
+          "future_stability_positive_count": 10149,
+          "future_stability_positive_ratio": 0.7083333333333334,
+          "future_stability_f1": 0.9735889141036165,
+          "future_stability_accuracy": 0.961823003908431,
+          "future_stability_precision": 0.9545540617307328,
+          "future_stability_recall": 0.993398364370874,
+          "future_stability_auroc": 0.987181012485632,
+          "future_stability_auprc": 0.9929786745672935,
+          "stability_calibration_error": 0.010853331114463464,
+          "high_risk_count": 2604,
+          "low_risk_count": 2603,
+          "high_risk_future_slip_rate": 1.0,
+          "high_risk_model_recall_on_future_slip": 0.9988479262672811,
+          "low_risk_model_false_alarm_on_future_stable": 0.0
+        }
+      },
+      "current_metrics_val_subset": {
+        "n_samples": 14328,
+        "positive_count": 3112,
+        "positive_ratio": 0.2171970965940815,
+        "force_rmse_xyz_N": [
+          0.02712060511112213,
+          0.029719717800617218,
+          0.02850577048957348
+        ],
+        "force_rmse_mean_N": 0.028448699042201042,
+        "force_mae_xyz_N": [
+          0.011225287802517414,
+          0.011489075608551502,
+          0.015507495030760765
+        ],
+        "force_mae_mean_N": 0.012740619480609894,
+        "force_derived_rmse_N": {
+          "Fn": 0.02850581519305706,
+          "Ft": 0.033900875598192215,
+          "Fmag": 0.03740435093641281
+        },
+        "slip_accuracy": 0.9819235064209939,
+        "slip_balanced_accuracy": 0.981604731030588,
+        "slip_precision": 0.9385182908084845,
+        "slip_recall": 0.9810411311053985,
+        "slip_f1": 0.9593087195600942,
+        "slip_confusion_matrix_labels_0_1": [
+          [
+            11016,
+            200
+          ],
+          [
+            59,
+            3053
+          ]
+        ],
+        "mean_pred_slip_probability": 0.2330310344696045,
+        "consistency": {
+          "ratio_source": "model_predicted_force_N",
+          "threshold_source": "train_val_ground_truth_force_ratio",
+          "high_ratio_threshold_p80": 0.7100012031912489,
+          "low_ratio_threshold_p20": 0.027921536146272716,
+          "high_ratio_count": 2447,
+          "low_ratio_count": 1837,
+          "high_ratio_no_slip_contradiction": 0.0,
+          "low_ratio_slip_contradiction": 0.003810560696788242,
+          "contradiction_rate": 0.0016339869281045752,
+          "high_ratio_slip_recall": 1.0,
+          "low_ratio_false_alarm": 0.0032768978700163844,
+          "monotonic_calibration_error": 0.00020289402455091475,
+          "calibration_bins": [
+            {
+              "bin": 0,
+              "n": 741,
+              "ratio_mean": 0.015379889868199825,
+              "p_slip_mean": 0.009696799330413342,
+              "violation": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1096,
+              "ratio_mean": 0.024925364181399345,
+              "p_slip_mean": 0.00898492056876421,
+              "violation": 0.0007118787616491318
+            },
+            {
+              "bin": 2,
+              "n": 1519,
+              "ratio_mean": 0.03113291971385479,
+              "p_slip_mean": 0.014599177055060863,
+              "violation": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 1902,
+              "ratio_mean": 0.03723122924566269,
+              "p_slip_mean": 0.013282115571200848,
+              "violation": 0.0013170614838600159
+            },
+            {
+              "bin": 4,
+              "n": 1975,
+              "ratio_mean": 0.045183733105659485,
+              "p_slip_mean": 0.024295665323734283,
+              "violation": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 1593,
+              "ratio_mean": 0.05714768171310425,
+              "p_slip_mean": 0.025083040818572044,
+              "violation": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1474,
+              "ratio_mean": 0.0811336413025856,
+              "p_slip_mean": 0.0391453355550766,
+              "violation": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1581,
+              "ratio_mean": 0.2790696918964386,
+              "p_slip_mean": 0.43138161301612854,
+              "violation": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1414,
+              "ratio_mean": 0.8776255249977112,
+              "p_slip_mean": 0.9998340606689453,
+              "violation": 0.0
+            },
+            {
+              "bin": 9,
+              "n": 1033,
+              "ratio_mean": 1.036546230316162,
+              "p_slip_mean": 0.9999766945838928,
+              "violation": 0.0
+            }
+          ]
+        }
+      },
+      "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed44_20260518_0130/checkpoints/best.pth",
+      "wall_time_seconds": 98.33772325515747,
+      "wandb_mode": "online",
+      "raw_data_modified": false,
+      "manifest_feature_kind": "decoupled_joint_friction_augmented",
+      "wandb_finish_status": "best_effort_timeout_or_error: wandb.finish timed out",
+      "seed": 44
+    }
+  ],
+  "metric_summary": {
+    "full_dynamics_baseline": {
+      "H1_f1": {
+        "mean": 0.9647687957384927,
+        "std": 0.0016786884160965934,
+        "n": 3
+      },
+      "H1_auroc": {
+        "mean": 0.9979080013866177,
+        "std": 0.00012048033671783409,
+        "n": 3
+      },
+      "H1_auprc": {
+        "mean": 0.9952761114122755,
+        "std": 0.00010078980733860406,
+        "n": 3
+      },
+      "H1_ece": {
+        "mean": 0.006313260409270741,
+        "std": 0.0010871577163316974,
+        "n": 3
+      },
+      "H1_high_recall": {
+        "mean": 0.9951356886840758,
+        "std": 0.0002217166932372199,
+        "n": 3
+      },
+      "H1_lead_mean": {
+        "mean": 4.589343551124757,
+        "std": 0.6238397187469424,
+        "n": 3
+      },
+      "H3_f1": {
+        "mean": 0.9561856628496005,
+        "std": 0.0008135624444356567,
+        "n": 3
+      },
+      "H3_auprc": {
+        "mean": 0.9937496617069298,
+        "std": 0.00024109298757397238,
+        "n": 3
+      },
+      "H3_ece": {
+        "mean": 0.008094454775334938,
+        "std": 0.00022213872781919693,
+        "n": 3
+      },
+      "H5_f1": {
+        "mean": 0.9336722988821129,
+        "std": 0.001264408734037259,
+        "n": 3
+      },
+      "H5_auprc": {
+        "mean": 0.9809863947135943,
+        "std": 0.0005359116877747706,
+        "n": 3
+      },
+      "H5_ece": {
+        "mean": 0.011340086894182977,
+        "std": 0.0015745992539209917,
+        "n": 3
+      }
+    },
+    "full_plus_q": {
+      "H1_f1": {
+        "mean": 0.9652546393934207,
+        "std": 0.0013726400181835073,
+        "n": 3
+      },
+      "H1_auroc": {
+        "mean": 0.9983144549500883,
+        "std": 8.511520929333433e-05,
+        "n": 3
+      },
+      "H1_auprc": {
+        "mean": 0.9957845691459536,
+        "std": 0.00011942677722476425,
+        "n": 3
+      },
+      "H1_ece": {
+        "mean": 0.007409361623678244,
+        "std": 0.0017953835438337127,
+        "n": 3
+      },
+      "H1_high_recall": {
+        "mean": 0.9975678443420378,
+        "std": 0.0004434333864743757,
+        "n": 3
+      },
+      "H1_lead_mean": {
+        "mean": 4.4373897707231045,
+        "std": 1.0520175930193951,
+        "n": 3
+      },
+      "H3_f1": {
+        "mean": 0.9546296163650907,
+        "std": 0.004529600395539092,
+        "n": 3
+      },
+      "H3_auprc": {
+        "mean": 0.9942498631560462,
+        "std": 0.0002354559862097537,
+        "n": 3
+      },
+      "H3_ece": {
+        "mean": 0.010627347987241418,
+        "std": 0.005410186675420261,
+        "n": 3
+      },
+      "H5_f1": {
+        "mean": 0.9313354202488008,
+        "std": 0.006665105718765289,
+        "n": 3
+      },
+      "H5_auprc": {
+        "mean": 0.9812836200868759,
+        "std": 0.00029292714250936234,
+        "n": 3
+      },
+      "H5_ece": {
+        "mean": 0.015244083342947282,
+        "std": 0.010317996582436711,
+        "n": 3
+      }
+    }
+  },
+  "interpretation": "Across seeds [42, 43, 44], full+q H3 F1 mean=0.9546 versus baseline=0.9562; the result tests whether the Phase5 friction gain is initialization-stable.",
+  "raw_data_modified": false,
+  "json_path": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_1_multiseed_stability/phase6_1_multiseed_stability_report.json",
+  "md_path": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_1_multiseed_stability/phase6_1_multiseed_stability_report.md"
+}

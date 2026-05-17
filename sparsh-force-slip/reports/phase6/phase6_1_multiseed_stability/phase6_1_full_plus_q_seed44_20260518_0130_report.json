@@ -1,0 +1,243 @@
+{
+  "generated_at": "2026-05-18T01:43:04",
+  "phase": "phase5_future_head",
+  "condition": "full_plus_q",
+  "feature_run_id": "phase6_1_friction_features_20260518_0130",
+  "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase6",
+  "experiment_name": "phase6_1_full_plus_q_seed44_20260518_0130",
+  "input_schema": [
+    "z_t_mean_pooled",
+    "Fn_pred_N",
+    "Ft_pred_N",
+    "Ft_over_Fn_pred",
+    "p_slip_current",
+    "dFx_causal_N",
+    "dFy_causal_N",
+    "dFz_causal_N",
+    "friction_q_pred"
+  ],
+  "train_count": 65938,
+  "val_count": 14328,
+  "horizons": [
+    1,
+    3,
+    5
+  ],
+  "best_epoch": 38,
+  "best_selection_score_mean_auprc": 0.9903220863435808,
+  "best_val": {
+    "n_samples": 14328,
+    "horizons": [
+      1,
+      3,
+      5
+    ],
+    "H1": {
+      "future_slip_positive_count": 3327,
+      "future_slip_positive_ratio": 0.23220268006700168,
+      "future_slip_f1": 0.9643573522604536,
+      "future_slip_accuracy": 0.9838777219430486,
+      "future_slip_precision": 0.9908053265694357,
+      "future_slip_recall": 0.9392846408175534,
+      "future_slip_auroc": 0.9983841811030814,
+      "future_slip_auprc": 0.9958277640508895,
+      "future_stability_positive_count": 11001,
+      "future_stability_positive_ratio": 0.7677973199329984,
+      "future_stability_f1": 0.9895828635851184,
+      "future_stability_accuracy": 0.9838777219430486,
+      "future_stability_precision": 0.981922319670664,
+      "future_stability_recall": 0.9973638760112717,
+      "future_stability_auroc": 0.9983841811030815,
+      "future_stability_auprc": 0.9994522741295199,
+      "stability_calibration_error": 0.008416570237156048,
+      "high_risk_count": 2604,
+      "low_risk_count": 2603,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 0.9973118279569892,
+      "low_risk_model_false_alarm_on_future_stable": 0.00039032006245121,
+      "lead_time_to_slip_onset_steps_mean": 4.154761904761905,
+      "lead_time_to_slip_onset_steps_median": 1.0,
+      "lead_time_detected_trajectories": 84,
+      "lead_time_missed_trajectories": 131
+    },
+    "H3": {
+      "future_slip_positive_count": 3756,
+      "future_slip_positive_ratio": 0.26214405360134,
+      "future_slip_f1": 0.9542465753424657,
+      "future_slip_accuracy": 0.9766890005583473,
+      "future_slip_precision": 0.9827878103837472,
+      "future_slip_recall": 0.9273162939297125,
+      "future_slip_auroc": 0.9974668856226809,
+      "future_slip_auprc": 0.994186017386822,
+      "future_stability_positive_count": 10572,
+      "future_stability_positive_ratio": 0.7378559463986599,
+      "future_stability_f1": 0.9843603671099457,
+      "future_stability_accuracy": 0.9766890005583473,
+      "future_stability_precision": 0.9746847181008902,
+      "future_stability_recall": 0.9942300416193719,
+      "future_stability_auroc": 0.9974668856226807,
+      "future_stability_auprc": 0.9990092231051102,
+      "stability_calibration_error": 0.010349409234640344,
+      "high_risk_count": 2604,
+      "low_risk_count": 2603,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 0.9984639016897081,
+      "low_risk_model_false_alarm_on_future_stable": 0.0004033884630899556
+    },
+    "H5": {
+      "future_slip_positive_count": 4179,
+      "future_slip_positive_ratio": 0.2916666666666667,
+      "future_slip_f1": 0.9311516677155444,
+      "future_slip_accuracy": 0.961823003908431,
+      "future_slip_precision": 0.9822092405735529,
+      "future_slip_recall": 0.8851399856424982,
+      "future_slip_auroc": 0.987181012485632,
+      "future_slip_auprc": 0.980952477593031,
+      "future_stability_positive_count": 10149,
+      "future_stability_positive_ratio": 0.7083333333333334,
+      "future_stability_f1": 0.9735889141036165,
+      "future_stability_accuracy": 0.961823003908431,
+      "future_stability_precision": 0.9545540617307328,
+      "future_stability_recall": 0.993398364370874,
+      "future_stability_auroc": 0.987181012485632,
+      "future_stability_auprc": 0.9929786745672935,
+      "stability_calibration_error": 0.010853331114463464,
+      "high_risk_count": 2604,
+      "low_risk_count": 2603,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 0.9988479262672811,
+      "low_risk_model_false_alarm_on_future_stable": 0.0
+    }
+  },
+  "current_metrics_val_subset": {
+    "n_samples": 14328,
+    "positive_count": 3112,
+    "positive_ratio": 0.2171970965940815,
+    "force_rmse_xyz_N": [
+      0.02712060511112213,
+      0.029719717800617218,
+      0.02850577048957348
+    ],
+    "force_rmse_mean_N": 0.028448699042201042,
+    "force_mae_xyz_N": [
+      0.011225287802517414,
+      0.011489075608551502,
+      0.015507495030760765
+    ],
+    "force_mae_mean_N": 0.012740619480609894,
+    "force_derived_rmse_N": {
+      "Fn": 0.02850581519305706,
+      "Ft": 0.033900875598192215,
+      "Fmag": 0.03740435093641281
+    },
+    "slip_accuracy": 0.9819235064209939,
+    "slip_balanced_accuracy": 0.981604731030588,
+    "slip_precision": 0.9385182908084845,
+    "slip_recall": 0.9810411311053985,
+    "slip_f1": 0.9593087195600942,
+    "slip_confusion_matrix_labels_0_1": [
+      [
+        11016,
+        200
+      ],
+      [
+        59,
+        3053
+      ]
+    ],
+    "mean_pred_slip_probability": 0.2330310344696045,
+    "consistency": {
+      "ratio_source": "model_predicted_force_N",
+      "threshold_source": "train_val_ground_truth_force_ratio",
+      "high_ratio_threshold_p80": 0.7100012031912489,
+      "low_ratio_threshold_p20": 0.027921536146272716,
+      "high_ratio_count": 2447,
+      "low_ratio_count": 1837,
+      "high_ratio_no_slip_contradiction": 0.0,
+      "low_ratio_slip_contradiction": 0.003810560696788242,
+      "contradiction_rate": 0.0016339869281045752,
+      "high_ratio_slip_recall": 1.0,
+      "low_ratio_false_alarm": 0.0032768978700163844,
+      "monotonic_calibration_error": 0.00020289402455091475,
+      "calibration_bins": [
+        {
+          "bin": 0,
+          "n": 741,
+          "ratio_mean": 0.015379889868199825,
+          "p_slip_mean": 0.009696799330413342,
+          "violation": 0.0
+        },
+        {
+          "bin": 1,
+          "n": 1096,
+          "ratio_mean": 0.024925364181399345,
+          "p_slip_mean": 0.00898492056876421,
+          "violation": 0.0007118787616491318
+        },
+        {
+          "bin": 2,
+          "n": 1519,
+          "ratio_mean": 0.03113291971385479,
+          "p_slip_mean": 0.014599177055060863,
+          "violation": 0.0
+        },
+        {
+          "bin": 3,
+          "n": 1902,
+          "ratio_mean": 0.03723122924566269,
+          "p_slip_mean": 0.013282115571200848,
+          "violation": 0.0013170614838600159
+        },
+        {
+          "bin": 4,
+          "n": 1975,
+          "ratio_mean": 0.045183733105659485,
+          "p_slip_mean": 0.024295665323734283,
+          "violation": 0.0
+        },
+        {
+          "bin": 5,
+          "n": 1593,
+          "ratio_mean": 0.05714768171310425,
+          "p_slip_mean": 0.025083040818572044,
+          "violation": 0.0
+        },
+        {
+          "bin": 6,
+          "n": 1474,
+          "ratio_mean": 0.0811336413025856,
+          "p_slip_mean": 0.0391453355550766,
+          "violation": 0.0
+        },
+        {
+          "bin": 7,
+          "n": 1581,
+          "ratio_mean": 0.2790696918964386,
+          "p_slip_mean": 0.43138161301612854,
+          "violation": 0.0
+        },
+        {
+          "bin": 8,
+          "n": 1414,
+          "ratio_mean": 0.8776255249977112,
+          "p_slip_mean": 0.9998340606689453,
+          "violation": 0.0
+        },
+        {
+          "bin": 9,
+          "n": 1033,
+          "ratio_mean": 1.036546230316162,
+          "p_slip_mean": 0.9999766945838928,
+          "violation": 0.0
+        }
+      ]
+    }
+  },
+  "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/features/feature_manifest.json",
+  "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed44_20260518_0130/checkpoints/best.pth",
+  "wall_time_seconds": 98.33772325515747,
+  "wandb_mode": "online",
+  "raw_data_modified": false,
+  "manifest_feature_kind": "decoupled_joint_friction_augmented",
+  "wandb_finish_status": "best_effort_timeout_or_error: wandb.finish timed out"
+}
