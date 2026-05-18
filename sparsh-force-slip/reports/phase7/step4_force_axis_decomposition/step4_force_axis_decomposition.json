@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-05-19T01:46:50",
+  "phase": "phase7_step4_force_axis_decomposition",
+  "rows": [
+    {
+      "condition": "separate_baseline",
+      "Fx_RMSE": 0.036915991455316544,
+      "Fy_RMSE": 0.034543126821517944,
+      "Fz_RMSE": 0.025267919525504112,
+      "Fn_RMSE": 0.025267915800213814,
+      "Ft_RMSE": 0.037988848984241486,
+      "Fmag_RMSE": 0.034617435187101364,
+      "force_RMSE_mean": 0.03224234655499458,
+      "slip_F1": 0.9731038192576654
+    },
+    {
+      "condition": "naive_shared_multitask",
+      "Fx_RMSE": 0.040172722190618515,
+      "Fy_RMSE": 0.033292505890131,
+      "Fz_RMSE": 0.03572478145360947,
+      "Fn_RMSE": 0.03572479262948036,
+      "Ft_RMSE": 0.035852476954460144,
+      "Fmag_RMSE": 0.043200571089982986,
+      "force_RMSE_mean": 0.03639667108654976,
+      "slip_F1": 0.9783996739573427
+    },
+    {
+      "condition": "partially_shared_lambda_0.25",
+      "Fx_RMSE": 0.0331248976290226,
+      "Fy_RMSE": 0.03227861598134041,
+      "Fz_RMSE": 0.027832526713609695,
+      "Fn_RMSE": 0.02783248946070671,
+      "Ft_RMSE": 0.03651731088757515,
+      "Fmag_RMSE": 0.03780573979020119,
+      "force_RMSE_mean": 0.031078681349754333,
+      "slip_F1": 0.9770598615447265
+    },
+    {
+      "condition": "consistency_decoder",
+      "Fx_RMSE": 0.03462199494242668,
+      "Fy_RMSE": 0.03235325962305069,
+      "Fz_RMSE": 0.033612318336963654,
+      "Fn_RMSE": 0.033612336963415146,
+      "Ft_RMSE": 0.033547233790159225,
+      "Fmag_RMSE": 0.04050125181674957,
+      "force_RMSE_mean": 0.033529188483953476,
+      "slip_F1": 0.9818727000136296
+    },
+    {
+      "condition": "decoupled_multitask",
+      "Fx_RMSE": 0.029298610985279083,
+      "Fy_RMSE": 0.032379746437072754,
+      "Fz_RMSE": 0.029487168416380882,
+      "Fn_RMSE": 0.02948722057044506,
+      "Ft_RMSE": 0.03632032871246338,
+      "Fmag_RMSE": 0.03974160552024841,
+      "force_RMSE_mean": 0.03038850985467434,
+      "slip_F1": 0.9652046393814158
+    },
+    {
+      "condition": "joint_lightweight_force_slip_future",
+      "Fx_RMSE": 0.0707438737154007,
+      "Fy_RMSE": 0.08284521847963333,
+      "Fz_RMSE": 0.06652618944644928,
+      "Fn_RMSE": 0.06652618944644928,
+      "Ft_RMSE": null,
+      "Fmag_RMSE": null,
+      "force_RMSE_mean": 0.0733717605471611,
+      "slip_F1": 0.9816469059606951
+    }
+  ],
+  "raw_data_modified": false
+}
