@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T01:54:10",
+  "generated_at": "2026-05-19T02:38:55",
   "phase": "phase7_summary",
   "steps": {
     "step1_future_baselines": {
@@ -53,9 +53,11 @@
     "step5_multiseed_stability": {
       "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability",
       "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability/naive_shared_quick5_multiseed.md",
         "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability/step5_multiseed_stability.md"
       ],
       "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability/naive_shared_quick5_multiseed.json",
         "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability/step5_multiseed_stability.json"
       ],
       "complete": true

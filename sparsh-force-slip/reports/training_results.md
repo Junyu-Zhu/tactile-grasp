@@ -330,6 +330,20 @@ Frozen decoupled current-task metrics retained during Phase3-2：force RMSE `0.0
 - Phase5/Phase6 summary 中已记录 W&B name、tmux、GPU、checkpoint 等运行信息。
 - 本文档和 assets 可通过 rsync 同步到本地 reports 目录。
 
+## 14. Phase7 supplemental experiments
+
+Phase7 补充了面向论文说服力的 7 类证据，所有结果位于 `reports/phase7/`，未修改 `/vla1/zjy/tactile_datasets` 原始数据。
+
+- Step1 future baselines：新增 current-slip persistence、slip-only temporal、force-only、friction-ratio/q baseline，并与 full dynamics / full+q 对比；完整 H1/H3/H5 F1/AUPRC/AUROC/ECE 见 `step1_future_baselines_full_metrics.csv`。
+- Step2 leave-one-contact-geometry-out：补齐 `sharp+sphere→flat`，并整理三类 held-out split 总表；full metrics 见 `step2_sharp_sphere_to_flat_full_metrics.csv`。
+- Step3 early-warning threshold sweep：阈值 0.3–0.8 的 early recall、false alarm、late/missed ratio 和 lead time 已汇总，并补充 lead-time CDF 图。
+- Step4 force decomposition：补充 Fx/Fy/Fz、Fn/Ft/Fmag RMSE，以及按 validation dataset/contact geometry 的 force error distribution 图。
+- Step5 multi-seed：separate、decoupled、future head/full+q 均有 3 seeds；naive shared 原完整训练只有 seed42，Phase7 额外补了 matched 5-epoch seeds 42/43/44 作为稳定性补充，force RMSE `0.0554±0.0003`、slip F1 `0.9747±0.0024`。
+- Step6 case visualization：整理 success early warning、late warning、missed/delayed warning、false alarm absence、held-out contact case 共 5 类 case 和 10 张图。
+- Step7 runtime/model size：统计参数量、frozen encoder feature extraction、force/slip head、future head、total latency 和 GPU memory snapshot；MAE naive shared batch64 total `134.94 ms`，decoupled batch64 total `137.25 ms`，future head batch512 `0.099 ms`。
+
+最终汇总：`reports/phase7/phase7_summary.md`、`reports/phase7/phase7_summary.json`、`reports/phase7/phase7_all_results.md`。
+
 ## 10. Phase7 supplemental experiments
 
 Phase7 added future baselines, completed the sharp+sphere→flat held-out geometry split, early-warning threshold sweep, force-axis decomposition, multi-seed aggregation, case visualizations, and runtime/model-size reporting. See `reports/phase7/phase7_all_results.md`. Raw datasets were not modified.

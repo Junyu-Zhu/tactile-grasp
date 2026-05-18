@@ -27,3 +27,14 @@
 | sharp+sphere_to_flat | decoupled_static | 0.9160 | 0.8659 | 0.9556 |
 | sharp+sphere_to_flat | decoupled_dynamics | 0.9285 | 0.9120 | 0.9820 |
 | sharp+sphere_to_flat | decoupled_dynamics_friction | 0.9415 | 0.9183 | 0.9834 |
+
+## New split full H1/H3/H5 metrics
+
+| condition | current force RMSE | current slip F1 | H1 F1 | H1 AUPRC | H1 AUROC | H3 F1 | H3 AUPRC | H3 AUROC | H5 F1 | H5 AUPRC | H5 AUROC | best epoch |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| separate_late_fusion | 0.0339 | 0.9498 | 0.9569 | 0.9872 | 0.9868 | 0.9296 | 0.9725 | 0.9691 | 0.8904 | 0.9560 | 0.9456 | 34 |
+| decoupled_static | 0.0350 | 0.9338 | 0.9582 | 0.9869 | 0.9887 | 0.9160 | 0.9715 | 0.9728 | 0.8659 | 0.9556 | 0.9522 | 34 |
+| decoupled_dynamics | 0.0350 | 0.9338 | 0.9539 | 0.9938 | 0.9957 | 0.9285 | 0.9916 | 0.9937 | 0.9120 | 0.9820 | 0.9836 | 40 |
+| decoupled_dynamics_friction | 0.0350 | 0.9338 | 0.9596 | 0.9966 | 0.9979 | 0.9415 | 0.9933 | 0.9953 | 0.9183 | 0.9834 | 0.9851 | 37 |
+
+- CSV: `/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/step2_sharp_sphere_to_flat_full_metrics.csv`

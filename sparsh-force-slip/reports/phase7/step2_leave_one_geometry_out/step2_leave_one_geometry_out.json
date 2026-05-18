@@ -1093,5 +1093,6 @@
       "H5_auprc": 0.9833856364093077
     }
   ],
-  "raw_data_modified": false
+  "raw_data_modified": false,
+  "new_split_full_metrics_csv": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/step2_sharp_sphere_to_flat_full_metrics.csv"
 }

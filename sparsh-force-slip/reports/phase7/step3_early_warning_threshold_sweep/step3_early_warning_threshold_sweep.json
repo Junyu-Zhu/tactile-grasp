@@ -735,5 +735,12 @@
       ]
     }
   ],
-  "raw_data_modified": false
+  "raw_data_modified": false,
+  "figures": [
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_lead_time_cdf_all_thresholds.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_lead_time_hist_threshold_0p5.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_threshold_early_warning_recall.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_threshold_false_alarm_rate.png",
+    "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_threshold_lead_time_to_slip_onset_steps_mean.png"
+  ]
 }

@@ -262,5 +262,6 @@
   "figures": [
     "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_h5_f1.png",
     "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_h5_auprc.png"
-  ]
+  ],
+  "full_metrics_csv": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_future_baselines_full_metrics.csv"
 }

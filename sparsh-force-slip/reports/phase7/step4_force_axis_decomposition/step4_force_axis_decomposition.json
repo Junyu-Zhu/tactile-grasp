@@ -62,12 +62,23 @@
       "Fx_RMSE": 0.0707438737154007,
       "Fy_RMSE": 0.08284521847963333,
       "Fz_RMSE": 0.06652618944644928,
-      "Fn_RMSE": 0.06652618944644928,
-      "Ft_RMSE": null,
-      "Fmag_RMSE": null,
+      "Fn_RMSE": 0.06652621179819107,
+      "Ft_RMSE": 0.0789937824010849,
+      "Fmag_RMSE": 0.08485163003206253,
       "force_RMSE_mean": 0.0733717605471611,
-      "slip_F1": 0.9816469059606951
+      "slip_F1": 0.9816469059606951,
+      "derived_metric_source": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_3_frozen_vs_joint_ablation/phase6_3_joint_lightweight_seed42_20260518_0154_report.json"
     }
   ],
-  "raw_data_modified": false
+  "raw_data_modified": false,
+  "error_distribution": {
+    "source": "per_dataset metrics from existing Phase2/3 evaluation caches",
+    "csv": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_error_distribution_by_dataset.csv",
+    "figures": [
+      "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_error_distribution_by_dataset.png",
+      "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_error_by_contact_geometry.png"
+    ],
+    "n_rows": 50,
+    "includes_joint_lightweight": true
+  }
 }

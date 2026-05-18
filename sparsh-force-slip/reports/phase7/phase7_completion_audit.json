@@ -1,0 +1,162 @@
+{
+  "generated_at": "2026-05-19T02:40:07",
+  "phase": "phase7_completion_audit",
+  "passed": true,
+  "checks": [
+    {
+      "requirement": "server repo path exists",
+      "status": "satisfied",
+      "evidence": "/home/zjy/document/tactile-grasp"
+    },
+    {
+      "requirement": "branch is sparsh-force-slip",
+      "status": "satisfied",
+      "evidence": "sparsh-force-slip"
+    },
+    {
+      "requirement": "raw dataset path exists and reports mark raw_data_modified false",
+      "status": "satisfied",
+      "evidence": "/vla1/zjy/tactile_datasets"
+    },
+    {
+      "requirement": "provenance records branch/status/data/checkpoints/commands",
+      "status": "satisfied",
+      "evidence": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/provenance/phase7_provenance.md"
+    },
+    {
+      "requirement": "Step1 baselines and H1/H3/H5 F1/AUPRC/AUROC/ECE table",
+      "status": "satisfied",
+      "evidence": {
+        "conditions": [
+          "current_slip_persistence",
+          "force_only_logreg",
+          "friction_q_threshold_score",
+          "friction_ratio_hard_threshold",
+          "full_dynamics_existing",
+          "full_dynamics_plus_q_existing",
+          "slip_only_temporal_logreg"
+        ],
+        "csv": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_future_baselines_full_metrics.csv"
+      }
+    },
+    {
+      "requirement": "Step1 plots exist",
+      "status": "satisfied",
+      "evidence": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_h5_f1.png",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_h5_auprc.png"
+      ]
+    },
+    {
+      "requirement": "Step2 sharp+sphere→flat plus 3 held-out split table",
+      "status": "satisfied",
+      "evidence": {
+        "conditions": [
+          "decoupled_dynamics",
+          "decoupled_dynamics_friction",
+          "decoupled_static",
+          "separate_late_fusion"
+        ],
+        "splits": [
+          "flat+sharp_to_sphere",
+          "flat+sphere_to_sharp",
+          "sharp+sphere_to_flat"
+        ],
+        "csv": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/step2_sharp_sphere_to_flat_full_metrics.csv"
+      }
+    },
+    {
+      "requirement": "Step3 threshold sweep metrics and histogram/CDF/curve plots",
+      "status": "satisfied",
+      "evidence": {
+        "thresholds": [
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8
+        ],
+        "figures": [
+          "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_threshold_early_warning_recall.png",
+          "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_threshold_false_alarm_rate.png",
+          "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_threshold_lead_time_to_slip_onset_steps_mean.png",
+          "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_lead_time_hist_threshold_0p5.png",
+          "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_lead_time_cdf_all_thresholds.png"
+        ]
+      }
+    },
+    {
+      "requirement": "Step4 per-axis/physical RMSE, bar chart, distribution plots",
+      "status": "satisfied",
+      "evidence": {
+        "conditions": [
+          "consistency_decoder",
+          "decoupled_multitask",
+          "joint_lightweight_force_slip_future",
+          "naive_shared_multitask",
+          "partially_shared_lambda_0.25",
+          "separate_baseline"
+        ],
+        "distribution": {
+          "source": "per_dataset metrics from existing Phase2/3 evaluation caches",
+          "csv": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_error_distribution_by_dataset.csv",
+          "figures": [
+            "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_error_distribution_by_dataset.png",
+            "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_error_by_contact_geometry.png"
+          ],
+          "n_rows": 50,
+          "includes_joint_lightweight": true
+        }
+      }
+    },
+    {
+      "requirement": "Step5 3-seed stability summaries and best/worst seeds",
+      "status": "satisfied",
+      "evidence": {
+        "rows": [
+          "separate_baseline",
+          "decoupled_multitask",
+          "naive_shared_multitask_quick5_supplemental",
+          "full_dynamics_future_head",
+          "full_dynamics_plus_q"
+        ],
+        "quick5_source": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability/naive_shared_quick5_multiseed.json"
+      }
+    },
+    {
+      "requirement": "Step6 five case categories plus png/json/csv/md",
+      "status": "satisfied",
+      "evidence": {
+        "labels": [
+          "false_alarm_absence_check",
+          "heldout_contact_case",
+          "late_warning",
+          "missed_warning_absence_check",
+          "success_early_warning"
+        ],
+        "figures": 10
+      }
+    },
+    {
+      "requirement": "Step7 parameter, encoder/head/future/total latency, memory tables",
+      "status": "satisfied",
+      "evidence": {
+        "params": 7,
+        "latency_rows": 2,
+        "future_head": 0.09885629639029503
+      }
+    },
+    {
+      "requirement": "Final Phase7 summaries and training_results update exist",
+      "status": "satisfied",
+      "evidence": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/phase7_summary.md",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/phase7_summary.json",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/phase7_all_results.md",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/training_results.md"
+      ]
+    }
+  ],
+  "note": "Git final commit/clean status is verified after this audit artifact is committed."
+}
