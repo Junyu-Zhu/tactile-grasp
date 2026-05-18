@@ -1,0 +1,238 @@
+{
+  "generated_at": "2026-05-19T01:33:56",
+  "phase": "phase5_future_head",
+  "condition": "separate_late_fusion",
+  "feature_run_id": "phase4_2_separate_features_20260517_171500",
+  "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase4",
+  "experiment_name": "phase7_step2_sharp_sphere_to_flat_separate_late_fusion_20260519_013152",
+  "input_schema": [
+    "z_t_mean_pooled",
+    "Fn_pred_N",
+    "Ft_pred_N",
+    "Ft_over_Fn_pred",
+    "p_slip_current"
+  ],
+  "train_count": 57857,
+  "val_count": 1811,
+  "horizons": [
+    1,
+    3,
+    5
+  ],
+  "best_epoch": 34,
+  "best_selection_score_mean_auprc": 0.971883586329195,
+  "best_val": {
+    "n_samples": 1811,
+    "horizons": [
+      1,
+      3,
+      5
+    ],
+    "H1": {
+      "future_slip_positive_count": 628,
+      "future_slip_positive_ratio": 0.34676974047487574,
+      "future_slip_f1": 0.9569377990430622,
+      "future_slip_accuracy": 0.9701822197680839,
+      "future_slip_precision": 0.9584664536741214,
+      "future_slip_recall": 0.9554140127388535,
+      "future_slip_auroc": 0.9867886890179884,
+      "future_slip_auprc": 0.9871574555474205,
+      "future_stability_positive_count": 1183,
+      "future_stability_positive_ratio": 0.6532302595251243,
+      "future_stability_f1": 0.9771959459459459,
+      "future_stability_accuracy": 0.9701822197680839,
+      "future_stability_precision": 0.9763713080168777,
+      "future_stability_recall": 0.978021978021978,
+      "future_stability_auroc": 0.9867886890179884,
+      "future_stability_auprc": 0.9864131883003251,
+      "stability_calibration_error": 0.01805319287839913,
+      "high_risk_count": 361,
+      "low_risk_count": 363,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 1.0,
+      "low_risk_model_false_alarm_on_future_stable": 0.008450704225352112,
+      "lead_time_to_slip_onset_steps_mean": 4.2,
+      "lead_time_to_slip_onset_steps_median": 1.0,
+      "lead_time_detected_trajectories": 25,
+      "lead_time_missed_trajectories": 16
+    },
+    "H3": {
+      "future_slip_positive_count": 708,
+      "future_slip_positive_ratio": 0.390944229707344,
+      "future_slip_f1": 0.9295570079883806,
+      "future_slip_accuracy": 0.9464384318056323,
+      "future_slip_precision": 0.9566517189835575,
+      "future_slip_recall": 0.903954802259887,
+      "future_slip_auroc": 0.9691282378310822,
+      "future_slip_auprc": 0.9724747336878172,
+      "future_stability_positive_count": 1103,
+      "future_stability_positive_ratio": 0.609055770292656,
+      "future_stability_f1": 0.956792873051225,
+      "future_stability_accuracy": 0.9464384318056323,
+      "future_stability_precision": 0.9404553415061296,
+      "future_stability_recall": 0.9737080689029919,
+      "future_stability_auroc": 0.9691282378310822,
+      "future_stability_auprc": 0.966155641895623,
+      "stability_calibration_error": 0.024688550472426116,
+      "high_risk_count": 361,
+      "low_risk_count": 363,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 1.0,
+      "low_risk_model_false_alarm_on_future_stable": 0.0
+    },
+    "H5": {
+      "future_slip_positive_count": 786,
+      "future_slip_positive_ratio": 0.43401435670900057,
+      "future_slip_f1": 0.8904016337644656,
+      "future_slip_accuracy": 0.9110988404196576,
+      "future_slip_precision": 0.9575402635431918,
+      "future_slip_recall": 0.8320610687022901,
+      "future_slip_auroc": 0.9455625892136783,
+      "future_slip_auprc": 0.9560185697523473,
+      "future_stability_positive_count": 1025,
+      "future_stability_positive_ratio": 0.5659856432909994,
+      "future_stability_f1": 0.9252206223873665,
+      "future_stability_accuracy": 0.9110988404196576,
+      "future_stability_precision": 0.8829787234042553,
+      "future_stability_recall": 0.9717073170731707,
+      "future_stability_auroc": 0.9455625892136784,
+      "future_stability_auprc": 0.9315938743225014,
+      "stability_calibration_error": 0.039239668399959474,
+      "high_risk_count": 361,
+      "low_risk_count": 363,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 1.0,
+      "low_risk_model_false_alarm_on_future_stable": 0.0
+    }
+  },
+  "current_metrics_val_subset": {
+    "n_samples": 1811,
+    "positive_count": 588,
+    "positive_ratio": 0.3246824958586416,
+    "force_rmse_xyz_N": [
+      0.034257274121046066,
+      0.03446415811777115,
+      0.033084142953157425
+    ],
+    "force_rmse_mean_N": 0.03393518924713135,
+    "force_mae_xyz_N": [
+      0.020494159311056137,
+      0.018618857488036156,
+      0.020916324108839035
+    ],
+    "force_mae_mean_N": 0.020009780302643776,
+    "force_derived_rmse_N": {
+      "Fn": 0.03308413550257683,
+      "Ft": 0.0388030968606472,
+      "Fmag": 0.041097600013017654
+    },
+    "slip_accuracy": 0.9663169519602429,
+    "slip_balanced_accuracy": 0.9702047212998037,
+    "slip_precision": 0.9202551834130781,
+    "slip_recall": 0.9812925170068028,
+    "slip_f1": 0.9497942386831276,
+    "slip_confusion_matrix_labels_0_1": [
+      [
+        1173,
+        50
+      ],
+      [
+        11,
+        577
+      ]
+    ],
+    "mean_pred_slip_probability": 0.3475748598575592,
+    "consistency": {
+      "ratio_source": "model_predicted_force_N",
+      "threshold_source": "train_val_ground_truth_force_ratio",
+      "high_ratio_threshold_p80": 0.7100012031912489,
+      "low_ratio_threshold_p20": 0.027921536146272716,
+      "high_ratio_count": 380,
+      "low_ratio_count": 7,
+      "high_ratio_no_slip_contradiction": 0.0,
+      "low_ratio_slip_contradiction": 0.0,
+      "contradiction_rate": 0.0,
+      "high_ratio_slip_recall": 1.0,
+      "low_ratio_false_alarm": 0.0,
+      "monotonic_calibration_error": 0.011509753244899912,
+      "calibration_bins": [
+        {
+          "bin": 0,
+          "n": 5,
+          "ratio_mean": 0.010221168398857117,
+          "p_slip_mean": 0.09397566318511963,
+          "violation": 0.0
+        },
+        {
+          "bin": 1,
+          "n": 2,
+          "ratio_mean": 0.026658572256565094,
+          "p_slip_mean": 0.02459658682346344,
+          "violation": 0.06937907636165619
+        },
+        {
+          "bin": 2,
+          "n": 14,
+          "ratio_mean": 0.032350700348615646,
+          "p_slip_mean": 0.0017590501811355352,
+          "violation": 0.022837536642327905
+        },
+        {
+          "bin": 3,
+          "n": 8,
+          "ratio_mean": 0.03751654177904129,
+          "p_slip_mean": 9.95780064840801e-05,
+          "violation": 0.0016594721746514551
+        },
+        {
+          "bin": 4,
+          "n": 27,
+          "ratio_mean": 0.04631936177611351,
+          "p_slip_mean": 0.025357667356729507,
+          "violation": 0.0
+        },
+        {
+          "bin": 5,
+          "n": 149,
+          "ratio_mean": 0.0600099116563797,
+          "p_slip_mean": 0.004136220086365938,
+          "violation": 0.02122144727036357
+        },
+        {
+          "bin": 6,
+          "n": 440,
+          "ratio_mean": 0.08642984926700592,
+          "p_slip_mean": 0.05543036386370659,
+          "violation": 0.0
+        },
+        {
+          "bin": 7,
+          "n": 786,
+          "ratio_mean": 0.2366342842578888,
+          "p_slip_mean": 0.28410446643829346,
+          "violation": 0.0
+        },
+        {
+          "bin": 8,
+          "n": 268,
+          "ratio_mean": 0.8361875414848328,
+          "p_slip_mean": 0.9997004270553589,
+          "violation": 0.0
+        },
+        {
+          "bin": 9,
+          "n": 112,
+          "ratio_mean": 1.0320091247558594,
+          "p_slip_mean": 0.9999769926071167,
+          "violation": 0.0
+        }
+      ]
+    }
+  },
+  "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_2_separate_features_20260517_171500/features/feature_manifest.json",
+  "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_2_separate_features_20260517_171500/heads/phase7_step2_sharp_sphere_to_flat_separate_late_fusion_20260519_013152/checkpoints/best.pth",
+  "wall_time_seconds": 178.64583086967468,
+  "wandb_mode": "disabled",
+  "raw_data_modified": false,
+  "manifest_feature_kind": "separate_late_fusion"
+}

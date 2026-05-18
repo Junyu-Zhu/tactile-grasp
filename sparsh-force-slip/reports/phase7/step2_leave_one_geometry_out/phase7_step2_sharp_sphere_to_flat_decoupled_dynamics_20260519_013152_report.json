@@ -1,0 +1,241 @@
+{
+  "generated_at": "2026-05-19T01:39:31",
+  "phase": "phase5_future_head",
+  "condition": "decoupled_dynamics",
+  "feature_run_id": "phase4_3_reuse_p3_features_20260517_171500",
+  "feature_root": "/vla1/zjy/sparsh_runs/force_slip_phase4",
+  "experiment_name": "phase7_step2_sharp_sphere_to_flat_decoupled_dynamics_20260519_013152",
+  "input_schema": [
+    "z_t_mean_pooled",
+    "Fn_pred_N",
+    "Ft_pred_N",
+    "Ft_over_Fn_pred",
+    "p_slip_current",
+    "dFx_causal_N",
+    "dFy_causal_N",
+    "dFz_causal_N"
+  ],
+  "train_count": 57857,
+  "val_count": 1811,
+  "horizons": [
+    1,
+    3,
+    5
+  ],
+  "best_epoch": 40,
+  "best_selection_score_mean_auprc": 0.989131355974648,
+  "best_val": {
+    "n_samples": 1811,
+    "horizons": [
+      1,
+      3,
+      5
+    ],
+    "H1": {
+      "future_slip_positive_count": 628,
+      "future_slip_positive_ratio": 0.34676974047487574,
+      "future_slip_f1": 0.9538702111024238,
+      "future_slip_accuracy": 0.9674213141910547,
+      "future_slip_precision": 0.9370199692780338,
+      "future_slip_recall": 0.9713375796178344,
+      "future_slip_auroc": 0.9957155779056808,
+      "future_slip_auprc": 0.9937550189377127,
+      "future_stability_positive_count": 1183,
+      "future_stability_positive_ratio": 0.6532302595251243,
+      "future_stability_f1": 0.9748186086214256,
+      "future_stability_accuracy": 0.9674213141910547,
+      "future_stability_precision": 0.9844827586206897,
+      "future_stability_recall": 0.9653423499577346,
+      "future_stability_auroc": 0.9957155779056808,
+      "future_stability_auprc": 0.9974090779968865,
+      "stability_calibration_error": 0.024409271605428034,
+      "high_risk_count": 523,
+      "low_risk_count": 2,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 0.988527724665392,
+      "low_risk_model_false_alarm_on_future_stable": 0.0,
+      "lead_time_to_slip_onset_steps_mean": 11.08108108108108,
+      "lead_time_to_slip_onset_steps_median": 2.0,
+      "lead_time_detected_trajectories": 37,
+      "lead_time_missed_trajectories": 4
+    },
+    "H3": {
+      "future_slip_positive_count": 708,
+      "future_slip_positive_ratio": 0.390944229707344,
+      "future_slip_f1": 0.9284750337381916,
+      "future_slip_accuracy": 0.9414688017669796,
+      "future_slip_precision": 0.8888888888888888,
+      "future_slip_recall": 0.9717514124293786,
+      "future_slip_auroc": 0.9937452300095784,
+      "future_slip_auprc": 0.9916229843519699,
+      "future_stability_positive_count": 1103,
+      "future_stability_positive_ratio": 0.609055770292656,
+      "future_stability_f1": 0.9504672897196261,
+      "future_stability_accuracy": 0.9414688017669796,
+      "future_stability_precision": 0.9807135969141755,
+      "future_stability_recall": 0.9220308250226654,
+      "future_stability_auroc": 0.9937452300095784,
+      "future_stability_auprc": 0.9956725866604591,
+      "stability_calibration_error": 0.041148342594323345,
+      "high_risk_count": 523,
+      "low_risk_count": 2,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 0.9923518164435946,
+      "low_risk_model_false_alarm_on_future_stable": null
+    },
+    "H5": {
+      "future_slip_positive_count": 786,
+      "future_slip_positive_ratio": 0.43401435670900057,
+      "future_slip_f1": 0.9120399251403618,
+      "future_slip_accuracy": 0.9221424627277747,
+      "future_slip_precision": 0.8947368421052632,
+      "future_slip_recall": 0.9300254452926209,
+      "future_slip_auroc": 0.9835970955129397,
+      "future_slip_auprc": 0.9820160646342612,
+      "future_stability_positive_count": 1025,
+      "future_stability_positive_ratio": 0.5659856432909994,
+      "future_stability_f1": 0.9301634472511144,
+      "future_stability_accuracy": 0.9221424627277747,
+      "future_stability_precision": 0.9446680080482898,
+      "future_stability_recall": 0.9160975609756098,
+      "future_stability_auroc": 0.9835970955129398,
+      "future_stability_auprc": 0.986456077126504,
+      "stability_calibration_error": 0.05391977286847717,
+      "high_risk_count": 523,
+      "low_risk_count": 2,
+      "high_risk_future_slip_rate": 1.0,
+      "high_risk_model_recall_on_future_slip": 0.9961759082217974,
+      "low_risk_model_false_alarm_on_future_stable": null
+    }
+  },
+  "current_metrics_val_subset": {
+    "n_samples": 1811,
+    "positive_count": 588,
+    "positive_ratio": 0.3246824958586416,
+    "force_rmse_xyz_N": [
+      0.027451785281300545,
+      0.03125392273068428,
+      0.046230629086494446
+    ],
+    "force_rmse_mean_N": 0.03497878089547157,
+    "force_mae_xyz_N": [
+      0.015964070335030556,
+      0.01669916883111,
+      0.02612137980759144
+    ],
+    "force_mae_mean_N": 0.019594872370362282,
+    "force_derived_rmse_N": {
+      "Fn": 0.04623066633939743,
+      "Ft": 0.03474819287657738,
+      "Fmag": 0.05110965669155121
+    },
+    "slip_accuracy": 0.9552733296521259,
+    "slip_balanced_accuracy": 0.9593790500664698,
+    "slip_precision": 0.8992125984251969,
+    "slip_recall": 0.9710884353741497,
+    "slip_f1": 0.9337694194603434,
+    "slip_confusion_matrix_labels_0_1": [
+      [
+        1159,
+        64
+      ],
+      [
+        17,
+        571
+      ]
+    ],
+    "mean_pred_slip_probability": 0.3605649769306183,
+    "consistency": {
+      "ratio_source": "model_predicted_force_N",
+      "threshold_source": "train_val_ground_truth_force_ratio",
+      "high_ratio_threshold_p80": 0.7100012031912489,
+      "low_ratio_threshold_p20": 0.027921536146272716,
+      "high_ratio_count": 387,
+      "low_ratio_count": 1,
+      "high_ratio_no_slip_contradiction": 0.0,
+      "low_ratio_slip_contradiction": 1.0,
+      "contradiction_rate": 0.002577319587628866,
+      "high_ratio_slip_recall": 1.0,
+      "low_ratio_false_alarm": 1.0,
+      "monotonic_calibration_error": 0.0912996078375727,
+      "calibration_bins": [
+        {
+          "bin": 0,
+          "n": 1,
+          "ratio_mean": 0.01850741356611252,
+          "p_slip_mean": 0.6677836775779724,
+          "violation": 0.0
+        },
+        {
+          "bin": 1,
+          "n": 0,
+          "ratio_mean": null,
+          "p_slip_mean": null,
+          "violation": 0.0
+        },
+        {
+          "bin": 2,
+          "n": 1,
+          "ratio_mean": 0.032142091542482376,
+          "p_slip_mean": 0.0007562167011201382,
+          "violation": 0.6670274608768523
+        },
+        {
+          "bin": 3,
+          "n": 2,
+          "ratio_mean": 0.03953603655099869,
+          "p_slip_mean": 0.28706634044647217,
+          "violation": 0.0
+        },
+        {
+          "bin": 4,
+          "n": 25,
+          "ratio_mean": 0.04456356540322304,
+          "p_slip_mean": 0.09547611325979233,
+          "violation": 0.19159022718667984
+        },
+        {
+          "bin": 5,
+          "n": 82,
+          "ratio_mean": 0.06015055999159813,
+          "p_slip_mean": 0.04536449909210205,
+          "violation": 0.05011161416769028
+        },
+        {
+          "bin": 6,
+          "n": 522,
+          "ratio_mean": 0.08725553750991821,
+          "p_slip_mean": 0.041097722947597504,
+          "violation": 0.004266776144504547
+        },
+        {
+          "bin": 7,
+          "n": 791,
+          "ratio_mean": 0.228995218873024,
+          "p_slip_mean": 0.29985982179641724,
+          "violation": 0.0
+        },
+        {
+          "bin": 8,
+          "n": 260,
+          "ratio_mean": 0.8535109758377075,
+          "p_slip_mean": 0.9999746680259705,
+          "violation": 0.0
+        },
+        {
+          "bin": 9,
+          "n": 127,
+          "ratio_mean": 1.0428466796875,
+          "p_slip_mean": 0.9999856352806091,
+          "violation": 0.0
+        }
+      ]
+    }
+  },
+  "feature_manifest": "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/features/feature_manifest.json",
+  "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase7_step2_sharp_sphere_to_flat_decoupled_dynamics_20260519_013152/checkpoints/best.pth",
+  "wall_time_seconds": 178.62639737129211,
+  "wandb_mode": "disabled",
+  "raw_data_modified": false,
+  "manifest_feature_kind": "decoupled_joint"
+}
