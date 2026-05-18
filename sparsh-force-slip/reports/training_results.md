@@ -329,3 +329,7 @@ Frozen decoupled current-task metrics retained during Phase3-2：force RMSE `0.0
 - 已遵守“不自动 push/pull”的规则；本文档只整理已有结果。
 - Phase5/Phase6 summary 中已记录 W&B name、tmux、GPU、checkpoint 等运行信息。
 - 本文档和 assets 可通过 rsync 同步到本地 reports 目录。
+
+## 10. Phase7 supplemental experiments
+
+Phase7 added future baselines, completed the sharp+sphere→flat held-out geometry split, early-warning threshold sweep, force-axis decomposition, multi-seed aggregation, case visualizations, and runtime/model-size reporting. See `reports/phase7/phase7_all_results.md`. Raw datasets were not modified.

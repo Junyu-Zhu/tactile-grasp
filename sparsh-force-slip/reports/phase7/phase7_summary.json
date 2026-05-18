@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-05-19T01:50:37",
+  "phase": "phase7_summary",
+  "steps": {
+    "step1_future_baselines": {
+      "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines",
+      "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_future_baselines.md"
+      ],
+      "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step1_future_baselines/step1_future_baselines.json"
+      ],
+      "complete": true
+    },
+    "step2_leave_one_geometry_out": {
+      "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out",
+      "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_decoupled_dynamics_20260519_013152_report.md",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_decoupled_dynamics_friction_20260519_013152_report.md",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_decoupled_static_20260519_013152_report.md",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_separate_late_fusion_20260519_013152_report.md",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/step2_leave_one_geometry_out.md"
+      ],
+      "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_decoupled_dynamics_20260519_013152_report.json",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_decoupled_dynamics_friction_20260519_013152_report.json",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_decoupled_static_20260519_013152_report.json",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/phase7_step2_sharp_sphere_to_flat_separate_late_fusion_20260519_013152_report.json",
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step2_leave_one_geometry_out/step2_leave_one_geometry_out.json"
+      ],
+      "complete": true
+    },
+    "step3_early_warning_threshold_sweep": {
+      "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep",
+      "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_early_warning_threshold_sweep.md"
+      ],
+      "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step3_early_warning_threshold_sweep/step3_early_warning_threshold_sweep.json"
+      ],
+      "complete": true
+    },
+    "step4_force_axis_decomposition": {
+      "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition",
+      "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_axis_decomposition.md"
+      ],
+      "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step4_force_axis_decomposition/step4_force_axis_decomposition.json"
+      ],
+      "complete": true
+    },
+    "step5_multiseed_stability": {
+      "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability",
+      "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability/step5_multiseed_stability.md"
+      ],
+      "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step5_multiseed_stability/step5_multiseed_stability.json"
+      ],
+      "complete": true
+    },
+    "step6_case_visualization": {
+      "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization",
+      "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization/step6_case_visualization.md"
+      ],
+      "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization/step6_case_visualization.json"
+      ],
+      "complete": true
+    },
+    "step7_runtime_model_size": {
+      "dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step7_runtime_model_size",
+      "md": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step7_runtime_model_size/step7_runtime_model_size.md"
+      ],
+      "json": [
+        "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step7_runtime_model_size/step7_runtime_model_size.json"
+      ],
+      "complete": true
+    }
+  },
+  "raw_data_modified": false
+}
