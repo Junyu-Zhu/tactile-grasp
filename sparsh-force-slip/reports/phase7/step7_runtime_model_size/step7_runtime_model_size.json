@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-05-19T01:49:14",
+  "phase": "phase7_step7_runtime_model_size",
+  "parameter_rows": [
+    {
+      "model": "separate_force_head",
+      "params": 7236867
+    },
+    {
+      "model": "separate_slip_head",
+      "params": 7386437
+    },
+    {
+      "model": "naive_shared_total",
+      "params": 93716357
+    },
+    {
+      "model": "naive_shared_downstream_excl_encoder",
+      "params": 7460357
+    },
+    {
+      "model": "decoupled_total",
+      "params": 101175749
+    },
+    {
+      "model": "decoupled_downstream_excl_encoder",
+      "params": 14919749
+    },
+    {
+      "model": "future_head_full_plus_q",
+      "params": 531475
+    }
+  ],
+  "future_head_latency": {
+    "device": "cpu",
+    "batch_size": 512,
+    "iterations": 100,
+    "ms_per_batch": 2.257983237504959,
+    "ms_per_sample": 0.004410123510751873
+  },
+  "notes": [
+    "CPU latency measured for future head on cached features; encoder extraction time is cache-based/not remeasured to avoid new raw-data passes.",
+    "GPU memory was not actively stressed; use nvidia-smi during training for deployment-grade numbers."
+  ],
+  "raw_data_modified": false
+}
