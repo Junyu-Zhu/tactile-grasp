@@ -1,6 +1,6 @@
 # Phase7 Summary
 
-- generated_at: `2026-05-19T01:50:37`
+- generated_at: `2026-05-19T01:52:01`
 - raw_data_modified: `False`
 
 ## step1_future_baselines
@@ -113,6 +113,10 @@
 - `/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization/figures/sphere_contact_case_sphere_batch_1_val_0.png`
 - `/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization/figures/success_early_warning_flat_batch_1_val_2.png`
 
+## CSV manifest
+
+- `step6_case_visualization.csv`
+
 
 ## step7_runtime_model_size
 
@@ -139,4 +143,15 @@
 ## Notes
 - CPU latency measured for future head on cached features; encoder extraction time is cache-based/not remeasured to avoid new raw-data passes.
 - GPU memory was not actively stressed; use nvidia-smi during training for deployment-grade numbers.
+
+## GPU memory snapshot
+
+- `0, NVIDIA GeForce RTX 4090, 0 %, 6672 MiB, 49140 MiB`
+- `1, NVIDIA GeForce RTX 4090, 0 %, 6632 MiB, 49140 MiB`
+- `2, NVIDIA GeForce RTX 4090, 0 %, 6610 MiB, 49140 MiB`
+- `3, NVIDIA GeForce RTX 4090, 0 %, 6610 MiB, 49140 MiB`
+
+## Encoder feature extraction status
+
+- End-to-end encoder extraction was not remeasured in Phase7; this phase reused cached Sparsh features to avoid additional raw-data passes.
 

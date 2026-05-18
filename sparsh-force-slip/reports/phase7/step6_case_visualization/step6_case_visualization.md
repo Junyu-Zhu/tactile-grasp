@@ -13,3 +13,7 @@
 - `/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization/figures/slip_with_low_friction_ratio_failure_sharp_batch_1_val_14.png`
 - `/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization/figures/sphere_contact_case_sphere_batch_1_val_0.png`
 - `/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase7/step6_case_visualization/figures/success_early_warning_flat_batch_1_val_2.png`
+
+## CSV manifest
+
+- `step6_case_visualization.csv`

@@ -42,5 +42,15 @@
     "CPU latency measured for future head on cached features; encoder extraction time is cache-based/not remeasured to avoid new raw-data passes.",
     "GPU memory was not actively stressed; use nvidia-smi during training for deployment-grade numbers."
   ],
-  "raw_data_modified": false
+  "raw_data_modified": false,
+  "gpu_memory_snapshot": {
+    "captured_at": "2026-05-19T01:51:39",
+    "rows": [
+      "0, NVIDIA GeForce RTX 4090, 0 %, 6672 MiB, 49140 MiB",
+      "1, NVIDIA GeForce RTX 4090, 0 %, 6632 MiB, 49140 MiB",
+      "2, NVIDIA GeForce RTX 4090, 0 %, 6610 MiB, 49140 MiB",
+      "3, NVIDIA GeForce RTX 4090, 0 %, 6610 MiB, 49140 MiB"
+    ]
+  },
+  "encoder_feature_extraction_status": "not remeasured end-to-end; Phase7 uses existing feature caches to avoid new raw-data passes"
 }

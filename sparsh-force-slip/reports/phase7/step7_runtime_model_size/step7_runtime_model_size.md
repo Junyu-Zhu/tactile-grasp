@@ -21,3 +21,14 @@
 ## Notes
 - CPU latency measured for future head on cached features; encoder extraction time is cache-based/not remeasured to avoid new raw-data passes.
 - GPU memory was not actively stressed; use nvidia-smi during training for deployment-grade numbers.
+
+## GPU memory snapshot
+
+- `0, NVIDIA GeForce RTX 4090, 0 %, 6672 MiB, 49140 MiB`
+- `1, NVIDIA GeForce RTX 4090, 0 %, 6632 MiB, 49140 MiB`
+- `2, NVIDIA GeForce RTX 4090, 0 %, 6610 MiB, 49140 MiB`
+- `3, NVIDIA GeForce RTX 4090, 0 %, 6610 MiB, 49140 MiB`
+
+## Encoder feature extraction status
+
+- End-to-end encoder extraction was not remeasured in Phase7; this phase reused cached Sparsh features to avoid additional raw-data passes.
