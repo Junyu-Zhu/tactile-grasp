@@ -1,0 +1,196 @@
+/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+wandb: Tracking run with wandb version 0.26.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_only_20260528_000000/wandb/offline-run-20260528_040959-phase_lambda_best_z_only_20260528_000000
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▂▃▂▂▂▂▂▂▂▂▃▂▂▂▂▂▂▂▁▁▁▂▂▂▃▂▁▁▁▁▁▁▂▁▁▂▂▁
+wandb:      val/H1_future_slip_auprc ▅▆▆▇▇▆▇▇▇▇▇▇▄▇▇▆▅▇▅▇▇█▆▇▇▅▅██████▇▄██▁█▇
+wandb:      val/H1_future_slip_auroc ▄▅▆▆▆▅▇▇▇▇▇▆▄▇▇▆▅▇▅▇▇▇▆▇▇▅▆▇█████▇▄▇█▁█▆
+wandb:         val/H1_future_slip_f1 ▅▇▇▇▇▇▇▇▇▇█▇▇█▇▇▇█▆███▁██▇▇██████▇▇██▅█▇
+wandb: val/H1_future_stability_auprc ▄▄▅▆▆▅▆▆▆▇▆▆▅▇▆▆▅▆▅▇▇▇▆▆▇▅▆▇▇█▇██▇▃▇█▁█▆
+wandb: val/H1_future_stability_auroc ▄▅▆▆▆▅▇▇▇▇▇▆▄▇▇▆▅▇▅▇▇▇▆▇▇▅▆▇█████▇▄▇█▁█▆
+wandb:          val/H1_stability_ece ▄▄▂▂▁▃▂▃▂▂▁▁▂▁▁▄▂▄▃▂▂▁█▂▂▂▄▂▁▁▁▂▁▂▁▃▂█▂▂
+wandb:           val/selection_score ▅▆▆▇▇▆▇▇▇▇▇▇▄▇▇▆▅▇▅▇▇█▆▇▇▅▅██████▇▄██▁█▇
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.17789
+wandb:      val/H1_future_slip_auprc 0.95615
+wandb:      val/H1_future_slip_auroc 0.96664
+wandb:         val/H1_future_slip_f1 0.9232
+wandb: val/H1_future_stability_auprc 0.98206
+wandb: val/H1_future_stability_auroc 0.96667
+wandb:          val/H1_stability_ece 0.01399
+wandb:           val/selection_score 0.95615
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_only_20260528_000000/wandb/offline-run-20260528_040959-phase_lambda_best_z_only_20260528_000000
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_only_20260528_000000/wandb/offline-run-20260528_040959-phase_lambda_best_z_only_20260528_000000/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: Tracking run with wandb version 0.26.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_p_slip_20260528_000000/wandb/offline-run-20260528_041051-phase_lambda_best_z_p_slip_20260528_000000
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:      val/H1_future_slip_auprc ▁▃▃▄▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▆▆▆▅▆▆▆▆▆▆▇▅▇▇▇▇▇▇▇██
+wandb:      val/H1_future_slip_auroc ▁▃▃▃▄▄▄▄▄▄▄▄▅▅▅▅▅▅▅▆▆▆▅▆▆▆▆▆▆█▅▇▆▇▇▇▇▆█▇
+wandb:         val/H1_future_slip_f1 ▁███████████████████████████████████████
+wandb: val/H1_future_stability_auprc ▁▃▂▃▄▅▅▄▅▅▄▄▅▅▅▆▅▅▅▆▇▆▄▇▆▇▆▇▇█▄▇▇▇▇▇▇▆██
+wandb: val/H1_future_stability_auroc ▁▃▃▃▄▄▄▄▄▄▄▄▅▅▅▅▅▅▅▆▆▆▅▆▆▆▆▆▆█▅▇▆▇▇▇▇▆█▇
+wandb:          val/H1_stability_ece █▂▁▁▂▁▂▁▂▂▂▂▂▂▂▂▁▂▁▂▁▂▂▁▂▂▂▂▁▂▂▂▂▂▂▁▁▂▂▁
+wandb:           val/selection_score ▁▃▃▄▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▆▆▆▅▆▆▆▆▆▆▇▅▇▇▇▇▇▇▇██
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.10425
+wandb:      val/H1_future_slip_auprc 0.98293
+wandb:      val/H1_future_slip_auroc 0.98903
+wandb:         val/H1_future_slip_f1 0.96001
+wandb: val/H1_future_stability_auprc 0.99511
+wandb: val/H1_future_stability_auroc 0.98903
+wandb:          val/H1_stability_ece 0.00685
+wandb:           val/selection_score 0.98293
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_p_slip_20260528_000000/wandb/offline-run-20260528_041051-phase_lambda_best_z_p_slip_20260528_000000
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_p_slip_20260528_000000/wandb/offline-run-20260528_041051-phase_lambda_best_z_p_slip_20260528_000000/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: Tracking run with wandb version 0.26.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_force_20260528_000000/wandb/offline-run-20260528_041138-phase_lambda_best_z_force_20260528_000000
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▂▁▁▂▂▃▁▂▂▁▁▁▂▂▁▁▁▁▂
+wandb:      val/H1_future_slip_auprc ▁▂▃▃▄▄▃▅▅▃▂▄▅▅▅▅▆▄▅▆▆▄▆▆▆▇▃▆▆▆▃▆▇▄▇▇███▆
+wandb:      val/H1_future_slip_auroc ▁▂▃▃▄▄▃▅▅▃▂▃▅▄▄▅▆▄▄▆▆▄▆▇▆▆▃▆▆▆▃▆▆▃█▇███▆
+wandb:         val/H1_future_slip_f1 ▃▄▅▆▇▅▆▇▇▇▄▇████▇▆███▇████▇▇██▇██▁██████
+wandb: val/H1_future_stability_auprc ▁▂▃▃▄▄▄▅▆▃▂▄▅▅▄▆▅▄▄▆▅▅▆▇▇▆▄▇▆▆▃▆▆▃█▇███▇
+wandb: val/H1_future_stability_auroc ▁▂▃▃▄▄▃▅▅▃▂▃▅▄▄▅▆▄▄▆▆▄▆▇▆▆▃▆▆▆▃▆▆▃█▇███▆
+wandb:          val/H1_stability_ece ▄▄▃▃▂▃▃▂▂▄▆▂▂█▁▂▁▄▂▂▁▁▁▁▁▄▂▃▂▃▂▁▂▇▁▂▁▁▂▁
+wandb:           val/selection_score ▁▂▃▃▄▄▃▅▅▃▂▄▅▅▅▅▆▄▅▆▆▄▆▆▆▇▃▆▆▆▃▆▇▄▇▇███▆
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.17309
+wandb:      val/H1_future_slip_auprc 0.97039
+wandb:      val/H1_future_slip_auroc 0.97881
+wandb:         val/H1_future_slip_f1 0.95881
+wandb: val/H1_future_stability_auprc 0.99057
+wandb: val/H1_future_stability_auroc 0.97884
+wandb:          val/H1_stability_ece 0.00285
+wandb:           val/selection_score 0.97039
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_force_20260528_000000/wandb/offline-run-20260528_041138-phase_lambda_best_z_force_20260528_000000
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_force_20260528_000000/wandb/offline-run-20260528_041138-phase_lambda_best_z_force_20260528_000000/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: Tracking run with wandb version 0.26.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_force_slip_20260528_000000/wandb/offline-run-20260528_041226-phase_lambda_best_z_force_slip_20260528_000000
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▂▂▂▂▂▂▁▂▂▁▂▂▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:      val/H1_future_slip_auprc ▁▃▄▃▄▄▄▄▄▄▄▅▅▄▅▅▅▅▅▆▅▅▆▆▆▆▆▇▇▇▇▇▆▇▇▇█▇▇█
+wandb:      val/H1_future_slip_auroc ▁▂▄▃▃▃▄▄▄▄▃▄▅▄▅▅▄▅▅▆▅▅▆▆▆▆▆▆▆▆▇▆▆▇▆▆█▇▇█
+wandb:         val/H1_future_slip_f1 ▁██████████████████▇███▇████████████████
+wandb: val/H1_future_stability_auprc ▁▂▄▂▃▃▄▃▄▅▃▅▅▄▅▅▅▅▅▆▅▅▇▆▆▆▆▆▆▇▇▇▅▇▆▇▇▇▇█
+wandb: val/H1_future_stability_auroc ▁▂▄▃▃▃▄▄▄▄▃▄▅▄▅▅▄▅▅▆▅▅▆▆▆▆▆▆▆▆▇▆▆▇▆▆█▇▇█
+wandb:          val/H1_stability_ece █▂▄▂▂▂▁▂▂▁▂▂▂▃▂▁▂▂▂▄▂▂▂▂▂▂▂▃▂▂▂▂▁▄▁▂▂▂▂▂
+wandb:           val/selection_score ▁▃▄▃▄▄▄▄▄▄▄▅▅▄▅▅▅▅▅▆▅▅▆▆▆▆▆▇▇▇▇▇▆▇▇▇█▇▇█
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.1031
+wandb:      val/H1_future_slip_auprc 0.98453
+wandb:      val/H1_future_slip_auroc 0.99079
+wandb:         val/H1_future_slip_f1 0.96312
+wandb: val/H1_future_stability_auprc 0.99633
+wandb: val/H1_future_stability_auroc 0.99079
+wandb:          val/H1_stability_ece 0.01011
+wandb:           val/selection_score 0.98453
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_force_slip_20260528_000000/wandb/offline-run-20260528_041226-phase_lambda_best_z_force_slip_20260528_000000
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_z_force_slip_20260528_000000/wandb/offline-run-20260528_041226-phase_lambda_best_z_force_slip_20260528_000000/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: Tracking run with wandb version 0.26.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_full_20260528_000000/wandb/offline-run-20260528_041313-phase_lambda_best_full_20260528_000000
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▃▃▃▃▃▂▂▂▃▂▂▂▂▂▂▂▂▁▃▁▁▁▁▁▁▂▁▁▂▁▁▁▁▁▁▁▁▁
+wandb:      val/H1_future_slip_auprc ▁▂▃▃▃▄▄▅▅▆▅▇▇▇▇▇▇▇▇█▇█████████▅█████████
+wandb:      val/H1_future_slip_auroc ▁▂▃▃▄▄▄▅▆▇▆▇▇▇▇▇▇███▇█████████▆█████████
+wandb:         val/H1_future_slip_f1 ▅▅▅▁▆▆▆▇▅▆▅▆▆▅▆▆▆▆▆▆▆▇▆▆▆▇▆▇▇▇▅▆▇▇█▇▇▇██
+wandb: val/H1_future_stability_auprc ▁▂▃▃▄▅▅▆▇▇▆▇▇███████▇██▇▇█████▇█▇▇▇▇█▇██
+wandb: val/H1_future_stability_auroc ▁▂▃▃▄▄▄▅▆▇▆▇▇▇▇▇▇███▇█████████▆█████████
+wandb:          val/H1_stability_ece █▄▁▇▂▃▄▃▃▃▃▂▆▂▂▂▃▂▃▂▃▃▂▃▃▂▄▁▁▁▄▂▁▁▃▁▂▁▂▂
+wandb:           val/selection_score ▁▂▃▃▃▄▄▅▅▆▅▇▇▇▇▇▇▇▇█▇█████████▅█████████
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.05756
+wandb:      val/H1_future_slip_auprc 0.99509
+wandb:      val/H1_future_slip_auroc 0.99782
+wandb:         val/H1_future_slip_f1 0.96538
+wandb: val/H1_future_stability_auprc 0.99889
+wandb: val/H1_future_stability_auroc 0.99782
+wandb:          val/H1_stability_ece 0.00547
+wandb:           val/selection_score 0.99509
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_full_20260528_000000/wandb/offline-run-20260528_041313-phase_lambda_best_full_20260528_000000
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase_lambda_best_future_features_20260528_000000/heads/phase_lambda_best_full_20260528_000000/wandb/offline-run-20260528_041313-phase_lambda_best_full_20260528_000000/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: Tracking run with wandb version 0.26.1
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase5/phase_lambda_best_friction_features_20260528_000000/heads/phase_lambda_best_full_plus_q_20260528_000000/wandb/offline-run-20260528_041403-phase_lambda_best_full_plus_q_20260528_000000_full_plus_q
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:               train/loss █▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▂▂▁▂▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁
+wandb:               val/H1_ece █▂▂▂▂▃▃▂▃▄▂▂▁▂▂▃▂▄▂▃▂▃▂▂▂▁▂▂▁▁▂▃▁▂▁▂▁▃▂▂
+wandb: val/H1_future_slip_auprc ▁▂▃▃▄▄▅▅▅▄▆▆▅▆▇▇▇▆▇█▇▇█▇████████████████
+wandb: val/H1_future_slip_auroc ▁▂▄▄▄▅▅▆▅▅▆▆▆▇█▇█▆██████████████████████
+wandb:    val/H1_future_slip_f1 ▁▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇███▇▇█████▇██████████
+wandb:  val/H1_high_risk_recall ▁███████████████▇▅▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+wandb:               val/H3_ece █▃▁▁▁▄▃▃▄▅▂▃▂▄▂▂▂▅▂▄▂▃▁▂▂▁▂▁▁▁▂▃▂▁▂▂▂▃▂▂
+wandb: val/H3_future_slip_auprc ▁▂▃▃▃▄▄▄▄▄▅▅▅▆▇▆▇▆▇█▇▇█▇████████████████
+wandb: val/H3_future_slip_auroc ▁▂▃▃▄▄▅▅▅▄▆▆▆▆▇▇▇▆▇█████████████████████
+wandb:                       +8 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 40
+wandb:               train/loss 0.05481
+wandb:               val/H1_ece 0.00763
+wandb: val/H1_future_slip_auprc 0.99532
+wandb: val/H1_future_slip_auroc 0.99801
+wandb:    val/H1_future_slip_f1 0.96539
+wandb:  val/H1_high_risk_recall 0.9977
+wandb:               val/H3_ece 0.0171
+wandb: val/H3_future_slip_auprc 0.99396
+wandb: val/H3_future_slip_auroc 0.99729
+wandb:                       +8 ...
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /vla1/zjy/sparsh_runs/force_slip_phase5/phase_lambda_best_friction_features_20260528_000000/heads/phase_lambda_best_full_plus_q_20260528_000000/wandb/offline-run-20260528_041403-phase_lambda_best_full_plus_q_20260528_000000_full_plus_q
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase5/phase_lambda_best_friction_features_20260528_000000/heads/phase_lambda_best_full_plus_q_20260528_000000/wandb/offline-run-20260528_041403-phase_lambda_best_full_plus_q_20260528_000000_full_plus_q/logs
+{
+  "report": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_decoupled_future_ablation/20260528_000000/phase_lambda_decoupled_future_ablation_report.md",
+  "summary": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_decoupled_summary.md",
+  "best_condition": "full_plus_q"
+}

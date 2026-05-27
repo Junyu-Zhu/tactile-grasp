@@ -1,0 +1,67 @@
+[2026-05-28 03:33:38] Supervisor started; 30-minute cadence after initial launch
+[2026-05-28 03:33:52] Supervisor started; 30-minute cadence after initial launch
+[2026-05-28 03:34:08] Supervisor started; 30-minute cadence after initial launch
+[2026-05-28 03:34:08] LAUNCH decoupled_lam100_old on GPU1 -> arch_20260528_000000_decoupled_lam100_old
+[2026-05-28 03:34:08] LAUNCH consistency_decoder on GPU2 -> arch_20260528_000000_consistency_decoder
+[2026-05-28 03:34:08] LAUNCH partially_shared_lam025 on GPU3 -> arch_20260528_000000_partially_shared_lam025
+0, 0, 3166, 49140
+1, 0, 19, 49140
+2, 0, 19, 49140
+3, 0, 19, 49140
+arch_20260528_000000_consistency_decoder: 1 windows (created Thu May 28 03:34:08 2026)
+arch_20260528_000000_decoupled_lam100_old: 1 windows (created Thu May 28 03:34:08 2026)
+arch_20260528_000000_partially_shared_lam025: 1 windows (created Thu May 28 03:34:08 2026)
+pld_20260528_000000_lam010_g0: 1 windows (created Thu May 28 00:22:24 2026)
+pld_20260528_000000_lam025_g1: 1 windows (created Thu May 28 00:22:29 2026)
+pld_20260528_000000_lam050_g2: 1 windows (created Thu May 28 00:22:34 2026)
+pld_20260528_000000_lam075_g3: 1 windows (created Thu May 28 00:22:39 2026)
+pld_20260528_000000_phase_b: 1 windows (created Thu May 28 00:30:23 2026)
+missing:
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_decoupled_future_ablation/20260528_000000/phase_lambda_decoupled_future_ablation_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_consistency_decoder_full_20260528_000000_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000_report.json
+[2026-05-28 03:34:08] Not complete yet; sleeping 1800s
+[2026-05-28 04:04:08] RUNNING decoupled_lam100_old in arch_20260528_000000_decoupled_lam100_old
+[2026-05-28 04:04:08] RUNNING consistency_decoder in arch_20260528_000000_consistency_decoder
+[2026-05-28 04:04:08] RUNNING partially_shared_lam025 in arch_20260528_000000_partially_shared_lam025
+0, 0, 3166, 49140
+1, 0, 3166, 49140
+2, 0, 3126, 49140
+3, 0, 3126, 49140
+arch_20260528_000000_consistency_decoder: 1 windows (created Thu May 28 03:34:08 2026)
+arch_20260528_000000_decoupled_lam100_old: 1 windows (created Thu May 28 03:34:08 2026)
+arch_20260528_000000_partially_shared_lam025: 1 windows (created Thu May 28 03:34:08 2026)
+pld_20260528_000000_lam010_g0: 1 windows (created Thu May 28 00:22:24 2026)
+pld_20260528_000000_lam025_g1: 1 windows (created Thu May 28 00:22:29 2026)
+pld_20260528_000000_lam050_g2: 1 windows (created Thu May 28 00:22:34 2026)
+pld_20260528_000000_lam075_g3: 1 windows (created Thu May 28 00:22:39 2026)
+pld_20260528_000000_phase_b: 1 windows (created Thu May 28 00:30:23 2026)
+missing:
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_decoupled_future_ablation/20260528_000000/phase_lambda_decoupled_future_ablation_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_consistency_decoder_full_20260528_000000_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000_report.json
+[2026-05-28 04:04:08] Not complete yet; sleeping 1800s
+[2026-05-28 04:09:19] Supervisor started; 30-minute cadence after initial launch
+[2026-05-28 04:09:19] RUNNING decoupled_lam100_old in arch_20260528_000000_decoupled_lam100_old
+[2026-05-28 04:09:19] RUNNING consistency_decoder in arch_20260528_000000_consistency_decoder
+[2026-05-28 04:09:19] RUNNING partially_shared_lam025 in arch_20260528_000000_partially_shared_lam025
+0, 0, 19, 49140
+1, 0, 19, 49140
+2, 0, 19, 49140
+3, 0, 19, 49140
+arch_20260528_000000_consistency_decoder: 1 windows (created Thu May 28 04:09:19 2026)
+arch_20260528_000000_decoupled_lam100_old: 1 windows (created Thu May 28 04:09:19 2026)
+arch_20260528_000000_partially_shared_lam025: 1 windows (created Thu May 28 04:09:19 2026)
+pld_20260528_000000_lam010_g0: 1 windows (created Thu May 28 00:22:24 2026)
+pld_20260528_000000_lam025_g1: 1 windows (created Thu May 28 00:22:29 2026)
+pld_20260528_000000_lam050_g2: 1 windows (created Thu May 28 00:22:34 2026)
+pld_20260528_000000_lam075_g3: 1 windows (created Thu May 28 00:22:39 2026)
+pld_20260528_000000_phase_b_retry_offline: 1 windows (created Thu May 28 04:09:19 2026)
+missing:
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_decoupled_future_ablation/20260528_000000/phase_lambda_decoupled_future_ablation_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_consistency_decoder_full_20260528_000000_report.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000_report.json
+[2026-05-28 04:09:20] Not complete yet; sleeping 1800s

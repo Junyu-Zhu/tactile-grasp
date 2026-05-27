@@ -1,0 +1,48 @@
+{
+  "stamp": "20260528_000000",
+  "generated_at": "2026-05-28T04:23:05",
+  "tasks": [
+    {
+      "label": "decoupled_lam100_old",
+      "architecture": "Decoupled λ=1.00 old",
+      "gpu": 1,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase3_1_decoupled_gsmini_20260516_154730/mae_decoupled_multitask/checkpoints/epoch-0030.pth",
+      "current_eval_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_decoupled/20260528_000000/eval_cache/phase3_1_decoupled_gsmini_20260516_154730_val.json",
+      "stage_i_source": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase3_1_decoupled_gsmini_20260516_154730/mae_decoupled_multitask",
+      "experiment_name": "phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000",
+      "feature_run_id": "phase_lambda_arch_future_decoupled_lam100_old_features_20260528_000000",
+      "report_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000_report.json",
+      "wandb_name": "phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000",
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000",
+      "command": "cd /home/zjy/document/tactile-grasp && source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh && CUDA_VISIBLE_DEVICES=1 WANDB_MODE=offline WANDB_NAME=phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000 PYTHONPATH=. python sparsh-force-slip/scripts/phase4_paper_experiments.py train-head --feature-kind decoupled --feature-run-id phase_lambda_arch_future_decoupled_lam100_old_features_20260528_000000 --checkpoint /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_1_decoupled_gsmini_20260516_154730/mae_decoupled_multitask/checkpoints/epoch-0030.pth --experiment-name phase_lambda_arch_future_decoupled_lam100_old_full_20260528_000000 --input-mode full --report-dir /home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000 --horizons 1 3 5 --precompute-batch-size 128 --train-batch-size 1024 --num-workers 2 --max-epochs 40 --wandb-mode offline"
+    },
+    {
+      "label": "consistency_decoder",
+      "architecture": "Consistency decoder",
+      "gpu": 2,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_c_consistency_gsmini_20260514_161845/mae_consistency_multitask/checkpoints/epoch-0015.pth",
+      "current_eval_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase2/phase2_c_consistency_gsmini_20260514_161845/eval_cache/c_mae_consistency_phase2_c_consistency_gsmini_20260514_161845_allsource_val.json",
+      "stage_i_source": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_c_consistency_gsmini_20260514_161845/mae_consistency_multitask",
+      "experiment_name": "phase_lambda_arch_future_consistency_decoder_full_20260528_000000",
+      "feature_run_id": "phase_lambda_arch_future_consistency_decoder_features_20260528_000000",
+      "report_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_consistency_decoder_full_20260528_000000_report.json",
+      "wandb_name": "phase_lambda_arch_future_consistency_decoder_full_20260528_000000",
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase_lambda_arch_future_consistency_decoder_full_20260528_000000",
+      "command": "cd /home/zjy/document/tactile-grasp && source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh && CUDA_VISIBLE_DEVICES=2 WANDB_MODE=offline WANDB_NAME=phase_lambda_arch_future_consistency_decoder_full_20260528_000000 PYTHONPATH=. python sparsh-force-slip/scripts/phase4_paper_experiments.py train-head --feature-kind decoupled --feature-run-id phase_lambda_arch_future_consistency_decoder_features_20260528_000000 --checkpoint /vla1/zjy/sparsh_runs/force_slip_phase2/phase2_c_consistency_gsmini_20260514_161845/mae_consistency_multitask/checkpoints/epoch-0015.pth --experiment-name phase_lambda_arch_future_consistency_decoder_full_20260528_000000 --input-mode full --report-dir /home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000 --horizons 1 3 5 --precompute-batch-size 128 --train-batch-size 1024 --num-workers 2 --max-epochs 40 --wandb-mode offline"
+    },
+    {
+      "label": "partially_shared_lam025",
+      "architecture": "Partially shared λ=0.25",
+      "gpu": 3,
+      "checkpoint": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/mae_partially_shared_multitask/checkpoints/epoch-0050.pth",
+      "current_eval_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase2/phase2_b_ps_lam025_gsmini_20260514_063052/eval_cache/b_mae_partially_shared_allsource_val.json",
+      "stage_i_source": "/vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/mae_partially_shared_multitask",
+      "experiment_name": "phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000",
+      "feature_run_id": "phase_lambda_arch_future_partially_shared_lam025_features_20260528_000000",
+      "report_json": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000/phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000_report.json",
+      "wandb_name": "phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000",
+      "wandb_url": "https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000",
+      "command": "cd /home/zjy/document/tactile-grasp && source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh && CUDA_VISIBLE_DEVICES=3 WANDB_MODE=offline WANDB_NAME=phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000 PYTHONPATH=. python sparsh-force-slip/scripts/phase4_paper_experiments.py train-head --feature-kind decoupled --feature-run-id phase_lambda_arch_future_partially_shared_lam025_features_20260528_000000 --checkpoint /vla1/zjy/sparsh_runs/force_slip_phase2/phase2_b_ps_lam025_gsmini_20260514_063052/mae_partially_shared_multitask/checkpoints/epoch-0050.pth --experiment-name phase_lambda_arch_future_partially_shared_lam025_full_20260528_000000 --input-mode full --report-dir /home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_architecture_future_ablation/20260528_000000 --horizons 1 3 5 --precompute-batch-size 128 --train-batch-size 1024 --num-workers 2 --max-epochs 40 --wandb-mode offline"
+    }
+  ]
+}
