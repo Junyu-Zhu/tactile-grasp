@@ -1,0 +1,25 @@
+{
+  "stamp": "20260528_000000",
+  "repo": "/home/zjy/document/tactile-grasp",
+  "branch": "sparsh-force-slip",
+  "head": "6c89b49",
+  "phase": "phase_lambda_decoupled",
+  "encoder": "mae",
+  "decoder_variant": "decoupled",
+  "lambda_slip": [
+    0.1,
+    0.25,
+    0.5,
+    0.75
+  ],
+  "max_epochs": 51,
+  "batch_size": 100,
+  "num_workers": 2,
+  "validation_frequency": 5,
+  "single_process_single_gpu": true,
+  "wandb_mode": "online",
+  "auto_push_pull": false,
+  "report_dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase_lambda_decoupled/20260528_000000",
+  "runbook_dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/phase_lambda_decoupled_20260528_000000",
+  "log_dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase_lambda_decoupled/20260528_000000"
+}
