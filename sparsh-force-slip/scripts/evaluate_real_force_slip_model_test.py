@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-"""Evaluate force/slip and future-instability predictions on sidecar-annotated real tactile sequences."""
+"""Evaluate real tactile force/slip deployment data with sidecar stable/slip windows.
+
+The local real dataset is manually annotated per sequence and per sensor side with
+1-based frame-id windows:
+  - stable_windows: contact is stable, target future_instability=0
+  - slip_windows: slip/incipient instability, target future_instability=1
+
+This script evaluates every frame inside each annotated window and reports results
+by window type, object, sequence, and left/right side.
+"""
 from __future__ import annotations
 
 import argparse
@@ -70,19 +79,9 @@ def frame_id(path: Path) -> int:
     return int(m.group(1))
 
 
-def parse_sequence_name(name: str) -> tuple[str, str]:
+def parse_object_from_sequence(name: str) -> str:
     s = name.replace('-', '_').lower()
-    if 'slip_fail' in s:
-        return s.split('_slip_fail')[0], 'slip_fail'
-    if 'slip_success' in s:
-        return s.split('_slip_success')[0], 'slip_success'
-    if 'hard_fail' in s:
-        return s.split('_hard_fail')[0], 'hard_fail'
-    if s.endswith('_fail'):
-        return s.rsplit('_fail', 1)[0], 'hard_fail'
-    if 'success' in s:
-        return s.split('_success')[0], 'success'
-    return re.split(r'[_-]', s)[0], 'unknown'
+    return re.split(r'[_-]', s)[0]
 
 
 def preprocess_pair(cur_path: Path, prev_path: Path, bg: np.ndarray | None, transform) -> torch.Tensor:
@@ -103,8 +102,17 @@ def preprocess_pair(cur_path: Path, prev_path: Path, bg: np.ndarray | None, tran
     return torch.cat(frames, dim=0)
 
 
-def safe_mean(values: list[float]) -> float | None:
-    vals = [float(v) for v in values if v is not None and not math.isnan(float(v))]
+def safe_mean(values: list[Any]) -> float | None:
+    vals = []
+    for v in values:
+        if v is None:
+            continue
+        try:
+            fv = float(v)
+        except Exception:
+            continue
+        if not math.isnan(fv):
+            vals.append(fv)
     return float(np.mean(vals)) if vals else None
 
 
@@ -115,14 +123,80 @@ def top_quantile_mean(arr: np.ndarray, q: float = 0.9) -> float | None:
     return float(arr[arr >= thr].mean())
 
 
+def auroc(y: np.ndarray, score: np.ndarray) -> float | None:
+    pos = score[y == 1]
+    neg = score[y == 0]
+    if len(pos) == 0 or len(neg) == 0:
+        return None
+    # Mann-Whitney U / pairwise probability, tie = 0.5.
+    total = 0.0
+    for p in pos:
+        total += float((p > neg).sum()) + 0.5 * float((p == neg).sum())
+    return float(total / (len(pos) * len(neg)))
+
+
+def auprc(y: np.ndarray, score: np.ndarray) -> float | None:
+    if y.sum() == 0 or y.sum() == len(y):
+        return None
+    order = np.argsort(-score)
+    yy = y[order]
+    tp = np.cumsum(yy == 1)
+    fp = np.cumsum(yy == 0)
+    precision = tp / np.maximum(tp + fp, 1)
+    return float(precision[yy == 1].mean()) if (yy == 1).any() else None
+
+
+def binary_metrics(rows: list[dict[str, Any]], score_key: str, threshold: float = 0.5) -> dict[str, Any]:
+    vals = [(int(r['target_instability']), float(r[score_key])) for r in rows if r.get(score_key) is not None]
+    if not vals:
+        return {'score': score_key, 'n': 0}
+    y = np.array([v[0] for v in vals], dtype=int)
+    s = np.array([v[1] for v in vals], dtype=float)
+    pred = (s >= threshold).astype(int)
+    tp = int(((pred == 1) & (y == 1)).sum())
+    fp = int(((pred == 1) & (y == 0)).sum())
+    tn = int(((pred == 0) & (y == 0)).sum())
+    fn = int(((pred == 0) & (y == 1)).sum())
+    precision = tp / (tp + fp) if (tp + fp) else None
+    recall = tp / (tp + fn) if (tp + fn) else None
+    f1 = (2 * precision * recall / (precision + recall)) if precision is not None and recall is not None and (precision + recall) else None
+    return {
+        'score': score_key,
+        'n': int(len(y)),
+        'n_stable': int((y == 0).sum()),
+        'n_slip': int((y == 1).sum()),
+        'threshold': threshold,
+        'stable_mean': safe_mean(s[y == 0].tolist()),
+        'slip_mean': safe_mean(s[y == 1].tolist()),
+        'slip_minus_stable_gap': (safe_mean(s[y == 1].tolist()) - safe_mean(s[y == 0].tolist())) if (y == 0).any() and (y == 1).any() else None,
+        'accuracy_at_0p5': float((pred == y).mean()),
+        'precision_at_0p5': precision,
+        'recall_at_0p5': recall,
+        'f1_at_0p5': f1,
+        'auroc': auroc(y, s),
+        'auprc': auprc(y, s),
+        'tp': tp, 'fp': fp, 'tn': tn, 'fn': fn,
+    }
+
+
+@dataclass
+class EvalWindow:
+    window_type: str
+    window_index: int
+    target_instability: int
+    start: int
+    end: int
+    notes: str = ''
+
+
 @dataclass
 class SequenceSide:
     sequence: str
     side: str
     object_name: str
-    outcome: str
     image_paths: list[Path]
     frame_map: dict[int, Path]
+    side_meta: dict[str, Any]
     sidecar: dict[str, Any]
     sidecar_path: Path
 
@@ -132,9 +206,7 @@ def discover_sequences(dataset_root: Path) -> list[SequenceSide]:
     for seq_dir in sorted([p for p in dataset_root.iterdir() if p.is_dir()]):
         sidecar_path = seq_dir / 'real_force_slip_sidecar.json'
         sidecar = json.loads(sidecar_path.read_text(encoding='utf-8')) if sidecar_path.exists() else {}
-        obj, outcome = sidecar.get('object'), sidecar.get('outcome')
-        if not obj or not outcome:
-            obj, outcome = parse_sequence_name(seq_dir.name)
+        obj = sidecar.get('object') or parse_object_from_sequence(seq_dir.name)
         for side in ('left', 'right'):
             sd = sidecar.get(side, {}) if isinstance(sidecar.get(side, {}), dict) else {}
             if sd.get('valid', True) is False:
@@ -146,18 +218,34 @@ def discover_sequences(dataset_root: Path) -> list[SequenceSide]:
             if not paths:
                 continue
             fmap = {frame_id(p): p for p in paths}
-            out.append(SequenceSide(seq_dir.name, side, obj, outcome, paths, fmap, sd, sidecar_path))
+            out.append(SequenceSide(seq_dir.name, side, obj, paths, fmap, sd, sidecar, sidecar_path))
     return out
 
 
-def selected_frame_ids(item: SequenceSide) -> list[int]:
+def int_frame_value(v: Any) -> int:
+    if isinstance(v, int):
+        return v
+    if isinstance(v, str):
+        m = re.match(r'^(\d+)', v.strip())
+        if m:
+            return int(m.group(1))
+    raise ValueError(f'Invalid frame value: {v!r}')
+
+
+def selected_windows(item: SequenceSide) -> list[EvalWindow]:
     ids = sorted(item.frame_map)
-    lo = item.sidecar.get('eval_start')
-    hi = item.sidecar.get('eval_end')
-    if lo is None or hi is None:
-        # Conservative fallback if a sidecar is incomplete: use all frames.
-        return ids
-    return [i for i in ids if int(lo) <= i <= int(hi)]
+    lo_all, hi_all = ids[0], ids[-1]
+    windows: list[EvalWindow] = []
+    for window_type, target in [('stable', 0), ('slip', 1)]:
+        raw_key = f'{window_type}_windows'
+        raw_windows = item.side_meta.get(raw_key, []) or []
+        for idx, raw in enumerate(raw_windows):
+            start = max(lo_all, int_frame_value(raw.get('start')))
+            end = min(hi_all, int_frame_value(raw.get('end')))
+            if end < start:
+                continue
+            windows.append(EvalWindow(window_type, idx, target, start, end, str(raw.get('notes', ''))))
+    return windows
 
 
 def nearest_frame_at_or_before(frame_ids: list[int], target: int) -> int:
@@ -182,6 +270,33 @@ def load_future_head(path: Path, device: torch.device) -> tuple[torch.nn.Module,
     return model, payload
 
 
+def summarize_rows(rows: list[dict[str, Any]], keys: tuple[str, ...]) -> list[dict[str, Any]]:
+    groups: dict[tuple[Any, ...], list[dict[str, Any]]] = {}
+    for r in rows:
+        groups.setdefault(tuple(r[k] for k in keys), []).append(r)
+    out = []
+    metric_keys = [
+        'p_slip_current', 'Fn_pred_N', 'Ft_pred_N', 'Fmag_pred_N', 'Ft_over_Fn_pred',
+        'p_instability_H1', 'p_instability_H3', 'p_instability_H5',
+    ]
+    for key, vals in sorted(groups.items()):
+        rec = {k: v for k, v in zip(keys, key)}
+        rec['n_frames'] = len(vals)
+        rec['n_windows'] = len({(v['sequence'], v['side'], v['window_type'], v['window_index']) for v in vals})
+        rec['n_sequence_sides'] = len({(v['sequence'], v['side']) for v in vals})
+        for m in metric_keys:
+            if any(m in v for v in vals):
+                arr = np.array([float(v[m]) for v in vals if v.get(m) is not None], dtype=float)
+                if arr.size:
+                    rec[f'{m}_mean'] = float(arr.mean())
+                    rec[f'{m}_max'] = float(arr.max())
+                    rec[f'{m}_top10_mean'] = top_quantile_mean(arr, 0.9)
+                    if m.startswith('p_'):
+                        rec[f'{m}_rate_ge_0p5'] = float((arr >= 0.5).mean())
+        out.append(rec)
+    return out
+
+
 @torch.no_grad()
 def evaluate_sequence_side(
     item: SequenceSide,
@@ -193,19 +308,23 @@ def evaluate_sequence_side(
     frame_stride_context: int,
     resize: tuple[int, int],
     use_first_frame_bg: bool,
-) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+) -> list[dict[str, Any]]:
     transform = get_resize_transform(list(resize))
     all_ids = sorted(item.frame_map)
-    eval_ids = selected_frame_ids(item)
+    windows = selected_windows(item)
+    if not windows:
+        return []
     bg = read_rgb(item.image_paths[0]) if use_first_frame_bg else None
+    tasks: list[tuple[EvalWindow, int]] = []
+    for w in windows:
+        for fid in all_ids:
+            if w.start <= fid <= w.end:
+                tasks.append((w, fid))
     rows: list[dict[str, Any]] = []
-    if not eval_ids:
-        return rows, {'sequence': item.sequence, 'side': item.side, 'object': item.object_name, 'outcome': item.outcome, 'n_eval_frames': 0, 'error': 'empty_sidecar_window'}
-
-    for chunk_start in tqdm(range(0, len(eval_ids), batch_size), desc=f'{item.sequence}/{item.side}', leave=False):
-        ids = eval_ids[chunk_start: chunk_start + batch_size]
+    for chunk_start in tqdm(range(0, len(tasks), batch_size), desc=f'{item.sequence}/{item.side}', leave=False):
+        chunk = tasks[chunk_start: chunk_start + batch_size]
         tensors = []
-        for fid in ids:
+        for _w, fid in chunk:
             prev_fid = nearest_frame_at_or_before(all_ids, max(all_ids[0], fid - frame_stride_context))
             tensors.append(preprocess_pair(item.frame_map[fid], item.frame_map[prev_fid], bg, transform))
         x = torch.stack(tensors, dim=0).to(device, non_blocking=True)
@@ -217,24 +336,36 @@ def evaluate_sequence_side(
         force_np = force_n.detach().cpu().numpy()
         p_slip_np = p_slip.detach().cpu().numpy()
         z_cpu = z.detach().cpu()
-        for local_i, fid in enumerate(ids):
+        for local_i, (w, fid) in enumerate(chunk):
             fx, fy, fz = [float(v) for v in force_np[local_i]]
             ft = float(math.sqrt(fx * fx + fy * fy))
             fn = float(abs(fz))
             fmag = float(math.sqrt(fx * fx + fy * fy + fz * fz))
             rows.append({
-                'sequence': item.sequence, 'side': item.side, 'object': item.object_name, 'outcome': item.outcome,
-                'frame_index': int(fid), 'frame_name': item.frame_map[fid].name, 'time_s_at_60fps': float(fid / 60.0),
-                'window_source': 'sidecar_eval_window',
-                'contact_start': item.sidecar.get('contact_start'), 'stable_start': item.sidecar.get('stable_start'),
-                'stable_end': item.sidecar.get('stable_end'), 'slip_start': item.sidecar.get('slip_start'),
-                'drop_start': item.sidecar.get('drop_start'), 'eval_start': item.sidecar.get('eval_start'), 'eval_end': item.sidecar.get('eval_end'),
-                'Fx_pred_N': fx, 'Fy_pred_N': fy, 'Fz_pred_N': fz, 'Fn_pred_N': fn, 'Ft_pred_N': ft,
-                'Fmag_pred_N': fmag, 'Ft_over_Fn_pred': float(ft / (fn + 1.0e-6)),
+                'sequence': item.sequence,
+                'object': item.object_name,
+                'side': item.side,
+                'window_type': w.window_type,
+                'window_index': w.window_index,
+                'target_instability': w.target_instability,
+                'window_start': w.start,
+                'window_end': w.end,
+                'window_notes': w.notes,
+                'frame_index': int(fid),
+                'frame_name': item.frame_map[fid].name,
+                'time_s_at_60fps': float((fid - 1) / 60.0),
+                'schema': item.sidecar.get('schema'),
+                'trial_result_for_reference_only': item.sidecar.get('trial_result_for_reference_only'),
+                'Fx_pred_N': fx, 'Fy_pred_N': fy, 'Fz_pred_N': fz,
+                'Fn_pred_N': fn, 'Ft_pred_N': ft, 'Fmag_pred_N': fmag,
+                'Ft_over_Fn_pred': float(ft / (fn + 1.0e-6)),
                 'p_slip_current': float(p_slip_np[local_i]), '_z': z_cpu[local_i],
             })
 
-    by_frame = {r['frame_index']: r for r in rows}
+    # Compute causal force deltas within each sequence side using the closest evaluated previous frame.
+    by_frame: dict[int, dict[str, Any]] = {}
+    for r in rows:
+        by_frame.setdefault(int(r['frame_index']), r)
     eval_id_set = sorted(by_frame)
     for r in rows:
         prev_fid = nearest_frame_at_or_before(eval_id_set, max(eval_id_set[0], int(r['frame_index']) - frame_stride_context))
@@ -243,7 +374,7 @@ def evaluate_sequence_side(
         r['dFy_causal_N'] = float(r['Fy_pred_N'] - prev['Fy_pred_N'])
         r['dFz_causal_N'] = float(r['Fz_pred_N'] - prev['Fz_pred_N'])
 
-    if future_head is not None and future_payload is not None:
+    if future_head is not None and future_payload is not None and rows:
         horizons = [int(h) for h in future_payload.get('horizons', [1, 3, 5])]
         aux_names = list(future_payload.get('aux_names', []))
         for chunk_start in range(0, len(rows), batch_size):
@@ -258,53 +389,7 @@ def evaluate_sequence_side(
                     r[f'p_instability_H{h}'] = float(1.0 - p_s)
     for r in rows:
         r.pop('_z', None)
-
-    p_slip_arr = np.array([r['p_slip_current'] for r in rows], dtype=float)
-    fn = np.array([r['Fn_pred_N'] for r in rows], dtype=float)
-    ft = np.array([r['Ft_pred_N'] for r in rows], dtype=float)
-    fmag = np.array([r['Fmag_pred_N'] for r in rows], dtype=float)
-    ratio = np.array([r['Ft_over_Fn_pred'] for r in rows], dtype=float)
-    summary: dict[str, Any] = {
-        'sequence': item.sequence, 'side': item.side, 'object': item.object_name, 'outcome': item.outcome,
-        'n_images': len(item.image_paths), 'n_eval_frames': len(rows),
-        'eval_start': item.sidecar.get('eval_start'), 'eval_end': item.sidecar.get('eval_end'),
-        'contact_start': item.sidecar.get('contact_start'), 'stable_start': item.sidecar.get('stable_start'),
-        'stable_end': item.sidecar.get('stable_end'), 'slip_start': item.sidecar.get('slip_start'), 'drop_start': item.sidecar.get('drop_start'),
-        'duration_s_at_60fps': float((max(eval_ids) - min(eval_ids) + 1) / 60.0),
-        'slip_prob_mean': float(p_slip_arr.mean()), 'slip_prob_max': float(p_slip_arr.max()),
-        'slip_prob_top10_mean': top_quantile_mean(p_slip_arr, 0.9),
-        'slip_pred_rate_p_ge_0p5': float((p_slip_arr >= 0.5).mean()),
-        'first_slip_frame_p_ge_0p5': int(rows[int(np.argmax(p_slip_arr >= 0.5))]['frame_index']) if (p_slip_arr >= 0.5).any() else None,
-        'Fn_mean_N': float(fn.mean()), 'Fn_max_N': float(fn.max()),
-        'Ft_mean_N': float(ft.mean()), 'Ft_max_N': float(ft.max()),
-        'Fmag_mean_N': float(fmag.mean()), 'Fmag_max_N': float(fmag.max()),
-        'Ft_over_Fn_mean': float(ratio.mean()), 'Ft_over_Fn_max': float(ratio.max()),
-    }
-    if future_payload is not None:
-        for h in future_payload.get('horizons', [1, 3, 5]):
-            key = f'p_instability_H{int(h)}'
-            if key in rows[0]:
-                arr = np.array([r[key] for r in rows], dtype=float)
-                summary[f'{key}_mean'] = float(arr.mean())
-                summary[f'{key}_max'] = float(arr.max())
-                summary[f'{key}_top10_mean'] = top_quantile_mean(arr, 0.9)
-                summary[f'{key}_rate_ge_0p5'] = float((arr >= 0.5).mean())
-    return rows, summary
-
-
-def aggregate_by(rows: list[dict[str, Any]], keys: tuple[str, ...], metric_keys: list[str]) -> list[dict[str, Any]]:
-    groups: dict[tuple[Any, ...], list[dict[str, Any]]] = {}
-    for r in rows:
-        groups.setdefault(tuple(r[k] for k in keys), []).append(r)
-    out = []
-    for key, vals in sorted(groups.items()):
-        rec = {k: v for k, v in zip(keys, key)}
-        rec['n_sequence_sides'] = len(vals)
-        rec['n_eval_frames'] = int(sum(v.get('n_eval_frames', 0) for v in vals))
-        for m in metric_keys:
-            rec[m] = safe_mean([v.get(m) for v in vals])
-        out.append(rec)
-    return out
+    return rows
 
 
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
@@ -335,28 +420,34 @@ def fmt(v: Any, digits: int = 3) -> str:
 
 def render_md(payload: dict[str, Any]) -> str:
     lines = [
-        '# Real Force-Slip Model Test Report (Sidecar Window)', '',
+        '# Real Force-Slip Model Test Report (Stable/Slip Windows)', '',
         f"- generated_at: `{payload['generated_at']}`",
         f"- dataset: `{payload['dataset_root']}`",
         f"- stage_i_checkpoint: `{payload['stage_i_checkpoint']}`",
         f"- stage_ii_future_checkpoint: `{payload.get('stage_ii_future_checkpoint')}`",
-        f"- window_source: `sidecar eval_start/eval_end`",
-        f"- frame_rate: `60 fps`; evaluated_frames: `{payload['total_eval_frames']}`; sequence_sides: `{payload['n_sequence_sides']}`",
+        '- labels: `stable_windows -> target_instability=0`, `slip_windows -> target_instability=1`',
+        f"- evaluated_frames: `{payload['total_eval_frames']}`; sequence_sides: `{payload['n_sequence_sides']}`; windows: `{payload['n_windows']}`",
         f"- preprocessing: first frame background subtraction = `{payload['config']['use_first_frame_bg']}`, context stride = `{payload['config']['frame_stride_context']}` frames, resized to `{payload['config']['resize']}`.",
         '', '## Interpretation notes', '',
-        '- This run uses manually annotated sidecar windows, so it avoids most no-contact and irrelevant release frames.',
-        '- The real dataset still has weak sequence-level labels, not per-frame force/slip ground truth; results are deployment diagnostics rather than calibrated accuracy/RMSE.',
-        '- Stage-II future-instability uses predicted force deltas on real data, so treat it as exploratory unless it agrees with slip/force trends.',
-        '', '## Outcome-level summary', '',
-        '| outcome | sides | frames | pSlip mean | pSlip max | slip rate | H1 inst mean | H5 inst mean | Fmag mean | Ft/Fn mean |',
-        '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|',
+        '- This run uses manually annotated local stable/slip windows and reports left/right sensors separately.',
+        '- The labels are diagnostic deployment labels from the real image sequences, not calibrated force ground truth.',
+        '- `p_slip_current` is the Stage-I slip probability; `p_instability_H*` is the Stage-II future-instability probability.',
+        '', '## Binary separation metrics', '',
+        '| score | n | stable mean | slip mean | gap | AUROC | AUPRC | F1@0.5 | Acc@0.5 |',
+        '|---|---:|---:|---:|---:|---:|---:|---:|---:|',
     ]
-    for r in payload['outcome_summary']:
-        lines.append(f"| {r['outcome']} | {r['n_sequence_sides']} | {r['n_eval_frames']} | {fmt(r.get('slip_prob_mean'))} | {fmt(r.get('slip_prob_max'))} | {fmt(r.get('slip_pred_rate_p_ge_0p5'))} | {fmt(r.get('p_instability_H1_mean'))} | {fmt(r.get('p_instability_H5_mean'))} | {fmt(r.get('Fmag_mean_N'))} | {fmt(r.get('Ft_over_Fn_mean'))} |")
-    lines += ['', '## Sequence-side summary', '', '| sequence | side | outcome | window | frames | pSlip mean | slip rate | H1 inst mean | H5 inst mean | Fmag mean | first pSlip>=0.5 |', '|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|']
-    for r in payload['sequence_summaries']:
-        window = f"{r.get('eval_start')}-{r.get('eval_end')}"
-        lines.append(f"| {r['sequence']} | {r['side']} | {r['outcome']} | {window} | {r['n_eval_frames']} | {fmt(r.get('slip_prob_mean'))} | {fmt(r.get('slip_pred_rate_p_ge_0p5'))} | {fmt(r.get('p_instability_H1_mean'))} | {fmt(r.get('p_instability_H5_mean'))} | {fmt(r.get('Fmag_mean_N'))} | {r.get('first_slip_frame_p_ge_0p5')} |")
+    for r in payload['binary_metrics']:
+        lines.append(f"| {r['score']} | {r.get('n', 0)} | {fmt(r.get('stable_mean'))} | {fmt(r.get('slip_mean'))} | {fmt(r.get('slip_minus_stable_gap'))} | {fmt(r.get('auroc'))} | {fmt(r.get('auprc'))} | {fmt(r.get('f1_at_0p5'))} | {fmt(r.get('accuracy_at_0p5'))} |")
+    lines += ['', '## Stable vs slip window summary', '', '| window | sides | windows | frames | pSlip mean | H1 inst mean | H5 inst mean | Fmag mean | Ft/Fn mean |', '|---|---:|---:|---:|---:|---:|---:|---:|---:|']
+    for r in payload['window_type_summary']:
+        lines.append(f"| {r['window_type']} | {r['n_sequence_sides']} | {r['n_windows']} | {r['n_frames']} | {fmt(r.get('p_slip_current_mean'))} | {fmt(r.get('p_instability_H1_mean'))} | {fmt(r.get('p_instability_H5_mean'))} | {fmt(r.get('Fmag_pred_N_mean'))} | {fmt(r.get('Ft_over_Fn_pred_mean'))} |")
+    lines += ['', '## Object-level summary', '', '| object | window | sides | windows | frames | pSlip mean | H1 inst mean | H5 inst mean | Fmag mean |', '|---|---|---:|---:|---:|---:|---:|---:|---:|']
+    for r in payload['object_window_summary']:
+        lines.append(f"| {r['object']} | {r['window_type']} | {r['n_sequence_sides']} | {r['n_windows']} | {r['n_frames']} | {fmt(r.get('p_slip_current_mean'))} | {fmt(r.get('p_instability_H1_mean'))} | {fmt(r.get('p_instability_H5_mean'))} | {fmt(r.get('Fmag_pred_N_mean'))} |")
+    lines += ['', '## Sequence / side / window summary', '', '| sequence | side | window | range | frames | pSlip mean | slip rate | H1 inst mean | H5 inst mean | Fmag mean |', '|---|---|---|---|---:|---:|---:|---:|---:|---:|']
+    for r in payload['sequence_side_window_summary']:
+        rng = f"{r.get('window_start')}-{r.get('window_end')}"
+        lines.append(f"| {r['sequence']} | {r['side']} | {r['window_type']} | {rng} | {r['n_frames']} | {fmt(r.get('p_slip_current_mean'))} | {fmt(r.get('p_slip_current_rate_ge_0p5'))} | {fmt(r.get('p_instability_H1_mean'))} | {fmt(r.get('p_instability_H5_mean'))} | {fmt(r.get('Fmag_pred_N_mean'))} |")
     lines += ['', '## Automatic conclusion', '']
     for x in payload.get('interpretation', []):
         lines.append(f'- {x}')
@@ -366,17 +457,14 @@ def render_md(payload: dict[str, Any]) -> str:
     return '\n'.join(lines) + '\n'
 
 
-def build_interpretation(outcome_summary: list[dict[str, Any]]) -> list[str]:
-    by = {r['outcome']: r for r in outcome_summary}
+def build_interpretation(metrics: list[dict[str, Any]]) -> list[str]:
     notes = []
-    if 'success' in by and 'slip_fail' in by:
-        notes.append(f"Sidecar-window pSlip mean: success={fmt(by['success'].get('slip_prob_mean'))}, slip_fail={fmt(by['slip_fail'].get('slip_prob_mean'))}.")
-        notes.append(f"Sidecar-window slip-rate: success={fmt(by['success'].get('slip_pred_rate_p_ge_0p5'))}, slip_fail={fmt(by['slip_fail'].get('slip_pred_rate_p_ge_0p5'))}.")
-    if 'slip_success' in by and 'slip_fail' in by:
-        notes.append(f"Slip-success vs slip-fail pSlip mean: {fmt(by['slip_success'].get('slip_prob_mean'))} vs {fmt(by['slip_fail'].get('slip_prob_mean'))}.")
-    if 'success' in by and 'slip_fail' in by:
-        notes.append(f"Mean force magnitude: success={fmt(by['success'].get('Fmag_mean_N'))} N, slip_fail={fmt(by['slip_fail'].get('Fmag_mean_N'))} N.")
-    return notes or ['Inspect sequence-level rows; no automatic comparison was available.']
+    by = {m['score']: m for m in metrics}
+    for score in ('p_slip_current', 'p_instability_H1', 'p_instability_H3', 'p_instability_H5'):
+        if score in by:
+            m = by[score]
+            notes.append(f"{score}: stable_mean={fmt(m.get('stable_mean'))}, slip_mean={fmt(m.get('slip_mean'))}, gap={fmt(m.get('slip_minus_stable_gap'))}, AUROC={fmt(m.get('auroc'))}.")
+    return notes or ['Inspect per-frame and sequence-side rows; no score metrics were available.']
 
 
 def main() -> None:
@@ -405,30 +493,34 @@ def main() -> None:
 
     sequence_items = discover_sequences(args.dataset_root)
     all_rows: list[dict[str, Any]] = []
-    summaries: list[dict[str, Any]] = []
     for item in sequence_items:
-        rows, summary = evaluate_sequence_side(item, stage1, future_head, future_payload, device, args.batch_size, args.frame_stride_context, tuple(args.resize), not args.no_bg)
-        all_rows.extend(rows)
-        summaries.append(summary)
+        all_rows.extend(evaluate_sequence_side(item, stage1, future_head, future_payload, device, args.batch_size, args.frame_stride_context, tuple(args.resize), not args.no_bg))
 
-    metric_keys = [
-        'slip_prob_mean', 'slip_prob_max', 'slip_prob_top10_mean', 'slip_pred_rate_p_ge_0p5',
-        'p_instability_H1_mean', 'p_instability_H1_max', 'p_instability_H1_top10_mean', 'p_instability_H1_rate_ge_0p5',
-        'p_instability_H3_mean', 'p_instability_H5_mean', 'p_instability_H5_max', 'p_instability_H5_top10_mean',
-        'Fn_mean_N', 'Ft_mean_N', 'Fmag_mean_N', 'Ft_over_Fn_mean',
-    ]
-    outcome_summary = aggregate_by(summaries, ('outcome',), metric_keys)
-    object_outcome_summary = aggregate_by(summaries, ('object', 'outcome'), metric_keys)
+    sequence_side_window_summary = summarize_rows(all_rows, ('sequence', 'object', 'side', 'window_type', 'window_index', 'window_start', 'window_end'))
+    window_type_summary = summarize_rows(all_rows, ('window_type',))
+    object_window_summary = summarize_rows(all_rows, ('object', 'window_type'))
+    sequence_summary = summarize_rows(all_rows, ('sequence', 'object', 'side'))
+    side_summary = summarize_rows(all_rows, ('side', 'window_type'))
+
+    score_keys = ['p_slip_current', 'p_instability_H1', 'p_instability_H3', 'p_instability_H5']
+    binary = [binary_metrics(all_rows, k) for k in score_keys if any(k in r for r in all_rows)]
 
     per_frame_csv = report_dir / 'real_force_slip_per_frame_predictions.csv'
-    sequence_csv = report_dir / 'real_force_slip_sequence_summary.csv'
-    outcome_csv = report_dir / 'real_force_slip_outcome_summary.csv'
-    object_csv = report_dir / 'real_force_slip_object_outcome_summary.csv'
+    seq_window_csv = report_dir / 'real_force_slip_sequence_side_window_summary.csv'
+    window_csv = report_dir / 'real_force_slip_window_type_summary.csv'
+    object_csv = report_dir / 'real_force_slip_object_window_summary.csv'
+    sequence_csv = report_dir / 'real_force_slip_sequence_side_summary.csv'
+    side_csv = report_dir / 'real_force_slip_side_summary.csv'
+    metrics_csv = report_dir / 'real_force_slip_binary_metrics.csv'
     write_csv(per_frame_csv, all_rows)
-    write_csv(sequence_csv, summaries)
-    write_csv(outcome_csv, outcome_summary)
-    write_csv(object_csv, object_outcome_summary)
+    write_csv(seq_window_csv, sequence_side_window_summary)
+    write_csv(window_csv, window_type_summary)
+    write_csv(object_csv, object_window_summary)
+    write_csv(sequence_csv, sequence_summary)
+    write_csv(side_csv, side_summary)
+    write_csv(metrics_csv, binary)
 
+    n_windows = len({(r['sequence'], r['side'], r['window_type'], r['window_index']) for r in all_rows})
     payload = {
         'generated_at': datetime.now().isoformat(timespec='seconds'),
         'dataset_root': str(args.dataset_root),
@@ -436,44 +528,58 @@ def main() -> None:
         'stage_i_train_config': stage1_payload.get('train_config', {}),
         'stage_ii_future_checkpoint': str(args.stage2_checkpoint) if future_payload is not None else None,
         'stage_ii_payload_meta': {k: v for k, v in (future_payload or {}).items() if k != 'model_state'},
-        'config': {'batch_size': args.batch_size, 'frame_stride_context': args.frame_stride_context, 'resize': list(args.resize), 'use_first_frame_bg': not args.no_bg, 'device': str(device), 'window_source': 'sidecar_eval_window'},
-        'n_sequence_sides': len(sequence_items), 'total_eval_frames': len(all_rows),
-        'sequence_summaries': summaries, 'outcome_summary': outcome_summary, 'object_outcome_summary': object_outcome_summary,
-        'interpretation': build_interpretation(outcome_summary),
+        'config': {'batch_size': args.batch_size, 'frame_stride_context': args.frame_stride_context, 'resize': list(args.resize), 'use_first_frame_bg': not args.no_bg, 'device': str(device), 'window_source': 'stable_windows/slip_windows'},
+        'n_sequence_sides': len(sequence_items), 'n_windows': n_windows, 'total_eval_frames': len(all_rows),
+        'binary_metrics': binary,
+        'window_type_summary': window_type_summary,
+        'object_window_summary': object_window_summary,
+        'sequence_side_window_summary': sequence_side_window_summary,
+        'sequence_side_summary': sequence_summary,
+        'side_summary': side_summary,
+        'interpretation': build_interpretation(binary),
         'output_files': {
             'json': str(report_dir / 'real_force_slip_model_test_report.json'),
             'markdown': str(report_dir / 'real_force_slip_model_test_report.md'),
-            'per_frame_csv': str(per_frame_csv), 'sequence_csv': str(sequence_csv),
-            'outcome_csv': str(outcome_csv), 'object_outcome_csv': str(object_csv),
+            'per_frame_csv': str(per_frame_csv),
+            'sequence_side_window_csv': str(seq_window_csv),
+            'window_type_csv': str(window_csv),
+            'object_window_csv': str(object_csv),
+            'sequence_side_csv': str(sequence_csv),
+            'side_csv': str(side_csv),
+            'binary_metrics_csv': str(metrics_csv),
         },
         'raw_data_modified': False,
     }
     write_json(report_dir / 'real_force_slip_model_test_report.json', payload)
     (report_dir / 'real_force_slip_model_test_report.md').write_text(render_md(payload), encoding='utf-8')
 
-    # Plot outcome bars if matplotlib is available.
     try:
         import matplotlib
         matplotlib.use('Agg')
         import matplotlib.pyplot as plt
-        labels = [r['outcome'] for r in outcome_summary]
-        metrics = [('slip_prob_mean', 'Mean pSlip'), ('slip_pred_rate_p_ge_0p5', 'Slip rate'), ('p_instability_H1_mean', 'Mean H1 instability'), ('Fmag_mean_N', 'Mean Fmag (N)')]
-        fig, axs = plt.subplots(2, 2, figsize=(10, 7), constrained_layout=True)
-        for ax, (key, title) in zip(axs.flat, metrics):
-            ax.bar(labels, [r.get(key) or 0 for r in outcome_summary])
-            ax.set_title(title)
+        labels = [m['score'] for m in binary]
+        fig, axs = plt.subplots(1, 3, figsize=(12, 3.5), constrained_layout=True)
+        axs[0].bar(labels, [m.get('slip_minus_stable_gap') or 0 for m in binary])
+        axs[0].set_title('Slip - stable score gap')
+        axs[1].bar(labels, [m.get('auroc') or 0 for m in binary])
+        axs[1].set_ylim(0, 1)
+        axs[1].set_title('AUROC')
+        axs[2].bar(labels, [m.get('f1_at_0p5') or 0 for m in binary])
+        axs[2].set_ylim(0, 1)
+        axs[2].set_title('F1@0.5')
+        for ax in axs:
             ax.tick_params(axis='x', rotation=25)
             ax.grid(axis='y', alpha=0.25)
-        fig.suptitle('Sidecar-window real tactile model summary')
-        png = report_dir / 'real_force_slip_outcome_bars.png'
+        fig.suptitle('Real stable/slip window separation')
+        png = report_dir / 'real_force_slip_stable_slip_metrics.png'
         fig.savefig(png, dpi=180)
-        payload['output_files']['outcome_bars'] = str(png)
+        payload['output_files']['stable_slip_metrics_png'] = str(png)
         write_json(report_dir / 'real_force_slip_model_test_report.json', payload)
         (report_dir / 'real_force_slip_model_test_report.md').write_text(render_md(payload), encoding='utf-8')
     except Exception as exc:
         print(f'WARN plot skipped: {exc}', file=sys.stderr)
 
-    print(json.dumps({'report_dir': str(report_dir), 'n_sequence_sides': len(sequence_items), 'total_eval_frames': len(all_rows)}, indent=2))
+    print(json.dumps({'report_dir': str(report_dir), 'n_sequence_sides': len(sequence_items), 'n_windows': n_windows, 'total_eval_frames': len(all_rows), 'binary_metrics': binary}, indent=2))
 
 
 if __name__ == '__main__':
