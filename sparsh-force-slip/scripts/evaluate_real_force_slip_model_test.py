@@ -287,6 +287,30 @@ def load_future_head(path: Path, device: torch.device) -> tuple[torch.nn.Module,
     return model, payload
 
 
+def build_future_input(z: torch.Tensor, z_prev: torch.Tensor | None, aux: torch.Tensor, payload: dict[str, Any]) -> torch.Tensor:
+    """Build Stage-II head input from the checkpoint-declared schema.
+
+    Historical heads use [z, aux]. Medium-version heads can additionally use
+    causal latent deltas [z_t - z_{t-k}], which are computed from previous
+    evaluated frame features and never from future frames.
+    """
+    schema = payload.get('input_schema') or ['z', 'aux']
+    parts = []
+    for name in schema:
+        if name == 'z':
+            parts.append(z)
+        elif name in {'z_delta_prev', 'delta_z_prev'}:
+            if z_prev is None:
+                parts.append(torch.zeros_like(z))
+            else:
+                parts.append(z - z_prev)
+        elif name == 'aux':
+            parts.append(aux)
+        else:
+            raise ValueError(f'Unsupported future-head input schema entry: {name!r}')
+    return torch.cat(parts, dim=1)
+
+
 def summarize_rows(rows: list[dict[str, Any]], keys: tuple[str, ...]) -> list[dict[str, Any]]:
     groups: dict[tuple[Any, ...], list[dict[str, Any]]] = {}
     for r in rows:
@@ -342,13 +366,22 @@ def evaluate_sequence_side(
     for chunk_start in tqdm(range(0, len(tasks), batch_size), desc=f'{item.sequence}/{item.side}', leave=False):
         chunk = tasks[chunk_start: chunk_start + batch_size]
         tensors = []
+        prev_feature_tensors = []
+        needs_prev_z = bool(future_payload and any(str(x) in {'z_delta_prev', 'delta_z_prev'} for x in (future_payload.get('input_schema') or [])))
         for _w, fid in chunk:
             prev_fid = nearest_frame_at_or_before(all_ids, max(all_ids[0], fid - frame_stride_context))
             tensors.append(preprocess_pair(item.frame_map[fid], item.frame_map[prev_fid], bg, transform))
+            if needs_prev_z:
+                prev2_fid = nearest_frame_at_or_before(all_ids, max(all_ids[0], prev_fid - frame_stride_context))
+                prev_feature_tensors.append(preprocess_pair(item.frame_map[prev_fid], item.frame_map[prev2_fid], bg, transform))
         x = torch.stack(tensors, dim=0).to(device, non_blocking=True)
         z_tokens = stage1.encoder(x)
         out = stage1.decoder(z_tokens)
         z = wm.pool_latent(z_tokens).float()
+        z_prev_for_future = None
+        if needs_prev_z:
+            x_prev = torch.stack(prev_feature_tensors, dim=0).to(device, non_blocking=True)
+            z_prev_for_future = wm.pool_latent(stage1.encoder(x_prev)).float().detach().cpu()
         force_n = out['force'] * FORCE_SCALE.to(device)
         p_slip = F.softmax(out['slip'], dim=1)[:, 1]
         force_np = force_n.detach().cpu().numpy()
@@ -378,6 +411,7 @@ def evaluate_sequence_side(
                 'Fn_pred_N': fn, 'Ft_pred_N': ft, 'Fmag_pred_N': fmag,
                 'Ft_over_Fn_pred': float(ft / (fn + 1.0e-6)),
                 'p_slip_current': float(p_slip_np[local_i]), '_z': z_cpu[local_i],
+                '_z_prev': z_prev_for_future[local_i] if z_prev_for_future is not None else None,
             })
 
     # Compute causal force deltas within each sequence side using the closest evaluated previous frame.
@@ -398,8 +432,10 @@ def evaluate_sequence_side(
         for chunk_start in range(0, len(rows), batch_size):
             chunk = rows[chunk_start: chunk_start + batch_size]
             z_batch = torch.stack([r['_z'] for r in chunk], dim=0).float()
+            z_prev_vals = [r.get('_z_prev') for r in chunk]
+            z_prev_batch = torch.stack([z if zp is None else zp for z, zp in zip(z_batch, z_prev_vals)], dim=0).float()
             aux = torch.tensor([[float(r[name]) for name in aux_names] for r in chunk], dtype=torch.float32)
-            x = torch.cat([z_batch, aux], dim=1).to(device)
+            x = build_future_input(z_batch, z_prev_batch, aux, future_payload).to(device)
             p_stable = torch.sigmoid(future_head(x)).detach().cpu().numpy()
             for r, probs in zip(chunk, p_stable):
                 for h, p_s in zip(horizons, probs):
@@ -407,6 +443,7 @@ def evaluate_sequence_side(
                     r[f'p_instability_H{h}'] = float(1.0 - p_s)
     for r in rows:
         r.pop('_z', None)
+        r.pop('_z_prev', None)
     return rows
 
 
