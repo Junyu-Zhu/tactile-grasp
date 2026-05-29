@@ -1,0 +1,17 @@
+sequence,side,window,range,n,pSlip_mean,H1_mean,H3_mean,H5_mean
+cucumber_1,left,slip,35-75,41,0.838,0.975,0.982,0.986
+cucumber_1,right,slip,48-73,26,0.984,0.998,0.998,0.998
+cucumber_2,left,slip,39-52,14,0.862,0.956,0.963,0.970
+cucumber_2,right,slip,38-51,14,0.996,0.995,0.995,0.996
+cucumber_3,left,slip,40-62,23,0.591,0.978,0.983,0.986
+cucumber_3,left,stable,80-110,31,0.025,0.939,0.961,0.969
+cucumber_3,right,slip,41-64,24,0.936,0.995,0.997,0.998
+cucumber_3,right,stable,80-110,31,0.039,0.925,0.956,0.972
+hammer_1,left,slip,50-80,31,1.000,1.000,1.000,1.000
+hammer_1,right,slip,50-80,31,1.000,1.000,1.000,1.000
+hammer_2,left,slip,34-44,11,0.995,0.999,1.000,1.000
+hammer_2,left,stable,90-116,27,0.723,0.998,0.999,0.999
+hammer_2,right,slip,34-41,8,1.000,1.000,1.000,1.000
+hammer_2,right,stable,90-116,27,0.419,0.996,0.998,0.999
+hammer_3,left,slip,40-70,31,1.000,1.000,1.000,1.000
+hammer_3,right,slip,40-70,31,1.000,1.000,1.000,1.000

@@ -232,10 +232,27 @@ def int_frame_value(v: Any) -> int:
     raise ValueError(f'Invalid frame value: {v!r}')
 
 
-def selected_windows(item: SequenceSide) -> list[EvalWindow]:
+def selected_windows(item: SequenceSide, window_source: str = 'stable_slip') -> list[EvalWindow]:
     ids = sorted(item.frame_map)
     lo_all, hi_all = ids[0], ids[-1]
     windows: list[EvalWindow] = []
+    if window_source == 'future_labels':
+        future = item.side_meta.get('future_labels', {}) if isinstance(item.side_meta.get('future_labels', {}), dict) else {}
+        confidence = str(future.get('confidence', ''))
+        for idx, raw in enumerate(future.get('safe_windows', []) or []):
+            start = max(lo_all, int_frame_value(raw.get('start')))
+            end = min(hi_all, int_frame_value(raw.get('end')))
+            if end >= start:
+                windows.append(EvalWindow('stable', idx, 0, start, end, f'future_labels.safe_windows; confidence={confidence}'))
+        onset = future.get('slip_onset')
+        slip_end = future.get('slip_end')
+        if onset is not None and slip_end is not None:
+            start = max(lo_all, int_frame_value(onset))
+            end = min(hi_all, int_frame_value(slip_end))
+            if end >= start:
+                windows.append(EvalWindow('slip', 0, 1, start, end, f'future_labels.slip_onset/slip_end; confidence={confidence}'))
+        return windows
+
     for window_type, target in [('stable', 0), ('slip', 1)]:
         raw_key = f'{window_type}_windows'
         raw_windows = item.side_meta.get(raw_key, []) or []
@@ -308,10 +325,11 @@ def evaluate_sequence_side(
     frame_stride_context: int,
     resize: tuple[int, int],
     use_first_frame_bg: bool,
+    window_source: str,
 ) -> list[dict[str, Any]]:
     transform = get_resize_transform(list(resize))
     all_ids = sorted(item.frame_map)
-    windows = selected_windows(item)
+    windows = selected_windows(item, window_source)
     if not windows:
         return []
     bg = read_rgb(item.image_paths[0]) if use_first_frame_bg else None
@@ -425,7 +443,7 @@ def render_md(payload: dict[str, Any]) -> str:
         f"- dataset: `{payload['dataset_root']}`",
         f"- stage_i_checkpoint: `{payload['stage_i_checkpoint']}`",
         f"- stage_ii_future_checkpoint: `{payload.get('stage_ii_future_checkpoint')}`",
-        '- labels: `stable_windows -> target_instability=0`, `slip_windows -> target_instability=1`',
+        f"- label_source: `{payload['config'].get('window_source')}`; stable/future-safe windows -> target_instability=0; slip/future-slip windows -> target_instability=1",
         f"- evaluated_frames: `{payload['total_eval_frames']}`; sequence_sides: `{payload['n_sequence_sides']}`; windows: `{payload['n_windows']}`",
         f"- preprocessing: first frame background subtraction = `{payload['config']['use_first_frame_bg']}`, context stride = `{payload['config']['frame_stride_context']}` frames, resized to `{payload['config']['resize']}`.",
         '', '## Interpretation notes', '',
@@ -477,6 +495,7 @@ def main() -> None:
     ap.add_argument('--frame-stride-context', type=int, default=5)
     ap.add_argument('--resize', type=int, nargs=2, default=[320, 240])
     ap.add_argument('--no-bg', action='store_true')
+    ap.add_argument('--window-source', choices=['stable_slip', 'future_labels'], default='stable_slip', help='stable_slip uses stable_windows/slip_windows; future_labels uses future_labels.safe_windows and slip_onset/slip_end.')
     ap.add_argument('--cpu', action='store_true')
     args = ap.parse_args()
 
@@ -494,7 +513,7 @@ def main() -> None:
     sequence_items = discover_sequences(args.dataset_root)
     all_rows: list[dict[str, Any]] = []
     for item in sequence_items:
-        all_rows.extend(evaluate_sequence_side(item, stage1, future_head, future_payload, device, args.batch_size, args.frame_stride_context, tuple(args.resize), not args.no_bg))
+        all_rows.extend(evaluate_sequence_side(item, stage1, future_head, future_payload, device, args.batch_size, args.frame_stride_context, tuple(args.resize), not args.no_bg, args.window_source))
 
     sequence_side_window_summary = summarize_rows(all_rows, ('sequence', 'object', 'side', 'window_type', 'window_index', 'window_start', 'window_end'))
     window_type_summary = summarize_rows(all_rows, ('window_type',))
@@ -528,7 +547,7 @@ def main() -> None:
         'stage_i_train_config': stage1_payload.get('train_config', {}),
         'stage_ii_future_checkpoint': str(args.stage2_checkpoint) if future_payload is not None else None,
         'stage_ii_payload_meta': {k: v for k, v in (future_payload or {}).items() if k != 'model_state'},
-        'config': {'batch_size': args.batch_size, 'frame_stride_context': args.frame_stride_context, 'resize': list(args.resize), 'use_first_frame_bg': not args.no_bg, 'device': str(device), 'window_source': 'stable_windows/slip_windows'},
+        'config': {'batch_size': args.batch_size, 'frame_stride_context': args.frame_stride_context, 'resize': list(args.resize), 'use_first_frame_bg': not args.no_bg, 'device': str(device), 'window_source': args.window_source},
         'n_sequence_sides': len(sequence_items), 'n_windows': n_windows, 'total_eval_frames': len(all_rows),
         'binary_metrics': binary,
         'window_type_summary': window_type_summary,
