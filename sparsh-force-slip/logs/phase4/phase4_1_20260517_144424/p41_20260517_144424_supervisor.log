@@ -1,0 +1,42 @@
+[2026-05-17 14:44:25] launched force_seed1 on GPU 0 as p41_20260517_144424_force_seed1_g0
+[2026-05-17 14:44:35] launched slip_seed1 on GPU 1 as p41_20260517_144424_slip_seed1_g1
+[2026-05-17 14:44:45] launched decoupled_seed1 on GPU 2 as p41_20260517_144424_decoupled_seed1_g2
+[2026-05-17 14:44:55] launched force_seed2 on GPU 3 as p41_20260517_144424_force_seed2_g3
+[2026-05-17 14:45:05] no free GPU; waiting
+[2026-05-17 14:50:05] no free GPU; waiting
+[2026-05-17 14:55:05] no free GPU; waiting
+[2026-05-17 15:00:05] no free GPU; waiting
+[2026-05-17 15:05:06] no free GPU; waiting
+[2026-05-17 15:10:06] no free GPU; waiting
+[2026-05-17 15:15:06] no free GPU; waiting
+[2026-05-17 15:20:06] no free GPU; waiting
+[2026-05-17 15:25:06] no free GPU; waiting
+[2026-05-17 15:30:06] no free GPU; waiting
+[2026-05-17 15:35:06] no free GPU; waiting
+[2026-05-17 15:40:06] no free GPU; waiting
+[2026-05-17 15:45:06] no free GPU; waiting
+[2026-05-17 15:50:06] no free GPU; waiting
+[2026-05-17 15:55:06] no free GPU; waiting
+[2026-05-17 16:00:06] no free GPU; waiting
+[2026-05-17 16:05:06] no free GPU; waiting
+[2026-05-17 16:10:06] no free GPU; waiting
+[2026-05-17 16:15:06] no free GPU; waiting
+[2026-05-17 16:20:06] no free GPU; waiting
+[2026-05-17 16:25:06] no free GPU; waiting
+[2026-05-17 16:30:06] no free GPU; waiting
+[2026-05-17 16:35:06] finished slip_seed1 (p41_20260517_144424_slip_seed1_g1)
+[2026-05-17 16:35:07] launched slip_seed2 on GPU 1 as p41_20260517_144424_slip_seed2_g1
+[2026-05-17 16:35:17] no free GPU; waiting
+[2026-05-17 16:40:17] no free GPU; waiting
+[2026-05-17 16:45:17] no free GPU; waiting
+[2026-05-17 16:50:17] no free GPU; waiting
+[2026-05-17 16:55:17] no free GPU; waiting
+[2026-05-17 17:00:17] no free GPU; waiting
+[2026-05-17 17:05:17] no free GPU; waiting
+[2026-05-17 17:10:17] finished force_seed1 (p41_20260517_144424_force_seed1_g0)
+[2026-05-17 17:10:17] launched decoupled_seed2 on GPU 0 as p41_20260517_144424_decoupled_seed2_g0
+[2026-05-17 17:15:27] finished decoupled_seed1 (p41_20260517_144424_decoupled_seed1_g2)
+[2026-05-17 17:15:27] finished force_seed2 (p41_20260517_144424_force_seed2_g3)
+[2026-05-17 18:20:28] finished slip_seed2 (p41_20260517_144424_slip_seed2_g1)
+[2026-05-17 19:50:28] finished decoupled_seed2 (p41_20260517_144424_decoupled_seed2_g0)
+[2026-05-17 19:50:28] all Phase4-1 jobs done

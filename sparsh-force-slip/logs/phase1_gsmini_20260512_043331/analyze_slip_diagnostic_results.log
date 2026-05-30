@@ -1,0 +1,151 @@
+Loading dinov2_sphere_only from /vla1/zjy/sparsh_runs/experiments/2026.05.12_04-39_phase1_gsmini_20260512_043331_dinov2_slip_gsmini_20260512_043652/checkpoints/epoch-0051.pth
+/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+Evaluating dinov2_sphere_only on sphere_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+Evaluating dinov2_sphere_only on allsource_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+Loading mae_sphere_only from /vla1/zjy/sparsh_runs/experiments/2026.05.12_04-39_phase1_gsmini_20260512_043331_mae_slip_gsmini_20260512_043652/checkpoints/epoch-0051.pth
+Evaluating mae_sphere_only on sphere_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+Evaluating mae_sphere_only on allsource_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+Loading dinov2_allsource from /vla1/zjy/sparsh_runs/experiments/2026.05.13_01-21_phase1_gsmini_20260512_043331_dinov2_slip_allsource_diag_gsmini_20260513_012000/checkpoints/epoch-0051.pth
+Evaluating dinov2_allsource on sphere_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+Evaluating dinov2_allsource on allsource_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+Loading mae_allsource from /vla1/zjy/sparsh_runs/experiments/2026.05.13_01-21_phase1_gsmini_20260512_043331_mae_slip_allsource_diag_gsmini_20260513_012000/checkpoints/epoch-0051.pth
+Evaluating mae_allsource on sphere_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+Evaluating mae_allsource on allsource_val
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase1/phase1_gsmini_20260512_043331/diagnostic_allsource_slip_comparison_aggregate_eval.json
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase1/phase1_gsmini_20260512_043331/diagnostic_allsource_slip_comparison_aggregate_eval.md
+DONE rc=0

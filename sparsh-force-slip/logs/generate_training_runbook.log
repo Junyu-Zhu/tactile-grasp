@@ -1,0 +1,70 @@
+{
+  "run_id": "phase1_gsmini_20260512_043331",
+  "generated_at": "2026-05-12T04:36:33.088488",
+  "derived_root": "/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini",
+  "session": "force-slip-phase1",
+  "logs_dir": "/home/zjy/document/tactile-grasp/sparsh-force-slip/logs/phase1_gsmini_20260512_043331",
+  "runs": {
+    "dinov2_force": {
+      "wandb_name": "phase1_gsmini_20260512_043331_dinov2_force_gsmini_20260512_043633",
+      "command": "cd /home/zjy/document/sparsh && source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh && export CUDA_VISIBLE_DEVICES=0 && export WANDB_MODE=online && export WANDB_NAME=phase1_gsmini_20260512_043331_dinov2_force_gsmini_20260512_043633 && export PYTHONPATH=. && python train_task.py --config-name=experiment/downstream_task/force/gelsight_dinov2 paths=zjy_4090 wandb=tactile_grasp +trainer.devices=1 ssl_model_size=base ssl_name=dinov2 experiment_name=phase1_gsmini_20260512_043331_dinov2_force_gsmini_20260512_043633 task.checkpoint_encoder=/vla1/zjy/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.ckpt data.dataset.config.path_dataset=/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini 'data.dataset.config.list_datasets=[\"flat_batch_1_train\",\"flat_batch_2_train\",\"sharp_batch_1_train\",\"sharp_batch_2_train\",\"sphere_batch_1_train\",\"sphere_batch_2_train\",\"sphere_batch_3_train\",\"sphere_batch_4_train\",\"sphere_batch_5_train\",\"sphere_batch_6_train\"]' 'data.dataset.config.list_datasets_test=[\"flat_batch_1_val\",\"flat_batch_2_val\",\"sharp_batch_1_val\",\"sharp_batch_2_val\",\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]' 'test.data.dataset_name=[\"flat_batch_1_val\",\"flat_batch_2_val\",\"sharp_batch_1_val\",\"sharp_batch_2_val\",\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]'",
+      "script": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/run_dinov2_force.sh"
+    },
+    "dinov2_slip": {
+      "wandb_name": "phase1_gsmini_20260512_043331_dinov2_slip_gsmini_20260512_043633",
+      "command": "cd /home/zjy/document/sparsh && source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh && export CUDA_VISIBLE_DEVICES=1 && export WANDB_MODE=online && export WANDB_NAME=phase1_gsmini_20260512_043331_dinov2_slip_gsmini_20260512_043633 && export PYTHONPATH=. && python train_task.py --config-name=experiment/downstream_task/slip/gelsight_dinov2 paths=zjy_4090 wandb=tactile_grasp +trainer.devices=1 ssl_model_size=base ssl_name=dinov2 experiment_name=phase1_gsmini_20260512_043331_dinov2_slip_gsmini_20260512_043633 task.checkpoint_encoder=/vla1/zjy/sparsh_models/sparsh-dinov2-base/dinov2_vitbase.ckpt data.dataset.config.path_dataset=/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini 'data.dataset.config.list_datasets=[\"sphere_batch_1_train\",\"sphere_batch_2_train\",\"sphere_batch_3_train\",\"sphere_batch_4_train\",\"sphere_batch_5_train\",\"sphere_batch_6_train\"]' 'data.dataset.config.list_datasets_test=[\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]' 'test.data.dataset_name=[\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]' 'data.dataset.config.max_delta_forceXYZ=[0.80,0.80,0.40]'",
+      "script": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/run_dinov2_slip.sh"
+    },
+    "mae_force": {
+      "wandb_name": "phase1_gsmini_20260512_043331_mae_force_gsmini_20260512_043633",
+      "command": "cd /home/zjy/document/sparsh && source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh && export CUDA_VISIBLE_DEVICES=2 && export WANDB_MODE=online && export WANDB_NAME=phase1_gsmini_20260512_043331_mae_force_gsmini_20260512_043633 && export PYTHONPATH=. && python train_task.py --config-name=experiment/downstream_task/force/gelsight_mae paths=zjy_4090 wandb=tactile_grasp +trainer.devices=1 ssl_model_size=base ssl_name=mae experiment_name=phase1_gsmini_20260512_043331_mae_force_gsmini_20260512_043633 task.checkpoint_encoder=/vla1/zjy/sparsh_models/sparsh-mae-base/mae_vitbase.ckpt data.dataset.config.path_dataset=/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini 'data.dataset.config.list_datasets=[\"flat_batch_1_train\",\"flat_batch_2_train\",\"sharp_batch_1_train\",\"sharp_batch_2_train\",\"sphere_batch_1_train\",\"sphere_batch_2_train\",\"sphere_batch_3_train\",\"sphere_batch_4_train\",\"sphere_batch_5_train\",\"sphere_batch_6_train\"]' 'data.dataset.config.list_datasets_test=[\"flat_batch_1_val\",\"flat_batch_2_val\",\"sharp_batch_1_val\",\"sharp_batch_2_val\",\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]' 'test.data.dataset_name=[\"flat_batch_1_val\",\"flat_batch_2_val\",\"sharp_batch_1_val\",\"sharp_batch_2_val\",\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]'",
+      "script": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/run_mae_force.sh"
+    },
+    "mae_slip": {
+      "wandb_name": "phase1_gsmini_20260512_043331_mae_slip_gsmini_20260512_043633",
+      "command": "cd /home/zjy/document/sparsh && source /home/zjy/miniconda3/etc/profile.d/conda.sh && conda activate sparsh && export CUDA_VISIBLE_DEVICES=3 && export WANDB_MODE=online && export WANDB_NAME=phase1_gsmini_20260512_043331_mae_slip_gsmini_20260512_043633 && export PYTHONPATH=. && python train_task.py --config-name=experiment/downstream_task/slip/gelsight_mae paths=zjy_4090 wandb=tactile_grasp +trainer.devices=1 ssl_model_size=base ssl_name=mae experiment_name=phase1_gsmini_20260512_043331_mae_slip_gsmini_20260512_043633 task.checkpoint_encoder=/vla1/zjy/sparsh_models/sparsh-mae-base/mae_vitbase.ckpt data.dataset.config.path_dataset=/vla1/zjy/sparsh_runs/force_slip_phase1/phase1_gsmini_20260512_043331/derived_gsmini 'data.dataset.config.list_datasets=[\"sphere_batch_1_train\",\"sphere_batch_2_train\",\"sphere_batch_3_train\",\"sphere_batch_4_train\",\"sphere_batch_5_train\",\"sphere_batch_6_train\"]' 'data.dataset.config.list_datasets_test=[\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]' 'test.data.dataset_name=[\"sphere_batch_1_val\",\"sphere_batch_2_val\",\"sphere_batch_3_val\",\"sphere_batch_4_val\",\"sphere_batch_5_val\",\"sphere_batch_6_val\"]' 'data.dataset.config.max_delta_forceXYZ=[0.80,0.80,0.40]'",
+      "script": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/run_mae_slip.sh"
+    }
+  },
+  "launcher": "/home/zjy/document/tactile-grasp/sparsh-force-slip/runbooks/launch_phase1_tmux.sh",
+  "force_train_datasets": [
+    "flat_batch_1_train",
+    "flat_batch_2_train",
+    "sharp_batch_1_train",
+    "sharp_batch_2_train",
+    "sphere_batch_1_train",
+    "sphere_batch_2_train",
+    "sphere_batch_3_train",
+    "sphere_batch_4_train",
+    "sphere_batch_5_train",
+    "sphere_batch_6_train"
+  ],
+  "force_val_datasets": [
+    "flat_batch_1_val",
+    "flat_batch_2_val",
+    "sharp_batch_1_val",
+    "sharp_batch_2_val",
+    "sphere_batch_1_val",
+    "sphere_batch_2_val",
+    "sphere_batch_3_val",
+    "sphere_batch_4_val",
+    "sphere_batch_5_val",
+    "sphere_batch_6_val"
+  ],
+  "slip_train_datasets": [
+    "sphere_batch_1_train",
+    "sphere_batch_2_train",
+    "sphere_batch_3_train",
+    "sphere_batch_4_train",
+    "sphere_batch_5_train",
+    "sphere_batch_6_train"
+  ],
+  "slip_val_datasets": [
+    "sphere_batch_1_val",
+    "sphere_batch_2_val",
+    "sphere_batch_3_val",
+    "sphere_batch_4_val",
+    "sphere_batch_5_val",
+    "sphere_batch_6_val"
+  ]
+}

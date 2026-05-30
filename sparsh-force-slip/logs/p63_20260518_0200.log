@@ -1,0 +1,52 @@
+/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/zjy/.netrc.
+wandb: Currently logged in as: junyuzhuzjy (junyuzhuzjy-zhejiang-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_joint_lightweight_seed42_20260518_0154/wandb/run-20260518_020201-phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 38-39, summary
+wandb: 
+wandb: Run history:
+wandb:             epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:  train/force_loss █▅▄▃▂▂▂▂▂▂▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▂▁▁▁▁▁▂▁▁▁▁▁
+wandb: train/future_loss █▄▄▄▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▂▂▁▁▁▁▁▁▁▁▁▁▁
+wandb:        train/loss █▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁
+wandb:   train/slip_loss █▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:      val/H1_auprc ▁▂▃▃▄▄▄▄▅▅▄▃▂▆▆▇▆▇▆▇▇▇▇▆████████████████
+wandb:        val/H1_ece ▂▃▂▂▂▂▂▁▁▁▂▁▂▂▃▁▂▂▂▁▂▂▂█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:         val/H1_f1 ▃▅▅▅▅▆▄▆▆▆▄▅▄▆▆▆▆▆▅▇▇▇▆▁▇▇▇▇▇▇███▇██████
+wandb:      val/H3_auprc ▁▂▂▃▃▃▂▄▄▅▄▃▂▆▆▆▆▆▆▇▇▇▇▆███▇█████▇██████
+wandb:        val/H3_ece ▁▂▁▁▂▁▂▁▁▁▂▂▂▂▂▁▁▂▂▁▂▂▂█▁▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                +7 ...
+wandb: 
+wandb: Run summary:
+wandb:             epoch 40
+wandb:  train/force_loss 0.00303
+wandb: train/future_loss 0.0559
+wandb:        train/loss 0.08899
+wandb:   train/slip_loss 0.01796
+wandb:      val/H1_auprc 0.99878
+wandb:        val/H1_ece 0.00363
+wandb:         val/H1_f1 0.98376
+wandb:      val/H3_auprc 0.99563
+wandb:        val/H3_ece 0.00904
+wandb:                +7 ...
+wandb: 
+wandb: 🚀 View run phase6_3_joint_lightweight_seed42_20260518_0154 at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_joint_lightweight_seed42_20260518_0154/wandb/run-20260518_020201-phase6_3_joint_lightweight_seed42_20260518_0154/logs
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_3_frozen_vs_joint_ablation/phase6_3_frozen_vs_joint_ablation_report.md

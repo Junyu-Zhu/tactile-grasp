@@ -1,0 +1,90 @@
+/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/zjy/.netrc.
+wandb: Currently logged in as: junyuzhuzjy (junyuzhuzjy-zhejiang-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run phase6_3_frozen_full_plus_q_seed42_20260518_0154_frozen_two_stage_full_plus_q
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_frozen_full_plus_q_seed42_20260518_0154/wandb/run-20260518_015528-phase6_3_frozen_full_plus_q_seed42_20260518_0154_frozen_two_stage_full_plus_q
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_3_frozen_full_plus_q_seed42_20260518_0154_frozen_two_stage_full_plus_q
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_3_frozen_full_plus_q_seed42_20260518_0154_frozen_two_stage_full_plus_q
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 39-39, summary
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:               train/loss █▄▃▃▃▃▃▃▃▃▄▃▃▂▂▃▂▂▂▂▃▁▁▃▁▁▁▂▁▁▁▁▂▁▁▁▁▁▁▁
+wandb:               val/H1_ece ▃█▂▂▃▂▂▂▂▂█▁▂▂▁▂▁▂▃█▂▂▁▂▂▁▂▁▂▁▁▁▂▂▁▂▃▂▂▁
+wandb: val/H1_future_slip_auprc ▁▂▃▄▃▄▄▄▅▅▄▆▅▆▇▆▇▇▇▇▇██▇███▆████████████
+wandb: val/H1_future_slip_auroc ▁▃▄▄▄▅▄▅▅▆▄▆▆▇▇▇▇█▇████████▆████████████
+wandb:    val/H1_future_slip_f1 ▅▆▇▇▇▇▇▇▇▇▁▇▇▇▇▇▇▇▇▆▇██████▇████████████
+wandb:  val/H1_high_risk_recall ██████████▁███████████████▇▇█▇███▇█▇▇▇▇█
+wandb:               val/H3_ece ▂▅▂▂▃▂▂▂▂▂▃▁▂▁▂▁▁▁▂█▁▂▁▁▂▁▂▁▂▁▁▁▁▂▂▁▂▂▁▁
+wandb: val/H3_future_slip_auprc ▁▂▃▃▃▄▃▄▄▅▄▅▄▆▇▆▆▇▆▇▇▇█▇███▆████████████
+wandb: val/H3_future_slip_auroc ▁▂▃▄▄▄▄▅▅▆▄▆▅▆▇▇▇█▇▇███▇███▆████████████
+wandb:                       +8 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 40
+wandb:               train/loss 0.05318
+wandb:               val/H1_ece 0.00534
+wandb: val/H1_future_slip_auprc 0.99588
+wandb: val/H1_future_slip_auroc 0.99834
+wandb:    val/H1_future_slip_f1 0.96683
+wandb:  val/H1_high_risk_recall 0.99808
+wandb:               val/H3_ece 0.00536
+wandb: val/H3_future_slip_auprc 0.99451
+wandb: val/H3_future_slip_auroc 0.99753
+wandb:                       +8 ...
+wandb: 
+wandb: 🚀 View run phase6_3_frozen_full_plus_q_seed42_20260518_0154_frozen_two_stage_full_plus_q at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_3_frozen_full_plus_q_seed42_20260518_0154_frozen_two_stage_full_plus_q
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_frozen_full_plus_q_seed42_20260518_0154/wandb/run-20260518_015528-phase6_3_frozen_full_plus_q_seed42_20260518_0154_frozen_two_stage_full_plus_q/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: setting up run phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_joint_lightweight_seed42_20260518_0154/wandb/run-20260518_015709-phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_3_joint_lightweight_seed42_20260518_0154
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_3_joint_lightweight_seed42_20260518_0154
+Traceback (most recent call last):
+  File "/home/zjy/document/tactile-grasp/sparsh-force-slip/scripts/phase6_paper_supplements.py", line 688, in <module>
+    main()
+  File "/home/zjy/document/tactile-grasp/sparsh-force-slip/scripts/phase6_paper_supplements.py", line 685, in main
+    args=build_parser().parse_args(); args.func(args)
+  File "/home/zjy/document/tactile-grasp/sparsh-force-slip/scripts/phase6_paper_supplements.py", line 518, in command_phase6_3
+    joint=train_or_load_joint(report_dir, PHASE6_RUN_ROOT, run_id, args.seed, tuple(args.horizons), args.max_epochs, args.train_batch_size, args.lr, args.hidden_dim, args.dropout, args.wandb_mode, thresholds, stamp)
+  File "/home/zjy/document/tactile-grasp/sparsh-force-slip/scripts/phase6_paper_supplements.py", line 459, in train_or_load_joint
+    out=model(batch["x"].to(dev))
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zjy/document/tactile-grasp/sparsh-force-slip/scripts/phase6_paper_supplements.py", line 378, in forward
+    stable_logits = self.future_head(future_in)
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 250, in forward
+    input = module(input)
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/zjy/miniconda3/envs/sparsh/lib/python3.9/site-packages/torch/nn/modules/linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (1024x518 and 517x256)
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33mphase6_3_joint_lightweight_seed42_20260518_0154[0m at: [34mhttps://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_3_joint_lightweight_seed42_20260518_0154[0m
+[1;34mwandb[0m: Find logs at: [1;35m../../../../vla1/zjy/sparsh_runs/force_slip_phase6/phase6_3_friction_features_20260518_0154/heads/phase6_3_joint_lightweight_seed42_20260518_0154/wandb/run-20260518_015709-phase6_3_joint_lightweight_seed42_20260518_0154/logs[0m

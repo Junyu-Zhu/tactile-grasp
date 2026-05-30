@@ -1,0 +1,235 @@
+/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/zjy/.netrc.
+wandb: Currently logged in as: junyuzhuzjy (junyuzhuzjy-zhejiang-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run phase6_1_full_dynamics_baseline_seed42_20260518_0130_full_dynamics_baseline
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed42_20260518_0130/wandb/run-20260518_013338-phase6_1_full_dynamics_baseline_seed42_20260518_0130_full_dynamics_baseline
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_1_full_dynamics_baseline_seed42_20260518_0130_full_dynamics_baseline
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_dynamics_baseline_seed42_20260518_0130_full_dynamics_baseline
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 39-39, summary
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:               train/loss █▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▂▂▂▁▁▁▂▁▁▁▂▁▁▁▁▁▁▁▁▁
+wandb:               val/H1_ece ▄▂▃▂▂▂▂▁▂▂▂▂▂▂▂▆▂▁▁▁▂█▂▂▂▂▂▁▁▁▂▁▁▁▂▂▂▂▁▁
+wandb: val/H1_future_slip_auprc ▁▂▃▃▃▄▄▄▅▆▆▇▇▇▇▇▇▇▆█▇▃████████▇█████████
+wandb: val/H1_future_slip_auroc ▁▂▃▄▄▅▅▅▅▆▆▇███▇██▇██▃████████▇█████████
+wandb:    val/H1_future_slip_f1 ▇▇▇▇▇▇▇▇▇▇█▇▇▇▇▅▇▇▇▇▇▁▇▇█▇▇█▇█▇█████████
+wandb:  val/H1_high_risk_recall ███████████████▆█████▁█▇▇███████████████
+wandb:               val/H3_ece ▄▃▃▂▂▂▁▁▂▂▃▃▁▂▂▆▁▂▂▂▂█▃▃▃▂▁▁▂▂▃▂▁▁▂▁▂▁▁▁
+wandb: val/H3_future_slip_auprc ▁▂▂▃▃▄▄▄▄▅▅▆▆▆▆▆▇▇▆▇▇▃████████▇█████████
+wandb: val/H3_future_slip_auroc ▁▂▃▃▄▅▄▄▅▆▆▇▇▇▇▇▇▇▇██▃████████▇█████████
+wandb:                       +8 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 40
+wandb:               train/loss 0.05728
+wandb:               val/H1_ece 0.00606
+wandb: val/H1_future_slip_auprc 0.99534
+wandb: val/H1_future_slip_auroc 0.998
+wandb:    val/H1_future_slip_f1 0.96759
+wandb:  val/H1_high_risk_recall 0.99578
+wandb:               val/H3_ece 0.00721
+wandb: val/H3_future_slip_auprc 0.99358
+wandb: val/H3_future_slip_auroc 0.99696
+wandb:                       +8 ...
+wandb: 
+wandb: 🚀 View run phase6_1_full_dynamics_baseline_seed42_20260518_0130_full_dynamics_baseline at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_dynamics_baseline_seed42_20260518_0130_full_dynamics_baseline
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed42_20260518_0130/wandb/run-20260518_013338-phase6_1_full_dynamics_baseline_seed42_20260518_0130_full_dynamics_baseline/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: setting up run phase6_1_full_plus_q_seed42_20260518_0130_full_plus_q
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed42_20260518_0130/wandb/run-20260518_013527-phase6_1_full_plus_q_seed42_20260518_0130_full_plus_q
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_1_full_plus_q_seed42_20260518_0130_full_plus_q
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_plus_q_seed42_20260518_0130_full_plus_q
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 39-39, summary
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:               train/loss █▄▃▃▃▃▃▃▃▃▄▃▃▂▂▃▂▂▂▂▃▁▁▃▁▁▁▂▁▁▁▁▂▁▁▁▁▁▁▁
+wandb:               val/H1_ece ▃█▂▂▃▂▂▂▂▂█▁▂▂▁▂▁▂▃█▂▂▁▂▂▁▂▁▂▁▁▁▂▂▁▂▃▂▂▁
+wandb: val/H1_future_slip_auprc ▁▂▃▄▃▄▄▄▅▅▄▆▅▆▇▆▇▇▇▇▇██▇███▆████████████
+wandb: val/H1_future_slip_auroc ▁▃▄▄▄▅▄▅▅▆▄▆▆▇▇▇▇█▇████████▆████████████
+wandb:    val/H1_future_slip_f1 ▅▆▇▇▇▇▇▇▇▇▁▇▇▇▇▇▇▇▇▆▇██████▇████████████
+wandb:  val/H1_high_risk_recall ██████████▁███████████████▇▇█▇███▇█▇▇▇▇█
+wandb:               val/H3_ece ▂▅▂▂▃▂▂▂▂▂▃▁▂▁▂▁▁▁▂█▁▂▁▁▂▁▂▁▂▁▁▁▁▂▂▁▂▂▁▁
+wandb: val/H3_future_slip_auprc ▁▂▃▃▃▄▃▄▄▅▄▅▄▆▇▆▆▇▆▇▇▇█▇███▆████████████
+wandb: val/H3_future_slip_auroc ▁▂▃▄▄▄▄▅▅▆▄▆▅▆▇▇▇█▇▇███▇███▆████████████
+wandb:                       +8 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 40
+wandb:               train/loss 0.05318
+wandb:               val/H1_ece 0.00534
+wandb: val/H1_future_slip_auprc 0.99588
+wandb: val/H1_future_slip_auroc 0.99834
+wandb:    val/H1_future_slip_f1 0.96683
+wandb:  val/H1_high_risk_recall 0.99808
+wandb:               val/H3_ece 0.00536
+wandb: val/H3_future_slip_auprc 0.99451
+wandb: val/H3_future_slip_auroc 0.99753
+wandb:                       +8 ...
+wandb: 
+wandb: 🚀 View run phase6_1_full_plus_q_seed42_20260518_0130_full_plus_q at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_plus_q_seed42_20260518_0130_full_plus_q
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed42_20260518_0130/wandb/run-20260518_013527-phase6_1_full_plus_q_seed42_20260518_0130_full_plus_q/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: setting up run phase6_1_full_dynamics_baseline_seed43_20260518_0130_full_dynamics_baseline
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed43_20260518_0130/wandb/run-20260518_013705-phase6_1_full_dynamics_baseline_seed43_20260518_0130_full_dynamics_baseline
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_1_full_dynamics_baseline_seed43_20260518_0130_full_dynamics_baseline
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_dynamics_baseline_seed43_20260518_0130_full_dynamics_baseline
+wandb: updating run metadata
+wandb: updating run metadata; uploading history steps 39-39, summary
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading data
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:               train/loss █▄▃▃▃▃▃▃▂▃▃▂▂▂▂▂▂▂▂▃▂▁▂▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁
+wandb:               val/H1_ece ▃▃▂█▂▂▂▂▂▂▆▂▃▂▂▂▂▂▂▃▂▂▂▂▂▁▁▂▁▁▂▁▂▁▂▁▂▂▂▁
+wandb: val/H1_future_slip_auprc ▁▂▃▄▃▃▄▅▅▅▅▆▆▇▆▇▇▇▇▆██▇█▇███████████████
+wandb: val/H1_future_slip_auroc ▁▂▃▄▃▄▅▆▆▆▅▆▇▇▇████▇████████████████████
+wandb:    val/H1_future_slip_f1 ▃▅▅▁▅▆▆▄▇▅▃▆▆▅▃▆▄▆▆▄▆▆▇▆▆▆▆▇▇▇▇█▇▇▇▇▇▇▇█
+wandb:  val/H1_high_risk_recall ████████████▇█▇▅▆▃▄▁▅▄▄▄▃▄▄▃▄▄▅▅▄▄▄▅▃▅▄▅
+wandb:               val/H3_ece ▃▃▂█▁▂▂▃▂▁▄▂▃▁▃▂▄▂▁▃▁▁▂▂▂▂▂▁▂▁▁▁▁▁▁▁▂▁▁▁
+wandb: val/H3_future_slip_auprc ▁▂▂▃▃▃▄▄▅▄▄▅▆▆▆▆▇▇▇▆▇▇▇█▇███████████████
+wandb: val/H3_future_slip_auroc ▁▂▃▄▃▄▄▅▅▅▅▆▆▇▇▇▇██▇████████████████████
+wandb:                       +8 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 40
+wandb:               train/loss 0.06062
+wandb:               val/H1_ece 0.00428
+wandb: val/H1_future_slip_auprc 0.99535
+wandb: val/H1_future_slip_auroc 0.99816
+wandb:    val/H1_future_slip_f1 0.96614
+wandb:  val/H1_high_risk_recall 0.99654
+wandb:               val/H3_ece 0.00471
+wandb: val/H3_future_slip_auprc 0.9937
+wandb: val/H3_future_slip_auroc 0.99711
+wandb:                       +8 ...
+wandb: 
+wandb: 🚀 View run phase6_1_full_dynamics_baseline_seed43_20260518_0130_full_dynamics_baseline at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_dynamics_baseline_seed43_20260518_0130_full_dynamics_baseline
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed43_20260518_0130/wandb/run-20260518_013705-phase6_1_full_dynamics_baseline_seed43_20260518_0130_full_dynamics_baseline/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: setting up run phase6_1_full_plus_q_seed43_20260518_0130_full_plus_q
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed43_20260518_0130/wandb/run-20260518_013843-phase6_1_full_plus_q_seed43_20260518_0130_full_plus_q
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_1_full_plus_q_seed43_20260518_0130_full_plus_q
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_plus_q_seed43_20260518_0130_full_plus_q
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml; uploading history steps 39-39, summary
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:               train/loss █▅▃▃▃▃▃▃▂▄▂▂▂▂▂▃▂▃▂▂▂▂▂▁▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁
+wandb:               val/H1_ece ▃▆▂▂▂▃▃▂▂▂▁▂▂▃▂▂▆▁▁▂▂█▂▂▁▂▂▁▂▂▁▂▁▂▂▂▁▁▂▂
+wandb: val/H1_future_slip_auprc ▁▁▂▃▄▄▄▅▆▅▅▆▆▆▇▇▇▇▇▇▇▇██████████████████
+wandb: val/H1_future_slip_auroc ▁▁▂▃▄▄▅▆▇▆▆▇▇▆▇██████▇██████████████████
+wandb:    val/H1_future_slip_f1 ▅▇▇▇▇▇▇▇▇▆▇▇▇▇▇▇▁▇▇▇▇▆▇██▇█▇▇███████████
+wandb:  val/H1_high_risk_recall ████████████████▁██▇▇▇█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+wandb:               val/H3_ece ▃█▂▂▃▄▄▂▃▂▂▂▃▄▂▂▇▃▃▅▂█▂▂▁▃▃▂▃▂▂▂▁▂▂▂▂▁▃▂
+wandb: val/H3_future_slip_auprc ▁▁▂▃▃▃▄▄▅▅▄▅▅▅▆▇▆▇▇▇▇▇▇█████████████████
+wandb: val/H3_future_slip_auroc ▁▁▂▃▃▃▄▅▆▅▅▆▆▅▇▇▇▇███▇██████████████████
+wandb:                       +8 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 40
+wandb:               train/loss 0.06581
+wandb:               val/H1_ece 0.00672
+wandb: val/H1_future_slip_auprc 0.9956
+wandb: val/H1_future_slip_auroc 0.99816
+wandb:    val/H1_future_slip_f1 0.96527
+wandb:  val/H1_high_risk_recall 0.9977
+wandb:               val/H3_ece 0.00906
+wandb: val/H3_future_slip_auprc 0.99418
+wandb: val/H3_future_slip_auroc 0.99734
+wandb:                       +8 ...
+wandb: 
+wandb: 🚀 View run phase6_1_full_plus_q_seed43_20260518_0130_full_plus_q at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_plus_q_seed43_20260518_0130_full_plus_q
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed43_20260518_0130/wandb/run-20260518_013843-phase6_1_full_plus_q_seed43_20260518_0130_full_plus_q/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: setting up run phase6_1_full_dynamics_baseline_seed44_20260518_0130_full_dynamics_baseline
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed44_20260518_0130/wandb/run-20260518_014022-phase6_1_full_dynamics_baseline_seed44_20260518_0130_full_dynamics_baseline
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_1_full_dynamics_baseline_seed44_20260518_0130_full_dynamics_baseline
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_dynamics_baseline_seed44_20260518_0130_full_dynamics_baseline
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 39-39, summary
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:               train/loss █▃▃▃▃▃▃▃▂▂▂▂▂▃▂▃▂▂▂▁▂▂▂▃▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁
+wandb:               val/H1_ece ██▃▅▆▆▆▇▄▅▆▅▅▆▄▆▆▄▅▅▃▃▄▇▂▂▅▃▄▂▅▅▃▁▂▂▇▃▁▄
+wandb: val/H1_future_slip_auprc ▁▃▃▄▄▄▅▅▅▆▆▇▇▇▇▇▇███▅██▇██████▇█████████
+wandb: val/H1_future_slip_auroc ▁▃▄▄▅▅▆▅▆▇▇▇████████▆███████████████████
+wandb:    val/H1_future_slip_f1 ▁▆▆▅▇▇▆▅▇▅▆▅▆▆▇▅▇▆▆▆▅▇▇▆▆▇▇▇▇▇▆▇▇██▇▆▇█▇
+wandb:  val/H1_high_risk_recall ▅███████████▇█▇█▆▆▄▂▁▄▄▄▅▄▃▂▂▄▂▂▂▄▄▄▅▄▄▄
+wandb:               val/H3_ece ▃▆▁▄▄▄▃▂▃█▄▅▂▂▂▂▅▂▃▃▃▂▂▄▃▂▄▁▃▁▄▃▂▂▁▁▂▂▂▁
+wandb: val/H3_future_slip_auprc ▁▂▃▃▃▄▄▄▄▅▆▆▇▆▇▆▆▇▇█▅██▇████████████████
+wandb: val/H3_future_slip_auroc ▁▃▃▄▄▄▅▅▅▆▆▇▇▇▇▇▇███▆███████████████████
+wandb:                       +8 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 40
+wandb:               train/loss 0.05638
+wandb:               val/H1_ece 0.00736
+wandb: val/H1_future_slip_auprc 0.9952
+wandb: val/H1_future_slip_auroc 0.99778
+wandb:    val/H1_future_slip_f1 0.96338
+wandb:  val/H1_high_risk_recall 0.99539
+wandb:               val/H3_ece 0.0081
+wandb: val/H3_future_slip_auprc 0.99358
+wandb: val/H3_future_slip_auroc 0.99684
+wandb:                       +8 ...
+wandb: 
+wandb: 🚀 View run phase6_1_full_dynamics_baseline_seed44_20260518_0130_full_dynamics_baseline at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_dynamics_baseline_seed44_20260518_0130_full_dynamics_baseline
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_dynamics_baseline_seed44_20260518_0130/wandb/run-20260518_014022-phase6_1_full_dynamics_baseline_seed44_20260518_0130_full_dynamics_baseline/logs
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: setting up run phase6_1_full_plus_q_seed44_20260518_0130_full_plus_q
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed44_20260518_0130/wandb/run-20260518_014200-phase6_1_full_plus_q_seed44_20260518_0130_full_plus_q
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase6_1_full_plus_q_seed44_20260518_0130_full_plus_q
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_plus_q_seed44_20260518_0130_full_plus_q
+wandb: uploading summary; updating run metadata
+wandb: uploading summary; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading summary
+wandb: ERROR Problem finishing run
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase6/phase6_1_multiseed_stability/phase6_1_multiseed_stability_report.md
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33mphase6_1_full_plus_q_seed44_20260518_0130_full_plus_q[0m at: [34mhttps://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase6_1_full_plus_q_seed44_20260518_0130_full_plus_q[0m
+[1;34mwandb[0m: Find logs at: [1;35m../../../../vla1/zjy/sparsh_runs/force_slip_phase6/phase6_1_friction_features_20260518_0130/heads/phase6_1_full_plus_q_seed44_20260518_0130/wandb/run-20260518_014200-phase6_1_full_plus_q_seed44_20260518_0130_full_plus_q/logs[0m

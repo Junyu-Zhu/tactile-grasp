@@ -1,0 +1,21 @@
+/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/zjy/.netrc.
+wandb: Currently logged in as: junyuzhuzjy (junyuzhuzjy-zhejiang-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run phase5_2_friction_ablation_20260518_0027
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase5/phase5_2_friction_features_20260518_0027/heads/phase5_2_full_dynamics_baseline_20260518_0027/wandb/run-20260518_002747-phase5_2_friction_ablation_20260518_0027
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase5_2_friction_ablation_20260518_0027
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase5_2_friction_ablation_20260518_0027
+wandb: uploading summary; updating run metadata
+wandb: uploading summary; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading summary; uploading wandb-summary.json
+wandb: uploading summary

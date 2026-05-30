@@ -1,0 +1,192 @@
+/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/zjy/.netrc.
+wandb: Currently logged in as: junyuzhuzjy (junyuzhuzjy-zhejiang-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run phase4_3_z_only_20260517_171500
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_only_20260517_171500/wandb/run-20260517_171523-phase4_3_z_only_20260517_171500
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase4_3_z_only_20260517_171500
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_only_20260517_171500
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▂▃▂▂▂▂▂▂▂▂▃▂▂▂▂▂▂▂▁▁▁▂▂▂▃▂▁▁▁▁▁▁▂▁▁▂▂▁
+wandb:      val/H1_future_slip_auprc ▅▆▆▇▇▆▇▇▇▇▇▇▄▇▇▆▅▇▅▇▇█▆▇▇▅▅██████▇▄██▁█▇
+wandb:      val/H1_future_slip_auroc ▄▅▆▆▆▅▇▇▇▇▇▆▄▇▇▆▅▇▅▇▇▇▆▇▇▅▆▇█████▇▄▇█▁█▆
+wandb:         val/H1_future_slip_f1 ▅▇▇▇▇▇▇▇▇▇█▇▇█▇▇▇█▆███▁██▇▇██████▇▇██▅█▇
+wandb: val/H1_future_stability_auprc ▄▄▅▆▆▅▆▆▆▇▆▆▅▇▆▆▅▆▅▇▇▇▆▆▇▅▆▇▇█▇██▇▃▇█▁█▆
+wandb: val/H1_future_stability_auroc ▄▅▆▆▆▅▇▇▇▇▇▆▄▇▇▆▅▇▅▇▇▇▆▇▇▅▆▇█████▇▄▇█▁█▆
+wandb:          val/H1_stability_ece ▄▄▂▂▁▃▂▃▂▂▁▁▂▁▁▄▂▄▃▂▂▁█▂▂▂▄▂▁▁▁▂▁▂▁▃▂█▂▂
+wandb:           val/selection_score ▅▆▆▇▇▆▇▇▇▇▇▇▄▇▇▆▅▇▅▇▇█▆▇▇▅▅██████▇▄██▁█▇
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.17789
+wandb:      val/H1_future_slip_auprc 0.95615
+wandb:      val/H1_future_slip_auroc 0.96664
+wandb:         val/H1_future_slip_f1 0.9232
+wandb: val/H1_future_stability_auprc 0.98206
+wandb: val/H1_future_stability_auroc 0.96667
+wandb:          val/H1_stability_ece 0.01399
+wandb:           val/selection_score 0.95615
+wandb: 
+wandb: 🚀 View run phase4_3_z_only_20260517_171500 at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_only_20260517_171500
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_only_20260517_171500/wandb/run-20260517_171523-phase4_3_z_only_20260517_171500/logs
+wandb: setting up run phase4_3_z_p_slip_20260517_171500
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_p_slip_20260517_171500/wandb/run-20260517_171621-phase4_3_z_p_slip_20260517_171500
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase4_3_z_p_slip_20260517_171500
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_p_slip_20260517_171500
+wandb: updating run metadata
+wandb: uploading config.yaml; uploading wandb-summary.json
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▂▂▂▂▂▂▂▂▂▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:      val/H1_future_slip_auprc ▁▃▃▃▄▄▄▄▄▄▄▄▄▄▄▄▅▅▅▆▆▆▅▆▆▇▆▇▇▇▇▆▇▆▇▇████
+wandb:      val/H1_future_slip_auroc ▁▃▂▃▃▄▄▄▄▄▄▄▄▄▄▄▅▅▅▆▅▆▅▆▅▇▆▇▇▇▆▆▇▆▇▇████
+wandb:         val/H1_future_slip_f1 ▁▇█▇▇▇█▇▇███████▆▇▇▇▇▇█▇▆▇▇███▇██▇█▇███▇
+wandb: val/H1_future_stability_auprc ▁▃▂▃▃▄▄▄▄▄▄▃▅▄▃▄▅▅▅▆▆▆▄▆▅▇▅▇▇▆▆▅▇▆▇▇▇███
+wandb: val/H1_future_stability_auroc ▁▃▂▃▃▄▄▄▄▄▄▄▄▄▄▄▅▅▅▆▅▆▅▆▅▇▆▇▇▇▆▆▇▆▇▇████
+wandb:          val/H1_stability_ece █▂▁▂▂▁▃▂▁▃▃▃▃▂▄▃▂▂▄▂▂▃▂▂▂▁▂▂▁▃▂▂▃▂▃▂▂▁▂▂
+wandb:           val/selection_score ▁▃▃▃▄▄▄▄▄▄▄▄▄▄▄▄▅▅▅▆▆▆▅▆▆▇▆▇▇▇▇▆▇▆▇▇████
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.10718
+wandb:      val/H1_future_slip_auprc 0.98252
+wandb:      val/H1_future_slip_auroc 0.98908
+wandb:         val/H1_future_slip_f1 0.95905
+wandb: val/H1_future_stability_auprc 0.9954
+wandb: val/H1_future_stability_auroc 0.98908
+wandb:          val/H1_stability_ece 0.00867
+wandb:           val/selection_score 0.98252
+wandb: 
+wandb: 🚀 View run phase4_3_z_p_slip_20260517_171500 at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_p_slip_20260517_171500
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_p_slip_20260517_171500/wandb/run-20260517_171621-phase4_3_z_p_slip_20260517_171500/logs
+wandb: setting up run phase4_3_z_force_20260517_171500
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_force_20260517_171500/wandb/run-20260517_171717-phase4_3_z_force_20260517_171500
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase4_3_z_force_20260517_171500
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_force_20260517_171500
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 36-39, summary
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▂▁▂▃▁▂▂▁▂▁▁▁▂▂▁▁▁▂▁▁▁▁
+wandb:      val/H1_future_slip_auprc ▁▁▃▃▄▄▃▄▃▄▄▅▄▄▅▆▅▅▅▅▆▅▅▅▆▅▄▆▆▆▅▅▇▇▇▅█▇▇█
+wandb:      val/H1_future_slip_auroc ▁▁▃▃▄▄▃▄▃▄▄▅▄▄▅▆▆▅▄▅▆▄▅▅▆▅▄▆▆▆▆▅▇█▇▅█▇▇█
+wandb:         val/H1_future_slip_f1 ▁▂▂▅▇▃▁▆▆▇▆▇▆▇█▇█▆▇██▇██▇▇▇█▇█▇▅███▇████
+wandb: val/H1_future_stability_auprc ▁▂▃▃▄▄▄▅▃▅▅▆▄▄▆▆▆▅▄▅▆▅▅▅▅▅▅▆▇▆▆▅▇█▇▅█▇▇█
+wandb: val/H1_future_stability_auroc ▁▁▃▃▄▄▃▄▃▄▄▅▄▄▅▆▆▅▄▅▆▄▅▅▆▅▄▆▆▆▆▅▇█▇▅█▇▇█
+wandb:          val/H1_stability_ece ▆▂▄▂█▄▂▃▂▁▂▁▁▂▁▃▂▂▁▂▁▁▃▃▂▃▁▂▁▁▁▃▁▁▁▁▂▂▂▃
+wandb:           val/selection_score ▁▁▃▃▄▄▃▄▃▄▄▅▄▄▅▆▅▅▅▅▆▅▅▅▆▅▄▆▆▆▅▅▇▇▇▅█▇▇█
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.13605
+wandb:      val/H1_future_slip_auprc 0.97777
+wandb:      val/H1_future_slip_auroc 0.9851
+wandb:         val/H1_future_slip_f1 0.95721
+wandb: val/H1_future_stability_auprc 0.99297
+wandb: val/H1_future_stability_auroc 0.9851
+wandb:          val/H1_stability_ece 0.0165
+wandb:           val/selection_score 0.97777
+wandb: 
+wandb: 🚀 View run phase4_3_z_force_20260517_171500 at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_force_20260517_171500
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_force_20260517_171500/wandb/run-20260517_171717-phase4_3_z_force_20260517_171500/logs
+wandb: setting up run phase4_3_z_force_slip_20260517_171500
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_force_slip_20260517_171500/wandb/run-20260517_171812-phase4_3_z_force_slip_20260517_171500
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase4_3_z_force_slip_20260517_171500
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_force_slip_20260517_171500
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁
+wandb:      val/H1_future_slip_auprc ▁▂▄▃▃▄▄▄▄▄▄▄▅▄▅▅▅▆▅▆▅▆▇▆▆▇▆▆▇▆▆▇▇▇▇▇▇▇▇█
+wandb:      val/H1_future_slip_auroc ▁▂▄▃▃▃▄▃▄▄▃▄▄▄▅▅▅▆▅▆▅▆▇▆▆▆▆▆▆▆▆▇▆▇▇▆▇▇██
+wandb:         val/H1_future_slip_f1 ▁█▇██▇▇█▇████████▇█▇▇▇▇▇▇█▇█▇█▇██▇██▆███
+wandb: val/H1_future_stability_auprc ▁▂▄▃▃▃▄▃▄▅▃▅▅▅▅▆▅▅▆▆▆▆▇▆▆▆▆▆▆▇▇▇▆█▇▆█▇██
+wandb: val/H1_future_stability_auroc ▁▂▄▃▃▃▄▃▄▄▃▄▄▄▅▅▅▆▅▆▅▆▇▆▆▆▆▆▆▆▆▇▆▇▇▆▇▇██
+wandb:          val/H1_stability_ece █▅▄▂▂▂▂▃▃▁▂▂▂▁▃▁▃▂▂▂▂▂▃▂▂▃▂▃▁▃▂▃▂▄▂▂▅▃▂▂
+wandb:           val/selection_score ▁▂▄▃▃▄▄▄▄▄▄▄▅▄▅▅▅▆▅▆▅▆▇▆▆▇▆▆▇▆▆▇▇▇▇▇▇▇▇█
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.10441
+wandb:      val/H1_future_slip_auprc 0.98419
+wandb:      val/H1_future_slip_auroc 0.99074
+wandb:         val/H1_future_slip_f1 0.96255
+wandb: val/H1_future_stability_auprc 0.99632
+wandb: val/H1_future_stability_auroc 0.99074
+wandb:          val/H1_stability_ece 0.00778
+wandb:           val/selection_score 0.98419
+wandb: 
+wandb: 🚀 View run phase4_3_z_force_slip_20260517_171500 at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_z_force_slip_20260517_171500
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_z_force_slip_20260517_171500/wandb/run-20260517_171812-phase4_3_z_force_slip_20260517_171500/logs
+wandb: setting up run phase4_3_full_20260517_171500
+wandb: Tracking run with wandb version 0.26.1
+wandb: Run data is saved locally in /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_full_20260517_171500/wandb/run-20260517_171906-phase4_3_full_20260517_171500
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run phase4_3_full_20260517_171500
+wandb: ⭐️ View project at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: 🚀 View run at https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_full_20260517_171500
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:                         epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:                    train/loss █▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▂▂▂▁▁▁▂▁▁▁▂▁▁▁▁▁▁▁▁▁
+wandb:      val/H1_future_slip_auprc ▁▂▃▃▃▄▄▄▅▆▆▇▇▇▇▇▇▇▆█▇▃████████▇█████████
+wandb:      val/H1_future_slip_auroc ▁▂▃▄▄▅▅▅▅▆▆▇███▇██▇██▃████████▇█████████
+wandb:         val/H1_future_slip_f1 ▇▇▇▇▇▇▇▇▇▇█▇▇▇▇▅▇▇▇▇▇▁▇▇█▇▇█▇█▇█████████
+wandb: val/H1_future_stability_auprc ▁▂▄▄▄▆▆▅▆▇▇██████████▃██████▇▇█████▇████
+wandb: val/H1_future_stability_auroc ▁▂▃▄▄▅▅▅▅▆▆▇███▇██▇██▃████████▇█████████
+wandb:          val/H1_stability_ece ▄▂▃▂▂▂▂▁▂▂▂▂▂▂▂▆▂▁▁▁▂█▂▂▂▂▂▁▁▁▂▁▁▁▂▂▂▂▁▁
+wandb:           val/selection_score ▁▂▃▃▃▄▄▄▅▆▆▇▇▇▇▇▇▇▆█▇▃████████▇█████████
+wandb: 
+wandb: Run summary:
+wandb:                         epoch 40
+wandb:                    train/loss 0.05728
+wandb:      val/H1_future_slip_auprc 0.99534
+wandb:      val/H1_future_slip_auroc 0.998
+wandb:         val/H1_future_slip_f1 0.96759
+wandb: val/H1_future_stability_auprc 0.9992
+wandb: val/H1_future_stability_auroc 0.998
+wandb:          val/H1_stability_ece 0.00606
+wandb:           val/selection_score 0.99534
+wandb: 
+wandb: 🚀 View run phase4_3_full_20260517_171500 at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp/runs/phase4_3_full_20260517_171500
+wandb: ⭐️ View project at: https://wandb.ai/junyuzhuzjy-zhejiang-university/sparsh-finetune-tactile-grasp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: /vla1/zjy/sparsh_runs/force_slip_phase4/phase4_3_reuse_p3_features_20260517_171500/heads/phase4_3_full_20260517_171500/wandb/run-20260517_171906-phase4_3_full_20260517_171500/logs
+/home/zjy/document/tactile-grasp/sparsh-force-slip/reports/phase4/phase4_3_20260517_171500/phase4_3_world_model_input_ablation_report.md
