@@ -9,9 +9,9 @@ import torch
 
 from isaaclab.assets import Articulation
 from isaaclab.controllers import DifferentialIKController, DifferentialIKControllerCfg
-import isaaclab.utils.math as math_utils
 from isaaclab.utils.math import quat_apply, quat_apply_inverse, subtract_frame_transforms
 
+from ur5_gsmini_contract import ISAACLAB_CAMERA_DATA_FORWARD_AXIS
 from ur5_phase1_control import (
     ARM_JOINT_NAMES,
     GRIPPER_CONTROL_JOINT_NAMES,
@@ -27,21 +27,7 @@ from ur5_phase3_logging import Phase3TrialLogger
 from ur5_phase3_schema import utc_now_iso
 
 PHASE3_DEFAULT_PREGRASP_WRIST3_DEG = -2.6
-TACTILE_FINGERTIP_BODY_BY_SIDE = {
-    "left": "left_inner_finger",
-    "right": "right_inner_finger",
-}
 TACTILE_CONTACT_PROXY_ROOT = "/World/Phase3TactileContactProxy"
-TACTILE_CONTACT_PROXY_DISTANCE_M = 0.026
-TACTILE_CONTACT_PROXY_SCALE = (0.010, 0.010, 0.010)
-TACTILE_CONTACT_PROXY_AXES = (
-    (0.0, 0.0, 1.0),
-    (0.0, 0.0, -1.0),
-    (1.0, 0.0, 0.0),
-    (-1.0, 0.0, 0.0),
-    (0.0, 1.0, 0.0),
-    (0.0, -1.0, 0.0),
-)
 
 
 class StepBudget:
@@ -78,206 +64,12 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         if prim_utils.is_prim_path_valid(TACTILE_CONTACT_PROXY_ROOT):
             prim_utils.delete_prim(TACTILE_CONTACT_PROXY_ROOT)
 
-    def _set_proxy_cube_pose(self, prim_path: str, position: Any) -> None:
-        import isaacsim.core.utils.prims as prim_utils
-        from pxr import Gf, UsdGeom
-        import omni.usd
-
-        if not prim_utils.is_prim_path_valid(prim_path):
-            prim_utils.create_prim(
-                prim_path,
-                "Cube",
-                translation=(float(position[0]), float(position[1]), float(position[2])),
-                scale=TACTILE_CONTACT_PROXY_SCALE,
-            )
-        stage = omni.usd.get_context().get_stage()
-        prim = stage.GetPrimAtPath(prim_path)
-        xform = UsdGeom.Xformable(prim)
-        xform.ClearXformOpOrder()
-        xform.AddTranslateOp(UsdGeom.XformOp.PrecisionDouble).Set(
-            Gf.Vec3d(float(position[0]), float(position[1]), float(position[2]))
-        )
-        xform.AddScaleOp(UsdGeom.XformOp.PrecisionDouble).Set(Gf.Vec3d(*TACTILE_CONTACT_PROXY_SCALE))
-
-    def _update_tactile_contact_proxies(self, contact_state: dict[str, Any]) -> dict[str, Any]:
-        """Spawn camera-visible, non-physics contact witnesses for TacEx.
-
-        IsaacLab PhysX body poses and USD camera render products do not expose
-        the canonical URDF GSmini collision contact directly to TacEx's internal
-        depth camera.  Phase2 already used a camera-visible probe to prove the
-        GSmini optical stack.  Phase3 gates this probe by the *actual* contact
-        state so tactile_rgb changes only when the scripted grasp has reached
-        contact/hold.
-        """
-
-        import isaacsim.core.utils.prims as prim_utils
-        import omni.usd
-        from pxr import Gf, Usd, UsdGeom
-        from ur5_phase2_mount import phase2_sensor_prim_paths
-
-        contact_sides = set(contact_state.get("contact_sides", []))
-        if not contact_sides:
-            self._delete_tactile_contact_proxies()
-            self._last_tactile_contact_proxy = {"enabled": False, "reason": "no_contact"}
-            return self._last_tactile_contact_proxy
-
-        if not prim_utils.is_prim_path_valid(TACTILE_CONTACT_PROXY_ROOT):
-            prim_utils.create_prim(TACTILE_CONTACT_PROXY_ROOT, "Xform")
-        stage = omni.usd.get_context().get_stage()
-        summary: dict[str, Any] = {"enabled": True, "distance_m": TACTILE_CONTACT_PROXY_DISTANCE_M, "sides": {}}
-        for side, paths in phase2_sensor_prim_paths().items():
-            side_root = f"{TACTILE_CONTACT_PROXY_ROOT}/{side}"
-            if side not in contact_sides:
-                if prim_utils.is_prim_path_valid(side_root):
-                    prim_utils.delete_prim(side_root)
-                continue
-            if not prim_utils.is_prim_path_valid(side_root):
-                prim_utils.create_prim(side_root, "Xform")
-            camera_prim = stage.GetPrimAtPath(paths["camera"])
-            if not camera_prim.IsValid():
-                continue
-            camera_xform = UsdGeom.Xformable(camera_prim).ComputeLocalToWorldTransform(Usd.TimeCode.Default())
-            camera_pos = camera_xform.ExtractTranslation()
-            positions = []
-            for index, axis_tuple in enumerate(TACTILE_CONTACT_PROXY_AXES):
-                axis = Gf.Vec3d(*axis_tuple)
-                direction = camera_xform.TransformDir(axis)
-                direction.Normalize()
-                # Small lateral staggering avoids exact overlap while keeping
-                # all probes close to the TacEx optical contact distance.
-                lateral = (index - 2.5) * 0.0004
-                proxy_pos = camera_pos + direction * TACTILE_CONTACT_PROXY_DISTANCE_M + Gf.Vec3d(lateral, 0.0, 0.0)
-                child_path = f"{side_root}/probe_{index}"
-                self._set_proxy_cube_pose(child_path, proxy_pos)
-                positions.append([float(proxy_pos[0]), float(proxy_pos[1]), float(proxy_pos[2])])
-            summary["sides"][side] = {
-                "camera": paths["camera"],
-                "probes": positions,
-            }
-        self._last_tactile_contact_proxy = summary
-        return summary
-
-    @staticmethod
-    def _tactile_scene_signature(contact_proxy: dict[str, Any]) -> tuple[Any, ...]:
-        """Return a coarse renderer-scene signature for TacEx sensor refreshes.
-
-        Phase2 rebuilds the GelSight sensor after adding its camera-visible
-        contact probe because a standalone TiledCamera view can otherwise keep
-        returning the pre-probe render product.  Phase3 keeps the same rule but
-        only keys on contact-proxy presence/side set; moving an already-visible
-        proxy should be picked up by render ticks without recreating sensors on
-        every logged sample.
-        """
-
-        if not contact_proxy.get("enabled"):
-            return ("no_contact_proxy",)
-        sides = tuple(sorted(contact_proxy.get("sides", {}).keys()))
-        return ("contact_proxy", sides)
-
-    def _refresh_tactile_sensors_for_scene_signature(self, signature: tuple[Any, ...]) -> dict[str, Any]:
-        if signature == self._last_tactile_scene_signature:
-            return {"refreshed": False, "signature": list(signature)}
-        if not getattr(self, "tactile_sensor_cfgs", None):
-            self._last_tactile_scene_signature = signature
-            return {"refreshed": False, "signature": list(signature), "reason": "missing_sensor_cfgs"}
-
-        from ur5_phase2_tactile import initialize_phase2_sensor
-
-        refreshed: list[str] = []
-        rebuilt: list[tuple[str, Any]] = []
-        for side, sensor in self.tactile_sensors:
-            cfg = self.tactile_sensor_cfgs.get(side)
-            if cfg is None:
-                rebuilt.append((side, sensor))
-                continue
-            rebuilt.append((side, initialize_phase2_sensor(cfg)))
-            refreshed.append(side)
-        self.tactile_sensors = rebuilt
-        self._last_tactile_scene_signature = signature
-        return {
-            "refreshed": bool(refreshed),
-            "signature": list(signature),
-            "sides": refreshed,
-        }
-
     def _delete_phase2_static_contact_probe(self) -> None:
         import isaacsim.core.utils.prims as prim_utils
         from ur5_phase2_tactile import STATIC_CONTACT_PROBE_PATH
 
         if prim_utils.is_prim_path_valid(STATIC_CONTACT_PROBE_PATH):
             prim_utils.delete_prim(STATIC_CONTACT_PROBE_PATH)
-
-    def _set_tactile_shell_world_pose(self, prim_path: str, position: torch.Tensor, orientation: torch.Tensor) -> None:
-        import omni.usd
-        from pxr import Gf, UsdGeom
-
-        stage = omni.usd.get_context().get_stage()
-        prim = stage.GetPrimAtPath(prim_path)
-        if not prim.IsValid():
-            raise RuntimeError(f"Phase3 tactile shell prim is missing: {prim_path}")
-        pos = [float(value) for value in position.detach().cpu().reshape(-1).tolist()]
-        quat = [float(value) for value in orientation.detach().cpu().reshape(-1).tolist()]
-        xform = UsdGeom.Xformable(prim)
-        xform.ClearXformOpOrder()
-        # The TacEx camera shells are runtime sensor-only prims.  They must
-        # follow IsaacLab's PhysX articulation body poses, not stale USD child
-        # transforms under the URDF link.  Resetting the inherited xform stack
-        # lets Phase3 write the exact world pose every capture.
-        xform.SetResetXformStack(True)
-        xform.AddTranslateOp().Set(Gf.Vec3d(*pos))
-        xform.AddOrientOp().Set(Gf.Quatf(quat[0], Gf.Vec3f(quat[1], quat[2], quat[3])))
-
-    def _sync_tactile_sensor_shells_to_runtime_fingers(self) -> dict[str, Any]:
-        if not self.tactile_sensors:
-            return {"enabled": False, "reason": "no_tactile_sensors"}
-
-        from ur5_phase2_mount import (
-            CASE_LOCAL_QUAT_WXYZ,
-            CASE_LOCAL_TRANSLATION,
-            CONNECTOR_LOCAL_QUAT_WXYZ,
-            CONNECTOR_LOCAL_TRANSLATION,
-            GELPAD_LOCAL_QUAT_WXYZ,
-            GELPAD_LOCAL_TRANSLATION,
-            phase2_sensor_prim_paths,
-        )
-
-        pose_summary: dict[str, Any] = {"enabled": True, "sides": {}}
-        device = self.robot.device
-        dtype = self.robot.data.body_pose_w.dtype
-        for side, _sensor in self.tactile_sensors:
-            body_name = TACTILE_FINGERTIP_BODY_BY_SIDE[side]
-            body_id = int(self.robot.find_bodies([body_name], preserve_order=True)[0][0])
-            fingertip_pose = self.robot.data.body_pose_w[:, body_id]
-            fingertip_pos = fingertip_pose[:, 0:3]
-            fingertip_quat = fingertip_pose[:, 3:7]
-            connector_pos, connector_quat = math_utils.combine_frame_transforms(
-                fingertip_pos,
-                fingertip_quat,
-                torch.tensor([CONNECTOR_LOCAL_TRANSLATION], device=device, dtype=dtype),
-                torch.tensor([CONNECTOR_LOCAL_QUAT_WXYZ], device=device, dtype=dtype),
-            )
-            case_pos, case_quat = math_utils.combine_frame_transforms(
-                connector_pos,
-                connector_quat,
-                torch.tensor([CASE_LOCAL_TRANSLATION], device=device, dtype=dtype),
-                torch.tensor([CASE_LOCAL_QUAT_WXYZ], device=device, dtype=dtype),
-            )
-            gelpad_pos, gelpad_quat = math_utils.combine_frame_transforms(
-                case_pos,
-                case_quat,
-                torch.tensor([GELPAD_LOCAL_TRANSLATION], device=device, dtype=dtype),
-                torch.tensor([GELPAD_LOCAL_QUAT_WXYZ], device=device, dtype=dtype),
-            )
-            paths = phase2_sensor_prim_paths()[side]
-            self._set_tactile_shell_world_pose(paths["case"], case_pos[0], case_quat[0])
-            self._set_tactile_shell_world_pose(paths["gelpad"], gelpad_pos[0], gelpad_quat[0])
-            pose_summary["sides"][side] = {
-                "finger_body": body_name,
-                "sensor_case_world_m": _list_tensor(case_pos[0]),
-                "sensor_gelpad_world_m": _list_tensor(gelpad_pos[0]),
-            }
-        self._last_tactile_pose_sync = pose_summary
-        return pose_summary
 
     @staticmethod
     def _tactile_rgb_tensor(output: dict[str, Any]) -> torch.Tensor | None:
@@ -344,6 +136,54 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         center_x = self._clamp_unit((float(object_center[1]) - float(soft_center[1])) / lateral_scale_m)
         center_y = self._clamp_unit(-(float(object_center[2]) - float(soft_center[2])) / vertical_scale_m)
         return (center_x, center_y)
+
+    def _tactile_camera_observation(self, sensor: Any) -> dict[str, Any]:
+        """Summarize camera/object geometry and raw depth for runtime audits."""
+
+        camera = getattr(sensor, "camera", None)
+        data = getattr(camera, "data", None)
+        if data is None or getattr(data, "pos_w", None) is None:
+            return {"available": False}
+        position = data.pos_w[0].detach()
+        quat_world = data.quat_w_world[0].detach()
+        # CameraData.quat_w_world is already converted by IsaacLab from the
+        # authored OpenGL -Z camera frame to its +X-forward world convention.
+        forward = quat_apply(
+            quat_world.reshape(1, 4),
+            torch.tensor(
+                [ISAACLAB_CAMERA_DATA_FORWARD_AXIS],
+                device=quat_world.device,
+                dtype=quat_world.dtype,
+            ),
+        )[0]
+        target = self._object_grasp_center_world().to(device=position.device, dtype=position.dtype)
+        camera_to_target = target - position
+        axial_distance = float(torch.dot(camera_to_target, forward).item())
+        lateral_distance = float(torch.linalg.norm(camera_to_target - axial_distance * forward).item())
+
+        sensor_output = getattr(getattr(sensor, "_data", None), "output", {})
+        height_map = sensor_output.get("height_map")
+        height_map_summary: dict[str, Any] = {"available": False}
+        if height_map is not None:
+            depth_m = height_map.detach() / 1000.0
+            finite = torch.isfinite(depth_m)
+            finite_values = depth_m[finite]
+            height_map_summary = {
+                "available": True,
+                "finite_fraction": float(finite.float().mean().item()),
+                "min_m": float(finite_values.min().item()) if finite_values.numel() else None,
+                "max_m": float(finite_values.max().item()) if finite_values.numel() else None,
+            }
+        return {
+            "available": True,
+            "position_world_m": _list_tensor(position),
+            "forward_world": _list_tensor(forward),
+            "forward_axis_convention": "IsaacLab CameraData world convention (+X forward, +Z up)",
+            "object_grasp_center_world_m": _list_tensor(target),
+            "object_center_axial_distance_m": axial_distance,
+            "object_center_lateral_distance_m": lateral_distance,
+            "taxim_height_map": height_map_summary,
+        }
 
     def _apply_continuous_taxim_imprint(
         self,
@@ -477,6 +317,7 @@ class Phase3MotionMixin(Phase3GeometryMixin):
     def _capture_tactile_outputs(self) -> dict[str, dict[str, Any]]:
         if not self.tactile_sensors:
             return {}
+        from ur5_phase2_mount import sync_phase2_sensor_shells_to_robot
         from ur5_phase2_tactile import update_phase2_sensor
 
         outputs: dict[str, dict[str, Any]] = {}
@@ -484,6 +325,11 @@ class Phase3MotionMixin(Phase3GeometryMixin):
         contact_sides = set(self._last_contact_state.get("contact_sides", []))
         self._delete_tactile_contact_proxies()
         self._delete_phase2_static_contact_probe()
+        sensor_sync = sync_phase2_sensor_shells_to_robot(
+            self.robot,
+            tuple(side for side, _ in self.tactile_sensors),
+            sensor_instances=dict(self.tactile_sensors),
+        )
         rebuilt_sensors: list[tuple[str, Any]] = []
         imprint_results: dict[str, Any] = {}
         for side, sensor in self.tactile_sensors:
@@ -495,24 +341,21 @@ class Phase3MotionMixin(Phase3GeometryMixin):
                     outputs[side],
                     self._last_contact_state,
                 )
+                imprint_results[side]["camera_observation"] = self._tactile_camera_observation(sensor)
             except Exception as exc:  # pragma: no cover - Isaac runtime only
                 outputs[side] = {"error": str(exc)}
                 imprint_results[side] = {"applied": False, "error": str(exc)}
             rebuilt_sensors.append((side, sensor))
         self.tactile_sensors = rebuilt_sensors
-        self._last_tactile_sensor_refresh = {
-            "refreshed": False,
-            "sides": [],
-            "mode": "continuous_imprint_no_static_probe_rebuild",
-        }
-        self._last_tactile_contact_proxy = {
-            "enabled": False,
-            "mode": "disabled_replaced_by_continuous_taxim_contact_imprint",
-        }
         self._last_tactile_imprint = {
             "enabled": self.options.tactile_contact_imprint_enabled,
             "contact_sides": sorted(contact_sides),
-            "mode": "continuous_taxim_height_map",
+            "mode": (
+                "optional_geometry_contact_imprint_fallback"
+                if self.options.tactile_contact_imprint_enabled
+                else "camera_derived_taxim_no_imprint"
+            ),
+            "sensor_sync": sensor_sync,
             "results": imprint_results,
             "stats": self._tactile_imprint_stats,
         }

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import torch
 import isaaclab.utils.math as math_utils
@@ -9,6 +10,22 @@ from isaaclab.assets import Articulation, RigidObject
 from isaaclab.sim.converters import MeshConverter, MeshConverterCfg
 import isaacsim.core.utils.prims as prim_utils
 
+from ur5_gsmini_contract import (
+    GELSIGHT_MINI_CALIB_DIR,
+    GELSIGHT_MINI_CASE_USD,
+    GELSIGHT_MINI_GELPAD_USD,
+    GELSIGHT_MINI_SENSOR_USD,
+    OFFICIAL_CAMERA_CLIPPING_RANGE_M,
+    OFFICIAL_GELPAD_TO_CAMERA_MIN_DISTANCE_M,
+    OFFICIAL_TACTILE_RESOLUTION,
+    RUNTIME_CAMERA_CLIPPING_RANGE_M,
+    RUNTIME_EFFECTIVE_GELPAD_HEIGHT_M,
+    SENSOR_ASSET_TO_CASE_LINK_QUAT_WXYZ,
+    SENSOR_ASSET_TO_CASE_LINK_TRANSLATION_M,
+    SENSOR_CAMERA_LOCAL_QUAT_WXYZ,
+    SENSOR_CAMERA_PRIM_PATH_APPENDIX,
+    sensor_prim_paths as contract_sensor_prim_paths,
+)
 from ur5_phase1_control import GRIPPER_CLOSE_TARGET_RAD_BY_JOINT, GRIPPER_OPEN_TARGET_RAD_BY_JOINT
 
 PHASE2_SCOPE_SENTENCE = "Phase 2 = 基于 canonical integrated UR5e + Robotiq + connector + GSmini embodiment，先校核挂载，再做 tactile output bring-up。"
@@ -17,20 +34,10 @@ CANONICAL_ROBOT_REFERENCE = "tactile_grasp/environment/ur5_robotiq_GSmini/urdf/u
 RETIRED_PHASE1_ROBOT_REFERENCE = "tactile_grasp/assets/ur5_usd/ur5_moveit.usd"
 
 PHASE2_MOUNT_USD_DIR = Path(__file__).resolve().parent / "assets" / "phase2_mount_usd"
-_WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
-TACEX_GELSIGHT_MINI_DIR = (
-    _WORKSPACE_ROOT
-    / "TacEx"
-    / "source"
-    / "tacex_assets"
-    / "tacex_assets"
-    / "data"
-    / "Sensors"
-    / "GelSight_Mini"
-)
-TACEX_GELSIGHT_CASE_USD = TACEX_GELSIGHT_MINI_DIR / "Case.usd"
-TACEX_GELSIGHT_GELPAD_USD = TACEX_GELSIGHT_MINI_DIR / "Gelpad_low_res.usd"
-TACEX_GELSIGHT_CALIB_DIR = TACEX_GELSIGHT_MINI_DIR / "calibs" / "640x480"
+TACEX_GELSIGHT_SENSOR_USD = GELSIGHT_MINI_SENSOR_USD
+TACEX_GELSIGHT_CASE_USD = GELSIGHT_MINI_CASE_USD
+TACEX_GELSIGHT_GELPAD_USD = GELSIGHT_MINI_GELPAD_USD
+TACEX_GELSIGHT_CALIB_DIR = GELSIGHT_MINI_CALIB_DIR
 GELSIGHT_MINI_CASE_MESH = Path(__file__).resolve().parent / "assets" / "meshes" / "gelsight_mini" / "visual" / "base_link.STL"
 GELSIGHT_MINI_GELPAD_MESH = Path(__file__).resolve().parent / "assets" / "meshes" / "gelsight_mini" / "visual" / "soft_link.STL"
 GELSIGHT_CONNECTOR_MESH = Path(__file__).resolve().parent / "assets" / "meshes" / "gelsight_robotiq_connector" / "visual" / "gelsight_adaptor.STL"
@@ -48,18 +55,15 @@ RIGHT_CONNECTOR_PRIM_PATH = f"{RIGHT_VISUAL_GROUP_PATH}/gelsight_connector_right
 RIGHT_CASE_PRIM_PATH = f"{RIGHT_VISUAL_GROUP_PATH}/gelsight_mini_case_right"
 RIGHT_GELPAD_PRIM_PATH = f"{RIGHT_VISUAL_GROUP_PATH}/gelsight_mini_gelpad_right"
 
-PHASE2_SENSOR_GROUP_NAME = "phase2_tacex"
-LEFT_SENSOR_GROUP_PATH = f"{LEFT_FINGER_LINK_PATH}/{PHASE2_SENSOR_GROUP_NAME}"
-RIGHT_SENSOR_GROUP_PATH = f"{RIGHT_FINGER_LINK_PATH}/{PHASE2_SENSOR_GROUP_NAME}"
-LEFT_SENSOR_CASE_PRIM_PATH = f"{LEFT_SENSOR_GROUP_PATH}/gelsight_mini_case_left"
-LEFT_SENSOR_GELPAD_PRIM_PATH = f"{LEFT_SENSOR_GROUP_PATH}/gelsight_mini_gelpad_left"
-RIGHT_SENSOR_CASE_PRIM_PATH = f"{RIGHT_SENSOR_GROUP_PATH}/gelsight_mini_case_right"
-RIGHT_SENSOR_GELPAD_PRIM_PATH = f"{RIGHT_SENSOR_GROUP_PATH}/gelsight_mini_gelpad_right"
-SENSOR_CAMERA_PRIM_PATH_APPENDIX = "/Camera"
-PHASE2_SENSOR_CAMERA_CLIPPING_RANGE_M = (0.024, 0.040)
+_DEFAULT_SENSOR_PATHS = contract_sensor_prim_paths()
+LEFT_SENSOR_CASE_PRIM_PATH = _DEFAULT_SENSOR_PATHS["left"]["sensor"]
+LEFT_SENSOR_GELPAD_PRIM_PATH = _DEFAULT_SENSOR_PATHS["left"]["gelpad"]
+RIGHT_SENSOR_CASE_PRIM_PATH = _DEFAULT_SENSOR_PATHS["right"]["sensor"]
+RIGHT_SENSOR_GELPAD_PRIM_PATH = _DEFAULT_SENSOR_PATHS["right"]["gelpad"]
+PHASE2_SENSOR_CAMERA_CLIPPING_RANGE_M = RUNTIME_CAMERA_CLIPPING_RANGE_M
 
-# Manual connector tuning values.
-# Edit these two constants directly when you want to move or rotate the visual connector in simulation.
+# Legacy Phase2 debug-mesh offsets.  Runtime grasp/tactile code uses the URDF
+# chain and the measured TacEx registration instead of these preview values.
 CONNECTOR_LOCAL_TRANSLATION = (-0.0155, -0.012, 0.0)
 CONNECTOR_LOCAL_QUAT_WXYZ = (1.0, 0.0, 0.0, 0.0)
 CASE_LOCAL_TRANSLATION = (0.0, 0.0, 0.0185)
@@ -67,7 +71,6 @@ CASE_LOCAL_QUAT_WXYZ = (1.0, 0.0, 0.0, 0.0)
 GELPAD_LOCAL_TRANSLATION = (0.0, 0.0, 0.024)
 GELPAD_LOCAL_QUAT_WXYZ = (1.0, 0.0, 0.0, 0.0)
 
-RESET_TRANSLATION_TOLERANCE_M = 1.0e-4
 FOLLOW_TRANSLATION_TOLERANCE_M = 2.0e-3
 DEFAULT_RESET_TRIALS = 5
 DEFAULT_FOLLOW_STEPS = 20
@@ -109,6 +112,8 @@ def source_of_truth_summary() -> dict[str, object]:
         "attachment_target_paths": {
             "left_fingertip": LEFT_FINGER_LINK_PATH,
             "right_fingertip": RIGHT_FINGER_LINK_PATH,
+            "left_sensor_case_link": _DEFAULT_SENSOR_PATHS["left"]["canonical_case_link"],
+            "right_sensor_case_link": _DEFAULT_SENSOR_PATHS["right"]["canonical_case_link"],
         },
         "visual_root_path": PHASE2_VISUALS_ROOT_PATH,
         "mesh_paths": {
@@ -140,39 +145,33 @@ def source_of_truth_summary() -> dict[str, object]:
 def phase2_sensor_prim_paths() -> dict[str, dict[str, str]]:
     """Return runtime TacEx sensor prim paths used by Phase 2 tactile bring-up."""
 
-    return {
-        "left": {
-            "case": LEFT_SENSOR_CASE_PRIM_PATH,
-            "gelpad": LEFT_SENSOR_GELPAD_PRIM_PATH,
-            "camera": f"{LEFT_SENSOR_CASE_PRIM_PATH}{SENSOR_CAMERA_PRIM_PATH_APPENDIX}",
-        },
-        "right": {
-            "case": RIGHT_SENSOR_CASE_PRIM_PATH,
-            "gelpad": RIGHT_SENSOR_GELPAD_PRIM_PATH,
-            "camera": f"{RIGHT_SENSOR_CASE_PRIM_PATH}{SENSOR_CAMERA_PRIM_PATH_APPENDIX}",
-        },
-    }
+    return contract_sensor_prim_paths()
 
 
 def tacex_sensor_model_summary() -> dict[str, object]:
     """Document the TacEx model/config values Phase 2 intentionally mirrors."""
 
     return {
+        "sensor_usd": str(TACEX_GELSIGHT_SENSOR_USD),
         "case_usd": str(TACEX_GELSIGHT_CASE_USD),
         "gelpad_usd": str(TACEX_GELSIGHT_GELPAD_USD),
         "calibration_dir": str(TACEX_GELSIGHT_CALIB_DIR),
         "camera_prim_path_appendix": SENSOR_CAMERA_PRIM_PATH_APPENDIX,
-        "camera_resolution": [320, 240],
+        "camera_resolution": list(OFFICIAL_TACTILE_RESOLUTION),
         "camera_data_types": ["depth"],
         "camera_clipping_range_m": list(PHASE2_SENSOR_CAMERA_CLIPPING_RANGE_M),
+        "upstream_camera_clipping_range_m": list(OFFICIAL_CAMERA_CLIPPING_RANGE_M),
         "tactile_img_resolution": [320, 240],
-        "gelpad_to_camera_min_distance_m": 0.024,
+        "gelpad_to_camera_min_distance_m": OFFICIAL_GELPAD_TO_CAMERA_MIN_DISTANCE_M,
+        "upstream_gelpad_height_m": 0.0045,
+        "runtime_effective_gelpad_height_m": RUNTIME_EFFECTIVE_GELPAD_HEIGHT_M,
         "case_dimensions_m": {"width": 0.032, "length": 0.028, "height": 0.024},
         "gelpad_dimensions_m": {"width": 0.02075, "length": 0.02525, "height": 0.0045},
         "model_note": (
-            "TacEx GelSight Mini docs state the case model contains a centered internal camera; "
-            "Phase 2 references TacEx Case.usd/Gelpad_low_res.usd for runtime sensor prims instead "
-            "of editing the canonical URDF appearance or mount offsets."
+            "The canonical URDF owns visible/contact geometry. A detached TacEx Sensor.usd preserves "
+            "the upstream Camera/Gelpad relationship and is synchronized from each live canonical case body. "
+            "The runtime far plane and effective optical gel height are measured rigid-contact calibrations, "
+            "not changes to the URDF geometry or TacEx calibration images."
         ),
     }
 
@@ -216,100 +215,65 @@ def _ensure_visual_group_paths() -> None:
             prim_utils.create_prim(path, "Xform")
 
 
-def _ensure_sensor_group_paths() -> None:
-    for parent_path, group_path in (
-        (LEFT_FINGER_LINK_PATH, LEFT_SENSOR_GROUP_PATH),
-        (RIGHT_FINGER_LINK_PATH, RIGHT_SENSOR_GROUP_PATH),
-    ):
-        if not prim_utils.is_prim_path_valid(parent_path):
-            raise RuntimeError(f"Cannot mount Phase2 TacEx sensor shell; missing fingertip prim: {parent_path}")
-        if not prim_utils.is_prim_path_valid(group_path):
-            prim_utils.create_prim(group_path, "Xform")
+def _validate_canonical_sensor_links(sides: tuple[str, ...]) -> None:
+    paths_by_side = phase2_sensor_prim_paths()
+    for side in sides:
+        if side not in paths_by_side:
+            raise ValueError(f"side must be 'left' or 'right', got {side!r}")
+        for key in ("canonical_case_link", "canonical_gelpad_link"):
+            path = paths_by_side[side][key]
+            if not prim_utils.is_prim_path_valid(path):
+                raise RuntimeError(f"Cannot mount TacEx Sensor.usd; canonical URDF prim is missing: {path}")
 
 
-def _phase2_sensor_local_mount_offsets() -> dict[str, tuple[float, float, float]]:
-    """Return TacEx shell offsets in the fingertip-pad local frame.
-
-    The visible GSmini+connector assembly remains owned by the canonical URDF.
-    Phase2 adds hidden TacEx case/gelpad shells as children of the same pad link,
-    using the same connector/case/gelpad offsets, so the internal camera follows
-    the mounted sensor by USD inheritance instead of a separate world-space copy.
-    """
-
-    case_offset = tuple(
-        CONNECTOR_LOCAL_TRANSLATION[index] + CASE_LOCAL_TRANSLATION[index]
-        for index in range(3)
-    )
-    gelpad_offset = tuple(
-        CONNECTOR_LOCAL_TRANSLATION[index] + CASE_LOCAL_TRANSLATION[index] + GELPAD_LOCAL_TRANSLATION[index]
-        for index in range(3)
-    )
-    return {"case": case_offset, "gelpad": gelpad_offset}
-
-
-def _local_translation(prim_path: str) -> tuple[float, float, float]:
-    import omni.usd
-    from pxr import UsdGeom
-
-    stage = omni.usd.get_context().get_stage()
-    prim = stage.GetPrimAtPath(prim_path)
-    if not prim.IsValid():
-        raise ValueError(f"Prim path is not valid: {prim_path}")
-    transform = UsdGeom.Xformable(prim).GetLocalTransformation()
-    translation = transform.ExtractTranslation()
-    return (float(translation[0]), float(translation[1]), float(translation[2]))
-
-
-def _max_abs_delta(
-    actual: tuple[float, float, float],
-    expected: tuple[float, float, float],
-) -> float:
-    return max(abs(actual[index] - expected[index]) for index in range(3))
+def _ensure_runtime_sensor_scopes(sides: tuple[str, ...]) -> None:
+    for side in sides:
+        scope = phase2_sensor_prim_paths()[side]["runtime_sensor_scope"]
+        current = ""
+        for component in scope.strip("/").split("/"):
+            current = f"{current}/{component}"
+            if not prim_utils.is_prim_path_valid(current):
+                prim_utils.create_prim(current, "Xform")
 
 
 def validate_phase2_sensor_mounts(sides: tuple[str, ...] = ("left",)) -> dict[str, dict[str, object]]:
-    """Validate hidden TacEx shell placement relative to canonical fingertip links."""
+    """Validate canonical body mapping and detached TacEx runtime assets."""
 
-    expected_offsets = _phase2_sensor_local_mount_offsets()
     camera_checks = validate_phase2_sensor_camera_prims(sides)
     results: dict[str, dict[str, object]] = {}
     for side in sides:
         if side not in {"left", "right"}:
             raise ValueError(f"side must be 'left' or 'right', got {side!r}")
-        parent_path = LEFT_FINGER_LINK_PATH if side == "left" else RIGHT_FINGER_LINK_PATH
-        group_path = LEFT_SENSOR_GROUP_PATH if side == "left" else RIGHT_SENSOR_GROUP_PATH
         paths = phase2_sensor_prim_paths()[side]
-        case_local = _local_translation(paths["case"])
-        gelpad_local = _local_translation(paths["gelpad"])
-        case_error = _max_abs_delta(case_local, expected_offsets["case"])
-        gelpad_error = _max_abs_delta(gelpad_local, expected_offsets["gelpad"])
-        max_error = max(case_error, gelpad_error)
-        mounted_under_fingertip = paths["case"].startswith(f"{parent_path}/") and paths["gelpad"].startswith(f"{parent_path}/")
+        sensor_in_runtime_scope = paths["sensor"].startswith(f'{paths["runtime_sensor_scope"]}/')
+        canonical_links_exist = all(
+            prim_utils.is_prim_path_valid(paths[key])
+            for key in ("canonical_case_link", "canonical_gelpad_link")
+        )
+        gelpad_exists = prim_utils.is_prim_path_valid(paths["gelpad"])
         results[side] = {
             "passed": bool(
-                mounted_under_fingertip
+                sensor_in_runtime_scope
+                and canonical_links_exist
                 and camera_checks[side]["camera_exists"]
-                and max_error <= RESET_TRANSLATION_TOLERANCE_M
+                and gelpad_exists
             ),
-            "mount_mode": "fingertip_child_local_offsets",
-            "fingertip_parent": parent_path,
-            "sensor_group": group_path,
+            "mount_mode": "detached_render_sensor_synced_from_canonical_case_body",
+            "canonical_case_link": paths["canonical_case_link"],
+            "canonical_gelpad_link": paths["canonical_gelpad_link"],
+            "runtime_sensor_scope": paths["runtime_sensor_scope"],
+            "sensor": paths["sensor"],
             "case": paths["case"],
             "gelpad": paths["gelpad"],
             "camera": paths["camera"],
-            "mounted_under_fingertip": mounted_under_fingertip,
-            "local_offsets_m": {"case": list(case_local), "gelpad": list(gelpad_local)},
-            "expected_local_offsets_m": {
-                "case": list(expected_offsets["case"]),
-                "gelpad": list(expected_offsets["gelpad"]),
-            },
-            "local_mount_errors_m": {
-                "case": case_error,
-                "gelpad": gelpad_error,
-                "max": max_error,
-                "tolerance": RESET_TRANSLATION_TOLERANCE_M,
+            "sensor_in_runtime_scope": sensor_in_runtime_scope,
+            "canonical_links_exist": canonical_links_exist,
+            "asset_to_case_registration": {
+                "translation_m": list(SENSOR_ASSET_TO_CASE_LINK_TRANSLATION_M),
+                "quat_wxyz": list(SENSOR_ASSET_TO_CASE_LINK_QUAT_WXYZ),
             },
             "camera_exists": camera_checks[side]["camera_exists"],
+            "gelpad_exists": gelpad_exists,
         }
     return results
 
@@ -346,7 +310,7 @@ def _set_sensor_camera_clipping_range(camera_prim_path: str) -> dict[str, object
     """Apply the Phase2 GSmini camera clipping range directly on the referenced USD camera.
 
     TacEx's ``GelSightSensor`` builds a ``TiledCameraCfg`` with ``spawn=None``
-    because the camera already exists inside ``Case.usd``.  In that path the
+    because the camera already exists inside ``Sensor.usd``.  In that path the
     config clipping range is not authored onto the existing USD camera, so set
     the camera attribute here as part of shell mounting.
     """
@@ -403,16 +367,55 @@ def _hide_sensor_shell_geometry(root_prim_path: str) -> int:
     return hidden_count
 
 
+def _hide_canonical_gelpad_render_geometry(sides: tuple[str, ...]) -> dict[str, int]:
+    """Keep the rigid URDF gel visual out of TacEx's depth image.
+
+    The URDF gelpad is a rigid visual/contact approximation, not a deformable
+    optical surface.  If its opaque mesh remains renderable, the embedded
+    camera sees the same surface at every step and Taxim cannot observe the
+    grasped object.  Hide only mesh descendants of the canonical gelpad links;
+    their box colliders and contact sensors remain active.  The standalone URDF
+    viewers do not call this runtime helper, so assembly inspection is unchanged.
+    """
+
+    import omni.usd
+    from pxr import Usd, UsdGeom
+
+    stage = omni.usd.get_context().get_stage()
+    paths = phase2_sensor_prim_paths()
+    hidden_by_side: dict[str, int] = {}
+    for side in sides:
+        root_path = paths[side]["canonical_gelpad_link"]
+        root = stage.GetPrimAtPath(root_path)
+        if not root.IsValid():
+            raise RuntimeError(f"Canonical gelpad prim is missing: {root_path}")
+        hidden = 0
+        # Isaac's URDF importer makes ``visuals`` instanceable, so PrimRange
+        # does not descend into its mesh prototype.  Visibility on the
+        # instance root propagates to that prototype and leaves the sibling
+        # ``collisions`` prim untouched.
+        visuals = stage.GetPrimAtPath(f"{root_path}/visuals")
+        if visuals.IsValid():
+            UsdGeom.Imageable(visuals).MakeInvisible()
+            hidden = 1
+        else:
+            for prim in Usd.PrimRange(root):
+                if prim.GetTypeName() == "Mesh":
+                    UsdGeom.Imageable(prim).MakeInvisible()
+                    hidden += 1
+        hidden_by_side[side] = hidden
+    return hidden_by_side
+
+
 def _disable_sensor_shell_physics(root_prim_path: str) -> int:
     """Disable collision/rigid-body effects on hidden TacEx runtime shells.
 
     The canonical URDF owns the physical Robotiq pad / GSmini contact
-    approximation.  Phase 2 spawns TacEx Case/Gelpad USDs only to expose the
-    internal camera prim required by ``GelSightMiniCfg``.  If those referenced
-    USDs bring their own collision or rigid-body metadata, leaving it enabled
-    can create an invisible duplicate collider under the fingertip and make the
-    gripper look blocked or unable to close.  We therefore force physics off for
-    the runtime shell hierarchy without changing its local mount pose or camera.
+    approximation.  Phase 2 references TacEx ``Sensor.usd`` only to expose the
+    internal render camera and optical gel prim required by ``GelSightMiniCfg``.
+    If that asset brings collision or rigid-body metadata, leaving it enabled
+    can create an invisible duplicate collider and block the gripper.  We
+    therefore force physics off for the detached render hierarchy.
     """
 
     import omni.usd
@@ -533,43 +536,49 @@ def mount_phase2_sensor_shells(
     sides: tuple[str, ...] = ("left",),
     *,
     hide_render_geometry: bool = True,
+    hide_canonical_gelpad_geometry: bool = True,
     disable_physics_collisions: bool = True,
 ) -> dict[str, dict[str, object]]:
     """Spawn TacEx-compatible runtime sensor prims without editing the robot URDF.
 
-    The canonical URDF already owns the visible connector/GSmini assembly from
-    Phase 1.  TacEx tactile simulation additionally needs a case prim with an
-    internal ``/Camera`` child, which the STL-only URDF visuals do not provide.
-    These runtime shells therefore reference TacEx's GelSight Mini case/gelpad
-    USDs at the same mount poses, preserving the robot geometry source-of-truth
-    and mount offsets while exposing the camera prim expected by
-    ``GelSightMiniCfg``.
+    The canonical URDF owns visible and contact geometry.  Each render-only
+    TacEx ``Sensor.usd`` lives in a detached scope and is synchronized from the
+    corresponding canonical case body by
+    :func:`sync_phase2_sensor_shells_to_robot`.  A measured CAD-frame
+    registration aligns TacEx's source asset with the baked GSmini STL frame.
     """
 
-    _ensure_sensor_group_paths()
+    _validate_canonical_sensor_links(sides)
+    _ensure_runtime_sensor_scopes(sides)
+    hidden_canonical_gelpads = (
+        _hide_canonical_gelpad_render_geometry(sides)
+        if hide_canonical_gelpad_geometry
+        else {side: 0 for side in sides}
+    )
     spawned: dict[str, dict[str, object]] = {}
     for side in sides:
         if side not in {"left", "right"}:
             raise ValueError(f"side must be 'left' or 'right', got {side!r}")
         paths = phase2_sensor_prim_paths()[side]
-        offsets = _phase2_sensor_local_mount_offsets()
-        _delete_prim_if_present(paths["gelpad"])
-        _delete_prim_if_present(paths["case"])
-        _spawn_referenced_root(paths["case"], TACEX_GELSIGHT_CASE_USD, translation=offsets["case"])
-        _spawn_referenced_root(paths["gelpad"], TACEX_GELSIGHT_GELPAD_USD, translation=offsets["gelpad"])
+        _delete_prim_if_present(paths["sensor"])
+        _spawn_referenced_root(
+            paths["sensor"],
+            TACEX_GELSIGHT_SENSOR_USD,
+            translation=SENSOR_ASSET_TO_CASE_LINK_TRANSLATION_M,
+            orientation=SENSOR_ASSET_TO_CASE_LINK_QUAT_WXYZ,
+        )
         camera_clipping = _set_sensor_camera_clipping_range(paths["camera"])
         hidden_meshes = 0
         if hide_render_geometry:
-            hidden_meshes += _hide_sensor_shell_geometry(paths["case"])
-            hidden_meshes += _hide_sensor_shell_geometry(paths["gelpad"])
+            hidden_meshes += _hide_sensor_shell_geometry(paths["sensor"])
         disabled_physics_attrs = 0
         if disable_physics_collisions:
-            disabled_physics_attrs += _disable_sensor_shell_physics(paths["case"])
-            disabled_physics_attrs += _disable_sensor_shell_physics(paths["gelpad"])
+            disabled_physics_attrs += _disable_sensor_shell_physics(paths["sensor"])
         mount_check = validate_phase2_sensor_mounts((side,))[side]
         spawned[side] = {
             **paths,
             "hidden_render_meshes": hidden_meshes,
+            "hidden_canonical_gelpad_meshes": hidden_canonical_gelpads[side],
             "disabled_physics_attrs": disabled_physics_attrs,
             "camera_clipping": camera_clipping,
             "mount_check": mount_check,
@@ -578,7 +587,7 @@ def mount_phase2_sensor_shells(
 
 
 def validate_phase2_sensor_camera_prims(sides: tuple[str, ...] = ("left",)) -> dict[str, dict[str, object]]:
-    """Check whether TacEx case references expose the `/Camera` prim expected by GelSightMiniCfg."""
+    """Check the Camera prim embedded in each referenced TacEx Sensor.usd."""
 
     import omni.usd
     from pxr import UsdGeom
@@ -624,7 +633,13 @@ def _world_pose(prim_path: str) -> tuple[torch.Tensor, torch.Tensor]:
     return position, orientation
 
 
-def _set_world_pose(prim_path: str, position: torch.Tensor, orientation: torch.Tensor) -> None:
+def _set_world_pose(
+    prim_path: str,
+    position: torch.Tensor,
+    orientation: torch.Tensor,
+    *,
+    reset_xform_stack: bool = False,
+) -> None:
     import omni.usd
     from pxr import Gf, UsdGeom
 
@@ -639,12 +654,86 @@ def _set_world_pose(prim_path: str, position: torch.Tensor, orientation: torch.T
     xform = UsdGeom.Xformable(prim)
     xform.ClearXformOpOrder()
     xform.AddTransformOp().Set(transform)
+    xform.SetResetXformStack(reset_xform_stack)
 
 
-def _translation_error(a: torch.Tensor, b: torch.Tensor) -> float:
-    if a.device != b.device or a.dtype != b.dtype:
-        b = b.to(device=a.device, dtype=a.dtype)
-    return float(torch.max(torch.abs(a - b)).item())
+def sync_phase2_sensor_shells_to_robot(
+    robot: Articulation,
+    sides: tuple[str, ...] = ("left", "right"),
+    *,
+    sensor_instances: dict[str, Any] | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Synchronize render cameras from live PhysX articulation body poses.
+
+    Isaac's render camera view does not automatically follow a USD child that
+    is added below an articulation link after the simulation starts.  Read the
+    canonical case body pose from the articulation and author the detached
+    TacEx camera pose before each capture.
+    """
+
+    results: dict[str, dict[str, Any]] = {}
+    paths = phase2_sensor_prim_paths()
+    for side in sides:
+        if side not in paths:
+            raise ValueError(f"side must be 'left' or 'right', got {side!r}")
+        body_name = f"{side}_gelsight_mini_case"
+        body_ids = robot.find_bodies([body_name], preserve_order=True)[0]
+        if len(body_ids) != 1:
+            raise RuntimeError(f"Expected one articulation body named {body_name!r}, got {body_ids}")
+        case_pose = robot.data.body_pose_w[:, int(body_ids[0])]
+        device, dtype = case_pose.device, case_pose.dtype
+        sensor_position, sensor_orientation = math_utils.combine_frame_transforms(
+            case_pose[:, 0:3],
+            case_pose[:, 3:7],
+            torch.tensor([SENSOR_ASSET_TO_CASE_LINK_TRANSLATION_M], device=device, dtype=dtype),
+            torch.tensor([SENSOR_ASSET_TO_CASE_LINK_QUAT_WXYZ], device=device, dtype=dtype),
+        )
+        _, camera_orientation_opengl = math_utils.combine_frame_transforms(
+            sensor_position,
+            sensor_orientation,
+            torch.zeros((1, 3), device=device, dtype=dtype),
+            torch.tensor([SENSOR_CAMERA_LOCAL_QUAT_WXYZ], device=device, dtype=dtype),
+        )
+        # TiledCamera follows a post-start root translation, but it does not
+        # reliably compose an orientation authored on that ancestor.  Keep the
+        # detached hidden root axis-aligned and put the fully composed OpenGL
+        # orientation directly on /Camera.
+        _set_world_pose(
+            paths[side]["sensor"],
+            sensor_position[0],
+            torch.tensor([1.0, 0.0, 0.0, 0.0], device=device, dtype=dtype),
+            reset_xform_stack=False,
+        )
+        _set_world_pose(
+            paths[side]["camera"],
+            torch.zeros(3, device=device, dtype=dtype),
+            camera_orientation_opengl[0],
+            reset_xform_stack=False,
+        )
+        camera_view_synced = False
+        sensor = (sensor_instances or {}).get(side)
+        camera_view = getattr(getattr(sensor, "camera", None), "_view", None)
+        if camera_view is not None:
+            # This is the low-level XFormPrimView, so its quaternion is the
+            # authored OpenGL/USD camera convention (unlike Camera.set_world_poses,
+            # whose default input convention is ROS).
+            camera_view.set_world_poses(sensor_position, camera_orientation_opengl)
+            # RTX/TiledCamera consumes Fabric transforms while simulation is
+            # running; mirror the authored USD pose into Fabric as well.
+            camera_view.set_world_poses(sensor_position, camera_orientation_opengl, usd=False)
+            camera_view_synced = True
+        results[side] = {
+            "case_position_world_m": [float(value) for value in case_pose[0, 0:3].detach().cpu().tolist()],
+            "sensor_position_world_m": [float(value) for value in sensor_position[0].detach().cpu().tolist()],
+            "sensor_orientation_world_wxyz": [
+                float(value) for value in sensor_orientation[0].detach().cpu().tolist()
+            ],
+            "camera_orientation_world_opengl_wxyz": [
+                float(value) for value in camera_orientation_opengl[0].detach().cpu().tolist()
+            ],
+            "camera_view_synced": camera_view_synced,
+        }
+    return results
 
 
 def read_mount_debug_world_positions(prim_paths: dict[str, str]) -> dict[str, list[float]]:
@@ -755,9 +844,8 @@ def sync_mount_to_runtime_fingertip(
             _set_world_pose(visual_paths["case"], case_pos_batch[0], case_quat_batch[0])
         if prim_utils.is_prim_path_valid(visual_paths["gelpad"]):
             _set_world_pose(visual_paths["gelpad"], gelpad_pos_batch[0], gelpad_quat_batch[0])
-        # Runtime TacEx shells are children of the fingertip pad and use local
-        # mount offsets.  They follow the pad by USD hierarchy, so do not write
-        # world poses into those child prims here.
+        # Detached TacEx camera synchronization is handled separately by
+        # ``sync_phase2_sensor_shells_to_robot``.
 
     visible_paths = {"connector": visual_paths["connector"]}
     if include_gsmini:
@@ -778,22 +866,6 @@ def sync_mount_to_runtime_fingertip(
     return read_mount_debug_world_positions(visible_paths)
 
 
-def sync_dual_mounts_to_runtime_fingertips(
-    robot: Articulation | None = None,
-    include_gsmini: bool = True,
-    include_sensor_shell: bool = True,
-) -> dict[str, dict[str, list[float]]]:
-    return {
-        side: sync_mount_to_runtime_fingertip(
-            side,
-            robot=robot,
-            include_gsmini=include_gsmini,
-            include_sensor_shell=include_sensor_shell,
-        )
-        for side in ("left", "right")
-    }
-
-
 def run_single_side_mount_validation(
     sim,
     robot: Articulation,
@@ -809,6 +881,7 @@ def run_single_side_mount_validation(
         "local_case_mesh": GELSIGHT_MINI_CASE_MESH,
         "local_gelpad_mesh": GELSIGHT_MINI_GELPAD_MESH,
         "local_connector_mesh": GELSIGHT_CONNECTOR_MESH,
+        "tacex_sensor_usd": TACEX_GELSIGHT_SENSOR_USD,
         "tacex_case_usd": TACEX_GELSIGHT_CASE_USD,
         "tacex_gelpad_usd": TACEX_GELSIGHT_GELPAD_USD,
         "tacex_calibration_dir": TACEX_GELSIGHT_CALIB_DIR,
@@ -843,47 +916,12 @@ def run_single_side_mount_validation(
             "case": LEFT_CASE_PRIM_PATH,
             "gelpad": LEFT_GELPAD_PRIM_PATH,
         },
-        "relative_mount_vector_m": list(CONNECTOR_LOCAL_TRANSLATION),
+        "tacex_sensor_asset_registration": {
+            "translation_m": list(SENSOR_ASSET_TO_CASE_LINK_TRANSLATION_M),
+            "quat_wxyz": list(SENSOR_ASSET_TO_CASE_LINK_QUAT_WXYZ),
+        },
     }
     return results
-
-
-def _mount_follow_errors(robot: Articulation, side: str, include_sensor_shell: bool = True) -> dict[str, float]:
-    fingertip_pos, fingertip_quat = read_fingertip_world_pose(side, robot)
-    expected_poses = _compute_mount_pose_batches(fingertip_pos.unsqueeze(0), fingertip_quat.unsqueeze(0))
-    path_map = {
-        "left": {
-            "connector": LEFT_CONNECTOR_PRIM_PATH,
-            "case": LEFT_CASE_PRIM_PATH,
-            "gelpad": LEFT_GELPAD_PRIM_PATH,
-        },
-        "right": {
-            "connector": RIGHT_CONNECTOR_PRIM_PATH,
-            "case": RIGHT_CASE_PRIM_PATH,
-            "gelpad": RIGHT_GELPAD_PRIM_PATH,
-        },
-    }[side]
-    if include_sensor_shell:
-        sensor_paths = phase2_sensor_prim_paths()[side]
-        path_map = {
-            **path_map,
-            "sensor_case": sensor_paths["case"],
-            "sensor_gelpad": sensor_paths["gelpad"],
-        }
-    expected_name = {
-        "connector": "connector",
-        "case": "case",
-        "gelpad": "gelpad",
-        "sensor_case": "case",
-        "sensor_gelpad": "gelpad",
-    }
-    errors: dict[str, float] = {}
-    for name, path in path_map.items():
-        if not prim_utils.is_prim_path_valid(path):
-            continue
-        errors[f"{name}_m"] = _translation_error(_world_pose(path)[0], expected_poses[expected_name[name]][0][0])
-    errors["max_m"] = max(errors.values()) if errors else float("inf")
-    return errors
 
 
 def _gripper_target_delta_rad() -> float:

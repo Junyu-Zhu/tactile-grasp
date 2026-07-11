@@ -452,15 +452,25 @@ parser.add_argument(
     help="Disable the script-owned Isaac UI panel that displays live tactile_rgb images inside the main GUI.",
 )
 parser.add_argument("--no_tactile_live", action="store_true", help="Disable live tactile windows for headless debugging.")
-parser.add_argument(
-    "--disable_tactile_contact_imprint",
+contact_imprint_group = parser.add_mutually_exclusive_group()
+contact_imprint_group.add_argument(
+    "--enable_tactile_contact_imprint",
     action="store_true",
+    dest="tactile_contact_imprint_enabled",
     help=(
-        "Disable the Phase2 contact-geometry TacEx imprint fallback. By default, when the GSmini soft-link "
-        "AABB is touching the cube but TacEx camera depth still renders the no-contact background, the script "
-        "feeds a contact-centered height-map imprint through TacEx/Taxim so the live tactile_rgb window changes."
+        "Enable the optional Phase2 contact-geometry Taxim fallback when camera-derived tactile remains at "
+        "the no-contact background. The calibrated camera path is the default."
     ),
 )
+contact_imprint_group.add_argument(
+    "--disable_tactile_contact_imprint",
+    action="store_false",
+    dest="tactile_contact_imprint_enabled",
+    help=(
+        "Deprecated compatibility flag; camera-derived Taxim tactile is already the default."
+    ),
+)
+parser.set_defaults(tactile_contact_imprint_enabled=False)
 parser.add_argument(
     "--tactile_contact_imprint_depth_mm",
     type=float,
@@ -522,12 +532,14 @@ from ur5_phase2_mount import (
     clear_phase2_visual_prims,
     mount_phase2_sensor_shells,
     phase2_sensor_prim_paths,
+    sync_phase2_sensor_shells_to_robot,
     validate_phase2_sensor_camera_prims,
     validate_phase2_sensor_mounts,
 )
 from ur5_phase2_tactile import (
     DEFAULT_SENSOR_CAMERA_CLIPPING_RANGE,
     build_phase2_gsmini_cfg,
+    enable_phase2_tactile_debug_windows,
     initialize_phase2_sensor,
     update_phase2_sensor,
 )
@@ -554,11 +566,11 @@ GSMINI_BASE_LINK_AABB_IN_SENSOR_FRAME_M = {
 }
 GSMINI_SENSOR_ASSEMBLY_AABB_IN_SENSOR_FRAME_M = {
     # Union of GSmini connector, case/base, and soft gelpad mesh collision
-    # bounds in the shared sensor frame.  Positive Y now includes the 41 mm
-    # gsmini adaptor that replaces the legacy 24 mm connector.  The Robotiq pad
+    # bounds in the shared sensor frame.  Positive Y includes the current 30 mm
+    # adaptor_3 mesh.  The Robotiq pad
     # remains on the inner_finger body and is audited separately.
     "min": (-0.01710485, -0.02524673, -0.05344392),
-    "max": (0.01389515, 0.02531280, 0.02155608),
+    "max": (0.01389515, 0.01431280, 0.02155608),
 }
 GSMINI_SOFT_AABB_CONTACT_MARGIN_M = 0.002
 
@@ -578,7 +590,8 @@ URDF_GSMINI_FULL_COLLISION_Z_MAX_M = 0.08586
 URDF_GSMINI_COLLISION_EXTENSION_BEYOND_PAD_M = URDF_GSMINI_SOFT_COLLISION_Z_MAX_M - URDF_PAD_COLLISION_Z_MAX_M
 URDF_HARD_SENSOR_COLLISION_SCALE_NOTE = (
     "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; "
-    "connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors"
+    "the connector uses the adaptor mesh for visual and collision, the case remains visual-only, "
+    "and fixed joints preserve the calibrated mount chain and camera link anchors"
 )
 
 
@@ -643,25 +656,7 @@ def _write_result_artifacts(result: dict[str, Any]) -> Path:
 def _enable_tactile_debug_windows(sides: tuple[str, ...], *, include_camera_depth: bool) -> None:
     """Turn on TacEx GUI windows for tactile/contact images."""
 
-    import omni.usd
-
-    stage = omni.usd.get_context().get_stage()
-    all_paths = phase2_sensor_prim_paths()
-    for side in sides:
-        case_path = all_paths[side]["case"]
-        prim = stage.GetPrimAtPath(case_path)
-        if not prim.IsValid():
-            print(f"[WARN] Cannot enable tactile window; missing prim: {case_path}")
-            continue
-        attr_names = ["debug_tactile_rgb"]
-        if include_camera_depth:
-            attr_names.append("debug_camera_depth")
-        for attr_name in attr_names:
-            attr = prim.GetAttribute(attr_name)
-            if not attr:
-                print(f"[WARN] TacEx {attr_name} attribute missing on: {case_path}")
-                continue
-            attr.Set(True)
+    enable_phase2_tactile_debug_windows(sides, include_camera_depth=include_camera_depth)
 
     if args_cli.dock_tactile_windows_right:
         # TacEx creates the actual image windows lazily inside its sensor update
@@ -810,7 +805,12 @@ TACTILE_CONTACT_IMPRINT_BASELINES: dict[str, torch.Tensor] = {}
 TACTILE_CONTACT_IMPRINT_STATS: dict[str, dict[str, Any]] = {}
 
 
-def setup_tactile_live_sensors(device: str, *, sides: tuple[str, ...]) -> list[tuple[str, Any]]:
+def setup_tactile_live_sensors(
+    device: str,
+    *,
+    sides: tuple[str, ...],
+    robot: Articulation,
+) -> list[tuple[str, Any]]:
     """Mount Phase2 TacEx shells and initialize live tactile RGB sensors."""
 
     global TACTILE_PANEL, TACTILE_MOUNT_INFO, TACTILE_CONTACT_IMPRINT_BASELINES, TACTILE_CONTACT_IMPRINT_STATS
@@ -823,6 +823,7 @@ def setup_tactile_live_sensors(device: str, *, sides: tuple[str, ...]) -> list[t
 
     clear_phase2_visual_prims()
     mounted = mount_phase2_sensor_shells(sides, hide_render_geometry=True)
+    initial_sensor_sync = sync_phase2_sensor_shells_to_robot(robot, sides)
     camera_check = validate_phase2_sensor_camera_prims(sides)
     mount_check = validate_phase2_sensor_mounts(sides)
     failures = [side for side, check in mount_check.items() if not check["passed"]]
@@ -858,6 +859,7 @@ def setup_tactile_live_sensors(device: str, *, sides: tuple[str, ...]) -> list[t
     TACTILE_MOUNT_INFO = {
         "enabled": True,
         "mounted": mounted,
+        "initial_sensor_sync": initial_sensor_sync,
         "camera_check": camera_check,
         "mount_check": mount_check,
         "runtime_shell_policy": (
@@ -932,7 +934,7 @@ def _inner_finger_stage_audit() -> dict[str, Any]:
     return {
         "prim_status": audited,
         "interpretation": (
-            "Gray Stage-tree entries under phase2_tacex are expected when TacEx runtime shell meshes are hidden "
+            "Gray Stage-tree entries under Phase3TacExSensors are expected when TacEx runtime meshes are hidden "
             "or their physics is disabled. Canonical URDF gelpad contact is validated separately by "
             "filtered contact forces and GSmini soft-mesh AABB overlap."
         ),
@@ -1032,10 +1034,10 @@ def _geometry_contact_imprint_depth_mm(side_geometry: dict[str, Any]) -> float:
 def _apply_taxim_contact_imprint(sensor: Any, output: dict[str, Any], *, side: str, side_geometry: dict[str, Any]) -> dict[str, Any]:
     """Feed a soft-contact height-map patch through TacEx/Taxim and replace tactile_rgb.
 
-    TacEx's normal path renders tactile_rgb from the hidden sensor camera depth.
+    TacEx's normal path renders tactile_rgb from the detached sensor camera depth.
     In this UR5/Robotiq assembly the canonical URDF owns the visible/collision
-    GSmini geometry while a hidden TacEx shell provides the camera.  Depending
-    on shell/camera occlusion and clipping, the camera can keep seeing the
+    GSmini geometry while a hidden TacEx render asset provides the camera.  Depending
+    on camera occlusion and clipping, the camera can keep seeing the
     no-contact background even after the canonical soft-link mesh touches the
     cube.  This fallback is intentionally narrow: it only runs when contact
     geometry says this side is touching and the current RGB frame still matches
@@ -1120,14 +1122,14 @@ def _maybe_apply_tactile_contact_imprint(
     )
     stats["frames"] = int(stats.get("frames", 0)) + 1
 
-    if args_cli.disable_tactile_contact_imprint or robot is None or grasp_object is None:
+    if not args_cli.tactile_contact_imprint_enabled or robot is None or grasp_object is None:
         if side not in TACTILE_CONTACT_IMPRINT_BASELINES:
             TACTILE_CONTACT_IMPRINT_BASELINES[side] = frame.detach().clone()
             stats["baseline_frames"] = int(stats.get("baseline_frames", 0)) + 1
         stats["enabled"] = False
         stats["reason"] = (
-            "--disable_tactile_contact_imprint"
-            if args_cli.disable_tactile_contact_imprint
+            "camera-derived Taxim default; optional contact imprint not enabled"
+            if not args_cli.tactile_contact_imprint_enabled
             else "robot/object geometry unavailable for this update"
         )
         return
@@ -1208,6 +1210,12 @@ def _update_tactile_sensors(
     if not sensors:
         return
     dt = sim.get_physics_dt()
+    if robot is not None:
+        sync_phase2_sensor_shells_to_robot(
+            robot,
+            tuple(side for side, _ in sensors),
+            sensor_instances=dict(sensors),
+        )
     for side, sensor in sensors:
         output = update_phase2_sensor(sensor, sim, dt=dt)
         _maybe_apply_tactile_contact_imprint(side, sensor, output, robot=robot, grasp_object=grasp_object)
@@ -2717,7 +2725,8 @@ def _static_geometry_audit_payload() -> dict[str, Any]:
             "The canonical URDF includes explicit Robotiq finger/pad collisions and matching "
             "TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. "
             "The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, "
-            "so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+            "so contact-stop cross-checks the soft mesh AABB; the connector also has its adaptor mesh collider, "
+            "while the case/base remains visual-only."
         ),
     }
 
@@ -3136,7 +3145,7 @@ def run_grasp_test(
     contact_sensors: dict[str, ContactSensor],
 ) -> dict[str, Any]:
     sides = ("left", "right") if args_cli.show_right_tactile else ("left",)
-    tactile_sensors = setup_tactile_live_sensors(args_cli.device, sides=sides)
+    tactile_sensors = setup_tactile_live_sensors(args_cli.device, sides=sides, robot=robot)
     budget = StepBudget(args_cli.max_steps)
     attempts = _attempt_grid(args_cli.max_attempts)
     results = []
@@ -3183,7 +3192,7 @@ def run_grasp_test(
                 "disable_force_control": args_cli.disable_force_control,
                 "soft_contact_stop": False,
                 "soft_center_tcp": "virtual_soft_center_tcp_average_of_left_right_gsmini_soft_mesh_centers",
-                "tactile_contact_imprint_enabled": not args_cli.disable_tactile_contact_imprint,
+                "tactile_contact_imprint_enabled": args_cli.tactile_contact_imprint_enabled,
                 "tactile_contact_imprint_depth_mm": args_cli.tactile_contact_imprint_depth_mm,
                 "tactile_contact_imprint_background_threshold": args_cli.tactile_contact_imprint_background_threshold,
             },
@@ -3334,7 +3343,7 @@ def run_grasp_test(
             "script_tactile_panel": bool(TACTILE_PANEL and TACTILE_PANEL.enabled),
             "script_tactile_panel_stats": TACTILE_PANEL.stats if TACTILE_PANEL is not None else {},
             "contact_imprint_fallback": {
-                "enabled": not args_cli.disable_tactile_contact_imprint,
+                "enabled": args_cli.tactile_contact_imprint_enabled,
                 "nominal_depth_mm": args_cli.tactile_contact_imprint_depth_mm,
                 "background_threshold_mean_abs_delta": args_cli.tactile_contact_imprint_background_threshold,
                 "stats": TACTILE_CONTACT_IMPRINT_STATS,

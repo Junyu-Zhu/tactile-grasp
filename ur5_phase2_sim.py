@@ -72,6 +72,7 @@ from ur5_phase2_mount import (
     run_gripper_mount_compatibility_validation,
     run_single_side_mount_validation,
     source_of_truth_summary,
+    sync_phase2_sensor_shells_to_robot,
     sync_left_mount_to_runtime_fingertip,
     validate_phase2_sensor_camera_prims,
     validate_phase2_sensor_mounts,
@@ -80,6 +81,7 @@ from ur5_phase2_tactile import (
     Phase2TactileOptions,
     append_phase2_issue,
     build_phase2_gsmini_cfg,
+    enable_phase2_tactile_debug_windows,
     initialize_phase2_sensor,
     run_phase2_tactile_validation,
     summarize_exception_for_log,
@@ -251,27 +253,6 @@ def run_preview(sim, robots, bananas, origins, robot_urdf_path, robot_usd_path) 
             break
 
 
-def _enable_phase2_tactile_debug_windows(include_camera_depth: bool = True) -> None:
-    """Turn on TacEx GUI image windows for mounted Phase2 sensor case prims."""
-
-    import omni.usd
-
-    stage = omni.usd.get_context().get_stage()
-    for side, paths in phase2_sensor_prim_paths().items():
-        case_prim = stage.GetPrimAtPath(paths["case"])
-        if not case_prim.IsValid():
-            print(f"[WARN] Cannot enable {side} tactile window; missing prim: {paths['case']}")
-            continue
-        for attr_name in ("debug_tactile_rgb", "debug_camera_depth"):
-            if attr_name == "debug_camera_depth" and not include_camera_depth:
-                continue
-            attr = case_prim.GetAttribute(attr_name)
-            if not attr:
-                print(f"[WARN] TacEx debug attribute not found on {paths['case']}: {attr_name}")
-                continue
-            attr.Set(True)
-
-
 def run_tactile_live_preview(sim, robots, bananas, origins, robot_urdf_path, robot_usd_path) -> None:
     """Run a GUI loop that continuously updates mounted TacEx GelSight outputs."""
 
@@ -291,6 +272,7 @@ def run_tactile_live_preview(sim, robots, bananas, origins, robot_urdf_path, rob
 
     clear_phase2_visual_prims()
     mounted = mount_phase2_sensor_shells(("left", "right"), hide_render_geometry=True)
+    initial_sensor_sync = sync_phase2_sensor_shells_to_robot(robot, ("left", "right"))
     camera_check = validate_phase2_sensor_camera_prims(("left", "right"))
     mount_check = validate_phase2_sensor_mounts(("left", "right"))
     failed = [side for side, check in mount_check.items() if not check["passed"]]
@@ -314,7 +296,7 @@ def run_tactile_live_preview(sim, robots, bananas, origins, robot_urdf_path, rob
         sensor = initialize_phase2_sensor(cfg)
         sensors.append((side, sensor))
 
-    _enable_phase2_tactile_debug_windows(include_camera_depth=True)
+    enable_phase2_tactile_debug_windows(("left", "right"), include_camera_depth=True)
     camera_debug = _set_phase2_debug_camera(sim, robot)
     report_scene_state(origins, robot_urdf_path, robot_usd_path)
     print("[INFO] Phase 2 tactile live preview ready.")
@@ -324,6 +306,7 @@ def run_tactile_live_preview(sim, robots, bananas, origins, robot_urdf_path, rob
             {
                 "debug_camera": camera_debug,
                 "mounted_sensor_prims": mounted,
+                "initial_sensor_sync": initial_sensor_sync,
                 "sensor_paths": phase2_sensor_prim_paths(),
                 "windows": ["debug_tactile_rgb", "debug_camera_depth"],
             },
@@ -343,6 +326,11 @@ def run_tactile_live_preview(sim, robots, bananas, origins, robot_urdf_path, rob
             item.update(sim_dt)
         for banana in banana_list:
             banana.update(sim_dt)
+        sync_phase2_sensor_shells_to_robot(
+            robot,
+            ("left", "right"),
+            sensor_instances=dict(sensors),
+        )
         for _, sensor in sensors:
             update_phase2_sensor(sensor, sim, dt=sim_dt)
         step_count += 1

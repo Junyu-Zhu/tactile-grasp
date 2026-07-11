@@ -121,15 +121,28 @@ parser.add_argument("--phase3_tactile_width", type=int, default=320)
 parser.add_argument("--phase3_tactile_height", type=int, default=240)
 parser.add_argument("--include_camera_rgb", action="store_true", help="Also log TacEx camera RGB when available.")
 parser.add_argument("--no_camera_depth", action="store_true", help="Do not log camera_depth.")
+parser.add_argument(
+    "--tactile_debug_vis",
+    action="store_true",
+    help="Open TacEx live tactile_rgb windows for every selected GSmini sensor (GUI runs).",
+)
 parser.add_argument("--disable_tactile", action="store_true", help="Run protocol without TacEx tactile sensors.")
 parser.add_argument("--no_tactile_arrays", action="store_true", help="Do not save .npy tactile arrays.")
 parser.add_argument("--no_preview_images", action="store_true", help="Do not save PNG/PPM preview images.")
-parser.add_argument(
+contact_imprint_group = parser.add_mutually_exclusive_group()
+contact_imprint_group.add_argument(
+    "--enable_tactile_contact_imprint",
+    action="store_true",
+    help=(
+        "Use the optional Phase3 geometry/force-to-Taxim fallback instead of relying only on camera-derived "
+        "height maps. The calibrated camera path is the default."
+    ),
+)
+contact_imprint_group.add_argument(
     "--disable_tactile_contact_imprint",
     action="store_true",
     help=(
-        "Disable Phase3 continuous contact-imprint rendering. By default Phase3 feeds contact-geometry "
-        "indentation into TacEx/Taxim so tactile_rgb varies through close and micro-lift."
+        "Deprecated compatibility flag; camera-derived Taxim tactile is already the default."
     ),
 )
 parser.add_argument("--tactile_imprint_min_depth_mm", type=float, default=0.08)
@@ -259,10 +272,11 @@ def main() -> int:
         tactile_resolution=(args_cli.phase3_tactile_width, args_cli.phase3_tactile_height),
         include_camera_depth=not args_cli.no_camera_depth,
         include_camera_rgb=args_cli.include_camera_rgb,
+        tactile_debug_vis=args_cli.tactile_debug_vis,
         disable_tactile=args_cli.disable_tactile,
         save_tactile_arrays=not args_cli.no_tactile_arrays,
         save_preview_images=not args_cli.no_preview_images,
-        tactile_contact_imprint_enabled=not args_cli.disable_tactile_contact_imprint,
+        tactile_contact_imprint_enabled=args_cli.enable_tactile_contact_imprint,
         tactile_imprint_min_depth_mm=args_cli.tactile_imprint_min_depth_mm,
         tactile_imprint_max_depth_mm=args_cli.tactile_imprint_max_depth_mm,
         tactile_imprint_depth_per_mm_overlap=args_cli.tactile_imprint_depth_per_mm_overlap,

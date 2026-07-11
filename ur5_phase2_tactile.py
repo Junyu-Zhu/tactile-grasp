@@ -18,6 +18,12 @@ from typing import Any
 
 import torch
 
+from ur5_gsmini_contract import (
+    OFFICIAL_GELPAD_TO_CAMERA_MIN_DISTANCE_M,
+    OFFICIAL_TACTILE_RESOLUTION,
+    RUNTIME_CAMERA_CLIPPING_RANGE_M,
+    RUNTIME_EFFECTIVE_GELPAD_HEIGHT_M,
+)
 from ur5_phase2_mount import (
     LEFT_SENSOR_CASE_PRIM_PATH,
     PHASE2_SCOPE_SENTENCE,
@@ -29,6 +35,7 @@ from ur5_phase2_mount import (
     phase2_sensor_prim_paths,
     run_dual_side_mount_validation,
     source_of_truth_summary,
+    sync_phase2_sensor_shells_to_robot,
     tacex_sensor_model_summary,
     validate_phase2_sensor_camera_prims,
     validate_phase2_sensor_mounts,
@@ -44,8 +51,8 @@ _TACEX_SOURCE_DIRS = (
     _WORKSPACE_ROOT / "TacEx" / "source" / "tacex_tasks",
 )
 
-DEFAULT_TACTILE_RESOLUTION = (320, 240)
-DEFAULT_SENSOR_CAMERA_CLIPPING_RANGE = (0.024, 0.040)
+DEFAULT_TACTILE_RESOLUTION = OFFICIAL_TACTILE_RESOLUTION
+DEFAULT_SENSOR_CAMERA_CLIPPING_RANGE = RUNTIME_CAMERA_CLIPPING_RANGE_M
 DEFAULT_CONTACT_REPEATS = 3
 STATIC_CONTACT_PROBE_PATH = "/World/Phase2TactileContactProbe"
 STATIC_CONTACT_DISTANCE_M = 0.026
@@ -95,17 +102,15 @@ def build_phase2_gsmini_cfg(
 ):
     """Build a TacEx GelSightMiniCfg for the Phase 2 runtime sensor prim.
 
-    The values intentionally mirror TacEx's `gsmini_cfg.py`: `/Camera`, 320x240
-    default resolution, Taxim calibration folder, 0.024m gelpad-to-camera
-    minimum distance, and GelSight Mini dimensions.  The far clipping plane is
-    widened from TacEx's static 0.029 m default for this UR5/Robotiq mount so
-    the camera still sees the cube when the URDF soft-link collision touches
-    before the TacEx shell's exact visual gelpad plane.
+    Start from TacEx's own GPU-Taxim preset and preserve its renderer,
+    calibration images, camera frame, and nominal camera-to-gel distance.
+    Runtime paths/outputs are selected here, while the far clipping plane and
+    effective optical gel thickness use measured rigid-contact calibrations.
+    Those two optical adjustments do not change the canonical URDF geometry.
     """
 
     configure_tacex_python_paths()
-    from tacex.simulation_approaches.gpu_taxim import TaximSimulatorCfg  # type: ignore
-    from tacex_assets.sensors.gelsight_mini.gsmini_cfg import GelSightMiniCfg  # type: ignore
+    from tacex_assets import GELSIGHT_MINI_TAXIM_CFG  # type: ignore
 
     prim_paths = {"left": LEFT_SENSOR_CASE_PRIM_PATH, "right": RIGHT_SENSOR_CASE_PRIM_PATH}
     if side not in prim_paths:
@@ -119,9 +124,9 @@ def build_phase2_gsmini_cfg(
         camera_data_types.append("rgb")
         data_types.append("camera_rgb")
 
-    cfg = GelSightMiniCfg(
+    cfg = GELSIGHT_MINI_TAXIM_CFG.replace(
         prim_path=prim_paths[side],
-        sensor_camera_cfg=GelSightMiniCfg.SensorCameraCfg(
+        sensor_camera_cfg=GELSIGHT_MINI_TAXIM_CFG.sensor_camera_cfg.replace(
             prim_path_appendix=SENSOR_CAMERA_PRIM_PATH_APPENDIX,
             update_period=0,
             resolution=resolution,
@@ -135,10 +140,10 @@ def build_phase2_gsmini_cfg(
         device=device,
         debug_vis=debug_vis,
     )
-    cfg.optical_sim_cfg = TaximSimulatorCfg(
+    cfg.optical_sim_cfg = cfg.optical_sim_cfg.replace(
         calib_folder_path=TACEX_GELSIGHT_CALIB_DIR.as_posix(),
-        gelpad_height=cfg.gelpad_dimensions.height,
-        gelpad_to_camera_min_distance=0.024,
+        gelpad_height=RUNTIME_EFFECTIVE_GELPAD_HEIGHT_M,
+        gelpad_to_camera_min_distance=OFFICIAL_GELPAD_TO_CAMERA_MIN_DISTANCE_M,
         with_shadow=False,
         tactile_img_res=resolution,
         device=device,
@@ -157,6 +162,35 @@ def initialize_phase2_sensor(cfg):
         sensor._initialize_impl()  # noqa: SLF001 - IsaacLab standalone initialization hook.
         sensor._is_initialized = True  # noqa: SLF001
     return sensor
+
+
+def enable_phase2_tactile_debug_windows(
+    sides: tuple[str, ...],
+    *,
+    include_camera_depth: bool = False,
+) -> dict[str, dict[str, bool]]:
+    """Enable TacEx's built-in live windows for the selected sensor roots."""
+
+    import omni.usd
+
+    stage = omni.usd.get_context().get_stage()
+    paths = phase2_sensor_prim_paths()
+    result: dict[str, dict[str, bool]] = {}
+    for side in sides:
+        sensor_prim = stage.GetPrimAtPath(paths[side]["sensor"])
+        if not sensor_prim.IsValid():
+            raise RuntimeError(f"Cannot enable TacEx debug output; missing sensor prim: {paths[side]['sensor']}")
+        requested = ["debug_tactile_rgb"]
+        if include_camera_depth:
+            requested.append("debug_camera_depth")
+        result[side] = {}
+        for attr_name in requested:
+            attr = sensor_prim.GetAttribute(attr_name)
+            enabled = bool(attr)
+            if attr:
+                attr.Set(True)
+            result[side][attr_name] = enabled
+    return result
 
 
 def update_phase2_sensor(sensor, sim, *, dt: float) -> dict[str, torch.Tensor]:
@@ -354,6 +388,7 @@ def run_phase2_tactile_validation(
 
     clear_phase2_visual_prims()
     shell_spawn = mount_phase2_sensor_shells(("left",), hide_render_geometry=True)
+    initial_sensor_sync = sync_phase2_sensor_shells_to_robot(robot, ("left",))
     camera_prim_check = validate_phase2_sensor_camera_prims(("left",))
     sensor_mount_check = validate_phase2_sensor_mounts(("left",))
     if not camera_prim_check["left"]["camera_exists"]:
@@ -363,7 +398,7 @@ def run_phase2_tactile_validation(
         )
     if not sensor_mount_check["left"]["passed"]:
         raise RuntimeError(
-            "Phase2 TacEx sensor shell is not mounted under the canonical left fingertip: "
+            "Phase2 TacEx sensor asset is not mapped to the canonical left case body: "
             f"{json.dumps(sensor_mount_check['left'], ensure_ascii=False)}"
         )
     sensor_cfg = build_phase2_gsmini_cfg(
@@ -417,6 +452,7 @@ def run_phase2_tactile_validation(
             cycles=5,
             spawn_debug_visuals=False,
         )
+        dual_sensor_sync = sync_phase2_sensor_shells_to_robot(robot, ("left", "right"))
         dual_camera_prim_check = validate_phase2_sensor_camera_prims(("left", "right"))
         dual_sensor_mount_check = validate_phase2_sensor_mounts(("left", "right"))
         missing_dual_cameras = [
@@ -432,7 +468,7 @@ def run_phase2_tactile_validation(
         ]
         if failed_dual_mounts:
             raise RuntimeError(
-                "Phase2 dual TacEx sensor shells are not mounted under canonical fingertips: "
+                "Phase2 dual TacEx sensor assets are not mapped to canonical case bodies: "
                 f"{json.dumps(dual_sensor_mount_check, ensure_ascii=False)}"
             )
         # Step 7 requires left and right no-contact outputs in the final
@@ -475,6 +511,7 @@ def run_phase2_tactile_validation(
     else:
         left_dual_no_contact = None
         dual_sensor_mount_check = None
+        dual_sensor_sync = None
 
     summary: dict[str, Any] = {
         "trial_id": trial_id,
@@ -485,6 +522,8 @@ def run_phase2_tactile_validation(
         "sensor_camera_prim_check": validate_phase2_sensor_camera_prims(("left", "right")),
         "sensor_shell_mount_check": validate_phase2_sensor_mounts(("left", "right")),
         "sensor_shell_spawn": shell_spawn,
+        "initial_sensor_sync": initial_sensor_sync,
+        "dual_sensor_sync": dual_sensor_sync,
         "config": {
             "resolution": list(options.resolution),
             "include_camera_depth": options.include_camera_depth,

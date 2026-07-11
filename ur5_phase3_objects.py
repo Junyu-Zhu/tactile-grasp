@@ -159,7 +159,11 @@ CUBE_PROFILE = Phase3ObjectProfile(
     mass_kg=0.08,
     root_rot_wxyz=(1.0, 0.0, 0.0, 0.0),
     grasp_center_local_m=(0.0, 0.0, 0.0),
-    close_rad=0.25,
+    # The calibrated adaptor/GSmini mount needs about 0.42 rad before its soft
+    # surfaces reach a 40 mm cube.  A 0.45 rad request gives the force-stop loop
+    # enough travel to establish bilateral contact without approaching the
+    # Robotiq finger joint's 0.8 rad URDF limit.
+    close_rad=0.45,
     stable_force_threshold_n=1.5,
     high_force_threshold_n=12.0,
     max_close_object_lift_m=0.0025,

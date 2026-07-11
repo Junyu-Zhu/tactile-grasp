@@ -135,7 +135,8 @@ class NewGsminiUrdfTest(unittest.TestCase):
         scene_text = (REPO_ROOT / "ur5_phase1_scene.py").read_text(encoding="utf-8")
         mount_text = (REPO_ROOT / "ur5_phase2_mount.py").read_text(encoding="utf-8")
         control_text = (REPO_ROOT / "ur5_phase1_control.py").read_text(encoding="utf-8")
-        phase3_motion_text = (REPO_ROOT / "ur5_phase3_motion.py").read_text(encoding="utf-8")
+        phase3_geometry_text = (REPO_ROOT / "ur5_phase3_geometry.py").read_text(encoding="utf-8")
+        gsmini_contract_text = (REPO_ROOT / "ur5_gsmini_contract.py").read_text(encoding="utf-8")
         viewer_text = (REPO_ROOT / "environment" / "view_ur5_robotiq_GSmini_pybullet.py").read_text(
             encoding="utf-8"
         )
@@ -145,8 +146,9 @@ class NewGsminiUrdfTest(unittest.TestCase):
         self.assertIn("ur5_robotiq_GSmini_new.urdf", viewer_text)
         self.assertIn("left_inner_finger", mount_text)
         self.assertIn("right_inner_finger", mount_text)
-        self.assertIn("left_inner_finger", phase3_motion_text)
-        self.assertIn("right_inner_finger", phase3_motion_text)
+        self.assertIn("left_gelsight_mini_gelpad", phase3_geometry_text)
+        self.assertIn("right_gelsight_mini_gelpad", phase3_geometry_text)
+        self.assertIn('case_link = f"{robot_path}/{side}_gelsight_mini_case"', gsmini_contract_text)
         self.assertIn('"left_inner_finger_joint"', control_text)
         self.assertIn('"right_inner_finger_joint"', control_text)
 
