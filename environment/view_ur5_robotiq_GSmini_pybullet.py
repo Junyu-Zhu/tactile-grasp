@@ -1,26 +1,39 @@
 from __future__ import annotations
 
 import argparse
+from math import radians
 from pathlib import Path
 import time
 
 
 FINGER_MIMIC = {
     'finger_joint': 1.0,
-    'left_inner_finger_joint': -1.0,
     'left_inner_knuckle_joint': 1.0,
     'right_outer_knuckle_joint': 1.0,
-    'right_inner_finger_joint': -1.0,
     'right_inner_knuckle_joint': 1.0,
 }
 
+# This is the Isaac Sim Phase 1 reset pose from
+# ``ur5_phase1_control.RESET_ARM_JOINT_POS_DEG``.  Forward kinematics of the
+# same URDF puts the Robotiq/GSmini tool Z axis at world -Z (within about
+# 0.2 deg), which is the vertical-down visual pose used in Isaac Sim.
+ISAAC_VERTICAL_DOWN_ARM_JOINTS_DEG = {
+    'shoulder_pan_joint': 1.8,
+    'shoulder_lift_joint': -87.3,
+    'elbow_joint': 50.9,
+    'wrist_1_joint': -53.6,
+    'wrist_2_joint': -90.1,
+    'wrist_3_joint': -2.6,
+}
+ARM_HOLD_FORCE = 500.0
+
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description='Load and preview ur5_robotiq_GSmini.urdf in PyBullet.')
+    parser = argparse.ArgumentParser(description='Load and preview ur5_robotiq_GSmini_new.urdf in PyBullet.')
     parser.add_argument(
         '--urdf',
         type=Path,
-        default=Path(__file__).resolve().parent / 'ur5_robotiq_GSmini' / 'urdf' / 'ur5_robotiq_GSmini.urdf',
+        default=Path(__file__).resolve().parent / 'ur5_robotiq_GSmini' / 'urdf' / 'ur5_robotiq_GSmini_new.urdf',
         help='Path to the URDF to load.',
     )
     parser.add_argument('--direct', action='store_true', help='Use PyBullet DIRECT mode instead of GUI.')
@@ -44,6 +57,28 @@ def collect_joint_indices(pybullet_module, robot_id):
         if joint_type == pybullet_module.JOINT_REVOLUTE:
             revolute_indices.append(joint_index)
     return name_to_index, revolute_indices
+
+
+def set_isaac_vertical_down_arm_pose(pybullet_module, robot_id, name_to_index) -> None:
+    """Set and hold the same vertical-down arm pose used by Isaac Sim."""
+
+    for joint_name, target_deg in ISAAC_VERTICAL_DOWN_ARM_JOINTS_DEG.items():
+        joint_index = name_to_index.get(joint_name)
+        if joint_index is None:
+            print(f'[WARN] arm joint not found, cannot set Isaac vertical-down pose: {joint_name}')
+            continue
+        target_rad = radians(target_deg)
+        # Reset first so the GUI opens in the calibrated pose instead of
+        # visibly travelling from the zero configuration.
+        pybullet_module.resetJointState(robot_id, joint_index, target_rad)
+        pybullet_module.setJointMotorControl2(
+            bodyUniqueId=robot_id,
+            jointIndex=joint_index,
+            controlMode=pybullet_module.POSITION_CONTROL,
+            targetPosition=target_rad,
+            force=ARM_HOLD_FORCE,
+        )
+    print('[INFO] Applied Isaac vertical-down arm pose (same Phase 1 reset joint targets).')
 
 
 def main() -> int:
@@ -102,6 +137,8 @@ def main() -> int:
                 targetPosition=0.0,
                 force=80.0,
             )
+
+        set_isaac_vertical_down_arm_pose(p, robot_id, name_to_index)
 
         if mode == p.GUI:
             p.resetDebugVisualizerCamera(

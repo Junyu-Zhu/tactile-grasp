@@ -34,6 +34,10 @@ from typing import Any
 
 from isaaclab.app import AppLauncher
 
+from ur5_isaac_app import exit_headless_without_kit_shutdown, patch_headless_viewport_wait
+
+patch_headless_viewport_wait()
+
 parser = argparse.ArgumentParser(description="Phase 2 UR5 4 cm cube grasp with live GelSight tactile display.")
 parser.add_argument("--num_envs", type=int, default=1, help="Number of environments to spawn; only 1 is supported.")
 parser.add_argument("--max_steps", type=int, default=0, help="Global simulation-step budget. 0 disables the budget.")
@@ -314,7 +318,7 @@ parser.add_argument(
 parser.add_argument(
     "--object_lift_guard_trigger_fraction",
     type=float,
-    default=1.0,
+    default=0.5,
     help=(
         "Trigger the close rewind when lift reaches this fraction of --max_close_object_lift. "
         "The artifact still reports pass/fail against --max_close_object_lift; this early trigger leaves "
@@ -550,10 +554,11 @@ GSMINI_BASE_LINK_AABB_IN_SENSOR_FRAME_M = {
 }
 GSMINI_SENSOR_ASSEMBLY_AABB_IN_SENSOR_FRAME_M = {
     # Union of GSmini connector, case/base, and soft gelpad mesh collision
-    # bounds in the shared sensor frame.  The Robotiq pad remains on the
-    # inner_finger body, so it is audited separately by the static URDF values.
+    # bounds in the shared sensor frame.  Positive Y now includes the 41 mm
+    # gsmini adaptor that replaces the legacy 24 mm connector.  The Robotiq pad
+    # remains on the inner_finger body and is audited separately.
     "min": (-0.01710485, -0.02524673, -0.05344392),
-    "max": (0.01389515, 0.00831280, 0.02155608),
+    "max": (0.01389515, 0.02531280, 0.02155608),
 }
 GSMINI_SOFT_AABB_CONTACT_MARGIN_M = 0.002
 
@@ -3464,9 +3469,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    exit_code = 1
-    try:
-        exit_code = main()
-    finally:
-        simulation_app.close(wait_for_replicator=False)
+    exit_code = main()
+    if args_cli.headless:
+        exit_headless_without_kit_shutdown(exit_code)
+    simulation_app.close(wait_for_replicator=False)
     raise SystemExit(exit_code)

@@ -1,8 +1,8 @@
 # Force-Slip Decoder Phase 1/2 规划草案
 
-Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预处理/颜色域一致性门禁、训练数据 manifest/hash、trajectory-level split 实际消费验收、B→C 硬门禁、slip_horizon train/val 定版约束，并固定 B/C 门禁阈值、consistency diagnostic 指标定义和 GSmini 预处理链表述；本版新增 force-slip 代码集中到 `sparsh-force-slip/`，并强制采用“本地修改 → GitHub push → 服务器 pull → 服务器运行”的同步流程。
+Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预处理/颜色域一致性门禁、训练数据 manifest/hash、trajectory-level split 实际消费验收、B→C 硬门禁、slip_horizon train/val 定版约束，并固定 B/C 门禁阈值、consistency diagnostic 指标定义和 GSmini 预处理链表述；本版更新为 force-slip 代码修改和训练都在服务器 `/home/zjy/document/tactile_grasp` 的 `sparsh-force-slip` 分支进行，`git push`/`git pull` 由用户手动操作，并要求每个 phase 完成后进行一次整体 commit。
 
-> 基于 `tactile_grasp/pipeline/1-force-slip-decoder/force-slip-decoder-pipeline.md` 与已确认约束生成。force-slip 代码统一在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改并 push 到 GitHub，再在服务器 `zjy-4090` 的 `/documents/tactile_grasp` pull；训练/评估从 `/documents/tactile_grasp/sparsh-force-slip` 执行。远程资源统一使用 `/vla1/zjy/{tactile_datasets,sparsh_models,sparsh_runs}`。本地保留 pipeline 文档、分析结论、必要本地集成测试和按需回传的 checkpoint。
+> 基于 `tactile_grasp/pipeline/1-force-slip-decoder/force-slip-decoder-pipeline.md` 与已确认约束生成。force-slip 代码修改、训练和评估统一在服务器 `zjy-4090` 执行：项目根目录 `/home/zjy/document`，仓库 `/home/zjy/document/tactile_grasp`，代码目录 `/home/zjy/document/tactile_grasp/sparsh-force-slip`。远程资源统一使用 `/vla1/zjy/{tactile_datasets,sparsh_models,sparsh_runs}`。本地仅保留按需同步的文档、分析结论、必要本地集成测试和按需回传的 checkpoint。
 
 ## 1. RALPLAN-DR summary
 
@@ -11,13 +11,14 @@ Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预�
 2. **可比性优先**：A/B/C 必须使用同一 split、同一指标脚本、同一 Newton 反归一化逻辑。
 3. **C 不抢跑**：未确认 normal 轴、单位、轨迹级划分和 A baseline 前，不训练 consistency decoder。
 4. **主指标不可牺牲**：C 只有在 force/slip 主指标不明显退化且 consistency 改善时才算成功。
-5. **代码先本地、运行在远程**：force-slip 代码只在本地 `sparsh-force-slip/` 开发，经 GitHub 同步后由服务器 pull 并运行，禁止服务器长期保留未同步改动。
+5. **修改和运行都在服务器**：force-slip 代码修改、训练和评估都在服务器 `/home/zjy/document/tactile_grasp` 的 `sparsh-force-slip` 分支进行。
 6. **本地轻量化**：训练、评估、日志整理在远程；本地只做 checkpoint 加载和 tactile_grasp 集成冒烟测试。
+7. **phase 完成即整体 commit**：每完成一个 phase 并通过验证后，必须在 `sparsh-force-slip` 分支进行一次覆盖该 phase 改动的整体 commit；`git push` 和 `git pull` 由用户本人手动操作。
 
 ### Top 3 决策驱动
 1. **实验可信度**：避免 sample-level 泄漏、归一化 force 误用、normal 轴误判导致不可解释提升。
 2. **阶段风险控制**：用 A baseline 和 B multitask 作为 C 的前置 sanity check 与 fallback。
-3. **资源与复现管理**：代码版本由 GitHub commit 固化；所有 run、split、metrics、checkpoint 统一落在 `/vla1/zjy/sparsh_runs`，便于追踪和回传。
+3. **资源与复现管理**：代码版本由 `sparsh-force-slip` 分支上的 phase 级 commit 固化；所有 run、split、metrics、checkpoint 统一落在 `/vla1/zjy/sparsh_runs`，便于追踪和回传。
 
 ### 可选方案与取舍
 - **方案 A：直接训练 C consistency decoder**  
@@ -36,17 +37,17 @@ Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预�
 ## 2. Phase 1：数据、环境、验证、基线可比性准备
 
 ### Step 1：远程环境与路径确认
-- **目标**：确认训练只在 `zjy-4090` 执行，并固定本地/远程代码同步方式、force-slip 代码目录、数据、模型、输出路径。
+- **目标**：确认训练和代码修改只在 `zjy-4090` 执行，并固定服务器项目路径、`sparsh-force-slip` 分支、force-slip 代码目录、数据、模型、输出路径。
 - **远程执行内容**：
-  - 本地开发目录固定为 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip`；所有 force-slip 模型、config、训练入口和指标脚本先在本地修改。
-  - 本地修改完成后从 `/home/zjy/Documents/grasp/tactile_grasp` 执行 `git status`、`git add sparsh-force-slip pipeline/1-force-slip-decoder`、按 AGENTS.md 的 Lore Commit Protocol 执行 `git commit`、`git push origin main`。
-  - 服务器执行：`ssh zjy-4090 && cd /documents/tactile_grasp && git status && git pull --ff-only origin main && cd sparsh-force-slip`。
-  - 后续数据检查、训练、评估命令都从 `/documents/tactile_grasp/sparsh-force-slip` 运行。
+  - 服务器执行：`ssh zjy-4090 && cd /home/zjy/document/tactile_grasp && git status && git switch sparsh-force-slip && cd sparsh-force-slip`。
+  - 若 `sparsh-force-slip` 分支尚不存在，由用户/维护者在服务器仓库中创建。
+  - 后续 force-slip 代码修改、数据检查、训练、评估命令都从 `/home/zjy/document/tactile_grasp/sparsh-force-slip` 运行。
+  - `git push` 和 `git pull` 由用户本人手动操作；pipeline/agent 不自动执行。
   - 检查 `which python`、`python -V`、`torch/hydra/omegaconf` import。
   - 确认 `/vla1/zjy/tactile_datasets`、`/vla1/zjy/sparsh_models`、`/vla1/zjy/sparsh_runs` 存在。
   - 建立或确认 `paths=zjy_4090` 指向 `/vla1/zjy`。
-- **产物**：环境记录、GitHub commit/pull 记录、paths config、资源目录清单。
-- **验证标准**：服务器代码来自 `/documents/tactile_grasp` 的 GitHub pull；训练入口位于 `/documents/tactile_grasp/sparsh-force-slip`；训练命令可显式使用 `paths=zjy_4090`；日志/输出默认进入 `/vla1/zjy/sparsh_runs`。
+- **产物**：环境记录、服务器路径记录、分支状态记录、paths config、资源目录清单。
+- **验证标准**：服务器仓库位于 `/home/zjy/document/tactile_grasp`；当前分支为 `sparsh-force-slip`；训练入口位于 `/home/zjy/document/tactile_grasp/sparsh-force-slip`；训练命令可显式使用 `paths=zjy_4090`；日志/输出默认进入 `/vla1/zjy/sparsh_runs`。
 
 ### Step 2：数据加载冒烟测试与 training data manifest/hash
 - **目标**：确认官方 Sparsh 下游训练主线读取 `dataset_gelsight_*.pkl`，不是 `org_dataset_gelsight_*.pkl`；同时把“实际训练加载了什么”固化为可审计 manifest。
@@ -134,8 +135,8 @@ Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预�
 ### Step 1：实现并训练 B shared multitask decoder
 - **目标**：验证共享下游表示是否优于 separate baseline。
 - **远程执行内容**：
-  - 若需要修改 B 的模型、config、训练入口或指标脚本，必须先在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改并 push；服务器只在 `/documents/tactile_grasp` pull 后运行。
-  - 进入服务器运行目录：`ssh zjy-4090 && cd /documents/tactile_grasp && git pull --ff-only origin main && cd sparsh-force-slip`。
+  - 若需要修改 B 的模型、config、训练入口或指标脚本，直接在服务器 `/home/zjy/document/tactile_grasp` 的 `sparsh-force-slip` 分支上修改；push/pull 由用户本人手动操作。
+  - 进入服务器运行目录：`ssh zjy-4090 && cd /home/zjy/document/tactile_grasp && git switch sparsh-force-slip && cd sparsh-force-slip`。
   - Sparsh encoder frozen；下游使用 shared pooler/trunk + force head + slip head。
   - force head 输出 signed `Fx,Fy,Fz`；评估时派生 `Fn/Ft/Fmag`。
   - loss：`L = L_force + lambda_slip * L_slip`，不加 consistency loss。
@@ -155,7 +156,7 @@ Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预�
 ### Step 3：实现并训练 C consistency decoder
 - **目标**：在 B 基础上加入 force-slip consistency，检验物理一致性是否改善。
 - **远程执行内容**：
-  - 若需要修改 C 的 consistency loss、超参 sweep、metrics 或 launch script，必须先在本地 `sparsh-force-slip/` 修改并 push；服务器 pull 后再运行。
+  - 若需要修改 C 的 consistency loss、超参 sweep、metrics 或 launch script，直接在服务器 `/home/zjy/document/tactile_grasp` 的 `sparsh-force-slip` 分支上修改；push/pull 由用户本人手动操作。
   - 先检查 B→C 硬门禁：若 B 相对 A force RMSE 增加 **>10%** 或 slip F1 下降 **>2 个百分点**，本步骤只能运行 diagnostic C，不进入正式 A/B/C claim；若 B 落入 warning band，则可继续 C，但报告中必须标记风险。
   - 计算 `r = Ft_pred / (Fn_pred + eps)`。
   - 计算 `q = sigmoid(alpha * (r - tau))`。
@@ -179,7 +180,7 @@ Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预�
 - **远程执行内容**：
   - 从 `/vla1/zjy/sparsh_runs/experiments/<run_name>/` 选择 checkpoint、config、split、metrics summary、模型版本信息。
   - `scp` 到本地：`tactile_grasp/checkpoints/force_slip_decoder/<run_name>/`。
-  - 本地记录 `source.txt`：server、remote_repo、remote_code_dir、remote_run、remote_checkpoint、git_commit、copied_at。
+  - 本地记录 `source.txt`：server、remote_project_root、remote_repo、remote_branch、remote_code_dir、remote_run、remote_checkpoint、git_commit、copied_at。
 - **产物**：本地 checkpoint 包、source.txt、本地加载/推理 smoke test 日志。
 - **验证标准**：checkpoint 可加载；单 batch/样例推理接口可与 `tactile_grasp` 对接；正式指标仍以远程统一评估为准。
 
@@ -192,12 +193,13 @@ Revision note: 已根据 Architect/Critic ITERATE 反馈补强 GSmini 图像预�
 - 不把 `org_dataset_gelsight_*.pkl` 作为默认训练数据；它只用于视觉域/实机域差异诊断。
 - 不用 Phase5 sim 证明 shear-normal consistency、friction cone consistency 或 sim2real 提升；Phase5 仅 diagnostic-only。
 - 不把 test set 用于 `tau/alpha/beta_cons/slip_horizon` 调参。
-- 不直接在服务器 `/documents/tactile_grasp/sparsh-force-slip` 长期开发或留下未 push/pull 同步的代码。
+- 不在 `main` 或其他分支上混入 force-slip 阶段任务；相关改动统一在服务器 `sparsh-force-slip` 分支上进行。
+- 不由 pipeline/agent 自动执行 `git push` 或 `git pull`；这些操作由用户本人手动执行。
 - 暂缓 partial encoder finetuning、learnable friction threshold、high-confidence mask、sim2real claim，直到 C 在主指标不退化下改善 consistency。
 
 ## 5. 最小验收标准
 
-1. 远程 `zjy-4090` 环境、`/documents/tactile_grasp` repo、`/documents/tactile_grasp/sparsh-force-slip` 运行目录和 `/vla1/zjy` 路径配置可复现；代码修改记录包含本地 commit、GitHub push 和服务器 `git pull --ff-only` 记录。
+1. 远程 `zjy-4090` 环境、`/home/zjy/document/tactile_grasp` repo、`sparsh-force-slip` 分支、`/home/zjy/document/tactile_grasp/sparsh-force-slip` 运行目录和 `/vla1/zjy` 路径配置可复现；每个 phase 完成后有整体 commit 记录。
 2. `dataset_gelsight_*.pkl` 数据加载冒烟测试通过，关键字段/shape 符合预期，并产出记录 pkl 列表、size/hash、样本数与 `org_dataset_gelsight_*` 排除状态的 data manifest。
 3. GSmini 图像预处理/颜色域一致性报告完成，覆盖 `dataset_gelsight`、`org_dataset_gelsight`、本地/实机 `tactile_rgb` 或样例图像在同一预处理链后的通道顺序、shape、range、均值方差/直方图，并标注实机部署风险。
 4. force 已反归一化到 Newton；normal 轴有明确证据和 axis mapping。

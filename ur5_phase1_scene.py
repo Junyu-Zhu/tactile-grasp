@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import math
+import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import isaacsim.core.utils.prims as prim_utils  # type: ignore
@@ -50,7 +52,8 @@ _TABLE_LEGACY_DIR = Path(__file__).resolve().parent / "assets" / "ur5_usd"
 _ROBOT_ENV_DIR = Path(__file__).resolve().parent / "environment" / "ur5_robotiq_GSmini"
 _ROBOT_URDF_DIR = _ROBOT_ENV_DIR / "urdf"
 _ROBOT_USD_DIR = _ROBOT_ENV_DIR / "usd"
-_ROBOT_USD_FILE_NAME = "ur5_robotiq_GSmini.usd"
+_ROBOT_URDF_FILE_NAME = "ur5_robotiq_GSmini_new.urdf"
+_ROBOT_USD_FILE_NAME = "ur5_robotiq_GSmini_new.usd"
 _YCB_DIR = Path(__file__).resolve().parent / "ycb_objects"
 _ROBOT_USD_REQUIRED_CONFIG_LINES = (
     "merge_fixed_joints: false",
@@ -58,7 +61,8 @@ _ROBOT_USD_REQUIRED_CONFIG_LINES = (
     "finger_joint: 10000.0",
     "finger_joint: 500.0",
 )
-_ROBOT_USD_BASE_LAYER = _ROBOT_USD_DIR / "configuration" / "ur5_robotiq_GSmini_base.usd"
+_ROBOT_USD_BASE_LAYER = _ROBOT_USD_DIR / "configuration" / "ur5_robotiq_GSmini_new_base.usd"
+_USD_IDENTIFIER_PATTERN = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
 _GS_MINI_VISUAL_MATERIAL_PATCHES = {
     "GSminiConnectorDarkGray": {
         "color": (0.35, 0.35, 0.35),
@@ -85,10 +89,48 @@ _GS_MINI_VISUAL_MATERIAL_PATCHES = {
 
 
 def resolve_robot_urdf_path() -> Path:
-    urdf_path = _ROBOT_URDF_DIR / "ur5_robotiq_GSmini.urdf"
+    urdf_path = _ROBOT_URDF_DIR / _ROBOT_URDF_FILE_NAME
     if not urdf_path.is_file():
         raise FileNotFoundError(f"Canonical robot URDF not found: {urdf_path}")
     return urdf_path
+
+
+def _resolve_robot_mesh_paths(urdf_path: Path) -> tuple[Path, ...]:
+    """Resolve and validate direct mesh dependencies of the canonical URDF.
+
+    Isaac Sim 4.5 derives a USD prim name from each mesh basename without
+    sanitizing hyphens.  Reject such names before the importer can leave an
+    empty, apparently generated USD behind.
+    """
+
+    mesh_paths: list[Path] = []
+    for mesh in ET.parse(urdf_path).getroot().iter("mesh"):
+        filename = mesh.get("filename")
+        if not filename:
+            raise ValueError(f"URDF mesh entry has no filename: {urdf_path}")
+        if filename.startswith("package://"):
+            raise ValueError(f"Canonical URDF must use resolvable local mesh paths, got: {filename}")
+
+        mesh_path = (urdf_path.parent / filename).resolve()
+        if not _USD_IDENTIFIER_PATTERN.fullmatch(mesh_path.stem):
+            raise ValueError(
+                "Isaac Sim requires a USD-safe mesh basename containing only letters, digits, and underscores; "
+                f"rename {mesh_path.name!r} and update {urdf_path.name}."
+            )
+        if not mesh_path.is_file():
+            raise FileNotFoundError(f"URDF mesh asset not found: {mesh_path}")
+        mesh_paths.append(mesh_path)
+
+    return tuple(dict.fromkeys(mesh_paths))
+
+
+def _robot_sources_are_newer_than_usd(source_paths: tuple[Path, ...], usd_path: Path) -> bool:
+    """Return whether the URDF or a referenced mesh changed after conversion."""
+
+    if not usd_path.is_file():
+        return True
+    usd_mtime_ns = usd_path.stat().st_mtime_ns
+    return any(source_path.stat().st_mtime_ns > usd_mtime_ns for source_path in source_paths)
 
 
 def _robot_usd_config_matches_expected() -> bool:
@@ -96,7 +138,12 @@ def _robot_usd_config_matches_expected() -> bool:
     if not config_path.is_file():
         return False
     config_text = config_path.read_text(encoding="utf-8")
-    return all(required_line in config_text for required_line in _ROBOT_USD_REQUIRED_CONFIG_LINES)
+    required_lines = (
+        *_ROBOT_USD_REQUIRED_CONFIG_LINES,
+        f"asset_path: {resolve_robot_urdf_path().as_posix()}",
+        f"usd_file_name: {_ROBOT_USD_FILE_NAME}",
+    )
+    return all(required_line in config_text for required_line in required_lines)
 
 
 def _define_preview_surface_material(stage, material_path: str, color: tuple[float, float, float]):
@@ -132,6 +179,7 @@ def _patch_gsmini_usd_visual_materials() -> None:
     if stage is None:
         raise RuntimeError(f"Unable to open robot USD base layer for material patching: {_ROBOT_USD_BASE_LAYER}")
 
+    missing_mesh_paths: list[str] = []
     for material_name, patch in _GS_MINI_VISUAL_MATERIAL_PATCHES.items():
         material = _define_preview_surface_material(
             stage,
@@ -141,23 +189,66 @@ def _patch_gsmini_usd_visual_materials() -> None:
         for mesh_path in patch["mesh_paths"]:
             mesh_prim = stage.GetPrimAtPath(mesh_path)
             if not mesh_prim.IsValid():
-                print(f"[WARN] Expected GSmini mesh prim missing from generated USD while patching material: {mesh_path}")
+                missing_mesh_paths.append(mesh_path)
                 continue
             UsdShade.MaterialBindingAPI(mesh_prim).Bind(material, bindingStrength=UsdShade.Tokens.strongerThanDescendants)
+
+    if missing_mesh_paths:
+        missing = "\n  - ".join(missing_mesh_paths)
+        raise RuntimeError(
+            "URDF conversion produced an incomplete robot USD; expected GSmini visual meshes are missing:\n"
+            f"  - {missing}"
+        )
 
     stage.GetRootLayer().Save()
 
 
+def _validate_generated_robot_usd(usd_path: Path) -> None:
+    """Reject the empty USD layers that Isaac's importer can leave on failure."""
+
+    from pxr import Usd  # type: ignore
+
+    stage = Usd.Stage.Open(usd_path.as_posix())
+    if stage is None or not stage.GetDefaultPrim().IsValid():
+        raise RuntimeError(
+            "URDF conversion did not produce a valid robot USD with a default prim. "
+            "Inspect the preceding Isaac URDF importer errors; mesh basenames must be valid USD identifiers. "
+            f"Output: {usd_path}"
+        )
+
+    prim_names = {prim.GetName() for prim in stage.Traverse()}
+    required_prim_names = {"base_link", "left_gelsight_connector", "right_gelsight_connector"}
+    missing_prim_names = sorted(required_prim_names - prim_names)
+    if missing_prim_names:
+        raise RuntimeError(
+            f"Generated robot USD is incomplete; missing required prims {missing_prim_names}: {usd_path}"
+        )
+
+
 def ensure_robot_usd_path(force_conversion: bool = False) -> Path:
     urdf_path = resolve_robot_urdf_path()
+    source_paths = (urdf_path, *_resolve_robot_mesh_paths(urdf_path))
     _ROBOT_USD_DIR.mkdir(parents=True, exist_ok=True)
     usd_path = _ROBOT_USD_DIR / _ROBOT_USD_FILE_NAME
+    sources_changed = _robot_sources_are_newer_than_usd(source_paths, usd_path)
+    config_matches = _robot_usd_config_matches_expected()
     should_force_conversion = (
         force_conversion
         or not usd_path.is_file()
-        or urdf_path.stat().st_mtime > usd_path.stat().st_mtime
-        or not _robot_usd_config_matches_expected()
+        or sources_changed
+        or not config_matches
     )
+    if should_force_conversion:
+        reasons = []
+        if force_conversion:
+            reasons.append("explicit request")
+        if not usd_path.is_file():
+            reasons.append("USD is missing")
+        if sources_changed:
+            reasons.append("URDF or referenced mesh is newer")
+        if not config_matches:
+            reasons.append("converter configuration changed")
+        print(f"[INFO] Regenerating robot USD ({', '.join(reasons)}): {usd_path}")
     converter_cfg = UrdfConverterCfg(
         asset_path=urdf_path.as_posix(),
         usd_dir=_ROBOT_USD_DIR.as_posix(),
@@ -188,6 +279,7 @@ def ensure_robot_usd_path(force_conversion: bool = False) -> Path:
     usd_path = Path(UrdfConverter(converter_cfg).usd_path)
     if not usd_path.is_file():
         raise FileNotFoundError(f"Robot USD was not generated from URDF: {usd_path}")
+    _validate_generated_robot_usd(usd_path)
     _patch_gsmini_usd_visual_materials()
     return usd_path
 

@@ -13,7 +13,7 @@ from ur5_phase1_control import GRIPPER_CLOSE_TARGET_RAD_BY_JOINT, GRIPPER_OPEN_T
 
 PHASE2_SCOPE_SENTENCE = "Phase 2 = 基于 canonical integrated UR5e + Robotiq + connector + GSmini embodiment，先校核挂载，再做 tactile output bring-up。"
 
-CANONICAL_ROBOT_REFERENCE = "tactile_grasp/environment/ur5_robotiq_GSmini/urdf/ur5_robotiq_GSmini.urdf"
+CANONICAL_ROBOT_REFERENCE = "tactile_grasp/environment/ur5_robotiq_GSmini/urdf/ur5_robotiq_GSmini_new.urdf"
 RETIRED_PHASE1_ROBOT_REFERENCE = "tactile_grasp/assets/ur5_usd/ur5_moveit.usd"
 
 PHASE2_MOUNT_USD_DIR = Path(__file__).resolve().parent / "assets" / "phase2_mount_usd"

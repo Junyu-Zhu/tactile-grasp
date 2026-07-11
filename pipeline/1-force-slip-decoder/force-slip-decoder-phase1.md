@@ -1,22 +1,36 @@
 # Force-Slip Decoder Phase 1/2 执行步骤
 
+<<<<<<< Updated upstream
 
 > 本文件从 RALPLAN 审查通过的计划中拆分生成。当前执行约定：force-slip 代码修改、派生数据生成、训练和评估统一在 `zjy-4090` 执行；服务器项目根目录 `/home/zjy/document`，仓库 `/home/zjy/document/tactile-grasp`，代码目录 `/home/zjy/document/tactile-grasp/sparsh-force-slip`；相关任务在 `sparsh-force-slip` 分支上进行；`git push`/`git pull` 由用户本人手动操作；每完成一个 phase 后必须进行一次整体 commit；远程资源位于 `/vla1/zjy/`。
+=======
+> 本文件从 RALPLAN 审查通过的计划中拆分生成。force-slip 代码修改和训练/评估统一在 `zjy-4090` 执行：服务器项目根目录 `/home/zjy/document`，仓库 `/home/zjy/document/tactile_grasp`，代码目录 `/home/zjy/document/tactile_grasp/sparsh-force-slip`。相关任务统一在 `sparsh-force-slip` 分支上进行；`git push` 和 `git pull` 由用户本人手动操作；每完成一个 phase 后必须进行一次整体 commit。远程资源位于 `/vla1/zjy/`。
+>>>>>>> Stashed changes
 
 ## 2. Phase 1：数据、环境、验证、基线可比性准备
 
 ### Step 1：远程环境与路径确认
 - **目标**：确认训练和代码修改只在 `zjy-4090` 执行，并固定服务器项目路径、`sparsh-force-slip` 分支、force-slip 代码目录、数据、模型、输出路径。
 - **远程执行内容**：
+<<<<<<< Updated upstream
   - `ssh zjy-4090 && cd /home/zjy/document/tactile-grasp`。
   - 确认当前分支为 `sparsh-force-slip`；若分支尚不存在，由用户/维护者在服务器仓库中创建。
   - 进入 `/home/zjy/document/tactile-grasp/sparsh-force-slip` 后再运行数据检查、训练和评估命令。
   - `git push` 和 `git pull` 由用户本人手动操作；pipeline/agent 不自动执行。
+=======
+  - `ssh zjy-4090 && cd /home/zjy/document/tactile_grasp`
+  - 确认或创建并切换到 `sparsh-force-slip` 分支（push/pull 由用户本人手动执行）。
+  - 进入 `/home/zjy/document/tactile_grasp/sparsh-force-slip` 后再运行数据检查、训练和评估命令。
+>>>>>>> Stashed changes
   - 检查 `which python`、`python -V`、`torch/hydra/omegaconf` import。
   - 确认 `/vla1/zjy/tactile_datasets`、`/vla1/zjy/sparsh_models`、`/vla1/zjy/sparsh_runs` 存在。
   - 建立或确认 `paths=zjy_4090` 指向 `/vla1/zjy`。
 - **产物**：环境记录、服务器路径记录、分支状态记录、paths config、资源目录清单。
+<<<<<<< Updated upstream
 - **验证标准**：服务器仓库位于 `/home/zjy/document/tactile-grasp`；当前分支为 `sparsh-force-slip`；训练入口位于 `/home/zjy/document/tactile-grasp/sparsh-force-slip`；训练命令可显式使用 `paths=zjy_4090`；日志/输出默认进入 `/vla1/zjy/sparsh_runs`。
+=======
+- **验证标准**：服务器仓库位于 `/home/zjy/document/tactile_grasp`；当前分支为 `sparsh-force-slip`；训练入口位于 `/home/zjy/document/tactile_grasp/sparsh-force-slip`；训练命令可显式使用 `paths=zjy_4090`；日志/输出默认进入 `/vla1/zjy/sparsh_runs`。
+>>>>>>> Stashed changes
 
 ### Step 2：数据加载冒烟测试与 training data manifest/hash
 - **目标**：确认官方 Sparsh 下游训练主线读取 `dataset_gelsight_*.pkl`，不是 `org_dataset_gelsight_*.pkl`；同时把“实际训练加载了什么”固化为可审计 manifest。

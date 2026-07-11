@@ -60130,3 +60130,25093 @@
     }
   ]
 }
+
+## 2026-05-19T19:21:08Z — Phase2 grasp test did not reach success criteria
+
+{
+  "passed": false,
+  "reason": "reached max_attempts=1; preserved logs for lift_hold review",
+  "attempts_used": 1,
+  "max_attempts": 1,
+  "step_budget_used": 607,
+  "max_steps": 0,
+  "success_criteria": {
+    "selected_mode": "lift_hold",
+    "modes": {
+      "contact_demo": "Default Phase2 tactile-grasp bring-up gate: soft-center preclose alignment, stable two-sided force close, gripper/safety checks, and live tactile contact image change. Does not require 10 cm object lift.",
+      "lift_hold": "Legacy strict gate: require the configured object lift margin during hold."
+    },
+    "lift_distance_m": 0.16,
+    "success_lift_margin_m": 0.1,
+    "hold_seconds": 5.0,
+    "max_gripper_joint_error_rad": 0.08,
+    "max_close_object_lift_m": 0.001,
+    "close_object_lift_guard_enabled": true,
+    "max_preclose_object_shift_m": 0.015,
+    "object": "4cm_cube",
+    "grasp_target": "GSmini soft-link mesh pair center aligned to the 4 cm cube side-face center plus CLI offsets; no approach/precontact/terminal XY adjustment stages",
+    "soft_center_tcp": {
+      "frame_name": "virtual_soft_center_tcp",
+      "definition": "The initial IK target is computed from the measured ee_link -> average(left/right GSmini soft-link mesh center) transform, then bounded measured refinement corrects the realized soft-link center before close.",
+      "implemented_as": "runtime geometry layer in ur5_phase2_grasp_test.py; no extra URDF joint required"
+    },
+    "align_soft_center": true,
+    "grasp_soft_center_z_offset_m": 0.0,
+    "soft_center_tolerance_m": 0.005,
+    "soft_center_refine_rounds": 4,
+    "soft_center_refine_steps": 60,
+    "max_soft_center_refine_step_m": 0.025,
+    "object_lift_rewind_steps": 8,
+    "object_lift_rewind_open_margin_rad": 0.005,
+    "object_lift_guard_trigger_fraction": 1.0,
+    "force_control": {
+      "enabled": true,
+      "body_by_side": {
+        "left": "left_gelsight_mini_gelpad",
+        "right": "right_gelsight_mini_gelpad"
+      },
+      "filter_prim_path": "/World/Origin1/GraspCube",
+      "contact_report_threshold_n": 0.2,
+      "stable_force_threshold_n": 0.5,
+      "high_force_stop_threshold_n": 8.0,
+      "stable_steps": 1,
+      "stable_force_stop_enabled": true,
+      "soft_contact_stop_enabled": false,
+      "absolute_close_cap_rad": 0.45
+    },
+    "motion_profile": {
+      "direct_move_steps": 240,
+      "direct_max_joint_delta_per_step": 0.018,
+      "descend_accept_tolerance_m": 0.006,
+      "legacy_approach_steps_skipped": 90,
+      "legacy_precontact_steps_skipped": 1,
+      "close_steps": 160,
+      "close_settle_steps": 4,
+      "arm_hold_settle_steps": 50
+    },
+    "demo_default_note": "Default max_attempts=1 executes the user-tuned direct cube-center target once. Set --max_attempts > 1 only when you explicitly want independent tuning attempts."
+  },
+  "tactile_live": {
+    "enabled": true,
+    "shown_data_types": [
+      "tactile_rgb"
+    ],
+    "sides": [
+      "left",
+      "right"
+    ],
+    "sensor_paths": {
+      "left": {
+        "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+        "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+        "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera"
+      },
+      "right": {
+        "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+        "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+        "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera"
+      }
+    },
+    "sensor_camera_clipping_range_m": [
+      0.024,
+      0.04
+    ],
+    "dock_tactile_windows_right": true,
+    "script_tactile_panel": true,
+    "script_tactile_panel_stats": {
+      "left": {
+        "frames": 608,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      },
+      "right": {
+        "frames": 608,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      }
+    },
+    "contact_imprint_fallback": {
+      "enabled": true,
+      "nominal_depth_mm": 1.5,
+      "background_threshold_mean_abs_delta": 0.75,
+      "stats": {
+        "left": {
+          "frames": 608,
+          "baseline_frames": 551,
+          "contact_frames": 57,
+          "applied_frames": 57,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.03455058112740517,
+          "max_depth_mm": 1.7536922693252563,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6134232878684998,
+              -0.02407682128250599,
+              0.8949985504150391
+            ],
+            "max_world_m": [
+              0.639895498752594,
+              -0.018002748489379883,
+              0.9254804849624634
+            ],
+            "center_world_m": [
+              0.6266593933105469,
+              -0.02103978395462036,
+              0.9102395176887512
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.11853688955307007,
+            "soft_mesh_aabb_distance_m": 0.11853688955307007,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5325287692248821,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.03079209476709366,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        },
+        "right": {
+          "frames": 608,
+          "baseline_frames": 564,
+          "contact_frames": 44,
+          "applied_frames": 44,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.03475916385650635,
+          "max_depth_mm": 1.7666548825800419,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6129545569419861,
+              0.017628878355026245,
+              0.894705057144165
+            ],
+            "max_world_m": [
+              0.639409065246582,
+              0.023791665211319923,
+              0.9252060651779175
+            ],
+            "center_world_m": [
+              0.6261818408966064,
+              0.02071027085185051,
+              0.9099555611610413
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.11824339628219604,
+            "soft_mesh_aabb_distance_m": 0.11824339628219604,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5159768387675285,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.030524037778377533,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        }
+      },
+      "source": "canonical GSmini soft-link AABB contact geometry rendered through TacEx/Taxim when camera-depth RGB stays at background"
+    },
+    "legacy_tacex_debug_windows": true,
+    "mount_info": {
+      "enabled": true,
+      "mounted": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        }
+      },
+      "camera_check": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        }
+      },
+      "mount_check": {
+        "left": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        },
+        "right": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        }
+      },
+      "runtime_shell_policy": "The canonical URDF owns visible/collision GSmini geometry. Phase2 TacEx shell mesh descendants are hidden and their physics is disabled; their camera prims remain active for tactile_rgb."
+    },
+    "inner_finger_stage_audit": {
+      "prim_status": {
+        "/World/Origin1/Robot/left_inner_finger": {
+          "path": "/World/Origin1/Robot/left_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/left_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/left_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger": {
+          "path": "/World/Origin1/Robot/right_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/right_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/right_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        }
+      },
+      "interpretation": "Gray Stage-tree entries under phase2_tacex are expected when TacEx runtime shell meshes are hidden or their physics is disabled. Canonical URDF gelpad contact is validated separately by filtered contact forces and GSmini soft-mesh AABB overlap."
+    }
+  },
+  "final_attempt": {
+    "passed": false,
+    "success_evaluation": {
+      "selected_mode": "lift_hold",
+      "selected_passed": false,
+      "contact_demo_passed": true,
+      "lift_hold_passed": false,
+      "checks": {
+        "soft_center_preclose_passed": true,
+        "direct_motion_passed": true,
+        "lift_motion_passed": true,
+        "close_passed": true,
+        "close_settle_gripper_passed": true,
+        "hold_gripper_passed": true,
+        "stable_grasp_passed": true,
+        "close_safety_passed": true,
+        "strict_lift_margin_passed": false,
+        "tactile_contact_change": {
+          "required": true,
+          "passed": true,
+          "skipped": false,
+          "sides": {
+            "left": {
+              "passed": true,
+              "contact_frames": 57,
+              "imprint_applied_frames": 57,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.03455058112740517
+            },
+            "right": {
+              "passed": true,
+              "contact_frames": 44,
+              "imprint_applied_frames": 44,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.03475916385650635
+            }
+          },
+          "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+        }
+      },
+      "notes": {
+        "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+        "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+      }
+    },
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "pregrasp_wrist3_deg": -2.6,
+    "static_geometry_audit": {
+      "urdf_pad_collision_z_max_m": 0.05117,
+      "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+      "urdf_gsmini_full_collision_z_max_m": 0.08586,
+      "gsmini_base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "gsmini_sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+      "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+      "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+    },
+    "object": {
+      "kind": "cube",
+      "label": "4cm_cube",
+      "cube_size_m": 0.04,
+      "cube_side_centers_world_m": {
+        "left_y_positive": [
+          0.6000000834465027,
+          0.020000004159889322,
+          0.7564616203308105
+        ],
+        "right_y_negative": [
+          0.6000000834465027,
+          -0.01999999584011068,
+          0.7564616203308105
+        ]
+      }
+    },
+    "object_initial_position_m": [
+      0.6000000834465027,
+      4.159889321897481e-09,
+      0.7564616203308105
+    ],
+    "grasp_target_world_m": [
+      0.6033328771591187,
+      -9.96661838144064e-05,
+      0.9218440651893616
+    ],
+    "effective_grasp_target_world_m": [
+      0.6055486798286438,
+      0.0005088611505925655,
+      0.9237302541732788
+    ],
+    "lift_target_world_m": [
+      0.6055486798286438,
+      0.0005088611505925655,
+      1.0837302207946777
+    ],
+    "preclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6021329760551453,
+          -0.053292639553546906,
+          0.7934207320213318
+        ],
+        "right": [
+          0.604563295841217,
+          0.054429586976766586,
+          0.7934289574623108
+        ]
+      },
+      "soft_origin_distance_m": 0.10774963856351735,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.590909481048584,
+            -0.03335530310869217,
+            0.7439749836921692
+          ],
+          "max_world_m": [
+            0.615281343460083,
+            -0.027932509779930115,
+            0.7726047039031982
+          ],
+          "center_world_m": [
+            0.6030954122543335,
+            -0.030643906444311142,
+            0.7582898139953613
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5902289152145386,
+            0.02910158969461918,
+            0.7440150380134583
+          ],
+          "max_world_m": [
+            0.6146007776260376,
+            0.034524381160736084,
+            0.7726447582244873
+          ],
+          "center_world_m": [
+            0.6024148464202881,
+            0.03181298449635506,
+            0.7583298683166504
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5884201526641846,
+            -0.05708831176161766,
+            0.7422027587890625
+          ],
+          "max_world_m": [
+            0.6180030107498169,
+            -0.032880544662475586,
+            0.7746995687484741
+          ],
+          "center_world_m": [
+            0.6032115817070007,
+            -0.04498443007469177,
+            0.7584511637687683
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5875129699707031,
+            0.034049466252326965,
+            0.7422597408294678
+          ],
+          "max_world_m": [
+            0.6170958280563354,
+            0.05825723707675934,
+            0.7747565507888794
+          ],
+          "center_world_m": [
+            0.6023043990135193,
+            0.04615335166454315,
+            0.7585081458091736
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5871686339378357,
+            -0.061708271503448486,
+            0.7396909594535828
+          ],
+          "max_world_m": [
+            0.619654655456543,
+            -0.027907347306609154,
+            0.8152227401733398
+          ],
+          "center_world_m": [
+            0.6034116744995117,
+            -0.044807810336351395,
+            0.7774568796157837
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5865032076835632,
+            0.02905888482928276,
+            0.739743709564209
+          ],
+          "max_world_m": [
+            0.6189891695976257,
+            0.06285981088876724,
+            0.8152754902839661
+          ],
+          "center_world_m": [
+            0.6027461886405945,
+            0.04595934599637985,
+            0.7775095701217651
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.062460611589844325,
+      "cube_center_world_m": [
+        0.6000022888183594,
+        0.00014405627734959126,
+        0.7564616799354553
+      ],
+      "cube_side_center_z_m": 0.7564616799354553,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.057034099474549294,
+        "cube_extent_m": 0.04,
+        "margin_m": 0.017034099474549293,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799300670623779,
+            -0.01992816850543022,
+            0.7364614605903625
+          ],
+          "max_world_m": [
+            0.6200745105743408,
+            0.020216282457113266,
+            0.7764618992805481
+          ],
+          "center_world_m": [
+            0.6000022888183594,
+            0.00014405627734959126,
+            0.7564616799354553
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.590909481048584,
+              -0.03335530310869217,
+              0.7439749836921692
+            ],
+            "max_world_m": [
+              0.615281343460083,
+              -0.027932509779930115,
+              0.7726047039031982
+            ],
+            "center_world_m": [
+              0.6030954122543335,
+              -0.030643906444311142,
+              0.7582898139953613
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.008004341274499893,
+            "soft_mesh_aabb_distance_m": 0.008004341274499893,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5902289152145386,
+              0.02910158969461918,
+              0.7440150380134583
+            ],
+            "max_world_m": [
+              0.6146007776260376,
+              0.034524381160736084,
+              0.7726447582244873
+            ],
+            "center_world_m": [
+              0.6024148464202881,
+              0.03181298449635506,
+              0.7583298683166504
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.008885307237505913,
+            "soft_mesh_aabb_distance_m": 0.008885307237505913,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": []
+      }
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 2,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 24,
+              "final_position_error_m": 0.0020795324817299843,
+              "final_position_world_m": [
+                0.6212419271469116,
+                -0.001046253484673798,
+                0.9186969995498657
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6155685186386108,
+                -0.0008386261761188507,
+                0.75334033370018
+              ],
+              "cube_center_world_m": [
+                0.6000022292137146,
+                0.0001440487103536725,
+                0.7564616203308105
+              ],
+              "pair_center_error_world_m": [
+                0.01556628942489624,
+                -0.0009826748864725232,
+                -0.003121286630630493
+              ],
+              "xz_center_error_m": 0.015876139224956086,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6155685186386108,
+                -0.0008386261761188507,
+                0.75334033370018
+              ],
+              "cube_center_world_m": [
+                0.6000022292137146,
+                0.0001440487103536725,
+                0.7564616203308105
+              ],
+              "pair_center_error_world_m": [
+                0.01556628942489624,
+                -0.0009826748864725232,
+                -0.003121286630630493
+              ],
+              "xz_center_error_m": 0.015876139224956086,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.015568435192108154,
+              0.0008386303088627756,
+              0.0031212568283081055
+            ],
+            "applied_correction_world_m": [
+              -0.015568435192108154,
+              0.0008386303088627756,
+              0.0031212568283081055
+            ],
+            "raw_correction_norm_m": 0.015900367870926857,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6056734919548035,
+              -0.00020762317581102252,
+              0.9218182563781738
+            ],
+            "move": {
+              "passed": true,
+              "steps": 18,
+              "final_position_error_m": 0.002045644912868738,
+              "final_position_world_m": [
+                0.6055486798286438,
+                0.0005088611505925655,
+                0.9237302541732788
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6027551293373108,
+                0.0006116107106208801,
+                0.7583187520503998
+              ],
+              "cube_center_world_m": [
+                0.6000022888183594,
+                0.0001440740452380851,
+                0.7564616203308105
+              ],
+              "pair_center_error_world_m": [
+                0.002752840518951416,
+                0.00046753666538279504,
+                0.0018571317195892334
+              ],
+              "xz_center_error_m": 0.00332070311028932,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6027551293373108,
+            0.0006116107106208801,
+            0.7583187520503998
+          ],
+          "cube_center_world_m": [
+            0.6000022888183594,
+            0.0001440740452380851,
+            0.7564616203308105
+          ],
+          "pair_center_error_world_m": [
+            0.002752840518951416,
+            0.00046753666538279504,
+            0.0018571317195892334
+          ],
+          "xz_center_error_m": 0.00332070311028932,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0083128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.60213303565979,
+              -0.053277939558029175,
+              0.7934272289276123
+            ],
+            "right": [
+              0.604563295841217,
+              0.054445959627628326,
+              0.7934345602989197
+            ]
+          },
+          "soft_origin_distance_m": 0.10775130938443456,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5909096002578735,
+                -0.03333108872175217,
+                0.7439905405044556
+              ],
+              "max_world_m": [
+                0.6152814626693726,
+                -0.027895508334040642,
+                0.7726227045059204
+              ],
+              "center_world_m": [
+                0.603095531463623,
+                -0.03061329945921898,
+                0.758306622505188
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.590228796005249,
+                0.02912224642932415,
+                0.7440154552459717
+              ],
+              "max_world_m": [
+                0.614600658416748,
+                0.03455079346895218,
+                0.7726463079452515
+              ],
+              "center_world_m": [
+                0.6024147272109985,
+                0.03183652088046074,
+                0.7583308815956116
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5884202122688293,
+                -0.05706502124667168,
+                0.7422075867652893
+              ],
+              "max_world_m": [
+                0.6180030107498169,
+                -0.03284275531768799,
+                0.77471524477005
+              ],
+              "center_world_m": [
+                0.6032116413116455,
+                -0.04495389014482498,
+                0.7584614157676697
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5875129103660583,
+                0.03406970202922821,
+                0.7422612309455872
+              ],
+              "max_world_m": [
+                0.6170957684516907,
+                0.05828399211168289,
+                0.7747629284858704
+              ],
+              "center_world_m": [
+                0.6023043394088745,
+                0.04617684707045555,
+                0.7585120797157288
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5871687531471252,
+                -0.06170333921909332,
+                0.7396937012672424
+              ],
+              "max_world_m": [
+                0.6196547150611877,
+                -0.02786843851208687,
+                0.8152406215667725
+              ],
+              "center_world_m": [
+                0.6034117341041565,
+                -0.044785887002944946,
+                0.7774671316146851
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5865031480789185,
+                0.029070865362882614,
+                0.7397441267967224
+              ],
+              "max_world_m": [
+                0.618989109992981,
+                0.06288707256317139,
+                0.8152827620506287
+              ],
+              "center_world_m": [
+                0.6027461290359497,
+                0.04597897082567215,
+                0.7775134444236755
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.06245353587581839,
+          "cube_center_world_m": [
+            0.6000022888183594,
+            0.0001440740452380851,
+            0.7564616203308105
+          ],
+          "cube_side_center_z_m": 0.7564616203308105,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.05701775476336479,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.01701775476336479,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799300670623779,
+                -0.019928134977817535,
+                0.7364614009857178
+              ],
+              "max_world_m": [
+                0.6200745105743408,
+                0.020216282457113266,
+                0.7764618396759033
+              ],
+              "center_world_m": [
+                0.6000022888183594,
+                0.0001440740452380851,
+                0.7564616203308105
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5909096002578735,
+                  -0.03333108872175217,
+                  0.7439905405044556
+                ],
+                "max_world_m": [
+                  0.6152814626693726,
+                  -0.027895508334040642,
+                  0.7726227045059204
+                ],
+                "center_world_m": [
+                  0.603095531463623,
+                  -0.03061329945921898,
+                  0.758306622505188
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.007967373356223106,
+                "soft_mesh_aabb_distance_m": 0.007967373356223106,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.590228796005249,
+                  0.02912224642932415,
+                  0.7440154552459717
+                ],
+                "max_world_m": [
+                  0.614600658416748,
+                  0.03455079346895218,
+                  0.7726463079452515
+                ],
+                "center_world_m": [
+                  0.6024147272109985,
+                  0.03183652088046074,
+                  0.7583308815956116
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008905963972210884,
+                "soft_mesh_aabb_distance_m": 0.008905963972210884,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6027551293373108,
+          0.0005845390260219574,
+          0.7583098411560059
+        ],
+        "cube_center_world_m": [
+          0.6000022888183594,
+          0.00014405627734959126,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.002752840518951416,
+          0.00044048274867236614,
+          0.0018481612205505371
+        ],
+        "xz_center_error_m": 0.0033156946210300417,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "postclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6018714308738708,
+          -0.044499658048152924,
+          0.7873737812042236
+        ],
+        "right": [
+          0.60442715883255,
+          0.047033753246068954,
+          0.7876681089401245
+        ]
+      },
+      "soft_origin_distance_m": 0.09156955693554535,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5906247496604919,
+            -0.024160847067832947,
+            0.738314688205719
+          ],
+          "max_world_m": [
+            0.6150140166282654,
+            -0.01819928176701069,
+            0.7670536637306213
+          ],
+          "center_world_m": [
+            0.6028193831443787,
+            -0.021180063486099243,
+            0.7526841759681702
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5900608897209167,
+            0.021719450131058693,
+            0.738234281539917
+          ],
+          "max_world_m": [
+            0.6144484877586365,
+            0.027155164629220963,
+            0.7668808102607727
+          ],
+          "center_world_m": [
+            0.6022546887397766,
+            0.024437308311462402,
+            0.7525575160980225
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.588131844997406,
+            -0.04792849346995354,
+            0.7360852360725403
+          ],
+          "max_world_m": [
+            0.6177260875701904,
+            -0.0231136754155159,
+            0.7690540552139282
+          ],
+          "center_world_m": [
+            0.6029289960861206,
+            -0.03552108258008957,
+            0.7525696754455566
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5873472690582275,
+            0.026666488498449326,
+            0.7364804148674011
+          ],
+          "max_world_m": [
+            0.6169455051422119,
+            0.050888676196336746,
+            0.7690075635910034
+          ],
+          "center_world_m": [
+            0.6021463871002197,
+            0.038777582347393036,
+            0.7527439594268799
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5868809223175049,
+            -0.05332645773887634,
+            0.7334850430488586
+          ],
+          "max_world_m": [
+            0.6194044351577759,
+            -0.01809360273182392,
+            0.8096650838851929
+          ],
+          "center_world_m": [
+            0.6031426787376404,
+            -0.03571002930402756,
+            0.7715750932693481
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.586336612701416,
+            0.021653026342391968,
+            0.7339608073234558
+          ],
+          "max_world_m": [
+            0.6188621520996094,
+            0.05549251660704613,
+            0.8095292448997498
+          ],
+          "center_world_m": [
+            0.6025993824005127,
+            0.0385727733373642,
+            0.7717450261116028
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.045621042647119185,
+      "cube_center_world_m": [
+        0.5998153686523438,
+        0.0014271142426878214,
+        0.7571776509284973
+      ],
+      "cube_side_center_z_m": 0.7571776509284973,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.03991873189806938,
+        "cube_extent_m": 0.04,
+        "margin_m": -8.126810193061912e-05,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5796540379524231,
+            -0.019022241234779358,
+            0.7368180751800537
+          ],
+          "max_world_m": [
+            0.6199766993522644,
+            0.021876469254493713,
+            0.7775372266769409
+          ],
+          "center_world_m": [
+            0.5998153686523438,
+            0.0014271142426878214,
+            0.7571776509284973
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5906247496604919,
+              -0.024160847067832947,
+              0.738314688205719
+            ],
+            "max_world_m": [
+              0.6150140166282654,
+              -0.01819928176701069,
+              0.7670536637306213
+            ],
+            "center_world_m": [
+              0.6028193831443787,
+              -0.021180063486099243,
+              0.7526841759681702
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900608897209167,
+              0.021719450131058693,
+              0.738234281539917
+            ],
+            "max_world_m": [
+              0.6144484877586365,
+              0.027155164629220963,
+              0.7668808102607727
+            ],
+            "center_world_m": [
+              0.6022546887397766,
+              0.024437308311462402,
+              0.7525575160980225
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "postsettle_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6018041372299194,
+          -0.04437581077218056,
+          0.7871991395950317
+        ],
+        "right": [
+          0.6043484807014465,
+          0.04716913402080536,
+          0.7875110507011414
+        ]
+      },
+      "soft_origin_distance_m": 0.09158082708400299,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5905386209487915,
+            -0.024029044434428215,
+            0.7381454706192017
+          ],
+          "max_world_m": [
+            0.6149375438690186,
+            -0.01805172674357891,
+            0.7668941020965576
+          ],
+          "center_world_m": [
+            0.602738082408905,
+            -0.021040385589003563,
+            0.7525197863578796
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5899686813354492,
+            0.021865541115403175,
+            0.7380592226982117
+          ],
+          "max_world_m": [
+            0.6143659353256226,
+            0.027321014553308487,
+            0.7667163610458374
+          ],
+          "center_world_m": [
+            0.6021673083305359,
+            0.024593278765678406,
+            0.7523877620697021
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5880457758903503,
+            -0.04779770225286484,
+            0.7359044551849365
+          ],
+          "max_world_m": [
+            0.6176528930664062,
+            -0.022964974865317345,
+            0.7688930034637451
+          ],
+          "center_world_m": [
+            0.6028493642807007,
+            -0.035381339490413666,
+            0.7523987293243408
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5872517228126526,
+            0.026811029762029648,
+            0.7363075017929077
+          ],
+          "max_world_m": [
+            0.616862952709198,
+            0.051055822521448135,
+            0.768858015537262
+          ],
+          "center_world_m": [
+            0.6020573377609253,
+            0.03893342614173889,
+            0.7525827884674072
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5867934226989746,
+            -0.05321403592824936,
+            0.7333019375801086
+          ],
+          "max_world_m": [
+            0.6193450093269348,
+            -0.01794370636343956,
+            0.8095060586929321
+          ],
+          "center_world_m": [
+            0.6030691862106323,
+            -0.03557886928319931,
+            0.7714040279388428
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.586239755153656,
+            0.021773498505353928,
+            0.7337846159934998
+          ],
+          "max_world_m": [
+            0.6187933683395386,
+            0.05566128343343735,
+            0.809382438659668
+          ],
+          "center_world_m": [
+            0.6025165319442749,
+            0.03871738910675049,
+            0.7715835571289062
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.04563742472902014,
+      "cube_center_world_m": [
+        0.5999724268913269,
+        0.0015578536549583077,
+        0.7573201060295105
+      ],
+      "cube_side_center_z_m": 0.7573201060295105,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.039917267858982086,
+        "cube_extent_m": 0.04,
+        "margin_m": -8.273214101791465e-05,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5797531008720398,
+            -0.018911467865109444,
+            0.7368789315223694
+          ],
+          "max_world_m": [
+            0.620191752910614,
+            0.02202717401087284,
+            0.7777612805366516
+          ],
+          "center_world_m": [
+            0.5999724268913269,
+            0.0015578536549583077,
+            0.7573201060295105
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905386209487915,
+              -0.024029044434428215,
+              0.7381454706192017
+            ],
+            "max_world_m": [
+              0.6149375438690186,
+              -0.01805172674357891,
+              0.7668941020965576
+            ],
+            "center_world_m": [
+              0.602738082408905,
+              -0.021040385589003563,
+              0.7525197863578796
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.0008597411215305328,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5899686813354492,
+              0.021865541115403175,
+              0.7380592226982117
+            ],
+            "max_world_m": [
+              0.6143659353256226,
+              0.027321014553308487,
+              0.7667163610458374
+            ],
+            "center_world_m": [
+              0.6021673083305359,
+              0.024593278765678406,
+              0.7523877620697021
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00016163289546966553,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 0.00014406901027541608,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04358641058206558,
+            -1.0472968816757202,
+            1.522964596748352,
+            -2.029574394226074,
+            -1.571075201034546,
+            -0.05028482899069786
+          ],
+          "actual_rad": [
+            -0.04358641058206558,
+            -1.0472968816757202,
+            1.522964596748352,
+            -2.029574394226074,
+            -1.571075201034546,
+            -0.05028482899069786
+          ]
+        }
+      },
+      "passed": true,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.001,
+      "max_object_lift_during_close_m": 0.0007159709930419922,
+      "final_object_lift_after_close_m": 0.0007159709930419922,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.0008584260940551758,
+      "final_object_lift_after_settle_m": 0.0008584260940551758,
+      "settle_object_lift_passed": true,
+      "settle_stopped_by_object_lift": false,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    },
+    "preclose_arm_settle": {
+      "requested_steps": 50,
+      "actual_steps": 50,
+      "arm_hold": {
+        "max_abs_error_rad": 0.0,
+        "target_rad": [
+          -0.04358641058206558,
+          -1.0472968816757202,
+          1.522964596748352,
+          -2.029574394226074,
+          -1.571075201034546,
+          -0.05028482899069786
+        ],
+        "actual_rad": [
+          -0.04358641058206558,
+          -1.0472968816757202,
+          1.522964596748352,
+          -2.029574394226074,
+          -1.571075201034546,
+          -0.05028482899069786
+        ]
+      },
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "actual_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "max_abs_error_rad": 0.0
+      }
+    },
+    "direct_move": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "approach": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_approach_stage"
+    },
+    "descend_precontact": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_precontact_stage"
+    },
+    "descend": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "close_command": {
+      "executed": true,
+      "steps": 160,
+      "settle_steps": 4,
+      "target_close_rad": 0.25,
+      "close_passed": true,
+      "force_control": {
+        "requested_steps": 160,
+        "actual_steps": 121,
+        "requested_target_close_rad": 0.25,
+        "target_close_rad": 0.25,
+        "absolute_close_cap_rad": 0.45,
+        "start_close_rad": 0.0,
+        "final_target_close_rad": 0.18906250596046448,
+        "actual_final_close_rad": 0.1794438511133194,
+        "close_goal_reached": false,
+        "soft_contact_detected": true,
+        "last_contact_read": {
+          "enabled": true,
+          "contact_detected": true,
+          "contact_sides": [
+            "left",
+            "right"
+          ],
+          "geometry_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_by_side_n": {
+            "left": 1.609598994255066,
+            "right": 1.0591514110565186
+          },
+          "max_force_n": 1.609598994255066,
+          "both_sides_force_contact": true,
+          "threshold_n": 0.2,
+          "sides": {
+            "left": {
+              "initialized": true,
+              "max_force_n": 1.609598994255066,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5906247496604919,
+                  -0.024160847067832947,
+                  0.738314688205719
+                ],
+                "max_world_m": [
+                  0.6150140166282654,
+                  -0.01819928176701069,
+                  0.7670536637306213
+                ],
+                "center_world_m": [
+                  0.6028193831443787,
+                  -0.021180063486099243,
+                  0.7526841759681702
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            },
+            "right": {
+              "initialized": true,
+              "max_force_n": 1.0591514110565186,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900608897209167,
+                  0.021719450131058693,
+                  0.738234281539917
+                ],
+                "max_world_m": [
+                  0.6144484877586365,
+                  0.027155164629220963,
+                  0.7668808102607727
+                ],
+                "center_world_m": [
+                  0.6022546887397766,
+                  0.024437308311462402,
+                  0.7525575160980225
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            }
+          },
+          "geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5796540379524231,
+                -0.019022241234779358,
+                0.7368180751800537
+              ],
+              "max_world_m": [
+                0.6199766993522644,
+                0.021876469254493713,
+                0.7775372266769409
+              ],
+              "center_world_m": [
+                0.5998153686523438,
+                0.0014271142426878214,
+                0.7571776509284973
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5906247496604919,
+                  -0.024160847067832947,
+                  0.738314688205719
+                ],
+                "max_world_m": [
+                  0.6150140166282654,
+                  -0.01819928176701069,
+                  0.7670536637306213
+                ],
+                "center_world_m": [
+                  0.6028193831443787,
+                  -0.021180063486099243,
+                  0.7526841759681702
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900608897209167,
+                  0.021719450131058693,
+                  0.738234281539917
+                ],
+                "max_world_m": [
+                  0.6144484877586365,
+                  0.027155164629220963,
+                  0.7668808102607727
+                ],
+                "center_world_m": [
+                  0.6022546887397766,
+                  0.024437308311462402,
+                  0.7525575160980225
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": [
+              "left",
+              "right"
+            ]
+          },
+          "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+        },
+        "soft_contact_stop_enabled": false,
+        "stopped_by_no_contact_cap": false,
+        "force_control": {
+          "enabled": true,
+          "stable_force_threshold_n": 0.5,
+          "high_force_threshold_n": 8.0,
+          "required_stable_steps": 1,
+          "stable_grasp_detected": true,
+          "stable_grasp_step": 121,
+          "stable_force_stop_enabled": true,
+          "stopped_by_stable_force": true,
+          "final_stable_counter": 1,
+          "max_force_seen_n": 1.609598994255066,
+          "stopped_by_high_force": false,
+          "high_force_step": null,
+          "last_force_safe_close_rad": 0.1890625,
+          "force_history_tail": [
+            {
+              "step": 110,
+              "planned_close_rad": 0.171875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "force_by_side_n": {
+                "left": 1.609598994255066,
+                "right": 1.0591514110565186
+              },
+              "max_force_n": 1.609598994255066,
+              "both_sides_stable": true,
+              "stable_counter": 1,
+              "high_force_detected": false
+            }
+          ]
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7571776509284973,
+        "final_object_lift_m": 0.0007159709930419922,
+        "max_object_lift_during_close_m": 0.0007159709930419922,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": true,
+        "stopped_by_object_lift": false,
+        "last_safe_close_rad": 0.1890625,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": null,
+        "object_z_history_tail": [
+          {
+            "step": 110,
+            "planned_close_rad": 0.171875,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0
+          },
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "object_z_m": 0.7564617395401001,
+            "object_lift_m": 5.960464477539063e-08
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "object_z_m": 0.7564614415168762,
+            "object_lift_m": -2.384185791015625e-07
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "object_z_m": 0.7564617395401001,
+            "object_lift_m": 5.960464477539063e-08
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "object_z_m": 0.7564615607261658,
+            "object_lift_m": -1.1920928955078125e-07
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "object_z_m": 0.7564610242843628,
+            "object_lift_m": -6.556510925292969e-07
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "object_z_m": 0.7564621567726135,
+            "object_lift_m": 4.76837158203125e-07
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "object_z_m": 0.7565827369689941,
+            "object_lift_m": 0.00012105703353881836
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "object_z_m": 0.7564570307731628,
+            "object_lift_m": -4.649162292480469e-06
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "object_z_m": 0.7569395303726196,
+            "object_lift_m": 0.00047785043716430664
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "object_z_m": 0.7565272450447083,
+            "object_lift_m": 6.556510925292969e-05
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "object_z_m": 0.7571776509284973,
+            "object_lift_m": 0.0007159709930419922
+          }
+        ],
+        "arm_hold_enabled": true
+      }
+    },
+    "close_gripper": {
+      "target_rad": {
+        "finger_joint": 0.18906250596046448,
+        "left_inner_finger_joint": -0.18906250596046448,
+        "left_inner_knuckle_joint": 0.18906250596046448,
+        "right_outer_knuckle_joint": 0.18906250596046448,
+        "right_inner_finger_joint": -0.18906250596046448,
+        "right_inner_knuckle_joint": 0.18906250596046448
+      },
+      "actual_rad": {
+        "finger_joint": 0.1794438511133194,
+        "left_inner_finger_joint": -0.16015470027923584,
+        "left_inner_knuckle_joint": 0.1882062405347824,
+        "right_outer_knuckle_joint": 0.15952154994010925,
+        "right_inner_finger_joint": -0.16014426946640015,
+        "right_inner_knuckle_joint": 0.18765059113502502
+      },
+      "abs_error_rad": {
+        "finger_joint": 0.00961865484714508,
+        "left_inner_finger_joint": 0.028907805681228638,
+        "left_inner_knuckle_joint": 0.0008562654256820679,
+        "right_outer_knuckle_joint": 0.029540956020355225,
+        "right_inner_finger_joint": 0.02891823649406433,
+        "right_inner_knuckle_joint": 0.0014119148254394531
+      },
+      "max_abs_error_rad": 0.029540956020355225
+    },
+    "close_settle": {
+      "requested_steps": 4,
+      "actual_steps": 4,
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.18906250596046448,
+          "left_inner_finger_joint": -0.18906250596046448,
+          "left_inner_knuckle_joint": 0.18906250596046448,
+          "right_outer_knuckle_joint": 0.18906250596046448,
+          "right_inner_finger_joint": -0.18906250596046448,
+          "right_inner_knuckle_joint": 0.18906250596046448
+        },
+        "actual_rad": {
+          "finger_joint": 0.1798572838306427,
+          "left_inner_finger_joint": -0.1601550132036209,
+          "left_inner_knuckle_joint": 0.18830230832099915,
+          "right_outer_knuckle_joint": 0.15896794199943542,
+          "right_inner_finger_joint": -0.16014423966407776,
+          "right_inner_knuckle_joint": 0.18771187961101532
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.009205222129821777,
+          "left_inner_finger_joint": 0.028907492756843567,
+          "left_inner_knuckle_joint": 0.000760197639465332,
+          "right_outer_knuckle_joint": 0.030094563961029053,
+          "right_inner_finger_joint": 0.02891826629638672,
+          "right_inner_knuckle_joint": 0.0013506263494491577
+        },
+        "max_abs_error_rad": 0.030094563961029053
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7573201060295105,
+      "final_object_lift_m": 0.0008584260940551758,
+      "max_object_lift_during_settle_m": 0.0008584260940551758,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": true,
+      "stopped_by_object_lift": false,
+      "last_safe_close_rad": 0.1798572838306427,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": null,
+      "final_target_close_rad": 0.18906250596046448,
+      "object_z_history_tail": [
+        {
+          "step": 1,
+          "object_z_m": 0.7565671801567078,
+          "object_lift_m": 0.0001055002212524414,
+          "close_rad": 0.18365123867988586
+        },
+        {
+          "step": 2,
+          "object_z_m": 0.7572504878044128,
+          "object_lift_m": 0.0007888078689575195,
+          "close_rad": 0.1796012967824936
+        },
+        {
+          "step": 3,
+          "object_z_m": 0.7566545605659485,
+          "object_lift_m": 0.00019288063049316406,
+          "close_rad": 0.18335111439228058
+        },
+        {
+          "step": 4,
+          "object_z_m": 0.7573201060295105,
+          "object_lift_m": 0.0008584260940551758,
+          "close_rad": 0.1798572838306427
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "lift": {
+      "passed": true,
+      "steps": 43,
+      "final_position_error_m": 0.0059956335462629795,
+      "final_position_world_m": [
+        0.6102234125137329,
+        0.0002586109912954271,
+        1.0799843072891235
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "hold": {
+      "hold_steps": 300,
+      "actual_hold_steps": 300,
+      "final_object_z_m": 0.7564616203308105,
+      "max_object_z_m": 0.7564616203308105,
+      "min_object_z_m": 0.7564616203308105,
+      "final_lift_m": 0.0,
+      "min_lift_m": 0.0,
+      "arm_hold_enabled": true
+    },
+    "hold_gripper": {
+      "target_rad": {
+        "finger_joint": 0.18906250596046448,
+        "left_inner_finger_joint": -0.18906250596046448,
+        "left_inner_knuckle_joint": 0.18906250596046448,
+        "right_outer_knuckle_joint": 0.18906250596046448,
+        "right_inner_finger_joint": -0.18906250596046448,
+        "right_inner_knuckle_joint": 0.18906250596046448
+      },
+      "actual_rad": {
+        "finger_joint": 0.18903611600399017,
+        "left_inner_finger_joint": -0.16025647521018982,
+        "left_inner_knuckle_joint": 0.18895871937274933,
+        "right_outer_knuckle_joint": 0.18342623114585876,
+        "right_inner_finger_joint": -0.1602538526058197,
+        "right_inner_knuckle_joint": 0.18888498842716217
+      },
+      "abs_error_rad": {
+        "finger_joint": 2.63899564743042e-05,
+        "left_inner_finger_joint": 0.028806030750274658,
+        "left_inner_knuckle_joint": 0.00010378658771514893,
+        "right_outer_knuckle_joint": 0.005636274814605713,
+        "right_inner_finger_joint": 0.028808653354644775,
+        "right_inner_knuckle_joint": 0.00017751753330230713
+      },
+      "max_abs_error_rad": 0.028808653354644775
+    },
+    "motion_reached_nominal": true,
+    "step_budget_used": 607
+  },
+  "best_attempt": {
+    "attempt": 1,
+    "passed": false,
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 2,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 24,
+              "final_position_error_m": 0.0020795324817299843,
+              "final_position_world_m": [
+                0.6212419271469116,
+                -0.001046253484673798,
+                0.9186969995498657
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6155685186386108,
+                -0.0008386261761188507,
+                0.75334033370018
+              ],
+              "cube_center_world_m": [
+                0.6000022292137146,
+                0.0001440487103536725,
+                0.7564616203308105
+              ],
+              "pair_center_error_world_m": [
+                0.01556628942489624,
+                -0.0009826748864725232,
+                -0.003121286630630493
+              ],
+              "xz_center_error_m": 0.015876139224956086,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6155685186386108,
+                -0.0008386261761188507,
+                0.75334033370018
+              ],
+              "cube_center_world_m": [
+                0.6000022292137146,
+                0.0001440487103536725,
+                0.7564616203308105
+              ],
+              "pair_center_error_world_m": [
+                0.01556628942489624,
+                -0.0009826748864725232,
+                -0.003121286630630493
+              ],
+              "xz_center_error_m": 0.015876139224956086,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.015568435192108154,
+              0.0008386303088627756,
+              0.0031212568283081055
+            ],
+            "applied_correction_world_m": [
+              -0.015568435192108154,
+              0.0008386303088627756,
+              0.0031212568283081055
+            ],
+            "raw_correction_norm_m": 0.015900367870926857,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6056734919548035,
+              -0.00020762317581102252,
+              0.9218182563781738
+            ],
+            "move": {
+              "passed": true,
+              "steps": 18,
+              "final_position_error_m": 0.002045644912868738,
+              "final_position_world_m": [
+                0.6055486798286438,
+                0.0005088611505925655,
+                0.9237302541732788
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6027551293373108,
+                0.0006116107106208801,
+                0.7583187520503998
+              ],
+              "cube_center_world_m": [
+                0.6000022888183594,
+                0.0001440740452380851,
+                0.7564616203308105
+              ],
+              "pair_center_error_world_m": [
+                0.002752840518951416,
+                0.00046753666538279504,
+                0.0018571317195892334
+              ],
+              "xz_center_error_m": 0.00332070311028932,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6027551293373108,
+            0.0006116107106208801,
+            0.7583187520503998
+          ],
+          "cube_center_world_m": [
+            0.6000022888183594,
+            0.0001440740452380851,
+            0.7564616203308105
+          ],
+          "pair_center_error_world_m": [
+            0.002752840518951416,
+            0.00046753666538279504,
+            0.0018571317195892334
+          ],
+          "xz_center_error_m": 0.00332070311028932,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0083128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.60213303565979,
+              -0.053277939558029175,
+              0.7934272289276123
+            ],
+            "right": [
+              0.604563295841217,
+              0.054445959627628326,
+              0.7934345602989197
+            ]
+          },
+          "soft_origin_distance_m": 0.10775130938443456,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5909096002578735,
+                -0.03333108872175217,
+                0.7439905405044556
+              ],
+              "max_world_m": [
+                0.6152814626693726,
+                -0.027895508334040642,
+                0.7726227045059204
+              ],
+              "center_world_m": [
+                0.603095531463623,
+                -0.03061329945921898,
+                0.758306622505188
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.590228796005249,
+                0.02912224642932415,
+                0.7440154552459717
+              ],
+              "max_world_m": [
+                0.614600658416748,
+                0.03455079346895218,
+                0.7726463079452515
+              ],
+              "center_world_m": [
+                0.6024147272109985,
+                0.03183652088046074,
+                0.7583308815956116
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5884202122688293,
+                -0.05706502124667168,
+                0.7422075867652893
+              ],
+              "max_world_m": [
+                0.6180030107498169,
+                -0.03284275531768799,
+                0.77471524477005
+              ],
+              "center_world_m": [
+                0.6032116413116455,
+                -0.04495389014482498,
+                0.7584614157676697
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5875129103660583,
+                0.03406970202922821,
+                0.7422612309455872
+              ],
+              "max_world_m": [
+                0.6170957684516907,
+                0.05828399211168289,
+                0.7747629284858704
+              ],
+              "center_world_m": [
+                0.6023043394088745,
+                0.04617684707045555,
+                0.7585120797157288
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5871687531471252,
+                -0.06170333921909332,
+                0.7396937012672424
+              ],
+              "max_world_m": [
+                0.6196547150611877,
+                -0.02786843851208687,
+                0.8152406215667725
+              ],
+              "center_world_m": [
+                0.6034117341041565,
+                -0.044785887002944946,
+                0.7774671316146851
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5865031480789185,
+                0.029070865362882614,
+                0.7397441267967224
+              ],
+              "max_world_m": [
+                0.618989109992981,
+                0.06288707256317139,
+                0.8152827620506287
+              ],
+              "center_world_m": [
+                0.6027461290359497,
+                0.04597897082567215,
+                0.7775134444236755
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.06245353587581839,
+          "cube_center_world_m": [
+            0.6000022888183594,
+            0.0001440740452380851,
+            0.7564616203308105
+          ],
+          "cube_side_center_z_m": 0.7564616203308105,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.05701775476336479,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.01701775476336479,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799300670623779,
+                -0.019928134977817535,
+                0.7364614009857178
+              ],
+              "max_world_m": [
+                0.6200745105743408,
+                0.020216282457113266,
+                0.7764618396759033
+              ],
+              "center_world_m": [
+                0.6000022888183594,
+                0.0001440740452380851,
+                0.7564616203308105
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5909096002578735,
+                  -0.03333108872175217,
+                  0.7439905405044556
+                ],
+                "max_world_m": [
+                  0.6152814626693726,
+                  -0.027895508334040642,
+                  0.7726227045059204
+                ],
+                "center_world_m": [
+                  0.603095531463623,
+                  -0.03061329945921898,
+                  0.758306622505188
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.007967373356223106,
+                "soft_mesh_aabb_distance_m": 0.007967373356223106,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.590228796005249,
+                  0.02912224642932415,
+                  0.7440154552459717
+                ],
+                "max_world_m": [
+                  0.614600658416748,
+                  0.03455079346895218,
+                  0.7726463079452515
+                ],
+                "center_world_m": [
+                  0.6024147272109985,
+                  0.03183652088046074,
+                  0.7583308815956116
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008905963972210884,
+                "soft_mesh_aabb_distance_m": 0.008905963972210884,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6027551293373108,
+          0.0005845390260219574,
+          0.7583098411560059
+        ],
+        "cube_center_world_m": [
+          0.6000022888183594,
+          0.00014405627734959126,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.002752840518951416,
+          0.00044048274867236614,
+          0.0018481612205505371
+        ],
+        "xz_center_error_m": 0.0033156946210300417,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "min_lift_m": 0.0,
+    "max_lift_m": 0.0,
+    "force_control": {
+      "requested_steps": 160,
+      "actual_steps": 121,
+      "requested_target_close_rad": 0.25,
+      "target_close_rad": 0.25,
+      "absolute_close_cap_rad": 0.45,
+      "start_close_rad": 0.0,
+      "final_target_close_rad": 0.18906250596046448,
+      "actual_final_close_rad": 0.1794438511133194,
+      "close_goal_reached": false,
+      "soft_contact_detected": true,
+      "last_contact_read": {
+        "enabled": true,
+        "contact_detected": true,
+        "contact_sides": [
+          "left",
+          "right"
+        ],
+        "geometry_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_by_side_n": {
+          "left": 1.609598994255066,
+          "right": 1.0591514110565186
+        },
+        "max_force_n": 1.609598994255066,
+        "both_sides_force_contact": true,
+        "threshold_n": 0.2,
+        "sides": {
+          "left": {
+            "initialized": true,
+            "max_force_n": 1.609598994255066,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5906247496604919,
+                -0.024160847067832947,
+                0.738314688205719
+              ],
+              "max_world_m": [
+                0.6150140166282654,
+                -0.01819928176701069,
+                0.7670536637306213
+              ],
+              "center_world_m": [
+                0.6028193831443787,
+                -0.021180063486099243,
+                0.7526841759681702
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          },
+          "right": {
+            "initialized": true,
+            "max_force_n": 1.0591514110565186,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900608897209167,
+                0.021719450131058693,
+                0.738234281539917
+              ],
+              "max_world_m": [
+                0.6144484877586365,
+                0.027155164629220963,
+                0.7668808102607727
+              ],
+              "center_world_m": [
+                0.6022546887397766,
+                0.024437308311462402,
+                0.7525575160980225
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          }
+        },
+        "geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5796540379524231,
+              -0.019022241234779358,
+              0.7368180751800537
+            ],
+            "max_world_m": [
+              0.6199766993522644,
+              0.021876469254493713,
+              0.7775372266769409
+            ],
+            "center_world_m": [
+              0.5998153686523438,
+              0.0014271142426878214,
+              0.7571776509284973
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5906247496604919,
+                -0.024160847067832947,
+                0.738314688205719
+              ],
+              "max_world_m": [
+                0.6150140166282654,
+                -0.01819928176701069,
+                0.7670536637306213
+              ],
+              "center_world_m": [
+                0.6028193831443787,
+                -0.021180063486099243,
+                0.7526841759681702
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900608897209167,
+                0.021719450131058693,
+                0.738234281539917
+              ],
+              "max_world_m": [
+                0.6144484877586365,
+                0.027155164629220963,
+                0.7668808102607727
+              ],
+              "center_world_m": [
+                0.6022546887397766,
+                0.024437308311462402,
+                0.7525575160980225
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        },
+        "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+      },
+      "soft_contact_stop_enabled": false,
+      "stopped_by_no_contact_cap": false,
+      "force_control": {
+        "enabled": true,
+        "stable_force_threshold_n": 0.5,
+        "high_force_threshold_n": 8.0,
+        "required_stable_steps": 1,
+        "stable_grasp_detected": true,
+        "stable_grasp_step": 121,
+        "stable_force_stop_enabled": true,
+        "stopped_by_stable_force": true,
+        "final_stable_counter": 1,
+        "max_force_seen_n": 1.609598994255066,
+        "stopped_by_high_force": false,
+        "high_force_step": null,
+        "last_force_safe_close_rad": 0.1890625,
+        "force_history_tail": [
+          {
+            "step": 110,
+            "planned_close_rad": 0.171875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "force_by_side_n": {
+              "left": 1.609598994255066,
+              "right": 1.0591514110565186
+            },
+            "max_force_n": 1.609598994255066,
+            "both_sides_stable": true,
+            "stable_counter": 1,
+            "high_force_detected": false
+          }
+        ]
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7571776509284973,
+      "final_object_lift_m": 0.0007159709930419922,
+      "max_object_lift_during_close_m": 0.0007159709930419922,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": true,
+      "stopped_by_object_lift": false,
+      "last_safe_close_rad": 0.1890625,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": null,
+      "object_z_history_tail": [
+        {
+          "step": 110,
+          "planned_close_rad": 0.171875,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0
+        },
+        {
+          "step": 111,
+          "planned_close_rad": 0.1734375,
+          "object_z_m": 0.7564617395401001,
+          "object_lift_m": 5.960464477539063e-08
+        },
+        {
+          "step": 112,
+          "planned_close_rad": 0.175,
+          "object_z_m": 0.7564614415168762,
+          "object_lift_m": -2.384185791015625e-07
+        },
+        {
+          "step": 113,
+          "planned_close_rad": 0.1765625,
+          "object_z_m": 0.7564617395401001,
+          "object_lift_m": 5.960464477539063e-08
+        },
+        {
+          "step": 114,
+          "planned_close_rad": 0.178125,
+          "object_z_m": 0.7564615607261658,
+          "object_lift_m": -1.1920928955078125e-07
+        },
+        {
+          "step": 115,
+          "planned_close_rad": 0.1796875,
+          "object_z_m": 0.7564610242843628,
+          "object_lift_m": -6.556510925292969e-07
+        },
+        {
+          "step": 116,
+          "planned_close_rad": 0.18125,
+          "object_z_m": 0.7564621567726135,
+          "object_lift_m": 4.76837158203125e-07
+        },
+        {
+          "step": 117,
+          "planned_close_rad": 0.1828125,
+          "object_z_m": 0.7565827369689941,
+          "object_lift_m": 0.00012105703353881836
+        },
+        {
+          "step": 118,
+          "planned_close_rad": 0.184375,
+          "object_z_m": 0.7564570307731628,
+          "object_lift_m": -4.649162292480469e-06
+        },
+        {
+          "step": 119,
+          "planned_close_rad": 0.1859375,
+          "object_z_m": 0.7569395303726196,
+          "object_lift_m": 0.00047785043716430664
+        },
+        {
+          "step": 120,
+          "planned_close_rad": 0.1875,
+          "object_z_m": 0.7565272450447083,
+          "object_lift_m": 6.556510925292969e-05
+        },
+        {
+          "step": 121,
+          "planned_close_rad": 0.1890625,
+          "object_z_m": 0.7571776509284973,
+          "object_lift_m": 0.0007159709930419922
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 0.00014406901027541608,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04358641058206558,
+            -1.0472968816757202,
+            1.522964596748352,
+            -2.029574394226074,
+            -1.571075201034546,
+            -0.05028482899069786
+          ],
+          "actual_rad": [
+            -0.04358641058206558,
+            -1.0472968816757202,
+            1.522964596748352,
+            -2.029574394226074,
+            -1.571075201034546,
+            -0.05028482899069786
+          ]
+        }
+      },
+      "passed": true,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.001,
+      "max_object_lift_during_close_m": 0.0007159709930419922,
+      "final_object_lift_after_close_m": 0.0007159709930419922,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.0008584260940551758,
+      "final_object_lift_after_settle_m": 0.0008584260940551758,
+      "settle_object_lift_passed": true,
+      "settle_stopped_by_object_lift": false,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    }
+  },
+  "attempts": [
+    {
+      "passed": false,
+      "success_evaluation": {
+        "selected_mode": "lift_hold",
+        "selected_passed": false,
+        "contact_demo_passed": true,
+        "lift_hold_passed": false,
+        "checks": {
+          "soft_center_preclose_passed": true,
+          "direct_motion_passed": true,
+          "lift_motion_passed": true,
+          "close_passed": true,
+          "close_settle_gripper_passed": true,
+          "hold_gripper_passed": true,
+          "stable_grasp_passed": true,
+          "close_safety_passed": true,
+          "strict_lift_margin_passed": false,
+          "tactile_contact_change": {
+            "required": true,
+            "passed": true,
+            "skipped": false,
+            "sides": {
+              "left": {
+                "passed": true,
+                "contact_frames": 57,
+                "imprint_applied_frames": 57,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.03455058112740517
+              },
+              "right": {
+                "passed": true,
+                "contact_frames": 44,
+                "imprint_applied_frames": 44,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.03475916385650635
+              }
+            },
+            "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+          }
+        },
+        "notes": {
+          "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+          "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+        }
+      },
+      "params": {
+        "attempt": 1,
+        "ee_z_offset": 0.17,
+        "soft_center_z_offset": 0.0,
+        "longitudinal_x_offset": 0.0,
+        "lateral_y_offset": 0.0,
+        "yaw_offset_rad": 0.0,
+        "pitch_offset_rad": 0.0,
+        "roll_offset_rad": 0.0,
+        "gripper_close_rad": 0.25
+      },
+      "pregrasp_wrist3_deg": -2.6,
+      "static_geometry_audit": {
+        "urdf_pad_collision_z_max_m": 0.05117,
+        "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+        "urdf_gsmini_full_collision_z_max_m": 0.08586,
+        "gsmini_base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "gsmini_sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+        "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+        "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+      },
+      "object": {
+        "kind": "cube",
+        "label": "4cm_cube",
+        "cube_size_m": 0.04,
+        "cube_side_centers_world_m": {
+          "left_y_positive": [
+            0.6000000834465027,
+            0.020000004159889322,
+            0.7564616203308105
+          ],
+          "right_y_negative": [
+            0.6000000834465027,
+            -0.01999999584011068,
+            0.7564616203308105
+          ]
+        }
+      },
+      "object_initial_position_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "grasp_target_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "effective_grasp_target_world_m": [
+        0.6055486798286438,
+        0.0005088611505925655,
+        0.9237302541732788
+      ],
+      "lift_target_world_m": [
+        0.6055486798286438,
+        0.0005088611505925655,
+        1.0837302207946777
+      ],
+      "preclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6021329760551453,
+            -0.053292639553546906,
+            0.7934207320213318
+          ],
+          "right": [
+            0.604563295841217,
+            0.054429586976766586,
+            0.7934289574623108
+          ]
+        },
+        "soft_origin_distance_m": 0.10774963856351735,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.590909481048584,
+              -0.03335530310869217,
+              0.7439749836921692
+            ],
+            "max_world_m": [
+              0.615281343460083,
+              -0.027932509779930115,
+              0.7726047039031982
+            ],
+            "center_world_m": [
+              0.6030954122543335,
+              -0.030643906444311142,
+              0.7582898139953613
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5902289152145386,
+              0.02910158969461918,
+              0.7440150380134583
+            ],
+            "max_world_m": [
+              0.6146007776260376,
+              0.034524381160736084,
+              0.7726447582244873
+            ],
+            "center_world_m": [
+              0.6024148464202881,
+              0.03181298449635506,
+              0.7583298683166504
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5884201526641846,
+              -0.05708831176161766,
+              0.7422027587890625
+            ],
+            "max_world_m": [
+              0.6180030107498169,
+              -0.032880544662475586,
+              0.7746995687484741
+            ],
+            "center_world_m": [
+              0.6032115817070007,
+              -0.04498443007469177,
+              0.7584511637687683
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5875129699707031,
+              0.034049466252326965,
+              0.7422597408294678
+            ],
+            "max_world_m": [
+              0.6170958280563354,
+              0.05825723707675934,
+              0.7747565507888794
+            ],
+            "center_world_m": [
+              0.6023043990135193,
+              0.04615335166454315,
+              0.7585081458091736
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5871686339378357,
+              -0.061708271503448486,
+              0.7396909594535828
+            ],
+            "max_world_m": [
+              0.619654655456543,
+              -0.027907347306609154,
+              0.8152227401733398
+            ],
+            "center_world_m": [
+              0.6034116744995117,
+              -0.044807810336351395,
+              0.7774568796157837
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5865032076835632,
+              0.02905888482928276,
+              0.739743709564209
+            ],
+            "max_world_m": [
+              0.6189891695976257,
+              0.06285981088876724,
+              0.8152754902839661
+            ],
+            "center_world_m": [
+              0.6027461886405945,
+              0.04595934599637985,
+              0.7775095701217651
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.062460611589844325,
+        "cube_center_world_m": [
+          0.6000022888183594,
+          0.00014405627734959126,
+          0.7564616799354553
+        ],
+        "cube_side_center_z_m": 0.7564616799354553,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.057034099474549294,
+          "cube_extent_m": 0.04,
+          "margin_m": 0.017034099474549293,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799300670623779,
+              -0.01992816850543022,
+              0.7364614605903625
+            ],
+            "max_world_m": [
+              0.6200745105743408,
+              0.020216282457113266,
+              0.7764618992805481
+            ],
+            "center_world_m": [
+              0.6000022888183594,
+              0.00014405627734959126,
+              0.7564616799354553
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.590909481048584,
+                -0.03335530310869217,
+                0.7439749836921692
+              ],
+              "max_world_m": [
+                0.615281343460083,
+                -0.027932509779930115,
+                0.7726047039031982
+              ],
+              "center_world_m": [
+                0.6030954122543335,
+                -0.030643906444311142,
+                0.7582898139953613
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.008004341274499893,
+              "soft_mesh_aabb_distance_m": 0.008004341274499893,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5902289152145386,
+                0.02910158969461918,
+                0.7440150380134583
+              ],
+              "max_world_m": [
+                0.6146007776260376,
+                0.034524381160736084,
+                0.7726447582244873
+              ],
+              "center_world_m": [
+                0.6024148464202881,
+                0.03181298449635506,
+                0.7583298683166504
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.008885307237505913,
+              "soft_mesh_aabb_distance_m": 0.008885307237505913,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": []
+        }
+      },
+      "soft_center_alignment": {
+        "enabled": true,
+        "mode": "soft_mesh_pair_center_to_cube_side_center",
+        "soft_center_tcp": {
+          "frame_name": "virtual_soft_center_tcp",
+          "parent_frame": "ee_link",
+          "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+          "target_frame_for_ik": "ee_link",
+          "desired_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "offset_in_ee_frame_m": [
+            0.16541601717472076,
+            -6.539048627018929e-07,
+            1.4901161193847656e-08
+          ],
+          "target_ee_world_m": [
+            0.6033328771591187,
+            -9.96661838144064e-05,
+            0.9218440651893616
+          ],
+          "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+        },
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "pregrasp_ee_world_m": [
+          0.5980228781700134,
+          0.0033233817666769028,
+          1.0136542320251465
+        ],
+        "pregrasp_soft_pair_center_world_m": [
+          0.5946900844573975,
+          0.0034230519086122513,
+          0.8482718467712402
+        ],
+        "soft_offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_soft_offset_world_m": [
+          -0.003332778811454773,
+          9.967034566216171e-05,
+          -0.16538242995738983
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "cube_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "soft_center_z_offset_m": 0.0,
+        "longitudinal_x_offset_m": 0.0,
+        "lateral_y_offset_m": 0.0,
+        "refinement": {
+          "enabled": true,
+          "rounds_requested": 4,
+          "rounds_used": 2,
+          "refine_steps_per_round": 60,
+          "refine_pos_tolerance_m": 0.0025,
+          "max_correction_step_m": 0.025,
+          "desired_soft_pair_center_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "rounds": [
+            {
+              "round": 1,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.5794125497341156,
+                  -0.0011853072792291641,
+                  0.7603024244308472
+                ],
+                "cube_center_world_m": [
+                  0.5999999046325684,
+                  -7.167465554402952e-08,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  -0.02058735489845276,
+                  -0.00118523560457362,
+                  0.0038407444953918457
+                ],
+                "xz_center_error_m": 0.020942552375336907,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "applied_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "raw_correction_norm_m": 0.020976224914193153,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.622069239616394,
+                -0.0010163658298552036,
+                0.9206046462059021
+              ],
+              "move": {
+                "passed": true,
+                "steps": 24,
+                "final_position_error_m": 0.0020795324817299843,
+                "final_position_world_m": [
+                  0.6212419271469116,
+                  -0.001046253484673798,
+                  0.9186969995498657
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6155685186386108,
+                  -0.0008386261761188507,
+                  0.75334033370018
+                ],
+                "cube_center_world_m": [
+                  0.6000022292137146,
+                  0.0001440487103536725,
+                  0.7564616203308105
+                ],
+                "pair_center_error_world_m": [
+                  0.01556628942489624,
+                  -0.0009826748864725232,
+                  -0.003121286630630493
+                ],
+                "xz_center_error_m": 0.015876139224956086,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            },
+            {
+              "round": 2,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6155685186386108,
+                  -0.0008386261761188507,
+                  0.75334033370018
+                ],
+                "cube_center_world_m": [
+                  0.6000022292137146,
+                  0.0001440487103536725,
+                  0.7564616203308105
+                ],
+                "pair_center_error_world_m": [
+                  0.01556628942489624,
+                  -0.0009826748864725232,
+                  -0.003121286630630493
+                ],
+                "xz_center_error_m": 0.015876139224956086,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                -0.015568435192108154,
+                0.0008386303088627756,
+                0.0031212568283081055
+              ],
+              "applied_correction_world_m": [
+                -0.015568435192108154,
+                0.0008386303088627756,
+                0.0031212568283081055
+              ],
+              "raw_correction_norm_m": 0.015900367870926857,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.6056734919548035,
+                -0.00020762317581102252,
+                0.9218182563781738
+              ],
+              "move": {
+                "passed": true,
+                "steps": 18,
+                "final_position_error_m": 0.002045644912868738,
+                "final_position_world_m": [
+                  0.6055486798286438,
+                  0.0005088611505925655,
+                  0.9237302541732788
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6027551293373108,
+                  0.0006116107106208801,
+                  0.7583187520503998
+                ],
+                "cube_center_world_m": [
+                  0.6000022888183594,
+                  0.0001440740452380851,
+                  0.7564616203308105
+                ],
+                "pair_center_error_world_m": [
+                  0.002752840518951416,
+                  0.00046753666538279504,
+                  0.0018571317195892334
+                ],
+                "xz_center_error_m": 0.00332070311028932,
+                "tolerance_m": 0.005,
+                "passed": true,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            }
+          ],
+          "final_error_m": {
+            "available": true,
+            "soft_pair_center_world_m": [
+              0.6027551293373108,
+              0.0006116107106208801,
+              0.7583187520503998
+            ],
+            "cube_center_world_m": [
+              0.6000022888183594,
+              0.0001440740452380851,
+              0.7564616203308105
+            ],
+            "pair_center_error_world_m": [
+              0.002752840518951416,
+              0.00046753666538279504,
+              0.0018571317195892334
+            ],
+            "xz_center_error_m": 0.00332070311028932,
+            "tolerance_m": 0.005,
+            "passed": true,
+            "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+          },
+          "final_geometry": {
+            "soft_origin_in_sensor_frame_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "soft_mesh_local_aabb_m": {
+              "min": [
+                -0.01363918,
+                -0.02524673,
+                -0.04923395
+              ],
+              "max": [
+                0.01022479,
+                -0.01999673,
+                -0.02100601
+              ]
+            },
+            "base_link_local_aabb_m": {
+              "min": [
+                -0.01616778,
+                -0.02028085,
+                -0.05095018
+              ],
+              "max": [
+                0.01271882,
+                0.00371915,
+                -0.01895018
+              ]
+            },
+            "sensor_assembly_local_aabb_m": {
+              "min": [
+                -0.01710485,
+                -0.02524673,
+                -0.05344392
+              ],
+              "max": [
+                0.01389515,
+                0.0083128,
+                0.02155608
+              ]
+            },
+            "soft_origin_world_m": {
+              "left": [
+                0.60213303565979,
+                -0.053277939558029175,
+                0.7934272289276123
+              ],
+              "right": [
+                0.604563295841217,
+                0.054445959627628326,
+                0.7934345602989197
+              ]
+            },
+            "soft_origin_distance_m": 0.10775130938443456,
+            "soft_mesh_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5909096002578735,
+                  -0.03333108872175217,
+                  0.7439905405044556
+                ],
+                "max_world_m": [
+                  0.6152814626693726,
+                  -0.027895508334040642,
+                  0.7726227045059204
+                ],
+                "center_world_m": [
+                  0.603095531463623,
+                  -0.03061329945921898,
+                  0.758306622505188
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.590228796005249,
+                  0.02912224642932415,
+                  0.7440154552459717
+                ],
+                "max_world_m": [
+                  0.614600658416748,
+                  0.03455079346895218,
+                  0.7726463079452515
+                ],
+                "center_world_m": [
+                  0.6024147272109985,
+                  0.03183652088046074,
+                  0.7583308815956116
+                ]
+              }
+            },
+            "base_link_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5884202122688293,
+                  -0.05706502124667168,
+                  0.7422075867652893
+                ],
+                "max_world_m": [
+                  0.6180030107498169,
+                  -0.03284275531768799,
+                  0.77471524477005
+                ],
+                "center_world_m": [
+                  0.6032116413116455,
+                  -0.04495389014482498,
+                  0.7584614157676697
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5875129103660583,
+                  0.03406970202922821,
+                  0.7422612309455872
+                ],
+                "max_world_m": [
+                  0.6170957684516907,
+                  0.05828399211168289,
+                  0.7747629284858704
+                ],
+                "center_world_m": [
+                  0.6023043394088745,
+                  0.04617684707045555,
+                  0.7585120797157288
+                ]
+              }
+            },
+            "sensor_assembly_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.5871687531471252,
+                  -0.06170333921909332,
+                  0.7396937012672424
+                ],
+                "max_world_m": [
+                  0.6196547150611877,
+                  -0.02786843851208687,
+                  0.8152406215667725
+                ],
+                "center_world_m": [
+                  0.6034117341041565,
+                  -0.044785887002944946,
+                  0.7774671316146851
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.5865031480789185,
+                  0.029070865362882614,
+                  0.7397441267967224
+                ],
+                "max_world_m": [
+                  0.618989109992981,
+                  0.06288707256317139,
+                  0.8152827620506287
+                ],
+                "center_world_m": [
+                  0.6027461290359497,
+                  0.04597897082567215,
+                  0.7775134444236755
+                ]
+              }
+            },
+            "soft_mesh_center_distance_m": 0.06245353587581839,
+            "cube_center_world_m": [
+              0.6000022888183594,
+              0.0001440740452380851,
+              0.7564616203308105
+            ],
+            "cube_side_center_z_m": 0.7564616203308105,
+            "cube_half_extent_m": 0.02,
+            "side_grasp_aperture": {
+              "axis": "world_y",
+              "soft_inner_gap_m": 0.05701775476336479,
+              "cube_extent_m": 0.04,
+              "margin_m": 0.01701775476336479,
+              "feasible_without_interpenetration": true
+            },
+            "soft_cube_contact_geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5799300670623779,
+                  -0.019928134977817535,
+                  0.7364614009857178
+                ],
+                "max_world_m": [
+                  0.6200745105743408,
+                  0.020216282457113266,
+                  0.7764618396759033
+                ],
+                "center_world_m": [
+                  0.6000022888183594,
+                  0.0001440740452380851,
+                  0.7564616203308105
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5909096002578735,
+                    -0.03333108872175217,
+                    0.7439905405044556
+                  ],
+                  "max_world_m": [
+                    0.6152814626693726,
+                    -0.027895508334040642,
+                    0.7726227045059204
+                  ],
+                  "center_world_m": [
+                    0.603095531463623,
+                    -0.03061329945921898,
+                    0.758306622505188
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.007967373356223106,
+                  "soft_mesh_aabb_distance_m": 0.007967373356223106,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.590228796005249,
+                    0.02912224642932415,
+                    0.7440154552459717
+                  ],
+                  "max_world_m": [
+                    0.614600658416748,
+                    0.03455079346895218,
+                    0.7726463079452515
+                  ],
+                  "center_world_m": [
+                    0.6024147272109985,
+                    0.03183652088046074,
+                    0.7583308815956116
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.008905963972210884,
+                  "soft_mesh_aabb_distance_m": 0.008905963972210884,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": []
+            }
+          },
+          "passed": true
+        },
+        "preclose_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6027551293373108,
+            0.0005845390260219574,
+            0.7583098411560059
+          ],
+          "cube_center_world_m": [
+            0.6000022888183594,
+            0.00014405627734959126,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.002752840518951416,
+            0.00044048274867236614,
+            0.0018481612205505371
+          ],
+          "xz_center_error_m": 0.0033156946210300417,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        }
+      },
+      "postclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6018714308738708,
+            -0.044499658048152924,
+            0.7873737812042236
+          ],
+          "right": [
+            0.60442715883255,
+            0.047033753246068954,
+            0.7876681089401245
+          ]
+        },
+        "soft_origin_distance_m": 0.09156955693554535,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5906247496604919,
+              -0.024160847067832947,
+              0.738314688205719
+            ],
+            "max_world_m": [
+              0.6150140166282654,
+              -0.01819928176701069,
+              0.7670536637306213
+            ],
+            "center_world_m": [
+              0.6028193831443787,
+              -0.021180063486099243,
+              0.7526841759681702
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900608897209167,
+              0.021719450131058693,
+              0.738234281539917
+            ],
+            "max_world_m": [
+              0.6144484877586365,
+              0.027155164629220963,
+              0.7668808102607727
+            ],
+            "center_world_m": [
+              0.6022546887397766,
+              0.024437308311462402,
+              0.7525575160980225
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.588131844997406,
+              -0.04792849346995354,
+              0.7360852360725403
+            ],
+            "max_world_m": [
+              0.6177260875701904,
+              -0.0231136754155159,
+              0.7690540552139282
+            ],
+            "center_world_m": [
+              0.6029289960861206,
+              -0.03552108258008957,
+              0.7525696754455566
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5873472690582275,
+              0.026666488498449326,
+              0.7364804148674011
+            ],
+            "max_world_m": [
+              0.6169455051422119,
+              0.050888676196336746,
+              0.7690075635910034
+            ],
+            "center_world_m": [
+              0.6021463871002197,
+              0.038777582347393036,
+              0.7527439594268799
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5868809223175049,
+              -0.05332645773887634,
+              0.7334850430488586
+            ],
+            "max_world_m": [
+              0.6194044351577759,
+              -0.01809360273182392,
+              0.8096650838851929
+            ],
+            "center_world_m": [
+              0.6031426787376404,
+              -0.03571002930402756,
+              0.7715750932693481
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.586336612701416,
+              0.021653026342391968,
+              0.7339608073234558
+            ],
+            "max_world_m": [
+              0.6188621520996094,
+              0.05549251660704613,
+              0.8095292448997498
+            ],
+            "center_world_m": [
+              0.6025993824005127,
+              0.0385727733373642,
+              0.7717450261116028
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.045621042647119185,
+        "cube_center_world_m": [
+          0.5998153686523438,
+          0.0014271142426878214,
+          0.7571776509284973
+        ],
+        "cube_side_center_z_m": 0.7571776509284973,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.03991873189806938,
+          "cube_extent_m": 0.04,
+          "margin_m": -8.126810193061912e-05,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5796540379524231,
+              -0.019022241234779358,
+              0.7368180751800537
+            ],
+            "max_world_m": [
+              0.6199766993522644,
+              0.021876469254493713,
+              0.7775372266769409
+            ],
+            "center_world_m": [
+              0.5998153686523438,
+              0.0014271142426878214,
+              0.7571776509284973
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5906247496604919,
+                -0.024160847067832947,
+                0.738314688205719
+              ],
+              "max_world_m": [
+                0.6150140166282654,
+                -0.01819928176701069,
+                0.7670536637306213
+              ],
+              "center_world_m": [
+                0.6028193831443787,
+                -0.021180063486099243,
+                0.7526841759681702
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900608897209167,
+                0.021719450131058693,
+                0.738234281539917
+              ],
+              "max_world_m": [
+                0.6144484877586365,
+                0.027155164629220963,
+                0.7668808102607727
+              ],
+              "center_world_m": [
+                0.6022546887397766,
+                0.024437308311462402,
+                0.7525575160980225
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "postsettle_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6018041372299194,
+            -0.04437581077218056,
+            0.7871991395950317
+          ],
+          "right": [
+            0.6043484807014465,
+            0.04716913402080536,
+            0.7875110507011414
+          ]
+        },
+        "soft_origin_distance_m": 0.09158082708400299,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905386209487915,
+              -0.024029044434428215,
+              0.7381454706192017
+            ],
+            "max_world_m": [
+              0.6149375438690186,
+              -0.01805172674357891,
+              0.7668941020965576
+            ],
+            "center_world_m": [
+              0.602738082408905,
+              -0.021040385589003563,
+              0.7525197863578796
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5899686813354492,
+              0.021865541115403175,
+              0.7380592226982117
+            ],
+            "max_world_m": [
+              0.6143659353256226,
+              0.027321014553308487,
+              0.7667163610458374
+            ],
+            "center_world_m": [
+              0.6021673083305359,
+              0.024593278765678406,
+              0.7523877620697021
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5880457758903503,
+              -0.04779770225286484,
+              0.7359044551849365
+            ],
+            "max_world_m": [
+              0.6176528930664062,
+              -0.022964974865317345,
+              0.7688930034637451
+            ],
+            "center_world_m": [
+              0.6028493642807007,
+              -0.035381339490413666,
+              0.7523987293243408
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5872517228126526,
+              0.026811029762029648,
+              0.7363075017929077
+            ],
+            "max_world_m": [
+              0.616862952709198,
+              0.051055822521448135,
+              0.768858015537262
+            ],
+            "center_world_m": [
+              0.6020573377609253,
+              0.03893342614173889,
+              0.7525827884674072
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5867934226989746,
+              -0.05321403592824936,
+              0.7333019375801086
+            ],
+            "max_world_m": [
+              0.6193450093269348,
+              -0.01794370636343956,
+              0.8095060586929321
+            ],
+            "center_world_m": [
+              0.6030691862106323,
+              -0.03557886928319931,
+              0.7714040279388428
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.586239755153656,
+              0.021773498505353928,
+              0.7337846159934998
+            ],
+            "max_world_m": [
+              0.6187933683395386,
+              0.05566128343343735,
+              0.809382438659668
+            ],
+            "center_world_m": [
+              0.6025165319442749,
+              0.03871738910675049,
+              0.7715835571289062
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.04563742472902014,
+        "cube_center_world_m": [
+          0.5999724268913269,
+          0.0015578536549583077,
+          0.7573201060295105
+        ],
+        "cube_side_center_z_m": 0.7573201060295105,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.039917267858982086,
+          "cube_extent_m": 0.04,
+          "margin_m": -8.273214101791465e-05,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5797531008720398,
+              -0.018911467865109444,
+              0.7368789315223694
+            ],
+            "max_world_m": [
+              0.620191752910614,
+              0.02202717401087284,
+              0.7777612805366516
+            ],
+            "center_world_m": [
+              0.5999724268913269,
+              0.0015578536549583077,
+              0.7573201060295105
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905386209487915,
+                -0.024029044434428215,
+                0.7381454706192017
+              ],
+              "max_world_m": [
+                0.6149375438690186,
+                -0.01805172674357891,
+                0.7668941020965576
+              ],
+              "center_world_m": [
+                0.602738082408905,
+                -0.021040385589003563,
+                0.7525197863578796
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.0008597411215305328,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5899686813354492,
+                0.021865541115403175,
+                0.7380592226982117
+              ],
+              "max_world_m": [
+                0.6143659353256226,
+                0.027321014553308487,
+                0.7667163610458374
+              ],
+              "center_world_m": [
+                0.6021673083305359,
+                0.024593278765678406,
+                0.7523877620697021
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00016163289546966553,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "close_safety": {
+        "preclose_object_shift_m": 0.00014406901027541608,
+        "max_preclose_object_shift_m": 0.015,
+        "preclose_object_shift_passed": true,
+        "preclose_arm_settle_max_error_rad": 0.0,
+        "direct_grasp_target": true,
+        "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+        "arm_velocity_latch": {
+          "latched": true,
+          "zeroed_arm_velocity": true,
+          "arm_hold": {
+            "max_abs_error_rad": 0.0,
+            "target_rad": [
+              -0.04358641058206558,
+              -1.0472968816757202,
+              1.522964596748352,
+              -2.029574394226074,
+              -1.571075201034546,
+              -0.05028482899069786
+            ],
+            "actual_rad": [
+              -0.04358641058206558,
+              -1.0472968816757202,
+              1.522964596748352,
+              -2.029574394226074,
+              -1.571075201034546,
+              -0.05028482899069786
+            ]
+          }
+        },
+        "passed": true,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_trigger_m": 0.001,
+        "max_object_lift_during_close_m": 0.0007159709930419922,
+        "final_object_lift_after_close_m": 0.0007159709930419922,
+        "close_object_lift_passed": true,
+        "close_stopped_by_object_lift": false,
+        "max_object_lift_during_settle_m": 0.0008584260940551758,
+        "final_object_lift_after_settle_m": 0.0008584260940551758,
+        "settle_object_lift_passed": true,
+        "settle_stopped_by_object_lift": false,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "force_control_enabled": true,
+        "stable_grasp_detected": true,
+        "stable_grasp_passed": true,
+        "high_force_stop": false,
+        "close_goal_reached": false
+      },
+      "preclose_arm_settle": {
+        "requested_steps": 50,
+        "actual_steps": 50,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04358641058206558,
+            -1.0472968816757202,
+            1.522964596748352,
+            -2.029574394226074,
+            -1.571075201034546,
+            -0.05028482899069786
+          ],
+          "actual_rad": [
+            -0.04358641058206558,
+            -1.0472968816757202,
+            1.522964596748352,
+            -2.029574394226074,
+            -1.571075201034546,
+            -0.05028482899069786
+          ]
+        },
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "actual_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "max_abs_error_rad": 0.0
+        }
+      },
+      "direct_move": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "approach": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_approach_stage"
+      },
+      "descend_precontact": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_precontact_stage"
+      },
+      "descend": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "close_command": {
+        "executed": true,
+        "steps": 160,
+        "settle_steps": 4,
+        "target_close_rad": 0.25,
+        "close_passed": true,
+        "force_control": {
+          "requested_steps": 160,
+          "actual_steps": 121,
+          "requested_target_close_rad": 0.25,
+          "target_close_rad": 0.25,
+          "absolute_close_cap_rad": 0.45,
+          "start_close_rad": 0.0,
+          "final_target_close_rad": 0.18906250596046448,
+          "actual_final_close_rad": 0.1794438511133194,
+          "close_goal_reached": false,
+          "soft_contact_detected": true,
+          "last_contact_read": {
+            "enabled": true,
+            "contact_detected": true,
+            "contact_sides": [
+              "left",
+              "right"
+            ],
+            "geometry_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_by_side_n": {
+              "left": 1.609598994255066,
+              "right": 1.0591514110565186
+            },
+            "max_force_n": 1.609598994255066,
+            "both_sides_force_contact": true,
+            "threshold_n": 0.2,
+            "sides": {
+              "left": {
+                "initialized": true,
+                "max_force_n": 1.609598994255066,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5906247496604919,
+                    -0.024160847067832947,
+                    0.738314688205719
+                  ],
+                  "max_world_m": [
+                    0.6150140166282654,
+                    -0.01819928176701069,
+                    0.7670536637306213
+                  ],
+                  "center_world_m": [
+                    0.6028193831443787,
+                    -0.021180063486099243,
+                    0.7526841759681702
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              },
+              "right": {
+                "initialized": true,
+                "max_force_n": 1.0591514110565186,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900608897209167,
+                    0.021719450131058693,
+                    0.738234281539917
+                  ],
+                  "max_world_m": [
+                    0.6144484877586365,
+                    0.027155164629220963,
+                    0.7668808102607727
+                  ],
+                  "center_world_m": [
+                    0.6022546887397766,
+                    0.024437308311462402,
+                    0.7525575160980225
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              }
+            },
+            "geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5796540379524231,
+                  -0.019022241234779358,
+                  0.7368180751800537
+                ],
+                "max_world_m": [
+                  0.6199766993522644,
+                  0.021876469254493713,
+                  0.7775372266769409
+                ],
+                "center_world_m": [
+                  0.5998153686523438,
+                  0.0014271142426878214,
+                  0.7571776509284973
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5906247496604919,
+                    -0.024160847067832947,
+                    0.738314688205719
+                  ],
+                  "max_world_m": [
+                    0.6150140166282654,
+                    -0.01819928176701069,
+                    0.7670536637306213
+                  ],
+                  "center_world_m": [
+                    0.6028193831443787,
+                    -0.021180063486099243,
+                    0.7526841759681702
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.0008229594677686691,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900608897209167,
+                    0.021719450131058693,
+                    0.738234281539917
+                  ],
+                  "max_world_m": [
+                    0.6144484877586365,
+                    0.027155164629220963,
+                    0.7668808102607727
+                  ],
+                  "center_world_m": [
+                    0.6022546887397766,
+                    0.024437308311462402,
+                    0.7525575160980225
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015701912343502045,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": [
+                "left",
+                "right"
+              ]
+            },
+            "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+          },
+          "soft_contact_stop_enabled": false,
+          "stopped_by_no_contact_cap": false,
+          "force_control": {
+            "enabled": true,
+            "stable_force_threshold_n": 0.5,
+            "high_force_threshold_n": 8.0,
+            "required_stable_steps": 1,
+            "stable_grasp_detected": true,
+            "stable_grasp_step": 121,
+            "stable_force_stop_enabled": true,
+            "stopped_by_stable_force": true,
+            "final_stable_counter": 1,
+            "max_force_seen_n": 1.609598994255066,
+            "stopped_by_high_force": false,
+            "high_force_step": null,
+            "last_force_safe_close_rad": 0.1890625,
+            "force_history_tail": [
+              {
+                "step": 110,
+                "planned_close_rad": 0.171875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 111,
+                "planned_close_rad": 0.1734375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 112,
+                "planned_close_rad": 0.175,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 113,
+                "planned_close_rad": 0.1765625,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 114,
+                "planned_close_rad": 0.178125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 115,
+                "planned_close_rad": 0.1796875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 116,
+                "planned_close_rad": 0.18125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 117,
+                "planned_close_rad": 0.1828125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 118,
+                "planned_close_rad": 0.184375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 119,
+                "planned_close_rad": 0.1859375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 120,
+                "planned_close_rad": 0.1875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 121,
+                "planned_close_rad": 0.1890625,
+                "force_by_side_n": {
+                  "left": 1.609598994255066,
+                  "right": 1.0591514110565186
+                },
+                "max_force_n": 1.609598994255066,
+                "both_sides_stable": true,
+                "stable_counter": 1,
+                "high_force_detected": false
+              }
+            ]
+          },
+          "preclose_object_z_m": 0.7564616799354553,
+          "final_object_z_m": 0.7571776509284973,
+          "final_object_lift_m": 0.0007159709930419922,
+          "max_object_lift_during_close_m": 0.0007159709930419922,
+          "max_close_object_lift_m": 0.001,
+          "object_lift_guard_trigger_m": 0.001,
+          "object_lift_guard_trigger_fraction": 1.0,
+          "object_lift_guard_enabled": true,
+          "object_lift_within_limit": true,
+          "stopped_by_object_lift": false,
+          "last_safe_close_rad": 0.1890625,
+          "object_lift_rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": null,
+          "object_z_history_tail": [
+            {
+              "step": 110,
+              "planned_close_rad": 0.171875,
+              "object_z_m": 0.7564616799354553,
+              "object_lift_m": 0.0
+            },
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "object_z_m": 0.7564617395401001,
+              "object_lift_m": 5.960464477539063e-08
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "object_z_m": 0.7564614415168762,
+              "object_lift_m": -2.384185791015625e-07
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "object_z_m": 0.7564617395401001,
+              "object_lift_m": 5.960464477539063e-08
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "object_z_m": 0.7564615607261658,
+              "object_lift_m": -1.1920928955078125e-07
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "object_z_m": 0.7564610242843628,
+              "object_lift_m": -6.556510925292969e-07
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "object_z_m": 0.7564621567726135,
+              "object_lift_m": 4.76837158203125e-07
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "object_z_m": 0.7565827369689941,
+              "object_lift_m": 0.00012105703353881836
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "object_z_m": 0.7564570307731628,
+              "object_lift_m": -4.649162292480469e-06
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "object_z_m": 0.7569395303726196,
+              "object_lift_m": 0.00047785043716430664
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "object_z_m": 0.7565272450447083,
+              "object_lift_m": 6.556510925292969e-05
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "object_z_m": 0.7571776509284973,
+              "object_lift_m": 0.0007159709930419922
+            }
+          ],
+          "arm_hold_enabled": true
+        }
+      },
+      "close_gripper": {
+        "target_rad": {
+          "finger_joint": 0.18906250596046448,
+          "left_inner_finger_joint": -0.18906250596046448,
+          "left_inner_knuckle_joint": 0.18906250596046448,
+          "right_outer_knuckle_joint": 0.18906250596046448,
+          "right_inner_finger_joint": -0.18906250596046448,
+          "right_inner_knuckle_joint": 0.18906250596046448
+        },
+        "actual_rad": {
+          "finger_joint": 0.1794438511133194,
+          "left_inner_finger_joint": -0.16015470027923584,
+          "left_inner_knuckle_joint": 0.1882062405347824,
+          "right_outer_knuckle_joint": 0.15952154994010925,
+          "right_inner_finger_joint": -0.16014426946640015,
+          "right_inner_knuckle_joint": 0.18765059113502502
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.00961865484714508,
+          "left_inner_finger_joint": 0.028907805681228638,
+          "left_inner_knuckle_joint": 0.0008562654256820679,
+          "right_outer_knuckle_joint": 0.029540956020355225,
+          "right_inner_finger_joint": 0.02891823649406433,
+          "right_inner_knuckle_joint": 0.0014119148254394531
+        },
+        "max_abs_error_rad": 0.029540956020355225
+      },
+      "close_settle": {
+        "requested_steps": 4,
+        "actual_steps": 4,
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.18906250596046448,
+            "left_inner_finger_joint": -0.18906250596046448,
+            "left_inner_knuckle_joint": 0.18906250596046448,
+            "right_outer_knuckle_joint": 0.18906250596046448,
+            "right_inner_finger_joint": -0.18906250596046448,
+            "right_inner_knuckle_joint": 0.18906250596046448
+          },
+          "actual_rad": {
+            "finger_joint": 0.1798572838306427,
+            "left_inner_finger_joint": -0.1601550132036209,
+            "left_inner_knuckle_joint": 0.18830230832099915,
+            "right_outer_knuckle_joint": 0.15896794199943542,
+            "right_inner_finger_joint": -0.16014423966407776,
+            "right_inner_knuckle_joint": 0.18771187961101532
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.009205222129821777,
+            "left_inner_finger_joint": 0.028907492756843567,
+            "left_inner_knuckle_joint": 0.000760197639465332,
+            "right_outer_knuckle_joint": 0.030094563961029053,
+            "right_inner_finger_joint": 0.02891826629638672,
+            "right_inner_knuckle_joint": 0.0013506263494491577
+          },
+          "max_abs_error_rad": 0.030094563961029053
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7573201060295105,
+        "final_object_lift_m": 0.0008584260940551758,
+        "max_object_lift_during_settle_m": 0.0008584260940551758,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": true,
+        "stopped_by_object_lift": false,
+        "last_safe_close_rad": 0.1798572838306427,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": null,
+        "final_target_close_rad": 0.18906250596046448,
+        "object_z_history_tail": [
+          {
+            "step": 1,
+            "object_z_m": 0.7565671801567078,
+            "object_lift_m": 0.0001055002212524414,
+            "close_rad": 0.18365123867988586
+          },
+          {
+            "step": 2,
+            "object_z_m": 0.7572504878044128,
+            "object_lift_m": 0.0007888078689575195,
+            "close_rad": 0.1796012967824936
+          },
+          {
+            "step": 3,
+            "object_z_m": 0.7566545605659485,
+            "object_lift_m": 0.00019288063049316406,
+            "close_rad": 0.18335111439228058
+          },
+          {
+            "step": 4,
+            "object_z_m": 0.7573201060295105,
+            "object_lift_m": 0.0008584260940551758,
+            "close_rad": 0.1798572838306427
+          }
+        ],
+        "arm_hold_enabled": true
+      },
+      "lift": {
+        "passed": true,
+        "steps": 43,
+        "final_position_error_m": 0.0059956335462629795,
+        "final_position_world_m": [
+          0.6102234125137329,
+          0.0002586109912954271,
+          1.0799843072891235
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "hold": {
+        "hold_steps": 300,
+        "actual_hold_steps": 300,
+        "final_object_z_m": 0.7564616203308105,
+        "max_object_z_m": 0.7564616203308105,
+        "min_object_z_m": 0.7564616203308105,
+        "final_lift_m": 0.0,
+        "min_lift_m": 0.0,
+        "arm_hold_enabled": true
+      },
+      "hold_gripper": {
+        "target_rad": {
+          "finger_joint": 0.18906250596046448,
+          "left_inner_finger_joint": -0.18906250596046448,
+          "left_inner_knuckle_joint": 0.18906250596046448,
+          "right_outer_knuckle_joint": 0.18906250596046448,
+          "right_inner_finger_joint": -0.18906250596046448,
+          "right_inner_knuckle_joint": 0.18906250596046448
+        },
+        "actual_rad": {
+          "finger_joint": 0.18903611600399017,
+          "left_inner_finger_joint": -0.16025647521018982,
+          "left_inner_knuckle_joint": 0.18895871937274933,
+          "right_outer_knuckle_joint": 0.18342623114585876,
+          "right_inner_finger_joint": -0.1602538526058197,
+          "right_inner_knuckle_joint": 0.18888498842716217
+        },
+        "abs_error_rad": {
+          "finger_joint": 2.63899564743042e-05,
+          "left_inner_finger_joint": 0.028806030750274658,
+          "left_inner_knuckle_joint": 0.00010378658771514893,
+          "right_outer_knuckle_joint": 0.005636274814605713,
+          "right_inner_finger_joint": 0.028808653354644775,
+          "right_inner_knuckle_joint": 0.00017751753330230713
+        },
+        "max_abs_error_rad": 0.028808653354644775
+      },
+      "motion_reached_nominal": true,
+      "step_budget_used": 607
+    }
+  ]
+}
+
+## 2026-07-10T09:23:28Z — Phase2 grasp test did not reach success criteria
+
+{
+  "passed": false,
+  "reason": "reached max_attempts=1; preserved logs for contact_demo review",
+  "attempts_used": 1,
+  "max_attempts": 1,
+  "step_budget_used": 609,
+  "max_steps": 0,
+  "success_criteria": {
+    "selected_mode": "contact_demo",
+    "modes": {
+      "contact_demo": "Default Phase2 tactile-grasp bring-up gate: soft-center preclose alignment, stable two-sided force close, gripper/safety checks, and live tactile contact image change. Does not require 10 cm object lift.",
+      "lift_hold": "Legacy strict gate: require the configured object lift margin during hold."
+    },
+    "lift_distance_m": 0.16,
+    "success_lift_margin_m": 0.1,
+    "hold_seconds": 5.0,
+    "max_gripper_joint_error_rad": 0.08,
+    "max_close_object_lift_m": 0.001,
+    "close_object_lift_guard_enabled": true,
+    "max_preclose_object_shift_m": 0.015,
+    "object": "4cm_cube",
+    "grasp_target": "GSmini soft-link mesh pair center aligned to the 4 cm cube side-face center plus CLI offsets; no approach/precontact/terminal XY adjustment stages",
+    "soft_center_tcp": {
+      "frame_name": "virtual_soft_center_tcp",
+      "definition": "The initial IK target is computed from the measured ee_link -> average(left/right GSmini soft-link mesh center) transform, then bounded measured refinement corrects the realized soft-link center before close.",
+      "implemented_as": "runtime geometry layer in ur5_phase2_grasp_test.py; no extra URDF joint required"
+    },
+    "align_soft_center": true,
+    "grasp_soft_center_z_offset_m": 0.0,
+    "soft_center_tolerance_m": 0.005,
+    "soft_center_refine_rounds": 4,
+    "soft_center_refine_steps": 60,
+    "max_soft_center_refine_step_m": 0.025,
+    "object_lift_rewind_steps": 8,
+    "object_lift_rewind_open_margin_rad": 0.005,
+    "object_lift_guard_trigger_fraction": 1.0,
+    "force_control": {
+      "enabled": true,
+      "body_by_side": {
+        "left": "left_gelsight_mini_gelpad",
+        "right": "right_gelsight_mini_gelpad"
+      },
+      "filter_prim_path": "/World/Origin1/GraspCube",
+      "contact_report_threshold_n": 0.2,
+      "stable_force_threshold_n": 0.5,
+      "high_force_stop_threshold_n": 8.0,
+      "stable_steps": 1,
+      "stable_force_stop_enabled": true,
+      "soft_contact_stop_enabled": false,
+      "absolute_close_cap_rad": 0.45
+    },
+    "motion_profile": {
+      "direct_move_steps": 240,
+      "direct_max_joint_delta_per_step": 0.018,
+      "descend_accept_tolerance_m": 0.006,
+      "legacy_approach_steps_skipped": 90,
+      "legacy_precontact_steps_skipped": 1,
+      "close_steps": 160,
+      "close_settle_steps": 4,
+      "arm_hold_settle_steps": 50
+    },
+    "demo_default_note": "Default max_attempts=1 executes the user-tuned direct cube-center target once. Set --max_attempts > 1 only when you explicitly want independent tuning attempts."
+  },
+  "tactile_live": {
+    "enabled": true,
+    "shown_data_types": [
+      "tactile_rgb"
+    ],
+    "sides": [
+      "left",
+      "right"
+    ],
+    "sensor_paths": {
+      "left": {
+        "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+        "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+        "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera"
+      },
+      "right": {
+        "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+        "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+        "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera"
+      }
+    },
+    "sensor_camera_clipping_range_m": [
+      0.024,
+      0.04
+    ],
+    "dock_tactile_windows_right": true,
+    "script_tactile_panel": true,
+    "script_tactile_panel_stats": {
+      "left": {
+        "frames": 610,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      },
+      "right": {
+        "frames": 610,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      }
+    },
+    "contact_imprint_fallback": {
+      "enabled": true,
+      "nominal_depth_mm": 1.5,
+      "background_threshold_mean_abs_delta": 0.75,
+      "stats": {
+        "left": {
+          "frames": 610,
+          "baseline_frames": 561,
+          "contact_frames": 49,
+          "applied_frames": 49,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.032117705792188644,
+          "max_depth_mm": 1.6096013002097607,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6127817034721375,
+              -0.026572909206151962,
+              0.8925801515579224
+            ],
+            "max_world_m": [
+              0.6393384337425232,
+              -0.02105358988046646,
+              0.9230382442474365
+            ],
+            "center_world_m": [
+              0.6260600686073303,
+              -0.02381324954330921,
+              0.9078091979026794
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.1161184310913086,
+            "soft_mesh_aabb_distance_m": 0.11612042039632797,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.03024434670805931,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        },
+        "right": {
+          "frames": 610,
+          "baseline_frames": 564,
+          "contact_frames": 46,
+          "applied_frames": 46,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.03183571994304657,
+          "max_depth_mm": 1.592546921223402,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6122727990150452,
+              0.01921067014336586,
+              0.8922819495201111
+            ],
+            "max_world_m": [
+              0.6388236284255981,
+              0.024940093979239464,
+              0.9227831959724426
+            ],
+            "center_world_m": [
+              0.625548243522644,
+              0.022075381129980087,
+              0.9075325727462769
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.11582022905349731,
+            "soft_mesh_aabb_distance_m": 0.11582022905349731,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.03024434670805931,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        }
+      },
+      "source": "canonical GSmini soft-link AABB contact geometry rendered through TacEx/Taxim when camera-depth RGB stays at background"
+    },
+    "legacy_tacex_debug_windows": false,
+    "mount_info": {
+      "enabled": true,
+      "mounted": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        }
+      },
+      "camera_check": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        }
+      },
+      "mount_check": {
+        "left": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        },
+        "right": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        }
+      },
+      "runtime_shell_policy": "The canonical URDF owns visible/collision GSmini geometry. Phase2 TacEx shell mesh descendants are hidden and their physics is disabled; their camera prims remain active for tactile_rgb."
+    },
+    "inner_finger_stage_audit": {
+      "prim_status": {
+        "/World/Origin1/Robot/left_inner_finger": {
+          "path": "/World/Origin1/Robot/left_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/left_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/left_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger": {
+          "path": "/World/Origin1/Robot/right_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/right_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/right_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        }
+      },
+      "interpretation": "Gray Stage-tree entries under phase2_tacex are expected when TacEx runtime shell meshes are hidden or their physics is disabled. Canonical URDF gelpad contact is validated separately by filtered contact forces and GSmini soft-mesh AABB overlap."
+    }
+  },
+  "final_attempt": {
+    "passed": false,
+    "success_evaluation": {
+      "selected_mode": "contact_demo",
+      "selected_passed": false,
+      "contact_demo_passed": false,
+      "lift_hold_passed": false,
+      "checks": {
+        "soft_center_preclose_passed": true,
+        "direct_motion_passed": true,
+        "lift_motion_passed": true,
+        "close_passed": true,
+        "close_settle_gripper_passed": true,
+        "hold_gripper_passed": true,
+        "stable_grasp_passed": true,
+        "close_safety_passed": false,
+        "strict_lift_margin_passed": false,
+        "tactile_contact_change": {
+          "required": true,
+          "passed": true,
+          "skipped": false,
+          "sides": {
+            "left": {
+              "passed": true,
+              "contact_frames": 49,
+              "imprint_applied_frames": 49,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.032117705792188644
+            },
+            "right": {
+              "passed": true,
+              "contact_frames": 46,
+              "imprint_applied_frames": 46,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.03183571994304657
+            }
+          },
+          "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+        }
+      },
+      "notes": {
+        "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+        "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+      }
+    },
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "pregrasp_wrist3_deg": -2.6,
+    "static_geometry_audit": {
+      "urdf_pad_collision_z_max_m": 0.05117,
+      "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+      "urdf_gsmini_full_collision_z_max_m": 0.08586,
+      "gsmini_base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "gsmini_sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+      "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+      "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+    },
+    "object": {
+      "kind": "cube",
+      "label": "4cm_cube",
+      "cube_size_m": 0.04,
+      "cube_side_centers_world_m": {
+        "left_y_positive": [
+          0.6000000834465027,
+          0.020000004159889322,
+          0.7564616203308105
+        ],
+        "right_y_negative": [
+          0.6000000834465027,
+          -0.01999999584011068,
+          0.7564616203308105
+        ]
+      }
+    },
+    "object_initial_position_m": [
+      0.6000000834465027,
+      4.159889321897481e-09,
+      0.7564616203308105
+    ],
+    "grasp_target_world_m": [
+      0.6033328771591187,
+      -9.96661838144064e-05,
+      0.9218440651893616
+    ],
+    "effective_grasp_target_world_m": [
+      0.6047350764274597,
+      -8.71417869348079e-05,
+      0.9214848875999451
+    ],
+    "lift_target_world_m": [
+      0.6047350764274597,
+      -8.71417869348079e-05,
+      1.0814849138259888
+    ],
+    "preclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6007925271987915,
+          -0.05386461317539215,
+          0.7911803126335144
+        ],
+        "right": [
+          0.6033332943916321,
+          0.0538550466299057,
+          0.791196346282959
+        ]
+      },
+      "soft_origin_distance_m": 0.10774962117601727,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5894174575805664,
+            -0.03391304612159729,
+            0.741692066192627
+          ],
+          "max_world_m": [
+            0.6138845682144165,
+            -0.02850966528058052,
+            0.7704071998596191
+          ],
+          "center_world_m": [
+            0.6016510128974915,
+            -0.031211355701088905,
+            0.756049633026123
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5888010859489441,
+            0.028544485569000244,
+            0.7417442798614502
+          ],
+          "max_world_m": [
+            0.6132681965827942,
+            0.03394787013530731,
+            0.7704594135284424
+          ],
+          "center_world_m": [
+            0.6010346412658691,
+            0.031246177852153778,
+            0.7561018466949463
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5869169235229492,
+            -0.057644013315439224,
+            0.7399066090583801
+          ],
+          "max_world_m": [
+            0.6165891885757446,
+            -0.03346000611782074,
+            0.7725100517272949
+          ],
+          "center_world_m": [
+            0.6017530560493469,
+            -0.04555200785398483,
+            0.7562083005905151
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5861034393310547,
+            0.03349461406469345,
+            0.7399809956550598
+          ],
+          "max_world_m": [
+            0.6157756447792053,
+            0.057678621262311935,
+            0.7725843787193298
+          ],
+          "center_world_m": [
+            0.6009395122528076,
+            0.045586615800857544,
+            0.7562826871871948
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5856615900993347,
+            -0.062269873917102814,
+            0.7373907566070557
+          ],
+          "max_world_m": [
+            0.6183826327323914,
+            -0.028487306088209152,
+            0.8130356073379517
+          ],
+          "center_world_m": [
+            0.602022111415863,
+            -0.045378588140010834,
+            0.7752131819725037
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.585089385509491,
+            0.028497889637947083,
+            0.7374599575996399
+          ],
+          "max_world_m": [
+            0.6178104281425476,
+            0.06228046119213104,
+            0.8131047487258911
+          ],
+          "center_world_m": [
+            0.6014499068260193,
+            0.04538917541503906,
+            0.7752823829650879
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.06246059668150727,
+      "cube_center_world_m": [
+        0.599999189376831,
+        -4.2314698589507316e-07,
+        0.7564616799354553
+      ],
+      "cube_side_center_z_m": 0.7564616799354553,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.057054150849580765,
+        "cube_extent_m": 0.04,
+        "margin_m": 0.017054150849580764,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799991488456726,
+            -0.020000433549284935,
+            0.7364616394042969
+          ],
+          "max_world_m": [
+            0.6199992299079895,
+            0.019999587908387184,
+            0.7764617204666138
+          ],
+          "center_world_m": [
+            0.599999189376831,
+            -4.2314698589507316e-07,
+            0.7564616799354553
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5894174575805664,
+              -0.03391304612159729,
+              0.741692066192627
+            ],
+            "max_world_m": [
+              0.6138845682144165,
+              -0.02850966528058052,
+              0.7704071998596191
+            ],
+            "center_world_m": [
+              0.6016510128974915,
+              -0.031211355701088905,
+              0.756049633026123
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.008509231731295586,
+            "soft_mesh_aabb_distance_m": 0.008509231731295586,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5888010859489441,
+              0.028544485569000244,
+              0.7417442798614502
+            ],
+            "max_world_m": [
+              0.6132681965827942,
+              0.03394787013530731,
+              0.7704594135284424
+            ],
+            "center_world_m": [
+              0.6010346412658691,
+              0.031246177852153778,
+              0.7561018466949463
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.00854489766061306,
+            "soft_mesh_aabb_distance_m": 0.00854489766061306,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": []
+      }
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 3,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 21,
+              "final_position_error_m": 0.002308105118572712,
+              "final_position_world_m": [
+                0.6197659969329834,
+                -0.0008960269624367356,
+                0.9206937551498413
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "applied_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "raw_correction_norm_m": 0.012249276041984558,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6075860261917114,
+              -0.00015121622709557414,
+              0.9217606782913208
+            ],
+            "move": {
+              "passed": true,
+              "steps": 16,
+              "final_position_error_m": 0.0023440951481461525,
+              "final_position_world_m": [
+                0.6074981093406677,
+                0.0005897066439501941,
+                0.9239828586578369
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 3,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "applied_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "raw_correction_norm_m": 0.005245862528681755,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6027489900588989,
+              -0.00010787684004753828,
+              0.9218666553497314
+            ],
+            "move": {
+              "passed": true,
+              "steps": 3,
+              "final_position_error_m": 0.002022551605477929,
+              "final_position_world_m": [
+                0.6047350764274597,
+                -8.71417869348079e-05,
+                0.9214848875999451
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6013414859771729,
+                -3.215111792087555e-05,
+                0.7559993863105774
+              ],
+              "cube_center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0013422966003417969,
+                -3.172537302020828e-05,
+                -0.0004622936248779297
+              ],
+              "xz_center_error_m": 0.0014196744552508935,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013414859771729,
+            -3.215111792087555e-05,
+            0.7559993863105774
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013422966003417969,
+            -3.172537302020828e-05,
+            -0.0004622936248779297
+          ],
+          "xz_center_error_m": 0.0014196744552508935,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0083128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.600792407989502,
+              -0.0539088249206543,
+              0.7911607027053833
+            ],
+            "right": [
+              0.6033318042755127,
+              0.05381282418966293,
+              0.7911167144775391
+            ]
+          },
+          "soft_origin_distance_m": 0.10775158539672584,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894169807434082,
+                -0.03400657698512077,
+                0.7416419982910156
+              ],
+              "max_world_m": [
+                0.6138840317726135,
+                -0.02860037051141262,
+                0.7703564167022705
+              ],
+              "center_world_m": [
+                0.6016504764556885,
+                -0.03130347281694412,
+                0.7559992074966431
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5887988805770874,
+                0.028523338958621025,
+                0.7416393756866455
+              ],
+              "max_world_m": [
+                0.6132660508155823,
+                0.03395500034093857,
+                0.7703597545623779
+              ],
+              "center_world_m": [
+                0.6010324954986572,
+                0.03123917058110237,
+                0.7559995651245117
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5869166254997253,
+                -0.057737499475479126,
+                0.7398773431777954
+              ],
+              "max_world_m": [
+                0.6165893077850342,
+                -0.03355029225349426,
+                0.7724775075912476
+              ],
+              "center_world_m": [
+                0.6017529964447021,
+                -0.045643895864486694,
+                0.7561774253845215
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5861017107963562,
+                0.03347140550613403,
+                0.7398810982704163
+              ],
+              "max_world_m": [
+                0.6157736778259277,
+                0.05768744647502899,
+                0.7725085020065308
+              ],
+              "center_world_m": [
+                0.6009377241134644,
+                0.04557942599058151,
+                0.7561948299407959
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5856611728668213,
+                -0.06233958527445793,
+                0.7373618483543396
+              ],
+              "max_world_m": [
+                0.6183825731277466,
+                -0.02854951098561287,
+                0.8130022287368774
+              ],
+              "center_world_m": [
+                0.6020218729972839,
+                -0.0454445481300354,
+                0.7751820087432861
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.585087776184082,
+                0.02843409776687622,
+                0.7373550534248352
+              ],
+              "max_world_m": [
+                0.6178085207939148,
+                0.06229177862405777,
+                0.813033401966095
+              ],
+              "center_world_m": [
+                0.6014481782913208,
+                0.045362938195466995,
+                0.7751942276954651
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.0625456964451301,
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "cube_side_center_z_m": 0.7564616799354553,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.057123709470033646,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.017123709470033645,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799990892410278,
+                -0.020000511780381203,
+                0.7364614605903625
+              ],
+              "max_world_m": [
+                0.6199992895126343,
+                0.019999658688902855,
+                0.7764618992805481
+              ],
+              "center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6013428270816803,
+          1.741107553243637e-05,
+          0.7560757398605347
+        ],
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.0013436377048492432,
+          1.7834222518331444e-05,
+          -0.0003859400749206543
+        ],
+        "xz_center_error_m": 0.0013979671038054874,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "postclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6015610694885254,
+          -0.04575156420469284,
+          0.7903116345405579
+        ],
+        "right": [
+          0.6042527556419373,
+          0.045528922230005264,
+          0.7903761267662048
+        ]
+      },
+      "soft_origin_distance_m": 0.09132018691040192,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5905863642692566,
+            -0.02561796084046364,
+            0.7410926222801208
+          ],
+          "max_world_m": [
+            0.6148330569267273,
+            -0.019992778077721596,
+            0.7696672677993774
+          ],
+          "center_world_m": [
+            0.6027097105979919,
+            -0.02280537039041519,
+            0.7553799152374268
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5900971293449402,
+            0.0197133868932724,
+            0.7412214875221252
+          ],
+          "max_world_m": [
+            0.6143423914909363,
+            0.025371212512254715,
+            0.7698012590408325
+          ],
+          "center_world_m": [
+            0.6022197604179382,
+            0.022542299702763557,
+            0.7555114030838013
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5880952477455139,
+            -0.049363747239112854,
+            0.7391289472579956
+          ],
+          "max_world_m": [
+            0.6175047159194946,
+            -0.024930117651820183,
+            0.7717093229293823
+          ],
+          "center_world_m": [
+            0.6028000116348267,
+            -0.03714693337678909,
+            0.755419135093689
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5874242186546326,
+            0.02464868314564228,
+            0.7392338514328003
+          ],
+          "max_world_m": [
+            0.6168363690376282,
+            0.04911910742521286,
+            0.7718386054039001
+          ],
+          "center_world_m": [
+            0.6021302938461304,
+            0.036883894354104996,
+            0.7555361986160278
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5868628025054932,
+            -0.054328761994838715,
+            0.7365818619728088
+          ],
+          "max_world_m": [
+            0.6189795136451721,
+            -0.01993725076317787,
+            0.8122707009315491
+          ],
+          "center_world_m": [
+            0.6029211282730103,
+            -0.03713300824165344,
+            0.774426281452179
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5864319205284119,
+            0.01965298503637314,
+            0.7366790175437927
+          ],
+          "max_world_m": [
+            0.6185495257377625,
+            0.05413099378347397,
+            0.8124016523361206
+          ],
+          "center_world_m": [
+            0.6024907231330872,
+            0.03689198940992355,
+            0.7745403051376343
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.045350507418467294,
+      "cube_center_world_m": [
+        0.6000269055366516,
+        -0.0001751065719872713,
+        0.7572775483131409
+      ],
+      "cube_side_center_z_m": 0.7572775483131409,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.039706164970993996,
+        "cube_extent_m": 0.04,
+        "margin_m": -0.00029383502900600517,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799939632415771,
+            -0.02021949738264084,
+            0.7372146248817444
+          ],
+          "max_world_m": [
+            0.6200598478317261,
+            0.019869282841682434,
+            0.7773404717445374
+          ],
+          "center_world_m": [
+            0.6000269055366516,
+            -0.0001751065719872713,
+            0.7572775483131409
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905863642692566,
+              -0.02561796084046364,
+              0.7410926222801208
+            ],
+            "max_world_m": [
+              0.6148330569267273,
+              -0.019992778077721596,
+              0.7696672677993774
+            ],
+            "center_world_m": [
+              0.6027097105979919,
+              -0.02280537039041519,
+              0.7553799152374268
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900971293449402,
+              0.0197133868932724,
+              0.7412214875221252
+            ],
+            "max_world_m": [
+              0.6143423914909363,
+              0.025371212512254715,
+              0.7698012590408325
+            ],
+            "center_world_m": [
+              0.6022197604179382,
+              0.022542299702763557,
+              0.7555114030838013
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "postsettle_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0083128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6015974879264832,
+          -0.046445056796073914,
+          0.7901602983474731
+        ],
+        "right": [
+          0.6042569279670715,
+          0.04613626003265381,
+          0.7901448011398315
+        ]
+      },
+      "soft_origin_distance_m": 0.09261950705566399,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.590589702129364,
+            -0.026438407599925995,
+            0.7408137917518616
+          ],
+          "max_world_m": [
+            0.6148520708084106,
+            -0.020974615588784218,
+            0.7693707346916199
+          ],
+          "center_world_m": [
+            0.6027208566665649,
+            -0.023706510663032532,
+            0.7550922632217407
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5900773406028748,
+            0.020651699975132942,
+            0.7408463358879089
+          ],
+          "max_world_m": [
+            0.6143391728401184,
+            0.02612360194325447,
+            0.7694039940834045
+          ],
+          "center_world_m": [
+            0.6022082567214966,
+            0.02338765189051628,
+            0.7551251649856567
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.588099479675293,
+            -0.05017344653606415,
+            0.7389896512031555
+          ],
+          "max_world_m": [
+            0.6175327897071838,
+            -0.025921663269400597,
+            0.7714436054229736
+          ],
+          "center_world_m": [
+            0.602816104888916,
+            -0.03804755583405495,
+            0.7552165985107422
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5873991847038269,
+            0.025598252192139626,
+            0.7390191555023193
+          ],
+          "max_world_m": [
+            0.6168334484100342,
+            0.04985920339822769,
+            0.7714766263961792
+          ],
+          "center_world_m": [
+            0.6021163463592529,
+            0.037728726863861084,
+            0.7552478909492493
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5868641138076782,
+            -0.054898012429475784,
+            0.7364693284034729
+          ],
+          "max_world_m": [
+            0.6190294027328491,
+            -0.020943211391568184,
+            0.8119773268699646
+          ],
+          "center_world_m": [
+            0.6029467582702637,
+            -0.03792061284184456,
+            0.7742233276367188
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5864046812057495,
+            0.020619086921215057,
+            0.7364950180053711
+          ],
+          "max_world_m": [
+            0.6185702681541443,
+            0.054595399647951126,
+            0.8120079040527344
+          ],
+          "center_world_m": [
+            0.6024874448776245,
+            0.03760724514722824,
+            0.7742514610290527
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.04709696367973027,
+      "cube_center_world_m": [
+        0.5999810099601746,
+        -0.00023825957032386214,
+        0.7564617395401001
+      ],
+      "cube_side_center_z_m": 0.7564617395401001,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.04162631556391716,
+        "cube_extent_m": 0.04,
+        "margin_m": 0.0016263155639171592,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5798712968826294,
+            -0.020347947254776955,
+            0.7364616990089417
+          ],
+          "max_world_m": [
+            0.6200907230377197,
+            0.0198714267462492,
+            0.7764617800712585
+          ],
+          "center_world_m": [
+            0.5999810099601746,
+            -0.00023825957032386214,
+            0.7564617395401001
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.590589702129364,
+              -0.026438407599925995,
+              0.7408137917518616
+            ],
+            "max_world_m": [
+              0.6148520708084106,
+              -0.020974615588784218,
+              0.7693707346916199
+            ],
+            "center_world_m": [
+              0.6027208566665649,
+              -0.023706510663032532,
+              0.7550922632217407
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": -0.0006266683340072632,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900773406028748,
+              0.020651699975132942,
+              0.7408463358879089
+            ],
+            "max_world_m": [
+              0.6143391728401184,
+              0.02612360194325447,
+              0.7694039940834045
+            ],
+            "center_world_m": [
+              0.6022082567214966,
+              0.02338765189051628,
+              0.7551251649856567
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": -0.0007802732288837433,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 9.927257451636251e-07,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        }
+      },
+      "passed": false,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.001,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "final_object_lift_after_close_m": 0.0008158683776855469,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.00168687105178833,
+      "final_object_lift_after_settle_m": 5.960464477539063e-08,
+      "settle_object_lift_passed": false,
+      "settle_stopped_by_object_lift": true,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    },
+    "preclose_arm_settle": {
+      "requested_steps": 50,
+      "actual_steps": 50,
+      "arm_hold": {
+        "max_abs_error_rad": 0.0,
+        "target_rad": [
+          -0.04455135017633438,
+          -1.0464569330215454,
+          1.527091145515442,
+          -2.0309174060821533,
+          -1.5710783004760742,
+          -0.05022554099559784
+        ],
+        "actual_rad": [
+          -0.04455135017633438,
+          -1.0464569330215454,
+          1.527091145515442,
+          -2.0309174060821533,
+          -1.5710783004760742,
+          -0.05022554099559784
+        ]
+      },
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "actual_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "max_abs_error_rad": 0.0
+      }
+    },
+    "direct_move": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "approach": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_approach_stage"
+    },
+    "descend_precontact": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_precontact_stage"
+    },
+    "descend": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "close_command": {
+      "executed": true,
+      "steps": 160,
+      "settle_steps": 4,
+      "target_close_rad": 0.25,
+      "close_passed": true,
+      "force_control": {
+        "requested_steps": 160,
+        "actual_steps": 122,
+        "requested_target_close_rad": 0.25,
+        "target_close_rad": 0.25,
+        "absolute_close_cap_rad": 0.45,
+        "start_close_rad": 0.0,
+        "final_target_close_rad": 0.19062499701976776,
+        "actual_final_close_rad": 0.17407794296741486,
+        "close_goal_reached": false,
+        "soft_contact_detected": true,
+        "last_contact_read": {
+          "enabled": true,
+          "contact_detected": true,
+          "contact_sides": [
+            "left",
+            "right"
+          ],
+          "geometry_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_by_side_n": {
+            "left": 1.3959752321243286,
+            "right": 1.4334803819656372
+          },
+          "max_force_n": 1.4334803819656372,
+          "both_sides_force_contact": true,
+          "threshold_n": 0.2,
+          "sides": {
+            "left": {
+              "initialized": true,
+              "max_force_n": 1.3959752321243286,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5905863642692566,
+                  -0.02561796084046364,
+                  0.7410926222801208
+                ],
+                "max_world_m": [
+                  0.6148330569267273,
+                  -0.019992778077721596,
+                  0.7696672677993774
+                ],
+                "center_world_m": [
+                  0.6027097105979919,
+                  -0.02280537039041519,
+                  0.7553799152374268
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            },
+            "right": {
+              "initialized": true,
+              "max_force_n": 1.4334803819656372,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900971293449402,
+                  0.0197133868932724,
+                  0.7412214875221252
+                ],
+                "max_world_m": [
+                  0.6143423914909363,
+                  0.025371212512254715,
+                  0.7698012590408325
+                ],
+                "center_world_m": [
+                  0.6022197604179382,
+                  0.022542299702763557,
+                  0.7555114030838013
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            }
+          },
+          "geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799939632415771,
+                -0.02021949738264084,
+                0.7372146248817444
+              ],
+              "max_world_m": [
+                0.6200598478317261,
+                0.019869282841682434,
+                0.7773404717445374
+              ],
+              "center_world_m": [
+                0.6000269055366516,
+                -0.0001751065719872713,
+                0.7572775483131409
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5905863642692566,
+                  -0.02561796084046364,
+                  0.7410926222801208
+                ],
+                "max_world_m": [
+                  0.6148330569267273,
+                  -0.019992778077721596,
+                  0.7696672677993774
+                ],
+                "center_world_m": [
+                  0.6027097105979919,
+                  -0.02280537039041519,
+                  0.7553799152374268
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900971293449402,
+                  0.0197133868932724,
+                  0.7412214875221252
+                ],
+                "max_world_m": [
+                  0.6143423914909363,
+                  0.025371212512254715,
+                  0.7698012590408325
+                ],
+                "center_world_m": [
+                  0.6022197604179382,
+                  0.022542299702763557,
+                  0.7555114030838013
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": [
+              "left",
+              "right"
+            ]
+          },
+          "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+        },
+        "soft_contact_stop_enabled": false,
+        "stopped_by_no_contact_cap": false,
+        "force_control": {
+          "enabled": true,
+          "stable_force_threshold_n": 0.5,
+          "high_force_threshold_n": 8.0,
+          "required_stable_steps": 1,
+          "stable_grasp_detected": true,
+          "stable_grasp_step": 122,
+          "stable_force_stop_enabled": true,
+          "stopped_by_stable_force": true,
+          "final_stable_counter": 1,
+          "max_force_seen_n": 1.4334803819656372,
+          "stopped_by_high_force": false,
+          "high_force_step": null,
+          "last_force_safe_close_rad": 0.190625,
+          "force_history_tail": [
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 1.0102137327194214
+              },
+              "max_force_n": 1.0102137327194214,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 122,
+              "planned_close_rad": 0.190625,
+              "force_by_side_n": {
+                "left": 1.3959752321243286,
+                "right": 1.4334803819656372
+              },
+              "max_force_n": 1.4334803819656372,
+              "both_sides_stable": true,
+              "stable_counter": 1,
+              "high_force_detected": false
+            }
+          ]
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7572775483131409,
+        "final_object_lift_m": 0.0008158683776855469,
+        "max_object_lift_during_close_m": 0.0008158683776855469,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": true,
+        "stopped_by_object_lift": false,
+        "last_safe_close_rad": 0.190625,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": null,
+        "object_z_history_tail": [
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "object_z_m": 0.7564616203308105,
+            "object_lift_m": -5.960464477539063e-08
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "object_z_m": 0.7564614415168762,
+            "object_lift_m": -2.384185791015625e-07
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "object_z_m": 0.7564586400985718,
+            "object_lift_m": -3.039836883544922e-06
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "object_z_m": 0.7564623355865479,
+            "object_lift_m": 6.556510925292969e-07
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "object_z_m": 0.7564598321914673,
+            "object_lift_m": -1.8477439880371094e-06
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "object_z_m": 0.7564609050750732,
+            "object_lift_m": -7.748603820800781e-07
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "object_z_m": 0.7565593719482422,
+            "object_lift_m": 9.769201278686523e-05
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "object_z_m": 0.7564796209335327,
+            "object_lift_m": 1.7940998077392578e-05
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "object_z_m": 0.7565234899520874,
+            "object_lift_m": 6.181001663208008e-05
+          },
+          {
+            "step": 122,
+            "planned_close_rad": 0.190625,
+            "object_z_m": 0.7572775483131409,
+            "object_lift_m": 0.0008158683776855469
+          }
+        ],
+        "arm_hold_enabled": true
+      }
+    },
+    "close_gripper": {
+      "target_rad": {
+        "finger_joint": 0.19062499701976776,
+        "left_inner_finger_joint": -0.19062499701976776,
+        "left_inner_knuckle_joint": 0.19062499701976776,
+        "right_outer_knuckle_joint": 0.19062499701976776,
+        "right_inner_finger_joint": -0.19062499701976776,
+        "right_inner_knuckle_joint": 0.19062499701976776
+      },
+      "actual_rad": {
+        "finger_joint": 0.17407794296741486,
+        "left_inner_finger_joint": -0.16463914513587952,
+        "left_inner_knuckle_joint": 0.1934232860803604,
+        "right_outer_knuckle_joint": 0.16966243088245392,
+        "right_inner_finger_joint": -0.15988744795322418,
+        "right_inner_knuckle_joint": 0.19331853091716766
+      },
+      "abs_error_rad": {
+        "finger_joint": 0.016547054052352905,
+        "left_inner_finger_joint": 0.025985851883888245,
+        "left_inner_knuckle_joint": 0.0027982890605926514,
+        "right_outer_knuckle_joint": 0.020962566137313843,
+        "right_inner_finger_joint": 0.03073754906654358,
+        "right_inner_knuckle_joint": 0.0026935338973999023
+      },
+      "max_abs_error_rad": 0.03073754906654358
+    },
+    "close_settle": {
+      "requested_steps": 4,
+      "actual_steps": 9,
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.16907794773578644,
+          "left_inner_finger_joint": -0.16907794773578644,
+          "left_inner_knuckle_joint": 0.16907794773578644,
+          "right_outer_knuckle_joint": 0.16907794773578644,
+          "right_inner_finger_joint": -0.16907794773578644,
+          "right_inner_knuckle_joint": 0.16907794773578644
+        },
+        "actual_rad": {
+          "finger_joint": 0.16335010528564453,
+          "left_inner_finger_joint": -0.160101518034935,
+          "left_inner_knuckle_joint": 0.16973042488098145,
+          "right_outer_knuckle_joint": 0.1621558964252472,
+          "right_inner_finger_joint": -0.15895800292491913,
+          "right_inner_knuckle_joint": 0.1695316880941391
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.005727842450141907,
+          "left_inner_finger_joint": 0.00897642970085144,
+          "left_inner_knuckle_joint": 0.0006524771451950073,
+          "right_outer_knuckle_joint": 0.006922051310539246,
+          "right_inner_finger_joint": 0.01011994481086731,
+          "right_inner_knuckle_joint": 0.00045374035835266113
+        },
+        "max_abs_error_rad": 0.01011994481086731
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7564617395401001,
+      "final_object_lift_m": 5.960464477539063e-08,
+      "max_object_lift_during_settle_m": 0.00168687105178833,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": false,
+      "stopped_by_object_lift": true,
+      "last_safe_close_rad": 0.16907794296741485,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": 0.16907794296741485,
+      "final_target_close_rad": 0.16907794773578644,
+      "object_z_history_tail": [
+        {
+          "step": 1,
+          "object_z_m": 0.7581485509872437,
+          "object_lift_m": 0.00168687105178833,
+          "close_rad": 0.17499135434627533
+        },
+        {
+          "step": 2,
+          "object_z_m": 0.7566158175468445,
+          "object_lift_m": 0.00015413761138916016,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 3,
+          "object_z_m": 0.756517767906189,
+          "object_lift_m": 5.608797073364258e-05,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 4,
+          "object_z_m": 0.7564619779586792,
+          "object_lift_m": 2.980232238769531e-07,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 5,
+          "object_z_m": 0.7564617991447449,
+          "object_lift_m": 1.1920928955078125e-07,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 6,
+          "object_z_m": 0.7564616203308105,
+          "object_lift_m": -5.960464477539063e-08,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 7,
+          "object_z_m": 0.7564617395401001,
+          "object_lift_m": 5.960464477539063e-08,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 8,
+          "object_z_m": 0.7564617991447449,
+          "object_lift_m": 1.1920928955078125e-07,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 9,
+          "object_z_m": 0.7564617395401001,
+          "object_lift_m": 5.960464477539063e-08,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "lift": {
+      "passed": true,
+      "steps": 41,
+      "final_position_error_m": 0.005725326016545296,
+      "final_position_world_m": [
+        0.609000027179718,
+        -0.00018426428141538054,
+        1.0776665210723877
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "hold": {
+      "hold_steps": 300,
+      "actual_hold_steps": 300,
+      "final_object_z_m": 0.7564616799354553,
+      "max_object_z_m": 0.7564616799354553,
+      "min_object_z_m": 0.7564616799354553,
+      "final_lift_m": 5.960464477539063e-08,
+      "min_lift_m": 5.960464477539063e-08,
+      "arm_hold_enabled": true
+    },
+    "hold_gripper": {
+      "target_rad": {
+        "finger_joint": 0.16907794773578644,
+        "left_inner_finger_joint": -0.16907794773578644,
+        "left_inner_knuckle_joint": 0.16907794773578644,
+        "right_outer_knuckle_joint": 0.16907794773578644,
+        "right_inner_finger_joint": -0.16907794773578644,
+        "right_inner_knuckle_joint": 0.16907794773578644
+      },
+      "actual_rad": {
+        "finger_joint": 0.16910099983215332,
+        "left_inner_finger_joint": -0.16000030934810638,
+        "left_inner_knuckle_joint": 0.16904473304748535,
+        "right_outer_knuckle_joint": 0.16734223067760468,
+        "right_inner_finger_joint": -0.16000030934810638,
+        "right_inner_knuckle_joint": 0.16903331875801086
+      },
+      "abs_error_rad": {
+        "finger_joint": 2.3052096366882324e-05,
+        "left_inner_finger_joint": 0.009077638387680054,
+        "left_inner_knuckle_joint": 3.3214688301086426e-05,
+        "right_outer_knuckle_joint": 0.0017357170581817627,
+        "right_inner_finger_joint": 0.009077638387680054,
+        "right_inner_knuckle_joint": 4.462897777557373e-05
+      },
+      "max_abs_error_rad": 0.009077638387680054
+    },
+    "motion_reached_nominal": true,
+    "step_budget_used": 609
+  },
+  "best_attempt": {
+    "attempt": 1,
+    "passed": false,
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 3,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 21,
+              "final_position_error_m": 0.002308105118572712,
+              "final_position_world_m": [
+                0.6197659969329834,
+                -0.0008960269624367356,
+                0.9206937551498413
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "applied_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "raw_correction_norm_m": 0.012249276041984558,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6075860261917114,
+              -0.00015121622709557414,
+              0.9217606782913208
+            ],
+            "move": {
+              "passed": true,
+              "steps": 16,
+              "final_position_error_m": 0.0023440951481461525,
+              "final_position_world_m": [
+                0.6074981093406677,
+                0.0005897066439501941,
+                0.9239828586578369
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 3,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "applied_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "raw_correction_norm_m": 0.005245862528681755,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6027489900588989,
+              -0.00010787684004753828,
+              0.9218666553497314
+            ],
+            "move": {
+              "passed": true,
+              "steps": 3,
+              "final_position_error_m": 0.002022551605477929,
+              "final_position_world_m": [
+                0.6047350764274597,
+                -8.71417869348079e-05,
+                0.9214848875999451
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6013414859771729,
+                -3.215111792087555e-05,
+                0.7559993863105774
+              ],
+              "cube_center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0013422966003417969,
+                -3.172537302020828e-05,
+                -0.0004622936248779297
+              ],
+              "xz_center_error_m": 0.0014196744552508935,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013414859771729,
+            -3.215111792087555e-05,
+            0.7559993863105774
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013422966003417969,
+            -3.172537302020828e-05,
+            -0.0004622936248779297
+          ],
+          "xz_center_error_m": 0.0014196744552508935,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0083128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.600792407989502,
+              -0.0539088249206543,
+              0.7911607027053833
+            ],
+            "right": [
+              0.6033318042755127,
+              0.05381282418966293,
+              0.7911167144775391
+            ]
+          },
+          "soft_origin_distance_m": 0.10775158539672584,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894169807434082,
+                -0.03400657698512077,
+                0.7416419982910156
+              ],
+              "max_world_m": [
+                0.6138840317726135,
+                -0.02860037051141262,
+                0.7703564167022705
+              ],
+              "center_world_m": [
+                0.6016504764556885,
+                -0.03130347281694412,
+                0.7559992074966431
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5887988805770874,
+                0.028523338958621025,
+                0.7416393756866455
+              ],
+              "max_world_m": [
+                0.6132660508155823,
+                0.03395500034093857,
+                0.7703597545623779
+              ],
+              "center_world_m": [
+                0.6010324954986572,
+                0.03123917058110237,
+                0.7559995651245117
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5869166254997253,
+                -0.057737499475479126,
+                0.7398773431777954
+              ],
+              "max_world_m": [
+                0.6165893077850342,
+                -0.03355029225349426,
+                0.7724775075912476
+              ],
+              "center_world_m": [
+                0.6017529964447021,
+                -0.045643895864486694,
+                0.7561774253845215
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5861017107963562,
+                0.03347140550613403,
+                0.7398810982704163
+              ],
+              "max_world_m": [
+                0.6157736778259277,
+                0.05768744647502899,
+                0.7725085020065308
+              ],
+              "center_world_m": [
+                0.6009377241134644,
+                0.04557942599058151,
+                0.7561948299407959
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5856611728668213,
+                -0.06233958527445793,
+                0.7373618483543396
+              ],
+              "max_world_m": [
+                0.6183825731277466,
+                -0.02854951098561287,
+                0.8130022287368774
+              ],
+              "center_world_m": [
+                0.6020218729972839,
+                -0.0454445481300354,
+                0.7751820087432861
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.585087776184082,
+                0.02843409776687622,
+                0.7373550534248352
+              ],
+              "max_world_m": [
+                0.6178085207939148,
+                0.06229177862405777,
+                0.813033401966095
+              ],
+              "center_world_m": [
+                0.6014481782913208,
+                0.045362938195466995,
+                0.7751942276954651
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.0625456964451301,
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "cube_side_center_z_m": 0.7564616799354553,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.057123709470033646,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.017123709470033645,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799990892410278,
+                -0.020000511780381203,
+                0.7364614605903625
+              ],
+              "max_world_m": [
+                0.6199992895126343,
+                0.019999658688902855,
+                0.7764618992805481
+              ],
+              "center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6013428270816803,
+          1.741107553243637e-05,
+          0.7560757398605347
+        ],
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.0013436377048492432,
+          1.7834222518331444e-05,
+          -0.0003859400749206543
+        ],
+        "xz_center_error_m": 0.0013979671038054874,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "min_lift_m": 5.960464477539063e-08,
+    "max_lift_m": 5.960464477539063e-08,
+    "force_control": {
+      "requested_steps": 160,
+      "actual_steps": 122,
+      "requested_target_close_rad": 0.25,
+      "target_close_rad": 0.25,
+      "absolute_close_cap_rad": 0.45,
+      "start_close_rad": 0.0,
+      "final_target_close_rad": 0.19062499701976776,
+      "actual_final_close_rad": 0.17407794296741486,
+      "close_goal_reached": false,
+      "soft_contact_detected": true,
+      "last_contact_read": {
+        "enabled": true,
+        "contact_detected": true,
+        "contact_sides": [
+          "left",
+          "right"
+        ],
+        "geometry_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_by_side_n": {
+          "left": 1.3959752321243286,
+          "right": 1.4334803819656372
+        },
+        "max_force_n": 1.4334803819656372,
+        "both_sides_force_contact": true,
+        "threshold_n": 0.2,
+        "sides": {
+          "left": {
+            "initialized": true,
+            "max_force_n": 1.3959752321243286,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          },
+          "right": {
+            "initialized": true,
+            "max_force_n": 1.4334803819656372,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          }
+        },
+        "geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799939632415771,
+              -0.02021949738264084,
+              0.7372146248817444
+            ],
+            "max_world_m": [
+              0.6200598478317261,
+              0.019869282841682434,
+              0.7773404717445374
+            ],
+            "center_world_m": [
+              0.6000269055366516,
+              -0.0001751065719872713,
+              0.7572775483131409
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        },
+        "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+      },
+      "soft_contact_stop_enabled": false,
+      "stopped_by_no_contact_cap": false,
+      "force_control": {
+        "enabled": true,
+        "stable_force_threshold_n": 0.5,
+        "high_force_threshold_n": 8.0,
+        "required_stable_steps": 1,
+        "stable_grasp_detected": true,
+        "stable_grasp_step": 122,
+        "stable_force_stop_enabled": true,
+        "stopped_by_stable_force": true,
+        "final_stable_counter": 1,
+        "max_force_seen_n": 1.4334803819656372,
+        "stopped_by_high_force": false,
+        "high_force_step": null,
+        "last_force_safe_close_rad": 0.190625,
+        "force_history_tail": [
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 1.0102137327194214
+            },
+            "max_force_n": 1.0102137327194214,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 122,
+            "planned_close_rad": 0.190625,
+            "force_by_side_n": {
+              "left": 1.3959752321243286,
+              "right": 1.4334803819656372
+            },
+            "max_force_n": 1.4334803819656372,
+            "both_sides_stable": true,
+            "stable_counter": 1,
+            "high_force_detected": false
+          }
+        ]
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7572775483131409,
+      "final_object_lift_m": 0.0008158683776855469,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": true,
+      "stopped_by_object_lift": false,
+      "last_safe_close_rad": 0.190625,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": null,
+      "object_z_history_tail": [
+        {
+          "step": 111,
+          "planned_close_rad": 0.1734375,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0
+        },
+        {
+          "step": 112,
+          "planned_close_rad": 0.175,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0
+        },
+        {
+          "step": 113,
+          "planned_close_rad": 0.1765625,
+          "object_z_m": 0.7564616203308105,
+          "object_lift_m": -5.960464477539063e-08
+        },
+        {
+          "step": 114,
+          "planned_close_rad": 0.178125,
+          "object_z_m": 0.7564614415168762,
+          "object_lift_m": -2.384185791015625e-07
+        },
+        {
+          "step": 115,
+          "planned_close_rad": 0.1796875,
+          "object_z_m": 0.7564586400985718,
+          "object_lift_m": -3.039836883544922e-06
+        },
+        {
+          "step": 116,
+          "planned_close_rad": 0.18125,
+          "object_z_m": 0.7564623355865479,
+          "object_lift_m": 6.556510925292969e-07
+        },
+        {
+          "step": 117,
+          "planned_close_rad": 0.1828125,
+          "object_z_m": 0.7564598321914673,
+          "object_lift_m": -1.8477439880371094e-06
+        },
+        {
+          "step": 118,
+          "planned_close_rad": 0.184375,
+          "object_z_m": 0.7564609050750732,
+          "object_lift_m": -7.748603820800781e-07
+        },
+        {
+          "step": 119,
+          "planned_close_rad": 0.1859375,
+          "object_z_m": 0.7565593719482422,
+          "object_lift_m": 9.769201278686523e-05
+        },
+        {
+          "step": 120,
+          "planned_close_rad": 0.1875,
+          "object_z_m": 0.7564796209335327,
+          "object_lift_m": 1.7940998077392578e-05
+        },
+        {
+          "step": 121,
+          "planned_close_rad": 0.1890625,
+          "object_z_m": 0.7565234899520874,
+          "object_lift_m": 6.181001663208008e-05
+        },
+        {
+          "step": 122,
+          "planned_close_rad": 0.190625,
+          "object_z_m": 0.7572775483131409,
+          "object_lift_m": 0.0008158683776855469
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 9.927257451636251e-07,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        }
+      },
+      "passed": false,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.001,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "final_object_lift_after_close_m": 0.0008158683776855469,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.00168687105178833,
+      "final_object_lift_after_settle_m": 5.960464477539063e-08,
+      "settle_object_lift_passed": false,
+      "settle_stopped_by_object_lift": true,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    }
+  },
+  "attempts": [
+    {
+      "passed": false,
+      "success_evaluation": {
+        "selected_mode": "contact_demo",
+        "selected_passed": false,
+        "contact_demo_passed": false,
+        "lift_hold_passed": false,
+        "checks": {
+          "soft_center_preclose_passed": true,
+          "direct_motion_passed": true,
+          "lift_motion_passed": true,
+          "close_passed": true,
+          "close_settle_gripper_passed": true,
+          "hold_gripper_passed": true,
+          "stable_grasp_passed": true,
+          "close_safety_passed": false,
+          "strict_lift_margin_passed": false,
+          "tactile_contact_change": {
+            "required": true,
+            "passed": true,
+            "skipped": false,
+            "sides": {
+              "left": {
+                "passed": true,
+                "contact_frames": 49,
+                "imprint_applied_frames": 49,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.032117705792188644
+              },
+              "right": {
+                "passed": true,
+                "contact_frames": 46,
+                "imprint_applied_frames": 46,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.03183571994304657
+              }
+            },
+            "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+          }
+        },
+        "notes": {
+          "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+          "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+        }
+      },
+      "params": {
+        "attempt": 1,
+        "ee_z_offset": 0.17,
+        "soft_center_z_offset": 0.0,
+        "longitudinal_x_offset": 0.0,
+        "lateral_y_offset": 0.0,
+        "yaw_offset_rad": 0.0,
+        "pitch_offset_rad": 0.0,
+        "roll_offset_rad": 0.0,
+        "gripper_close_rad": 0.25
+      },
+      "pregrasp_wrist3_deg": -2.6,
+      "static_geometry_audit": {
+        "urdf_pad_collision_z_max_m": 0.05117,
+        "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+        "urdf_gsmini_full_collision_z_max_m": 0.08586,
+        "gsmini_base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "gsmini_sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+        "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+        "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+      },
+      "object": {
+        "kind": "cube",
+        "label": "4cm_cube",
+        "cube_size_m": 0.04,
+        "cube_side_centers_world_m": {
+          "left_y_positive": [
+            0.6000000834465027,
+            0.020000004159889322,
+            0.7564616203308105
+          ],
+          "right_y_negative": [
+            0.6000000834465027,
+            -0.01999999584011068,
+            0.7564616203308105
+          ]
+        }
+      },
+      "object_initial_position_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "grasp_target_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "effective_grasp_target_world_m": [
+        0.6047350764274597,
+        -8.71417869348079e-05,
+        0.9214848875999451
+      ],
+      "lift_target_world_m": [
+        0.6047350764274597,
+        -8.71417869348079e-05,
+        1.0814849138259888
+      ],
+      "preclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6007925271987915,
+            -0.05386461317539215,
+            0.7911803126335144
+          ],
+          "right": [
+            0.6033332943916321,
+            0.0538550466299057,
+            0.791196346282959
+          ]
+        },
+        "soft_origin_distance_m": 0.10774962117601727,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5894174575805664,
+              -0.03391304612159729,
+              0.741692066192627
+            ],
+            "max_world_m": [
+              0.6138845682144165,
+              -0.02850966528058052,
+              0.7704071998596191
+            ],
+            "center_world_m": [
+              0.6016510128974915,
+              -0.031211355701088905,
+              0.756049633026123
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5888010859489441,
+              0.028544485569000244,
+              0.7417442798614502
+            ],
+            "max_world_m": [
+              0.6132681965827942,
+              0.03394787013530731,
+              0.7704594135284424
+            ],
+            "center_world_m": [
+              0.6010346412658691,
+              0.031246177852153778,
+              0.7561018466949463
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5869169235229492,
+              -0.057644013315439224,
+              0.7399066090583801
+            ],
+            "max_world_m": [
+              0.6165891885757446,
+              -0.03346000611782074,
+              0.7725100517272949
+            ],
+            "center_world_m": [
+              0.6017530560493469,
+              -0.04555200785398483,
+              0.7562083005905151
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5861034393310547,
+              0.03349461406469345,
+              0.7399809956550598
+            ],
+            "max_world_m": [
+              0.6157756447792053,
+              0.057678621262311935,
+              0.7725843787193298
+            ],
+            "center_world_m": [
+              0.6009395122528076,
+              0.045586615800857544,
+              0.7562826871871948
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5856615900993347,
+              -0.062269873917102814,
+              0.7373907566070557
+            ],
+            "max_world_m": [
+              0.6183826327323914,
+              -0.028487306088209152,
+              0.8130356073379517
+            ],
+            "center_world_m": [
+              0.602022111415863,
+              -0.045378588140010834,
+              0.7752131819725037
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.585089385509491,
+              0.028497889637947083,
+              0.7374599575996399
+            ],
+            "max_world_m": [
+              0.6178104281425476,
+              0.06228046119213104,
+              0.8131047487258911
+            ],
+            "center_world_m": [
+              0.6014499068260193,
+              0.04538917541503906,
+              0.7752823829650879
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.06246059668150727,
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "cube_side_center_z_m": 0.7564616799354553,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.057054150849580765,
+          "cube_extent_m": 0.04,
+          "margin_m": 0.017054150849580764,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799991488456726,
+              -0.020000433549284935,
+              0.7364616394042969
+            ],
+            "max_world_m": [
+              0.6199992299079895,
+              0.019999587908387184,
+              0.7764617204666138
+            ],
+            "center_world_m": [
+              0.599999189376831,
+              -4.2314698589507316e-07,
+              0.7564616799354553
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894174575805664,
+                -0.03391304612159729,
+                0.741692066192627
+              ],
+              "max_world_m": [
+                0.6138845682144165,
+                -0.02850966528058052,
+                0.7704071998596191
+              ],
+              "center_world_m": [
+                0.6016510128974915,
+                -0.031211355701088905,
+                0.756049633026123
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.008509231731295586,
+              "soft_mesh_aabb_distance_m": 0.008509231731295586,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5888010859489441,
+                0.028544485569000244,
+                0.7417442798614502
+              ],
+              "max_world_m": [
+                0.6132681965827942,
+                0.03394787013530731,
+                0.7704594135284424
+              ],
+              "center_world_m": [
+                0.6010346412658691,
+                0.031246177852153778,
+                0.7561018466949463
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.00854489766061306,
+              "soft_mesh_aabb_distance_m": 0.00854489766061306,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": []
+        }
+      },
+      "soft_center_alignment": {
+        "enabled": true,
+        "mode": "soft_mesh_pair_center_to_cube_side_center",
+        "soft_center_tcp": {
+          "frame_name": "virtual_soft_center_tcp",
+          "parent_frame": "ee_link",
+          "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+          "target_frame_for_ik": "ee_link",
+          "desired_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "offset_in_ee_frame_m": [
+            0.16541601717472076,
+            -6.539048627018929e-07,
+            1.4901161193847656e-08
+          ],
+          "target_ee_world_m": [
+            0.6033328771591187,
+            -9.96661838144064e-05,
+            0.9218440651893616
+          ],
+          "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+        },
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "pregrasp_ee_world_m": [
+          0.5980228781700134,
+          0.0033233817666769028,
+          1.0136542320251465
+        ],
+        "pregrasp_soft_pair_center_world_m": [
+          0.5946900844573975,
+          0.0034230519086122513,
+          0.8482718467712402
+        ],
+        "soft_offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_soft_offset_world_m": [
+          -0.003332778811454773,
+          9.967034566216171e-05,
+          -0.16538242995738983
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "cube_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "soft_center_z_offset_m": 0.0,
+        "longitudinal_x_offset_m": 0.0,
+        "lateral_y_offset_m": 0.0,
+        "refinement": {
+          "enabled": true,
+          "rounds_requested": 4,
+          "rounds_used": 3,
+          "refine_steps_per_round": 60,
+          "refine_pos_tolerance_m": 0.0025,
+          "max_correction_step_m": 0.025,
+          "desired_soft_pair_center_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "rounds": [
+            {
+              "round": 1,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.5794125497341156,
+                  -0.0011853072792291641,
+                  0.7603024244308472
+                ],
+                "cube_center_world_m": [
+                  0.5999999046325684,
+                  -7.167465554402952e-08,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  -0.02058735489845276,
+                  -0.00118523560457362,
+                  0.0038407444953918457
+                ],
+                "xz_center_error_m": 0.020942552375336907,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "applied_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "raw_correction_norm_m": 0.020976224914193153,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.622069239616394,
+                -0.0010163658298552036,
+                0.9206046462059021
+              ],
+              "move": {
+                "passed": true,
+                "steps": 21,
+                "final_position_error_m": 0.002308105118572712,
+                "final_position_world_m": [
+                  0.6197659969329834,
+                  -0.0008960269624367356,
+                  0.9206937551498413
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6121800541877747,
+                  -0.0007448066025972366,
+                  0.755394697189331
+                ],
+                "cube_center_world_m": [
+                  0.5999996662139893,
+                  -4.084978684204543e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0121803879737854,
+                  -0.0007443981047288162,
+                  -0.0010669827461242676
+                ],
+                "xz_center_error_m": 0.012227031666453756,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            },
+            {
+              "round": 2,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6121800541877747,
+                  -0.0007448066025972366,
+                  0.755394697189331
+                ],
+                "cube_center_world_m": [
+                  0.5999996662139893,
+                  -4.084978684204543e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0121803879737854,
+                  -0.0007443981047288162,
+                  -0.0010669827461242676
+                ],
+                "xz_center_error_m": 0.012227031666453756,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                -0.012179970741271973,
+                0.0007448107353411615,
+                0.0010669231414794922
+              ],
+              "applied_correction_world_m": [
+                -0.012179970741271973,
+                0.0007448107353411615,
+                0.0010669231414794922
+              ],
+              "raw_correction_norm_m": 0.012249276041984558,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.6075860261917114,
+                -0.00015121622709557414,
+                0.9217606782913208
+              ],
+              "move": {
+                "passed": true,
+                "steps": 16,
+                "final_position_error_m": 0.0023440951481461525,
+                "final_position_world_m": [
+                  0.6074981093406677,
+                  0.0005897066439501941,
+                  0.9239828586578369
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6047491729259491,
+                  0.0006975876167416573,
+                  0.758577823638916
+                ],
+                "cube_center_world_m": [
+                  0.599999725818634,
+                  -2.0087369989596482e-07,
+                  0.7564617991447449
+                ],
+                "pair_center_error_world_m": [
+                  0.0047494471073150635,
+                  0.0006977884904415532,
+                  0.0021160244941711426
+                ],
+                "xz_center_error_m": 0.005199500695751051,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            },
+            {
+              "round": 3,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6047491729259491,
+                  0.0006975876167416573,
+                  0.758577823638916
+                ],
+                "cube_center_world_m": [
+                  0.599999725818634,
+                  -2.0087369989596482e-07,
+                  0.7564617991447449
+                ],
+                "pair_center_error_world_m": [
+                  0.0047494471073150635,
+                  0.0006977884904415532,
+                  0.0021160244941711426
+                ],
+                "xz_center_error_m": 0.005199500695751051,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                -0.004749119281768799,
+                -0.0006975834839977324,
+                -0.0021162033081054688
+              ],
+              "applied_correction_world_m": [
+                -0.004749119281768799,
+                -0.0006975834839977324,
+                -0.0021162033081054688
+              ],
+              "raw_correction_norm_m": 0.005245862528681755,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.6027489900588989,
+                -0.00010787684004753828,
+                0.9218666553497314
+              ],
+              "move": {
+                "passed": true,
+                "steps": 3,
+                "final_position_error_m": 0.002022551605477929,
+                "final_position_world_m": [
+                  0.6047350764274597,
+                  -8.71417869348079e-05,
+                  0.9214848875999451
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6013414859771729,
+                  -3.215111792087555e-05,
+                  0.7559993863105774
+                ],
+                "cube_center_world_m": [
+                  0.599999189376831,
+                  -4.2574490066726867e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0013422966003417969,
+                  -3.172537302020828e-05,
+                  -0.0004622936248779297
+                ],
+                "xz_center_error_m": 0.0014196744552508935,
+                "tolerance_m": 0.005,
+                "passed": true,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            }
+          ],
+          "final_error_m": {
+            "available": true,
+            "soft_pair_center_world_m": [
+              0.6013414859771729,
+              -3.215111792087555e-05,
+              0.7559993863105774
+            ],
+            "cube_center_world_m": [
+              0.599999189376831,
+              -4.2574490066726867e-07,
+              0.7564616799354553
+            ],
+            "pair_center_error_world_m": [
+              0.0013422966003417969,
+              -3.172537302020828e-05,
+              -0.0004622936248779297
+            ],
+            "xz_center_error_m": 0.0014196744552508935,
+            "tolerance_m": 0.005,
+            "passed": true,
+            "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+          },
+          "final_geometry": {
+            "soft_origin_in_sensor_frame_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "soft_mesh_local_aabb_m": {
+              "min": [
+                -0.01363918,
+                -0.02524673,
+                -0.04923395
+              ],
+              "max": [
+                0.01022479,
+                -0.01999673,
+                -0.02100601
+              ]
+            },
+            "base_link_local_aabb_m": {
+              "min": [
+                -0.01616778,
+                -0.02028085,
+                -0.05095018
+              ],
+              "max": [
+                0.01271882,
+                0.00371915,
+                -0.01895018
+              ]
+            },
+            "sensor_assembly_local_aabb_m": {
+              "min": [
+                -0.01710485,
+                -0.02524673,
+                -0.05344392
+              ],
+              "max": [
+                0.01389515,
+                0.0083128,
+                0.02155608
+              ]
+            },
+            "soft_origin_world_m": {
+              "left": [
+                0.600792407989502,
+                -0.0539088249206543,
+                0.7911607027053833
+              ],
+              "right": [
+                0.6033318042755127,
+                0.05381282418966293,
+                0.7911167144775391
+              ]
+            },
+            "soft_origin_distance_m": 0.10775158539672584,
+            "soft_mesh_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ]
+              }
+            },
+            "base_link_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5869166254997253,
+                  -0.057737499475479126,
+                  0.7398773431777954
+                ],
+                "max_world_m": [
+                  0.6165893077850342,
+                  -0.03355029225349426,
+                  0.7724775075912476
+                ],
+                "center_world_m": [
+                  0.6017529964447021,
+                  -0.045643895864486694,
+                  0.7561774253845215
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5861017107963562,
+                  0.03347140550613403,
+                  0.7398810982704163
+                ],
+                "max_world_m": [
+                  0.6157736778259277,
+                  0.05768744647502899,
+                  0.7725085020065308
+                ],
+                "center_world_m": [
+                  0.6009377241134644,
+                  0.04557942599058151,
+                  0.7561948299407959
+                ]
+              }
+            },
+            "sensor_assembly_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.5856611728668213,
+                  -0.06233958527445793,
+                  0.7373618483543396
+                ],
+                "max_world_m": [
+                  0.6183825731277466,
+                  -0.02854951098561287,
+                  0.8130022287368774
+                ],
+                "center_world_m": [
+                  0.6020218729972839,
+                  -0.0454445481300354,
+                  0.7751820087432861
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.585087776184082,
+                  0.02843409776687622,
+                  0.7373550534248352
+                ],
+                "max_world_m": [
+                  0.6178085207939148,
+                  0.06229177862405777,
+                  0.813033401966095
+                ],
+                "center_world_m": [
+                  0.6014481782913208,
+                  0.045362938195466995,
+                  0.7751942276954651
+                ]
+              }
+            },
+            "soft_mesh_center_distance_m": 0.0625456964451301,
+            "cube_center_world_m": [
+              0.599999189376831,
+              -4.2574490066726867e-07,
+              0.7564616799354553
+            ],
+            "cube_side_center_z_m": 0.7564616799354553,
+            "cube_half_extent_m": 0.02,
+            "side_grasp_aperture": {
+              "axis": "world_y",
+              "soft_inner_gap_m": 0.057123709470033646,
+              "cube_extent_m": 0.04,
+              "margin_m": 0.017123709470033645,
+              "feasible_without_interpenetration": true
+            },
+            "soft_cube_contact_geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5799990892410278,
+                  -0.020000511780381203,
+                  0.7364614605903625
+                ],
+                "max_world_m": [
+                  0.6199992895126343,
+                  0.019999658688902855,
+                  0.7764618992805481
+                ],
+                "center_world_m": [
+                  0.599999189376831,
+                  -4.2574490066726867e-07,
+                  0.7564616799354553
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5894169807434082,
+                    -0.03400657698512077,
+                    0.7416419982910156
+                  ],
+                  "max_world_m": [
+                    0.6138840317726135,
+                    -0.02860037051141262,
+                    0.7703564167022705
+                  ],
+                  "center_world_m": [
+                    0.6016504764556885,
+                    -0.03130347281694412,
+                    0.7559992074966431
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                  "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5887988805770874,
+                    0.028523338958621025,
+                    0.7416393756866455
+                  ],
+                  "max_world_m": [
+                    0.6132660508155823,
+                    0.03395500034093857,
+                    0.7703597545623779
+                  ],
+                  "center_world_m": [
+                    0.6010324954986572,
+                    0.03123917058110237,
+                    0.7559995651245117
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                  "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": []
+            }
+          },
+          "passed": true
+        },
+        "preclose_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013428270816803,
+            1.741107553243637e-05,
+            0.7560757398605347
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2314698589507316e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013436377048492432,
+            1.7834222518331444e-05,
+            -0.0003859400749206543
+          ],
+          "xz_center_error_m": 0.0013979671038054874,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        }
+      },
+      "postclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6015610694885254,
+            -0.04575156420469284,
+            0.7903116345405579
+          ],
+          "right": [
+            0.6042527556419373,
+            0.045528922230005264,
+            0.7903761267662048
+          ]
+        },
+        "soft_origin_distance_m": 0.09132018691040192,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905863642692566,
+              -0.02561796084046364,
+              0.7410926222801208
+            ],
+            "max_world_m": [
+              0.6148330569267273,
+              -0.019992778077721596,
+              0.7696672677993774
+            ],
+            "center_world_m": [
+              0.6027097105979919,
+              -0.02280537039041519,
+              0.7553799152374268
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900971293449402,
+              0.0197133868932724,
+              0.7412214875221252
+            ],
+            "max_world_m": [
+              0.6143423914909363,
+              0.025371212512254715,
+              0.7698012590408325
+            ],
+            "center_world_m": [
+              0.6022197604179382,
+              0.022542299702763557,
+              0.7555114030838013
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5880952477455139,
+              -0.049363747239112854,
+              0.7391289472579956
+            ],
+            "max_world_m": [
+              0.6175047159194946,
+              -0.024930117651820183,
+              0.7717093229293823
+            ],
+            "center_world_m": [
+              0.6028000116348267,
+              -0.03714693337678909,
+              0.755419135093689
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5874242186546326,
+              0.02464868314564228,
+              0.7392338514328003
+            ],
+            "max_world_m": [
+              0.6168363690376282,
+              0.04911910742521286,
+              0.7718386054039001
+            ],
+            "center_world_m": [
+              0.6021302938461304,
+              0.036883894354104996,
+              0.7555361986160278
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5868628025054932,
+              -0.054328761994838715,
+              0.7365818619728088
+            ],
+            "max_world_m": [
+              0.6189795136451721,
+              -0.01993725076317787,
+              0.8122707009315491
+            ],
+            "center_world_m": [
+              0.6029211282730103,
+              -0.03713300824165344,
+              0.774426281452179
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5864319205284119,
+              0.01965298503637314,
+              0.7366790175437927
+            ],
+            "max_world_m": [
+              0.6185495257377625,
+              0.05413099378347397,
+              0.8124016523361206
+            ],
+            "center_world_m": [
+              0.6024907231330872,
+              0.03689198940992355,
+              0.7745403051376343
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.045350507418467294,
+        "cube_center_world_m": [
+          0.6000269055366516,
+          -0.0001751065719872713,
+          0.7572775483131409
+        ],
+        "cube_side_center_z_m": 0.7572775483131409,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.039706164970993996,
+          "cube_extent_m": 0.04,
+          "margin_m": -0.00029383502900600517,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799939632415771,
+              -0.02021949738264084,
+              0.7372146248817444
+            ],
+            "max_world_m": [
+              0.6200598478317261,
+              0.019869282841682434,
+              0.7773404717445374
+            ],
+            "center_world_m": [
+              0.6000269055366516,
+              -0.0001751065719872713,
+              0.7572775483131409
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "postsettle_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0083128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6015974879264832,
+            -0.046445056796073914,
+            0.7901602983474731
+          ],
+          "right": [
+            0.6042569279670715,
+            0.04613626003265381,
+            0.7901448011398315
+          ]
+        },
+        "soft_origin_distance_m": 0.09261950705566399,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.590589702129364,
+              -0.026438407599925995,
+              0.7408137917518616
+            ],
+            "max_world_m": [
+              0.6148520708084106,
+              -0.020974615588784218,
+              0.7693707346916199
+            ],
+            "center_world_m": [
+              0.6027208566665649,
+              -0.023706510663032532,
+              0.7550922632217407
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900773406028748,
+              0.020651699975132942,
+              0.7408463358879089
+            ],
+            "max_world_m": [
+              0.6143391728401184,
+              0.02612360194325447,
+              0.7694039940834045
+            ],
+            "center_world_m": [
+              0.6022082567214966,
+              0.02338765189051628,
+              0.7551251649856567
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.588099479675293,
+              -0.05017344653606415,
+              0.7389896512031555
+            ],
+            "max_world_m": [
+              0.6175327897071838,
+              -0.025921663269400597,
+              0.7714436054229736
+            ],
+            "center_world_m": [
+              0.602816104888916,
+              -0.03804755583405495,
+              0.7552165985107422
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5873991847038269,
+              0.025598252192139626,
+              0.7390191555023193
+            ],
+            "max_world_m": [
+              0.6168334484100342,
+              0.04985920339822769,
+              0.7714766263961792
+            ],
+            "center_world_m": [
+              0.6021163463592529,
+              0.037728726863861084,
+              0.7552478909492493
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5868641138076782,
+              -0.054898012429475784,
+              0.7364693284034729
+            ],
+            "max_world_m": [
+              0.6190294027328491,
+              -0.020943211391568184,
+              0.8119773268699646
+            ],
+            "center_world_m": [
+              0.6029467582702637,
+              -0.03792061284184456,
+              0.7742233276367188
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5864046812057495,
+              0.020619086921215057,
+              0.7364950180053711
+            ],
+            "max_world_m": [
+              0.6185702681541443,
+              0.054595399647951126,
+              0.8120079040527344
+            ],
+            "center_world_m": [
+              0.6024874448776245,
+              0.03760724514722824,
+              0.7742514610290527
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.04709696367973027,
+        "cube_center_world_m": [
+          0.5999810099601746,
+          -0.00023825957032386214,
+          0.7564617395401001
+        ],
+        "cube_side_center_z_m": 0.7564617395401001,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.04162631556391716,
+          "cube_extent_m": 0.04,
+          "margin_m": 0.0016263155639171592,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5798712968826294,
+              -0.020347947254776955,
+              0.7364616990089417
+            ],
+            "max_world_m": [
+              0.6200907230377197,
+              0.0198714267462492,
+              0.7764617800712585
+            ],
+            "center_world_m": [
+              0.5999810099601746,
+              -0.00023825957032386214,
+              0.7564617395401001
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.590589702129364,
+                -0.026438407599925995,
+                0.7408137917518616
+              ],
+              "max_world_m": [
+                0.6148520708084106,
+                -0.020974615588784218,
+                0.7693707346916199
+              ],
+              "center_world_m": [
+                0.6027208566665649,
+                -0.023706510663032532,
+                0.7550922632217407
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": -0.0006266683340072632,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900773406028748,
+                0.020651699975132942,
+                0.7408463358879089
+              ],
+              "max_world_m": [
+                0.6143391728401184,
+                0.02612360194325447,
+                0.7694039940834045
+              ],
+              "center_world_m": [
+                0.6022082567214966,
+                0.02338765189051628,
+                0.7551251649856567
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": -0.0007802732288837433,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "close_safety": {
+        "preclose_object_shift_m": 9.927257451636251e-07,
+        "max_preclose_object_shift_m": 0.015,
+        "preclose_object_shift_passed": true,
+        "preclose_arm_settle_max_error_rad": 0.0,
+        "direct_grasp_target": true,
+        "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+        "arm_velocity_latch": {
+          "latched": true,
+          "zeroed_arm_velocity": true,
+          "arm_hold": {
+            "max_abs_error_rad": 0.0,
+            "target_rad": [
+              -0.04455135017633438,
+              -1.0464569330215454,
+              1.527091145515442,
+              -2.0309174060821533,
+              -1.5710783004760742,
+              -0.05022554099559784
+            ],
+            "actual_rad": [
+              -0.04455135017633438,
+              -1.0464569330215454,
+              1.527091145515442,
+              -2.0309174060821533,
+              -1.5710783004760742,
+              -0.05022554099559784
+            ]
+          }
+        },
+        "passed": false,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_trigger_m": 0.001,
+        "max_object_lift_during_close_m": 0.0008158683776855469,
+        "final_object_lift_after_close_m": 0.0008158683776855469,
+        "close_object_lift_passed": true,
+        "close_stopped_by_object_lift": false,
+        "max_object_lift_during_settle_m": 0.00168687105178833,
+        "final_object_lift_after_settle_m": 5.960464477539063e-08,
+        "settle_object_lift_passed": false,
+        "settle_stopped_by_object_lift": true,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "force_control_enabled": true,
+        "stable_grasp_detected": true,
+        "stable_grasp_passed": true,
+        "high_force_stop": false,
+        "close_goal_reached": false
+      },
+      "preclose_arm_settle": {
+        "requested_steps": 50,
+        "actual_steps": 50,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        },
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "actual_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "max_abs_error_rad": 0.0
+        }
+      },
+      "direct_move": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "approach": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_approach_stage"
+      },
+      "descend_precontact": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_precontact_stage"
+      },
+      "descend": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "close_command": {
+        "executed": true,
+        "steps": 160,
+        "settle_steps": 4,
+        "target_close_rad": 0.25,
+        "close_passed": true,
+        "force_control": {
+          "requested_steps": 160,
+          "actual_steps": 122,
+          "requested_target_close_rad": 0.25,
+          "target_close_rad": 0.25,
+          "absolute_close_cap_rad": 0.45,
+          "start_close_rad": 0.0,
+          "final_target_close_rad": 0.19062499701976776,
+          "actual_final_close_rad": 0.17407794296741486,
+          "close_goal_reached": false,
+          "soft_contact_detected": true,
+          "last_contact_read": {
+            "enabled": true,
+            "contact_detected": true,
+            "contact_sides": [
+              "left",
+              "right"
+            ],
+            "geometry_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_by_side_n": {
+              "left": 1.3959752321243286,
+              "right": 1.4334803819656372
+            },
+            "max_force_n": 1.4334803819656372,
+            "both_sides_force_contact": true,
+            "threshold_n": 0.2,
+            "sides": {
+              "left": {
+                "initialized": true,
+                "max_force_n": 1.3959752321243286,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5905863642692566,
+                    -0.02561796084046364,
+                    0.7410926222801208
+                  ],
+                  "max_world_m": [
+                    0.6148330569267273,
+                    -0.019992778077721596,
+                    0.7696672677993774
+                  ],
+                  "center_world_m": [
+                    0.6027097105979919,
+                    -0.02280537039041519,
+                    0.7553799152374268
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              },
+              "right": {
+                "initialized": true,
+                "max_force_n": 1.4334803819656372,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900971293449402,
+                    0.0197133868932724,
+                    0.7412214875221252
+                  ],
+                  "max_world_m": [
+                    0.6143423914909363,
+                    0.025371212512254715,
+                    0.7698012590408325
+                  ],
+                  "center_world_m": [
+                    0.6022197604179382,
+                    0.022542299702763557,
+                    0.7555114030838013
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              }
+            },
+            "geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5799939632415771,
+                  -0.02021949738264084,
+                  0.7372146248817444
+                ],
+                "max_world_m": [
+                  0.6200598478317261,
+                  0.019869282841682434,
+                  0.7773404717445374
+                ],
+                "center_world_m": [
+                  0.6000269055366516,
+                  -0.0001751065719872713,
+                  0.7572775483131409
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5905863642692566,
+                    -0.02561796084046364,
+                    0.7410926222801208
+                  ],
+                  "max_world_m": [
+                    0.6148330569267273,
+                    -0.019992778077721596,
+                    0.7696672677993774
+                  ],
+                  "center_world_m": [
+                    0.6027097105979919,
+                    -0.02280537039041519,
+                    0.7553799152374268
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900971293449402,
+                    0.0197133868932724,
+                    0.7412214875221252
+                  ],
+                  "max_world_m": [
+                    0.6143423914909363,
+                    0.025371212512254715,
+                    0.7698012590408325
+                  ],
+                  "center_world_m": [
+                    0.6022197604179382,
+                    0.022542299702763557,
+                    0.7555114030838013
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": [
+                "left",
+                "right"
+              ]
+            },
+            "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+          },
+          "soft_contact_stop_enabled": false,
+          "stopped_by_no_contact_cap": false,
+          "force_control": {
+            "enabled": true,
+            "stable_force_threshold_n": 0.5,
+            "high_force_threshold_n": 8.0,
+            "required_stable_steps": 1,
+            "stable_grasp_detected": true,
+            "stable_grasp_step": 122,
+            "stable_force_stop_enabled": true,
+            "stopped_by_stable_force": true,
+            "final_stable_counter": 1,
+            "max_force_seen_n": 1.4334803819656372,
+            "stopped_by_high_force": false,
+            "high_force_step": null,
+            "last_force_safe_close_rad": 0.190625,
+            "force_history_tail": [
+              {
+                "step": 111,
+                "planned_close_rad": 0.1734375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 112,
+                "planned_close_rad": 0.175,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 113,
+                "planned_close_rad": 0.1765625,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 114,
+                "planned_close_rad": 0.178125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 115,
+                "planned_close_rad": 0.1796875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 116,
+                "planned_close_rad": 0.18125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 117,
+                "planned_close_rad": 0.1828125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 118,
+                "planned_close_rad": 0.184375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 119,
+                "planned_close_rad": 0.1859375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 120,
+                "planned_close_rad": 0.1875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 121,
+                "planned_close_rad": 0.1890625,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 1.0102137327194214
+                },
+                "max_force_n": 1.0102137327194214,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 122,
+                "planned_close_rad": 0.190625,
+                "force_by_side_n": {
+                  "left": 1.3959752321243286,
+                  "right": 1.4334803819656372
+                },
+                "max_force_n": 1.4334803819656372,
+                "both_sides_stable": true,
+                "stable_counter": 1,
+                "high_force_detected": false
+              }
+            ]
+          },
+          "preclose_object_z_m": 0.7564616799354553,
+          "final_object_z_m": 0.7572775483131409,
+          "final_object_lift_m": 0.0008158683776855469,
+          "max_object_lift_during_close_m": 0.0008158683776855469,
+          "max_close_object_lift_m": 0.001,
+          "object_lift_guard_trigger_m": 0.001,
+          "object_lift_guard_trigger_fraction": 1.0,
+          "object_lift_guard_enabled": true,
+          "object_lift_within_limit": true,
+          "stopped_by_object_lift": false,
+          "last_safe_close_rad": 0.190625,
+          "object_lift_rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": null,
+          "object_z_history_tail": [
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "object_z_m": 0.7564616799354553,
+              "object_lift_m": 0.0
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "object_z_m": 0.7564616799354553,
+              "object_lift_m": 0.0
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "object_z_m": 0.7564616203308105,
+              "object_lift_m": -5.960464477539063e-08
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "object_z_m": 0.7564614415168762,
+              "object_lift_m": -2.384185791015625e-07
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "object_z_m": 0.7564586400985718,
+              "object_lift_m": -3.039836883544922e-06
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "object_z_m": 0.7564623355865479,
+              "object_lift_m": 6.556510925292969e-07
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "object_z_m": 0.7564598321914673,
+              "object_lift_m": -1.8477439880371094e-06
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "object_z_m": 0.7564609050750732,
+              "object_lift_m": -7.748603820800781e-07
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "object_z_m": 0.7565593719482422,
+              "object_lift_m": 9.769201278686523e-05
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "object_z_m": 0.7564796209335327,
+              "object_lift_m": 1.7940998077392578e-05
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "object_z_m": 0.7565234899520874,
+              "object_lift_m": 6.181001663208008e-05
+            },
+            {
+              "step": 122,
+              "planned_close_rad": 0.190625,
+              "object_z_m": 0.7572775483131409,
+              "object_lift_m": 0.0008158683776855469
+            }
+          ],
+          "arm_hold_enabled": true
+        }
+      },
+      "close_gripper": {
+        "target_rad": {
+          "finger_joint": 0.19062499701976776,
+          "left_inner_finger_joint": -0.19062499701976776,
+          "left_inner_knuckle_joint": 0.19062499701976776,
+          "right_outer_knuckle_joint": 0.19062499701976776,
+          "right_inner_finger_joint": -0.19062499701976776,
+          "right_inner_knuckle_joint": 0.19062499701976776
+        },
+        "actual_rad": {
+          "finger_joint": 0.17407794296741486,
+          "left_inner_finger_joint": -0.16463914513587952,
+          "left_inner_knuckle_joint": 0.1934232860803604,
+          "right_outer_knuckle_joint": 0.16966243088245392,
+          "right_inner_finger_joint": -0.15988744795322418,
+          "right_inner_knuckle_joint": 0.19331853091716766
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.016547054052352905,
+          "left_inner_finger_joint": 0.025985851883888245,
+          "left_inner_knuckle_joint": 0.0027982890605926514,
+          "right_outer_knuckle_joint": 0.020962566137313843,
+          "right_inner_finger_joint": 0.03073754906654358,
+          "right_inner_knuckle_joint": 0.0026935338973999023
+        },
+        "max_abs_error_rad": 0.03073754906654358
+      },
+      "close_settle": {
+        "requested_steps": 4,
+        "actual_steps": 9,
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.16907794773578644,
+            "left_inner_finger_joint": -0.16907794773578644,
+            "left_inner_knuckle_joint": 0.16907794773578644,
+            "right_outer_knuckle_joint": 0.16907794773578644,
+            "right_inner_finger_joint": -0.16907794773578644,
+            "right_inner_knuckle_joint": 0.16907794773578644
+          },
+          "actual_rad": {
+            "finger_joint": 0.16335010528564453,
+            "left_inner_finger_joint": -0.160101518034935,
+            "left_inner_knuckle_joint": 0.16973042488098145,
+            "right_outer_knuckle_joint": 0.1621558964252472,
+            "right_inner_finger_joint": -0.15895800292491913,
+            "right_inner_knuckle_joint": 0.1695316880941391
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.005727842450141907,
+            "left_inner_finger_joint": 0.00897642970085144,
+            "left_inner_knuckle_joint": 0.0006524771451950073,
+            "right_outer_knuckle_joint": 0.006922051310539246,
+            "right_inner_finger_joint": 0.01011994481086731,
+            "right_inner_knuckle_joint": 0.00045374035835266113
+          },
+          "max_abs_error_rad": 0.01011994481086731
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7564617395401001,
+        "final_object_lift_m": 5.960464477539063e-08,
+        "max_object_lift_during_settle_m": 0.00168687105178833,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": false,
+        "stopped_by_object_lift": true,
+        "last_safe_close_rad": 0.16907794296741485,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": 0.16907794296741485,
+        "final_target_close_rad": 0.16907794773578644,
+        "object_z_history_tail": [
+          {
+            "step": 1,
+            "object_z_m": 0.7581485509872437,
+            "object_lift_m": 0.00168687105178833,
+            "close_rad": 0.17499135434627533
+          },
+          {
+            "step": 2,
+            "object_z_m": 0.7566158175468445,
+            "object_lift_m": 0.00015413761138916016,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 3,
+            "object_z_m": 0.756517767906189,
+            "object_lift_m": 5.608797073364258e-05,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 4,
+            "object_z_m": 0.7564619779586792,
+            "object_lift_m": 2.980232238769531e-07,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 5,
+            "object_z_m": 0.7564617991447449,
+            "object_lift_m": 1.1920928955078125e-07,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 6,
+            "object_z_m": 0.7564616203308105,
+            "object_lift_m": -5.960464477539063e-08,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 7,
+            "object_z_m": 0.7564617395401001,
+            "object_lift_m": 5.960464477539063e-08,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 8,
+            "object_z_m": 0.7564617991447449,
+            "object_lift_m": 1.1920928955078125e-07,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 9,
+            "object_z_m": 0.7564617395401001,
+            "object_lift_m": 5.960464477539063e-08,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          }
+        ],
+        "arm_hold_enabled": true
+      },
+      "lift": {
+        "passed": true,
+        "steps": 41,
+        "final_position_error_m": 0.005725326016545296,
+        "final_position_world_m": [
+          0.609000027179718,
+          -0.00018426428141538054,
+          1.0776665210723877
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "hold": {
+        "hold_steps": 300,
+        "actual_hold_steps": 300,
+        "final_object_z_m": 0.7564616799354553,
+        "max_object_z_m": 0.7564616799354553,
+        "min_object_z_m": 0.7564616799354553,
+        "final_lift_m": 5.960464477539063e-08,
+        "min_lift_m": 5.960464477539063e-08,
+        "arm_hold_enabled": true
+      },
+      "hold_gripper": {
+        "target_rad": {
+          "finger_joint": 0.16907794773578644,
+          "left_inner_finger_joint": -0.16907794773578644,
+          "left_inner_knuckle_joint": 0.16907794773578644,
+          "right_outer_knuckle_joint": 0.16907794773578644,
+          "right_inner_finger_joint": -0.16907794773578644,
+          "right_inner_knuckle_joint": 0.16907794773578644
+        },
+        "actual_rad": {
+          "finger_joint": 0.16910099983215332,
+          "left_inner_finger_joint": -0.16000030934810638,
+          "left_inner_knuckle_joint": 0.16904473304748535,
+          "right_outer_knuckle_joint": 0.16734223067760468,
+          "right_inner_finger_joint": -0.16000030934810638,
+          "right_inner_knuckle_joint": 0.16903331875801086
+        },
+        "abs_error_rad": {
+          "finger_joint": 2.3052096366882324e-05,
+          "left_inner_finger_joint": 0.009077638387680054,
+          "left_inner_knuckle_joint": 3.3214688301086426e-05,
+          "right_outer_knuckle_joint": 0.0017357170581817627,
+          "right_inner_finger_joint": 0.009077638387680054,
+          "right_inner_knuckle_joint": 4.462897777557373e-05
+        },
+        "max_abs_error_rad": 0.009077638387680054
+      },
+      "motion_reached_nominal": true,
+      "step_budget_used": 609
+    }
+  ]
+}
+
+## 2026-07-10T09:26:07Z — Phase2 grasp test did not reach success criteria
+
+{
+  "passed": false,
+  "reason": "reached max_attempts=1; preserved logs for contact_demo review",
+  "attempts_used": 1,
+  "max_attempts": 1,
+  "step_budget_used": 610,
+  "max_steps": 0,
+  "success_criteria": {
+    "selected_mode": "contact_demo",
+    "modes": {
+      "contact_demo": "Default Phase2 tactile-grasp bring-up gate: soft-center preclose alignment, stable two-sided force close, gripper/safety checks, and live tactile contact image change. Does not require 10 cm object lift.",
+      "lift_hold": "Legacy strict gate: require the configured object lift margin during hold."
+    },
+    "lift_distance_m": 0.16,
+    "success_lift_margin_m": 0.1,
+    "hold_seconds": 5.0,
+    "max_gripper_joint_error_rad": 0.08,
+    "max_close_object_lift_m": 0.002,
+    "close_object_lift_guard_enabled": true,
+    "max_preclose_object_shift_m": 0.015,
+    "object": "4cm_cube",
+    "grasp_target": "GSmini soft-link mesh pair center aligned to the 4 cm cube side-face center plus CLI offsets; no approach/precontact/terminal XY adjustment stages",
+    "soft_center_tcp": {
+      "frame_name": "virtual_soft_center_tcp",
+      "definition": "The initial IK target is computed from the measured ee_link -> average(left/right GSmini soft-link mesh center) transform, then bounded measured refinement corrects the realized soft-link center before close.",
+      "implemented_as": "runtime geometry layer in ur5_phase2_grasp_test.py; no extra URDF joint required"
+    },
+    "align_soft_center": true,
+    "grasp_soft_center_z_offset_m": 0.0,
+    "soft_center_tolerance_m": 0.005,
+    "soft_center_refine_rounds": 4,
+    "soft_center_refine_steps": 60,
+    "max_soft_center_refine_step_m": 0.025,
+    "object_lift_rewind_steps": 8,
+    "object_lift_rewind_open_margin_rad": 0.005,
+    "object_lift_guard_trigger_fraction": 1.0,
+    "force_control": {
+      "enabled": true,
+      "body_by_side": {
+        "left": "left_gelsight_mini_gelpad",
+        "right": "right_gelsight_mini_gelpad"
+      },
+      "filter_prim_path": "/World/Origin1/GraspCube",
+      "contact_report_threshold_n": 0.2,
+      "stable_force_threshold_n": 0.5,
+      "high_force_stop_threshold_n": 8.0,
+      "stable_steps": 1,
+      "stable_force_stop_enabled": true,
+      "soft_contact_stop_enabled": false,
+      "absolute_close_cap_rad": 0.45
+    },
+    "motion_profile": {
+      "direct_move_steps": 240,
+      "direct_max_joint_delta_per_step": 0.018,
+      "descend_accept_tolerance_m": 0.006,
+      "legacy_approach_steps_skipped": 90,
+      "legacy_precontact_steps_skipped": 1,
+      "close_steps": 160,
+      "close_settle_steps": 4,
+      "arm_hold_settle_steps": 50
+    },
+    "demo_default_note": "Default max_attempts=1 executes the user-tuned direct cube-center target once. Set --max_attempts > 1 only when you explicitly want independent tuning attempts."
+  },
+  "tactile_live": {
+    "enabled": true,
+    "shown_data_types": [
+      "tactile_rgb"
+    ],
+    "sides": [
+      "left",
+      "right"
+    ],
+    "sensor_paths": {
+      "left": {
+        "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+        "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+        "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera"
+      },
+      "right": {
+        "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+        "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+        "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera"
+      }
+    },
+    "sensor_camera_clipping_range_m": [
+      0.024,
+      0.04
+    ],
+    "dock_tactile_windows_right": true,
+    "script_tactile_panel": true,
+    "script_tactile_panel_stats": {
+      "left": {
+        "frames": 611,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      },
+      "right": {
+        "frames": 611,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      }
+    },
+    "contact_imprint_fallback": {
+      "enabled": true,
+      "nominal_depth_mm": 1.5,
+      "background_threshold_mean_abs_delta": 0.75,
+      "stats": {
+        "left": {
+          "frames": 611,
+          "baseline_frames": 561,
+          "contact_frames": 50,
+          "applied_frames": 50,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.032117705792188644,
+          "max_depth_mm": 1.6096013002097607,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6127371191978455,
+              -0.026468198746442795,
+              0.8924810290336609
+            ],
+            "max_world_m": [
+              0.639295756816864,
+              -0.02092272974550724,
+              0.9229451417922974
+            ],
+            "center_world_m": [
+              0.6260164380073547,
+              -0.023695465177297592,
+              0.9077130556106567
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.11601924896240234,
+            "soft_mesh_aabb_distance_m": 0.11602126806974411,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.03024434670805931,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        },
+        "right": {
+          "frames": 611,
+          "baseline_frames": 564,
+          "contact_frames": 47,
+          "applied_frames": 47,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.03183571994304657,
+          "max_depth_mm": 1.592546921223402,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6122289299964905,
+              0.019126268103718758,
+              0.8921827077865601
+            ],
+            "max_world_m": [
+              0.6387811303138733,
+              0.02487681619822979,
+              0.9226888418197632
+            ],
+            "center_world_m": [
+              0.6255050301551819,
+              0.022001542150974274,
+              0.9074357748031616
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.11572092771530151,
+            "soft_mesh_aabb_distance_m": 0.11572092771530151,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.03024434670805931,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        }
+      },
+      "source": "canonical GSmini soft-link AABB contact geometry rendered through TacEx/Taxim when camera-depth RGB stays at background"
+    },
+    "legacy_tacex_debug_windows": false,
+    "mount_info": {
+      "enabled": true,
+      "mounted": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        }
+      },
+      "camera_check": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        }
+      },
+      "mount_check": {
+        "left": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        },
+        "right": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        }
+      },
+      "runtime_shell_policy": "The canonical URDF owns visible/collision GSmini geometry. Phase2 TacEx shell mesh descendants are hidden and their physics is disabled; their camera prims remain active for tactile_rgb."
+    },
+    "inner_finger_stage_audit": {
+      "prim_status": {
+        "/World/Origin1/Robot/left_inner_finger": {
+          "path": "/World/Origin1/Robot/left_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/left_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/left_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger": {
+          "path": "/World/Origin1/Robot/right_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/right_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/right_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        }
+      },
+      "interpretation": "Gray Stage-tree entries under phase2_tacex are expected when TacEx runtime shell meshes are hidden or their physics is disabled. Canonical URDF gelpad contact is validated separately by filtered contact forces and GSmini soft-mesh AABB overlap."
+    }
+  },
+  "final_attempt": {
+    "passed": false,
+    "success_evaluation": {
+      "selected_mode": "contact_demo",
+      "selected_passed": false,
+      "contact_demo_passed": false,
+      "lift_hold_passed": false,
+      "checks": {
+        "soft_center_preclose_passed": true,
+        "direct_motion_passed": true,
+        "lift_motion_passed": true,
+        "close_passed": true,
+        "close_settle_gripper_passed": true,
+        "hold_gripper_passed": true,
+        "stable_grasp_passed": true,
+        "close_safety_passed": false,
+        "strict_lift_margin_passed": false,
+        "tactile_contact_change": {
+          "required": true,
+          "passed": true,
+          "skipped": false,
+          "sides": {
+            "left": {
+              "passed": true,
+              "contact_frames": 50,
+              "imprint_applied_frames": 50,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.032117705792188644
+            },
+            "right": {
+              "passed": true,
+              "contact_frames": 47,
+              "imprint_applied_frames": 47,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.03183571994304657
+            }
+          },
+          "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+        }
+      },
+      "notes": {
+        "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+        "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+      }
+    },
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "pregrasp_wrist3_deg": -2.6,
+    "static_geometry_audit": {
+      "urdf_pad_collision_z_max_m": 0.05117,
+      "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+      "urdf_gsmini_full_collision_z_max_m": 0.08586,
+      "gsmini_base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "gsmini_sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+      "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+      "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+    },
+    "object": {
+      "kind": "cube",
+      "label": "4cm_cube",
+      "cube_size_m": 0.04,
+      "cube_side_centers_world_m": {
+        "left_y_positive": [
+          0.6000000834465027,
+          0.020000004159889322,
+          0.7564616203308105
+        ],
+        "right_y_negative": [
+          0.6000000834465027,
+          -0.01999999584011068,
+          0.7564616203308105
+        ]
+      }
+    },
+    "object_initial_position_m": [
+      0.6000000834465027,
+      4.159889321897481e-09,
+      0.7564616203308105
+    ],
+    "grasp_target_world_m": [
+      0.6033328771591187,
+      -9.96661838144064e-05,
+      0.9218440651893616
+    ],
+    "effective_grasp_target_world_m": [
+      0.6047350764274597,
+      -8.71417869348079e-05,
+      0.9214848875999451
+    ],
+    "lift_target_world_m": [
+      0.6047350764274597,
+      -8.71417869348079e-05,
+      1.0814849138259888
+    ],
+    "preclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6007925271987915,
+          -0.05386461317539215,
+          0.7911803126335144
+        ],
+        "right": [
+          0.6033332943916321,
+          0.0538550466299057,
+          0.791196346282959
+        ]
+      },
+      "soft_origin_distance_m": 0.10774962117601727,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5894174575805664,
+            -0.03391304612159729,
+            0.741692066192627
+          ],
+          "max_world_m": [
+            0.6138845682144165,
+            -0.02850966528058052,
+            0.7704071998596191
+          ],
+          "center_world_m": [
+            0.6016510128974915,
+            -0.031211355701088905,
+            0.756049633026123
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5888010859489441,
+            0.028544485569000244,
+            0.7417442798614502
+          ],
+          "max_world_m": [
+            0.6132681965827942,
+            0.03394787013530731,
+            0.7704594135284424
+          ],
+          "center_world_m": [
+            0.6010346412658691,
+            0.031246177852153778,
+            0.7561018466949463
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5869169235229492,
+            -0.057644013315439224,
+            0.7399066090583801
+          ],
+          "max_world_m": [
+            0.6165891885757446,
+            -0.03346000611782074,
+            0.7725100517272949
+          ],
+          "center_world_m": [
+            0.6017530560493469,
+            -0.04555200785398483,
+            0.7562083005905151
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5861034393310547,
+            0.03349461406469345,
+            0.7399809956550598
+          ],
+          "max_world_m": [
+            0.6157756447792053,
+            0.057678621262311935,
+            0.7725843787193298
+          ],
+          "center_world_m": [
+            0.6009395122528076,
+            0.045586615800857544,
+            0.7562826871871948
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5856615900993347,
+            -0.07926959544420242,
+            0.7373780608177185
+          ],
+          "max_world_m": [
+            0.6184790134429932,
+            -0.028487306088209152,
+            0.8130356073379517
+          ],
+          "center_world_m": [
+            0.6020703315734863,
+            -0.05387844890356064,
+            0.7752068042755127
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5849930047988892,
+            0.028497889637947083,
+            0.7374599575996399
+          ],
+          "max_world_m": [
+            0.6178104281425476,
+            0.07928018271923065,
+            0.813117504119873
+          ],
+          "center_world_m": [
+            0.601401686668396,
+            0.05388903617858887,
+            0.7752887010574341
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.06246059668150727,
+      "cube_center_world_m": [
+        0.599999189376831,
+        -4.2314698589507316e-07,
+        0.7564616799354553
+      ],
+      "cube_side_center_z_m": 0.7564616799354553,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.057054150849580765,
+        "cube_extent_m": 0.04,
+        "margin_m": 0.017054150849580764,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799991488456726,
+            -0.020000433549284935,
+            0.7364616394042969
+          ],
+          "max_world_m": [
+            0.6199992299079895,
+            0.019999587908387184,
+            0.7764617204666138
+          ],
+          "center_world_m": [
+            0.599999189376831,
+            -4.2314698589507316e-07,
+            0.7564616799354553
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5894174575805664,
+              -0.03391304612159729,
+              0.741692066192627
+            ],
+            "max_world_m": [
+              0.6138845682144165,
+              -0.02850966528058052,
+              0.7704071998596191
+            ],
+            "center_world_m": [
+              0.6016510128974915,
+              -0.031211355701088905,
+              0.756049633026123
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.008509231731295586,
+            "soft_mesh_aabb_distance_m": 0.008509231731295586,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5888010859489441,
+              0.028544485569000244,
+              0.7417442798614502
+            ],
+            "max_world_m": [
+              0.6132681965827942,
+              0.03394787013530731,
+              0.7704594135284424
+            ],
+            "center_world_m": [
+              0.6010346412658691,
+              0.031246177852153778,
+              0.7561018466949463
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.00854489766061306,
+            "soft_mesh_aabb_distance_m": 0.00854489766061306,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": []
+      }
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 3,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 21,
+              "final_position_error_m": 0.002308105118572712,
+              "final_position_world_m": [
+                0.6197659969329834,
+                -0.0008960269624367356,
+                0.9206937551498413
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "applied_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "raw_correction_norm_m": 0.012249276041984558,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6075860261917114,
+              -0.00015121622709557414,
+              0.9217606782913208
+            ],
+            "move": {
+              "passed": true,
+              "steps": 16,
+              "final_position_error_m": 0.0023440951481461525,
+              "final_position_world_m": [
+                0.6074981093406677,
+                0.0005897066439501941,
+                0.9239828586578369
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 3,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "applied_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "raw_correction_norm_m": 0.005245862528681755,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6027489900588989,
+              -0.00010787684004753828,
+              0.9218666553497314
+            ],
+            "move": {
+              "passed": true,
+              "steps": 3,
+              "final_position_error_m": 0.002022551605477929,
+              "final_position_world_m": [
+                0.6047350764274597,
+                -8.71417869348079e-05,
+                0.9214848875999451
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6013414859771729,
+                -3.215111792087555e-05,
+                0.7559993863105774
+              ],
+              "cube_center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0013422966003417969,
+                -3.172537302020828e-05,
+                -0.0004622936248779297
+              ],
+              "xz_center_error_m": 0.0014196744552508935,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013414859771729,
+            -3.215111792087555e-05,
+            0.7559993863105774
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013422966003417969,
+            -3.172537302020828e-05,
+            -0.0004622936248779297
+          ],
+          "xz_center_error_m": 0.0014196744552508935,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0253128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.600792407989502,
+              -0.0539088249206543,
+              0.7911607027053833
+            ],
+            "right": [
+              0.6033318042755127,
+              0.05381282418966293,
+              0.7911167144775391
+            ]
+          },
+          "soft_origin_distance_m": 0.10775158539672584,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894169807434082,
+                -0.03400657698512077,
+                0.7416419982910156
+              ],
+              "max_world_m": [
+                0.6138840317726135,
+                -0.02860037051141262,
+                0.7703564167022705
+              ],
+              "center_world_m": [
+                0.6016504764556885,
+                -0.03130347281694412,
+                0.7559992074966431
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5887988805770874,
+                0.028523338958621025,
+                0.7416393756866455
+              ],
+              "max_world_m": [
+                0.6132660508155823,
+                0.03395500034093857,
+                0.7703597545623779
+              ],
+              "center_world_m": [
+                0.6010324954986572,
+                0.03123917058110237,
+                0.7559995651245117
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5869166254997253,
+                -0.057737499475479126,
+                0.7398773431777954
+              ],
+              "max_world_m": [
+                0.6165893077850342,
+                -0.03355029225349426,
+                0.7724775075912476
+              ],
+              "center_world_m": [
+                0.6017529964447021,
+                -0.045643895864486694,
+                0.7561774253845215
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5861017107963562,
+                0.03347140550613403,
+                0.7398810982704163
+              ],
+              "max_world_m": [
+                0.6157736778259277,
+                0.05768744647502899,
+                0.7725085020065308
+              ],
+              "center_world_m": [
+                0.6009377241134644,
+                0.04557942599058151,
+                0.7561948299407959
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5856611728668213,
+                -0.07933930307626724,
+                0.7373618483543396
+              ],
+              "max_world_m": [
+                0.6184794306755066,
+                -0.02854951098561287,
+                0.8130126595497131
+              ],
+              "center_world_m": [
+                0.6020703315734863,
+                -0.053944408893585205,
+                0.7751872539520264
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5849917531013489,
+                0.02843409776687622,
+                0.7373550534248352
+              ],
+              "max_world_m": [
+                0.6178085207939148,
+                0.07929147779941559,
+                0.8130632042884827
+              ],
+              "center_world_m": [
+                0.6014001369476318,
+                0.053862787783145905,
+                0.7752091288566589
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.0625456964451301,
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "cube_side_center_z_m": 0.7564616799354553,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.057123709470033646,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.017123709470033645,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799990892410278,
+                -0.020000511780381203,
+                0.7364614605903625
+              ],
+              "max_world_m": [
+                0.6199992895126343,
+                0.019999658688902855,
+                0.7764618992805481
+              ],
+              "center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6013428270816803,
+          1.741107553243637e-05,
+          0.7560757398605347
+        ],
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.0013436377048492432,
+          1.7834222518331444e-05,
+          -0.0003859400749206543
+        ],
+        "xz_center_error_m": 0.0013979671038054874,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "postclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6015610694885254,
+          -0.04575156420469284,
+          0.7903116345405579
+        ],
+        "right": [
+          0.6042527556419373,
+          0.045528922230005264,
+          0.7903761267662048
+        ]
+      },
+      "soft_origin_distance_m": 0.09132018691040192,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5905863642692566,
+            -0.02561796084046364,
+            0.7410926222801208
+          ],
+          "max_world_m": [
+            0.6148330569267273,
+            -0.019992778077721596,
+            0.7696672677993774
+          ],
+          "center_world_m": [
+            0.6027097105979919,
+            -0.02280537039041519,
+            0.7553799152374268
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5900971293449402,
+            0.0197133868932724,
+            0.7412214875221252
+          ],
+          "max_world_m": [
+            0.6143423914909363,
+            0.025371212512254715,
+            0.7698012590408325
+          ],
+          "center_world_m": [
+            0.6022197604179382,
+            0.022542299702763557,
+            0.7555114030838013
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5880952477455139,
+            -0.049363747239112854,
+            0.7391289472579956
+          ],
+          "max_world_m": [
+            0.6175047159194946,
+            -0.024930117651820183,
+            0.7717093229293823
+          ],
+          "center_world_m": [
+            0.6028000116348267,
+            -0.03714693337678909,
+            0.755419135093689
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5874242186546326,
+            0.02464868314564228,
+            0.7392338514328003
+          ],
+          "max_world_m": [
+            0.6168363690376282,
+            0.04911910742521286,
+            0.7718386054039001
+          ],
+          "center_world_m": [
+            0.6021302938461304,
+            0.036883894354104996,
+            0.7555361986160278
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5868628025054932,
+            -0.07132785767316818,
+            0.736427366733551
+          ],
+          "max_world_m": [
+            0.6190635561943054,
+            -0.01993725076317787,
+            0.8122707009315491
+          ],
+          "center_world_m": [
+            0.6029632091522217,
+            -0.045632556080818176,
+            0.77434903383255
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5863438248634338,
+            0.01965298503637314,
+            0.7365069389343262
+          ],
+          "max_world_m": [
+            0.6185495257377625,
+            0.07112989574670792,
+            0.8124016523361206
+          ],
+          "center_world_m": [
+            0.6024466753005981,
+            0.04539144039154053,
+            0.7744542956352234
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.045350507418467294,
+      "cube_center_world_m": [
+        0.6000269055366516,
+        -0.0001751065719872713,
+        0.7572775483131409
+      ],
+      "cube_side_center_z_m": 0.7572775483131409,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.039706164970993996,
+        "cube_extent_m": 0.04,
+        "margin_m": -0.00029383502900600517,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799939632415771,
+            -0.02021949738264084,
+            0.7372146248817444
+          ],
+          "max_world_m": [
+            0.6200598478317261,
+            0.019869282841682434,
+            0.7773404717445374
+          ],
+          "center_world_m": [
+            0.6000269055366516,
+            -0.0001751065719872713,
+            0.7572775483131409
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905863642692566,
+              -0.02561796084046364,
+              0.7410926222801208
+            ],
+            "max_world_m": [
+              0.6148330569267273,
+              -0.019992778077721596,
+              0.7696672677993774
+            ],
+            "center_world_m": [
+              0.6027097105979919,
+              -0.02280537039041519,
+              0.7553799152374268
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900971293449402,
+              0.0197133868932724,
+              0.7412214875221252
+            ],
+            "max_world_m": [
+              0.6143423914909363,
+              0.025371212512254715,
+              0.7698012590408325
+            ],
+            "center_world_m": [
+              0.6022197604179382,
+              0.022542299702763557,
+              0.7555114030838013
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "postsettle_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6015828847885132,
+          -0.046439774334430695,
+          0.7901672720909119
+        ],
+        "right": [
+          0.6042469143867493,
+          0.04608052596449852,
+          0.7901533842086792
+        ]
+      },
+      "soft_origin_distance_m": 0.09255864742949517,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5905758738517761,
+            -0.026427507400512695,
+            0.7408256530761719
+          ],
+          "max_world_m": [
+            0.6148382425308228,
+            -0.020957831293344498,
+            0.76938396692276
+          ],
+          "center_world_m": [
+            0.602707028388977,
+            -0.023692669346928596,
+            0.7551047801971436
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5900662541389465,
+            0.020578432828187943,
+            0.7408623099327087
+          ],
+          "max_world_m": [
+            0.6143280267715454,
+            0.026059675961732864,
+            0.7694220542907715
+          ],
+          "center_world_m": [
+            0.6021971702575684,
+            0.023319054394960403,
+            0.7551422119140625
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.588085412979126,
+            -0.05016292259097099,
+            0.7389956712722778
+          ],
+          "max_world_m": [
+            0.6175178289413452,
+            -0.025904567912220955,
+            0.771455705165863
+          ],
+          "center_world_m": [
+            0.6028016209602356,
+            -0.03803374618291855,
+            0.755225658416748
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5873889923095703,
+            0.025524457916617393,
+            0.7390263676643372
+          ],
+          "max_world_m": [
+            0.6168224811553955,
+            0.04979589954018593,
+            0.7714928984642029
+          ],
+          "center_world_m": [
+            0.6021057367324829,
+            0.037660177797079086,
+            0.75525963306427
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5868502259254456,
+            -0.07189708203077316,
+            0.7364164590835571
+          ],
+          "max_world_m": [
+            0.6191035509109497,
+            -0.02092554420232773,
+            0.8119906187057495
+          ],
+          "center_world_m": [
+            0.60297691822052,
+            -0.046411313116550446,
+            0.7742035388946533
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5863041281700134,
+            0.020544419065117836,
+            0.7364381551742554
+          ],
+          "max_world_m": [
+            0.6185593605041504,
+            0.07154663652181625,
+            0.8120259046554565
+          ],
+          "center_world_m": [
+            0.6024317741394043,
+            0.04604552686214447,
+            0.774232029914856
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.04701450335408516,
+      "cube_center_world_m": [
+        0.600002646446228,
+        -8.354848978342488e-05,
+        0.7564616799354553
+      ],
+      "cube_side_center_z_m": 0.7564616799354553,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.04153626412153244,
+        "cube_extent_m": 0.04,
+        "margin_m": 0.0015362641215324394,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799895524978638,
+            -0.020096655935049057,
+            0.7364615201950073
+          ],
+          "max_world_m": [
+            0.6200157403945923,
+            0.019929558038711548,
+            0.7764618396759033
+          ],
+          "center_world_m": [
+            0.600002646446228,
+            -8.354848978342488e-05,
+            0.7564616799354553
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905758738517761,
+              -0.026427507400512695,
+              0.7408256530761719
+            ],
+            "max_world_m": [
+              0.6148382425308228,
+              -0.020957831293344498,
+              0.76938396692276
+            ],
+            "center_world_m": [
+              0.602707028388977,
+              -0.023692669346928596,
+              0.7551047801971436
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": -0.0008611753582954407,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900662541389465,
+              0.020578432828187943,
+              0.7408623099327087
+            ],
+            "max_world_m": [
+              0.6143280267715454,
+              0.026059675961732864,
+              0.7694220542907715
+            ],
+            "center_world_m": [
+              0.6021971702575684,
+              0.023319054394960403,
+              0.7551422119140625
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": -0.0006488747894763947,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 9.927257451636251e-07,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        }
+      },
+      "passed": false,
+      "max_close_object_lift_m": 0.002,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.002,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "final_object_lift_after_close_m": 0.0008158683776855469,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.002597630023956299,
+      "final_object_lift_after_settle_m": 0.0,
+      "settle_object_lift_passed": false,
+      "settle_stopped_by_object_lift": true,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    },
+    "preclose_arm_settle": {
+      "requested_steps": 50,
+      "actual_steps": 50,
+      "arm_hold": {
+        "max_abs_error_rad": 0.0,
+        "target_rad": [
+          -0.04455135017633438,
+          -1.0464569330215454,
+          1.527091145515442,
+          -2.0309174060821533,
+          -1.5710783004760742,
+          -0.05022554099559784
+        ],
+        "actual_rad": [
+          -0.04455135017633438,
+          -1.0464569330215454,
+          1.527091145515442,
+          -2.0309174060821533,
+          -1.5710783004760742,
+          -0.05022554099559784
+        ]
+      },
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "actual_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "max_abs_error_rad": 0.0
+      }
+    },
+    "direct_move": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "approach": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_approach_stage"
+    },
+    "descend_precontact": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_precontact_stage"
+    },
+    "descend": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "close_command": {
+      "executed": true,
+      "steps": 160,
+      "settle_steps": 4,
+      "target_close_rad": 0.25,
+      "close_passed": true,
+      "force_control": {
+        "requested_steps": 160,
+        "actual_steps": 122,
+        "requested_target_close_rad": 0.25,
+        "target_close_rad": 0.25,
+        "absolute_close_cap_rad": 0.45,
+        "start_close_rad": 0.0,
+        "final_target_close_rad": 0.19062499701976776,
+        "actual_final_close_rad": 0.17407794296741486,
+        "close_goal_reached": false,
+        "soft_contact_detected": true,
+        "last_contact_read": {
+          "enabled": true,
+          "contact_detected": true,
+          "contact_sides": [
+            "left",
+            "right"
+          ],
+          "geometry_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_by_side_n": {
+            "left": 1.3959752321243286,
+            "right": 1.4334803819656372
+          },
+          "max_force_n": 1.4334803819656372,
+          "both_sides_force_contact": true,
+          "threshold_n": 0.2,
+          "sides": {
+            "left": {
+              "initialized": true,
+              "max_force_n": 1.3959752321243286,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5905863642692566,
+                  -0.02561796084046364,
+                  0.7410926222801208
+                ],
+                "max_world_m": [
+                  0.6148330569267273,
+                  -0.019992778077721596,
+                  0.7696672677993774
+                ],
+                "center_world_m": [
+                  0.6027097105979919,
+                  -0.02280537039041519,
+                  0.7553799152374268
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            },
+            "right": {
+              "initialized": true,
+              "max_force_n": 1.4334803819656372,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900971293449402,
+                  0.0197133868932724,
+                  0.7412214875221252
+                ],
+                "max_world_m": [
+                  0.6143423914909363,
+                  0.025371212512254715,
+                  0.7698012590408325
+                ],
+                "center_world_m": [
+                  0.6022197604179382,
+                  0.022542299702763557,
+                  0.7555114030838013
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            }
+          },
+          "geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799939632415771,
+                -0.02021949738264084,
+                0.7372146248817444
+              ],
+              "max_world_m": [
+                0.6200598478317261,
+                0.019869282841682434,
+                0.7773404717445374
+              ],
+              "center_world_m": [
+                0.6000269055366516,
+                -0.0001751065719872713,
+                0.7572775483131409
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5905863642692566,
+                  -0.02561796084046364,
+                  0.7410926222801208
+                ],
+                "max_world_m": [
+                  0.6148330569267273,
+                  -0.019992778077721596,
+                  0.7696672677993774
+                ],
+                "center_world_m": [
+                  0.6027097105979919,
+                  -0.02280537039041519,
+                  0.7553799152374268
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900971293449402,
+                  0.0197133868932724,
+                  0.7412214875221252
+                ],
+                "max_world_m": [
+                  0.6143423914909363,
+                  0.025371212512254715,
+                  0.7698012590408325
+                ],
+                "center_world_m": [
+                  0.6022197604179382,
+                  0.022542299702763557,
+                  0.7555114030838013
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": [
+              "left",
+              "right"
+            ]
+          },
+          "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+        },
+        "soft_contact_stop_enabled": false,
+        "stopped_by_no_contact_cap": false,
+        "force_control": {
+          "enabled": true,
+          "stable_force_threshold_n": 0.5,
+          "high_force_threshold_n": 8.0,
+          "required_stable_steps": 1,
+          "stable_grasp_detected": true,
+          "stable_grasp_step": 122,
+          "stable_force_stop_enabled": true,
+          "stopped_by_stable_force": true,
+          "final_stable_counter": 1,
+          "max_force_seen_n": 1.4334803819656372,
+          "stopped_by_high_force": false,
+          "high_force_step": null,
+          "last_force_safe_close_rad": 0.190625,
+          "force_history_tail": [
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 1.0102137327194214
+              },
+              "max_force_n": 1.0102137327194214,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 122,
+              "planned_close_rad": 0.190625,
+              "force_by_side_n": {
+                "left": 1.3959752321243286,
+                "right": 1.4334803819656372
+              },
+              "max_force_n": 1.4334803819656372,
+              "both_sides_stable": true,
+              "stable_counter": 1,
+              "high_force_detected": false
+            }
+          ]
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7572775483131409,
+        "final_object_lift_m": 0.0008158683776855469,
+        "max_object_lift_during_close_m": 0.0008158683776855469,
+        "max_close_object_lift_m": 0.002,
+        "object_lift_guard_trigger_m": 0.002,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": true,
+        "stopped_by_object_lift": false,
+        "last_safe_close_rad": 0.190625,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": null,
+        "object_z_history_tail": [
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "object_z_m": 0.7564616203308105,
+            "object_lift_m": -5.960464477539063e-08
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "object_z_m": 0.7564614415168762,
+            "object_lift_m": -2.384185791015625e-07
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "object_z_m": 0.7564586400985718,
+            "object_lift_m": -3.039836883544922e-06
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "object_z_m": 0.7564623355865479,
+            "object_lift_m": 6.556510925292969e-07
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "object_z_m": 0.7564598321914673,
+            "object_lift_m": -1.8477439880371094e-06
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "object_z_m": 0.7564609050750732,
+            "object_lift_m": -7.748603820800781e-07
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "object_z_m": 0.7565593719482422,
+            "object_lift_m": 9.769201278686523e-05
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "object_z_m": 0.7564796209335327,
+            "object_lift_m": 1.7940998077392578e-05
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "object_z_m": 0.7565234899520874,
+            "object_lift_m": 6.181001663208008e-05
+          },
+          {
+            "step": 122,
+            "planned_close_rad": 0.190625,
+            "object_z_m": 0.7572775483131409,
+            "object_lift_m": 0.0008158683776855469
+          }
+        ],
+        "arm_hold_enabled": true
+      }
+    },
+    "close_gripper": {
+      "target_rad": {
+        "finger_joint": 0.19062499701976776,
+        "left_inner_finger_joint": -0.19062499701976776,
+        "left_inner_knuckle_joint": 0.19062499701976776,
+        "right_outer_knuckle_joint": 0.19062499701976776,
+        "right_inner_finger_joint": -0.19062499701976776,
+        "right_inner_knuckle_joint": 0.19062499701976776
+      },
+      "actual_rad": {
+        "finger_joint": 0.17407794296741486,
+        "left_inner_finger_joint": -0.16463914513587952,
+        "left_inner_knuckle_joint": 0.1934232860803604,
+        "right_outer_knuckle_joint": 0.16966243088245392,
+        "right_inner_finger_joint": -0.15988744795322418,
+        "right_inner_knuckle_joint": 0.19331853091716766
+      },
+      "abs_error_rad": {
+        "finger_joint": 0.016547054052352905,
+        "left_inner_finger_joint": 0.025985851883888245,
+        "left_inner_knuckle_joint": 0.0027982890605926514,
+        "right_outer_knuckle_joint": 0.020962566137313843,
+        "right_inner_finger_joint": 0.03073754906654358,
+        "right_inner_knuckle_joint": 0.0026935338973999023
+      },
+      "max_abs_error_rad": 0.03073754906654358
+    },
+    "close_settle": {
+      "requested_steps": 4,
+      "actual_steps": 10,
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.1699913591146469,
+          "left_inner_finger_joint": -0.1699913591146469,
+          "left_inner_knuckle_joint": 0.1699913591146469,
+          "right_outer_knuckle_joint": 0.1699913591146469,
+          "right_inner_finger_joint": -0.1699913591146469,
+          "right_inner_knuckle_joint": 0.1699913591146469
+        },
+        "actual_rad": {
+          "finger_joint": 0.16382558643817902,
+          "left_inner_finger_joint": -0.16030412912368774,
+          "left_inner_knuckle_joint": 0.1709127426147461,
+          "right_outer_knuckle_joint": 0.16252422332763672,
+          "right_inner_finger_joint": -0.158983513712883,
+          "right_inner_knuckle_joint": 0.1707242727279663
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.0061657726764678955,
+          "left_inner_finger_joint": 0.009687229990959167,
+          "left_inner_knuckle_joint": 0.0009213835000991821,
+          "right_outer_knuckle_joint": 0.007467135787010193,
+          "right_inner_finger_joint": 0.011007845401763916,
+          "right_inner_knuckle_joint": 0.000732913613319397
+        },
+        "max_abs_error_rad": 0.011007845401763916
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7564616799354553,
+      "final_object_lift_m": 0.0,
+      "max_object_lift_during_settle_m": 0.002597630023956299,
+      "max_close_object_lift_m": 0.002,
+      "object_lift_guard_trigger_m": 0.002,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": false,
+      "stopped_by_object_lift": true,
+      "last_safe_close_rad": 0.16999135434627533,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": 0.16999135434627533,
+      "final_target_close_rad": 0.1699913591146469,
+      "object_z_history_tail": [
+        {
+          "step": 1,
+          "object_z_m": 0.7581485509872437,
+          "object_lift_m": 0.00168687105178833,
+          "close_rad": 0.17499135434627533
+        },
+        {
+          "step": 2,
+          "object_z_m": 0.7590593099594116,
+          "object_lift_m": 0.002597630023956299,
+          "close_rad": 0.17502984404563904
+        },
+        {
+          "step": 3,
+          "object_z_m": 0.7565417885780334,
+          "object_lift_m": 8.0108642578125e-05,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        },
+        {
+          "step": 4,
+          "object_z_m": 0.7564619183540344,
+          "object_lift_m": 2.384185791015625e-07,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        },
+        {
+          "step": 5,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        },
+        {
+          "step": 6,
+          "object_z_m": 0.7564617991447449,
+          "object_lift_m": 1.1920928955078125e-07,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        },
+        {
+          "step": 7,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        },
+        {
+          "step": 8,
+          "object_z_m": 0.7564617395401001,
+          "object_lift_m": 5.960464477539063e-08,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        },
+        {
+          "step": 9,
+          "object_z_m": 0.7564615607261658,
+          "object_lift_m": -1.1920928955078125e-07,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        },
+        {
+          "step": 10,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0,
+          "close_rad": 0.16999135434627533,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16999135434627533,
+          "object_lift_guard_trigger_m": 0.002
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "lift": {
+      "passed": true,
+      "steps": 41,
+      "final_position_error_m": 0.005756268743425608,
+      "final_position_world_m": [
+        0.6089471578598022,
+        -0.0001724979665596038,
+        1.0775624513626099
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "hold": {
+      "hold_steps": 300,
+      "actual_hold_steps": 300,
+      "final_object_z_m": 0.7564617395401001,
+      "max_object_z_m": 0.7564617395401001,
+      "min_object_z_m": 0.7564617395401001,
+      "final_lift_m": 1.1920928955078125e-07,
+      "min_lift_m": 1.1920928955078125e-07,
+      "arm_hold_enabled": true
+    },
+    "hold_gripper": {
+      "target_rad": {
+        "finger_joint": 0.1699913591146469,
+        "left_inner_finger_joint": -0.1699913591146469,
+        "left_inner_knuckle_joint": 0.1699913591146469,
+        "right_outer_knuckle_joint": 0.1699913591146469,
+        "right_inner_finger_joint": -0.1699913591146469,
+        "right_inner_knuckle_joint": 0.1699913591146469
+      },
+      "actual_rad": {
+        "finger_joint": 0.17001716792583466,
+        "left_inner_finger_joint": -0.16000036895275116,
+        "left_inner_knuckle_joint": 0.16995497047901154,
+        "right_outer_knuckle_joint": 0.16807910799980164,
+        "right_inner_finger_joint": -0.16000044345855713,
+        "right_inner_knuckle_joint": 0.16994209587574005
+      },
+      "abs_error_rad": {
+        "finger_joint": 2.580881118774414e-05,
+        "left_inner_finger_joint": 0.009990990161895752,
+        "left_inner_knuckle_joint": 3.6388635635375977e-05,
+        "right_outer_knuckle_joint": 0.0019122511148452759,
+        "right_inner_finger_joint": 0.009990915656089783,
+        "right_inner_knuckle_joint": 4.926323890686035e-05
+      },
+      "max_abs_error_rad": 0.009990990161895752
+    },
+    "motion_reached_nominal": true,
+    "step_budget_used": 610
+  },
+  "best_attempt": {
+    "attempt": 1,
+    "passed": false,
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 3,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 21,
+              "final_position_error_m": 0.002308105118572712,
+              "final_position_world_m": [
+                0.6197659969329834,
+                -0.0008960269624367356,
+                0.9206937551498413
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "applied_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "raw_correction_norm_m": 0.012249276041984558,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6075860261917114,
+              -0.00015121622709557414,
+              0.9217606782913208
+            ],
+            "move": {
+              "passed": true,
+              "steps": 16,
+              "final_position_error_m": 0.0023440951481461525,
+              "final_position_world_m": [
+                0.6074981093406677,
+                0.0005897066439501941,
+                0.9239828586578369
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 3,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "applied_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "raw_correction_norm_m": 0.005245862528681755,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6027489900588989,
+              -0.00010787684004753828,
+              0.9218666553497314
+            ],
+            "move": {
+              "passed": true,
+              "steps": 3,
+              "final_position_error_m": 0.002022551605477929,
+              "final_position_world_m": [
+                0.6047350764274597,
+                -8.71417869348079e-05,
+                0.9214848875999451
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6013414859771729,
+                -3.215111792087555e-05,
+                0.7559993863105774
+              ],
+              "cube_center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0013422966003417969,
+                -3.172537302020828e-05,
+                -0.0004622936248779297
+              ],
+              "xz_center_error_m": 0.0014196744552508935,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013414859771729,
+            -3.215111792087555e-05,
+            0.7559993863105774
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013422966003417969,
+            -3.172537302020828e-05,
+            -0.0004622936248779297
+          ],
+          "xz_center_error_m": 0.0014196744552508935,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0253128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.600792407989502,
+              -0.0539088249206543,
+              0.7911607027053833
+            ],
+            "right": [
+              0.6033318042755127,
+              0.05381282418966293,
+              0.7911167144775391
+            ]
+          },
+          "soft_origin_distance_m": 0.10775158539672584,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894169807434082,
+                -0.03400657698512077,
+                0.7416419982910156
+              ],
+              "max_world_m": [
+                0.6138840317726135,
+                -0.02860037051141262,
+                0.7703564167022705
+              ],
+              "center_world_m": [
+                0.6016504764556885,
+                -0.03130347281694412,
+                0.7559992074966431
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5887988805770874,
+                0.028523338958621025,
+                0.7416393756866455
+              ],
+              "max_world_m": [
+                0.6132660508155823,
+                0.03395500034093857,
+                0.7703597545623779
+              ],
+              "center_world_m": [
+                0.6010324954986572,
+                0.03123917058110237,
+                0.7559995651245117
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5869166254997253,
+                -0.057737499475479126,
+                0.7398773431777954
+              ],
+              "max_world_m": [
+                0.6165893077850342,
+                -0.03355029225349426,
+                0.7724775075912476
+              ],
+              "center_world_m": [
+                0.6017529964447021,
+                -0.045643895864486694,
+                0.7561774253845215
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5861017107963562,
+                0.03347140550613403,
+                0.7398810982704163
+              ],
+              "max_world_m": [
+                0.6157736778259277,
+                0.05768744647502899,
+                0.7725085020065308
+              ],
+              "center_world_m": [
+                0.6009377241134644,
+                0.04557942599058151,
+                0.7561948299407959
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5856611728668213,
+                -0.07933930307626724,
+                0.7373618483543396
+              ],
+              "max_world_m": [
+                0.6184794306755066,
+                -0.02854951098561287,
+                0.8130126595497131
+              ],
+              "center_world_m": [
+                0.6020703315734863,
+                -0.053944408893585205,
+                0.7751872539520264
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5849917531013489,
+                0.02843409776687622,
+                0.7373550534248352
+              ],
+              "max_world_m": [
+                0.6178085207939148,
+                0.07929147779941559,
+                0.8130632042884827
+              ],
+              "center_world_m": [
+                0.6014001369476318,
+                0.053862787783145905,
+                0.7752091288566589
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.0625456964451301,
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "cube_side_center_z_m": 0.7564616799354553,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.057123709470033646,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.017123709470033645,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799990892410278,
+                -0.020000511780381203,
+                0.7364614605903625
+              ],
+              "max_world_m": [
+                0.6199992895126343,
+                0.019999658688902855,
+                0.7764618992805481
+              ],
+              "center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6013428270816803,
+          1.741107553243637e-05,
+          0.7560757398605347
+        ],
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.0013436377048492432,
+          1.7834222518331444e-05,
+          -0.0003859400749206543
+        ],
+        "xz_center_error_m": 0.0013979671038054874,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "min_lift_m": 1.1920928955078125e-07,
+    "max_lift_m": 1.1920928955078125e-07,
+    "force_control": {
+      "requested_steps": 160,
+      "actual_steps": 122,
+      "requested_target_close_rad": 0.25,
+      "target_close_rad": 0.25,
+      "absolute_close_cap_rad": 0.45,
+      "start_close_rad": 0.0,
+      "final_target_close_rad": 0.19062499701976776,
+      "actual_final_close_rad": 0.17407794296741486,
+      "close_goal_reached": false,
+      "soft_contact_detected": true,
+      "last_contact_read": {
+        "enabled": true,
+        "contact_detected": true,
+        "contact_sides": [
+          "left",
+          "right"
+        ],
+        "geometry_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_by_side_n": {
+          "left": 1.3959752321243286,
+          "right": 1.4334803819656372
+        },
+        "max_force_n": 1.4334803819656372,
+        "both_sides_force_contact": true,
+        "threshold_n": 0.2,
+        "sides": {
+          "left": {
+            "initialized": true,
+            "max_force_n": 1.3959752321243286,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          },
+          "right": {
+            "initialized": true,
+            "max_force_n": 1.4334803819656372,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          }
+        },
+        "geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799939632415771,
+              -0.02021949738264084,
+              0.7372146248817444
+            ],
+            "max_world_m": [
+              0.6200598478317261,
+              0.019869282841682434,
+              0.7773404717445374
+            ],
+            "center_world_m": [
+              0.6000269055366516,
+              -0.0001751065719872713,
+              0.7572775483131409
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        },
+        "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+      },
+      "soft_contact_stop_enabled": false,
+      "stopped_by_no_contact_cap": false,
+      "force_control": {
+        "enabled": true,
+        "stable_force_threshold_n": 0.5,
+        "high_force_threshold_n": 8.0,
+        "required_stable_steps": 1,
+        "stable_grasp_detected": true,
+        "stable_grasp_step": 122,
+        "stable_force_stop_enabled": true,
+        "stopped_by_stable_force": true,
+        "final_stable_counter": 1,
+        "max_force_seen_n": 1.4334803819656372,
+        "stopped_by_high_force": false,
+        "high_force_step": null,
+        "last_force_safe_close_rad": 0.190625,
+        "force_history_tail": [
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 1.0102137327194214
+            },
+            "max_force_n": 1.0102137327194214,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 122,
+            "planned_close_rad": 0.190625,
+            "force_by_side_n": {
+              "left": 1.3959752321243286,
+              "right": 1.4334803819656372
+            },
+            "max_force_n": 1.4334803819656372,
+            "both_sides_stable": true,
+            "stable_counter": 1,
+            "high_force_detected": false
+          }
+        ]
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7572775483131409,
+      "final_object_lift_m": 0.0008158683776855469,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "max_close_object_lift_m": 0.002,
+      "object_lift_guard_trigger_m": 0.002,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": true,
+      "stopped_by_object_lift": false,
+      "last_safe_close_rad": 0.190625,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": null,
+      "object_z_history_tail": [
+        {
+          "step": 111,
+          "planned_close_rad": 0.1734375,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0
+        },
+        {
+          "step": 112,
+          "planned_close_rad": 0.175,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0
+        },
+        {
+          "step": 113,
+          "planned_close_rad": 0.1765625,
+          "object_z_m": 0.7564616203308105,
+          "object_lift_m": -5.960464477539063e-08
+        },
+        {
+          "step": 114,
+          "planned_close_rad": 0.178125,
+          "object_z_m": 0.7564614415168762,
+          "object_lift_m": -2.384185791015625e-07
+        },
+        {
+          "step": 115,
+          "planned_close_rad": 0.1796875,
+          "object_z_m": 0.7564586400985718,
+          "object_lift_m": -3.039836883544922e-06
+        },
+        {
+          "step": 116,
+          "planned_close_rad": 0.18125,
+          "object_z_m": 0.7564623355865479,
+          "object_lift_m": 6.556510925292969e-07
+        },
+        {
+          "step": 117,
+          "planned_close_rad": 0.1828125,
+          "object_z_m": 0.7564598321914673,
+          "object_lift_m": -1.8477439880371094e-06
+        },
+        {
+          "step": 118,
+          "planned_close_rad": 0.184375,
+          "object_z_m": 0.7564609050750732,
+          "object_lift_m": -7.748603820800781e-07
+        },
+        {
+          "step": 119,
+          "planned_close_rad": 0.1859375,
+          "object_z_m": 0.7565593719482422,
+          "object_lift_m": 9.769201278686523e-05
+        },
+        {
+          "step": 120,
+          "planned_close_rad": 0.1875,
+          "object_z_m": 0.7564796209335327,
+          "object_lift_m": 1.7940998077392578e-05
+        },
+        {
+          "step": 121,
+          "planned_close_rad": 0.1890625,
+          "object_z_m": 0.7565234899520874,
+          "object_lift_m": 6.181001663208008e-05
+        },
+        {
+          "step": 122,
+          "planned_close_rad": 0.190625,
+          "object_z_m": 0.7572775483131409,
+          "object_lift_m": 0.0008158683776855469
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 9.927257451636251e-07,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        }
+      },
+      "passed": false,
+      "max_close_object_lift_m": 0.002,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.002,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "final_object_lift_after_close_m": 0.0008158683776855469,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.002597630023956299,
+      "final_object_lift_after_settle_m": 0.0,
+      "settle_object_lift_passed": false,
+      "settle_stopped_by_object_lift": true,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    }
+  },
+  "attempts": [
+    {
+      "passed": false,
+      "success_evaluation": {
+        "selected_mode": "contact_demo",
+        "selected_passed": false,
+        "contact_demo_passed": false,
+        "lift_hold_passed": false,
+        "checks": {
+          "soft_center_preclose_passed": true,
+          "direct_motion_passed": true,
+          "lift_motion_passed": true,
+          "close_passed": true,
+          "close_settle_gripper_passed": true,
+          "hold_gripper_passed": true,
+          "stable_grasp_passed": true,
+          "close_safety_passed": false,
+          "strict_lift_margin_passed": false,
+          "tactile_contact_change": {
+            "required": true,
+            "passed": true,
+            "skipped": false,
+            "sides": {
+              "left": {
+                "passed": true,
+                "contact_frames": 50,
+                "imprint_applied_frames": 50,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.032117705792188644
+              },
+              "right": {
+                "passed": true,
+                "contact_frames": 47,
+                "imprint_applied_frames": 47,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.03183571994304657
+              }
+            },
+            "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+          }
+        },
+        "notes": {
+          "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+          "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+        }
+      },
+      "params": {
+        "attempt": 1,
+        "ee_z_offset": 0.17,
+        "soft_center_z_offset": 0.0,
+        "longitudinal_x_offset": 0.0,
+        "lateral_y_offset": 0.0,
+        "yaw_offset_rad": 0.0,
+        "pitch_offset_rad": 0.0,
+        "roll_offset_rad": 0.0,
+        "gripper_close_rad": 0.25
+      },
+      "pregrasp_wrist3_deg": -2.6,
+      "static_geometry_audit": {
+        "urdf_pad_collision_z_max_m": 0.05117,
+        "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+        "urdf_gsmini_full_collision_z_max_m": 0.08586,
+        "gsmini_base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "gsmini_sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+        "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+        "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+      },
+      "object": {
+        "kind": "cube",
+        "label": "4cm_cube",
+        "cube_size_m": 0.04,
+        "cube_side_centers_world_m": {
+          "left_y_positive": [
+            0.6000000834465027,
+            0.020000004159889322,
+            0.7564616203308105
+          ],
+          "right_y_negative": [
+            0.6000000834465027,
+            -0.01999999584011068,
+            0.7564616203308105
+          ]
+        }
+      },
+      "object_initial_position_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "grasp_target_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "effective_grasp_target_world_m": [
+        0.6047350764274597,
+        -8.71417869348079e-05,
+        0.9214848875999451
+      ],
+      "lift_target_world_m": [
+        0.6047350764274597,
+        -8.71417869348079e-05,
+        1.0814849138259888
+      ],
+      "preclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6007925271987915,
+            -0.05386461317539215,
+            0.7911803126335144
+          ],
+          "right": [
+            0.6033332943916321,
+            0.0538550466299057,
+            0.791196346282959
+          ]
+        },
+        "soft_origin_distance_m": 0.10774962117601727,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5894174575805664,
+              -0.03391304612159729,
+              0.741692066192627
+            ],
+            "max_world_m": [
+              0.6138845682144165,
+              -0.02850966528058052,
+              0.7704071998596191
+            ],
+            "center_world_m": [
+              0.6016510128974915,
+              -0.031211355701088905,
+              0.756049633026123
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5888010859489441,
+              0.028544485569000244,
+              0.7417442798614502
+            ],
+            "max_world_m": [
+              0.6132681965827942,
+              0.03394787013530731,
+              0.7704594135284424
+            ],
+            "center_world_m": [
+              0.6010346412658691,
+              0.031246177852153778,
+              0.7561018466949463
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5869169235229492,
+              -0.057644013315439224,
+              0.7399066090583801
+            ],
+            "max_world_m": [
+              0.6165891885757446,
+              -0.03346000611782074,
+              0.7725100517272949
+            ],
+            "center_world_m": [
+              0.6017530560493469,
+              -0.04555200785398483,
+              0.7562083005905151
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5861034393310547,
+              0.03349461406469345,
+              0.7399809956550598
+            ],
+            "max_world_m": [
+              0.6157756447792053,
+              0.057678621262311935,
+              0.7725843787193298
+            ],
+            "center_world_m": [
+              0.6009395122528076,
+              0.045586615800857544,
+              0.7562826871871948
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5856615900993347,
+              -0.07926959544420242,
+              0.7373780608177185
+            ],
+            "max_world_m": [
+              0.6184790134429932,
+              -0.028487306088209152,
+              0.8130356073379517
+            ],
+            "center_world_m": [
+              0.6020703315734863,
+              -0.05387844890356064,
+              0.7752068042755127
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5849930047988892,
+              0.028497889637947083,
+              0.7374599575996399
+            ],
+            "max_world_m": [
+              0.6178104281425476,
+              0.07928018271923065,
+              0.813117504119873
+            ],
+            "center_world_m": [
+              0.601401686668396,
+              0.05388903617858887,
+              0.7752887010574341
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.06246059668150727,
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "cube_side_center_z_m": 0.7564616799354553,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.057054150849580765,
+          "cube_extent_m": 0.04,
+          "margin_m": 0.017054150849580764,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799991488456726,
+              -0.020000433549284935,
+              0.7364616394042969
+            ],
+            "max_world_m": [
+              0.6199992299079895,
+              0.019999587908387184,
+              0.7764617204666138
+            ],
+            "center_world_m": [
+              0.599999189376831,
+              -4.2314698589507316e-07,
+              0.7564616799354553
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894174575805664,
+                -0.03391304612159729,
+                0.741692066192627
+              ],
+              "max_world_m": [
+                0.6138845682144165,
+                -0.02850966528058052,
+                0.7704071998596191
+              ],
+              "center_world_m": [
+                0.6016510128974915,
+                -0.031211355701088905,
+                0.756049633026123
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.008509231731295586,
+              "soft_mesh_aabb_distance_m": 0.008509231731295586,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5888010859489441,
+                0.028544485569000244,
+                0.7417442798614502
+              ],
+              "max_world_m": [
+                0.6132681965827942,
+                0.03394787013530731,
+                0.7704594135284424
+              ],
+              "center_world_m": [
+                0.6010346412658691,
+                0.031246177852153778,
+                0.7561018466949463
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.00854489766061306,
+              "soft_mesh_aabb_distance_m": 0.00854489766061306,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": []
+        }
+      },
+      "soft_center_alignment": {
+        "enabled": true,
+        "mode": "soft_mesh_pair_center_to_cube_side_center",
+        "soft_center_tcp": {
+          "frame_name": "virtual_soft_center_tcp",
+          "parent_frame": "ee_link",
+          "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+          "target_frame_for_ik": "ee_link",
+          "desired_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "offset_in_ee_frame_m": [
+            0.16541601717472076,
+            -6.539048627018929e-07,
+            1.4901161193847656e-08
+          ],
+          "target_ee_world_m": [
+            0.6033328771591187,
+            -9.96661838144064e-05,
+            0.9218440651893616
+          ],
+          "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+        },
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "pregrasp_ee_world_m": [
+          0.5980228781700134,
+          0.0033233817666769028,
+          1.0136542320251465
+        ],
+        "pregrasp_soft_pair_center_world_m": [
+          0.5946900844573975,
+          0.0034230519086122513,
+          0.8482718467712402
+        ],
+        "soft_offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_soft_offset_world_m": [
+          -0.003332778811454773,
+          9.967034566216171e-05,
+          -0.16538242995738983
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "cube_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "soft_center_z_offset_m": 0.0,
+        "longitudinal_x_offset_m": 0.0,
+        "lateral_y_offset_m": 0.0,
+        "refinement": {
+          "enabled": true,
+          "rounds_requested": 4,
+          "rounds_used": 3,
+          "refine_steps_per_round": 60,
+          "refine_pos_tolerance_m": 0.0025,
+          "max_correction_step_m": 0.025,
+          "desired_soft_pair_center_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "rounds": [
+            {
+              "round": 1,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.5794125497341156,
+                  -0.0011853072792291641,
+                  0.7603024244308472
+                ],
+                "cube_center_world_m": [
+                  0.5999999046325684,
+                  -7.167465554402952e-08,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  -0.02058735489845276,
+                  -0.00118523560457362,
+                  0.0038407444953918457
+                ],
+                "xz_center_error_m": 0.020942552375336907,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "applied_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "raw_correction_norm_m": 0.020976224914193153,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.622069239616394,
+                -0.0010163658298552036,
+                0.9206046462059021
+              ],
+              "move": {
+                "passed": true,
+                "steps": 21,
+                "final_position_error_m": 0.002308105118572712,
+                "final_position_world_m": [
+                  0.6197659969329834,
+                  -0.0008960269624367356,
+                  0.9206937551498413
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6121800541877747,
+                  -0.0007448066025972366,
+                  0.755394697189331
+                ],
+                "cube_center_world_m": [
+                  0.5999996662139893,
+                  -4.084978684204543e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0121803879737854,
+                  -0.0007443981047288162,
+                  -0.0010669827461242676
+                ],
+                "xz_center_error_m": 0.012227031666453756,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            },
+            {
+              "round": 2,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6121800541877747,
+                  -0.0007448066025972366,
+                  0.755394697189331
+                ],
+                "cube_center_world_m": [
+                  0.5999996662139893,
+                  -4.084978684204543e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0121803879737854,
+                  -0.0007443981047288162,
+                  -0.0010669827461242676
+                ],
+                "xz_center_error_m": 0.012227031666453756,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                -0.012179970741271973,
+                0.0007448107353411615,
+                0.0010669231414794922
+              ],
+              "applied_correction_world_m": [
+                -0.012179970741271973,
+                0.0007448107353411615,
+                0.0010669231414794922
+              ],
+              "raw_correction_norm_m": 0.012249276041984558,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.6075860261917114,
+                -0.00015121622709557414,
+                0.9217606782913208
+              ],
+              "move": {
+                "passed": true,
+                "steps": 16,
+                "final_position_error_m": 0.0023440951481461525,
+                "final_position_world_m": [
+                  0.6074981093406677,
+                  0.0005897066439501941,
+                  0.9239828586578369
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6047491729259491,
+                  0.0006975876167416573,
+                  0.758577823638916
+                ],
+                "cube_center_world_m": [
+                  0.599999725818634,
+                  -2.0087369989596482e-07,
+                  0.7564617991447449
+                ],
+                "pair_center_error_world_m": [
+                  0.0047494471073150635,
+                  0.0006977884904415532,
+                  0.0021160244941711426
+                ],
+                "xz_center_error_m": 0.005199500695751051,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            },
+            {
+              "round": 3,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6047491729259491,
+                  0.0006975876167416573,
+                  0.758577823638916
+                ],
+                "cube_center_world_m": [
+                  0.599999725818634,
+                  -2.0087369989596482e-07,
+                  0.7564617991447449
+                ],
+                "pair_center_error_world_m": [
+                  0.0047494471073150635,
+                  0.0006977884904415532,
+                  0.0021160244941711426
+                ],
+                "xz_center_error_m": 0.005199500695751051,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                -0.004749119281768799,
+                -0.0006975834839977324,
+                -0.0021162033081054688
+              ],
+              "applied_correction_world_m": [
+                -0.004749119281768799,
+                -0.0006975834839977324,
+                -0.0021162033081054688
+              ],
+              "raw_correction_norm_m": 0.005245862528681755,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.6027489900588989,
+                -0.00010787684004753828,
+                0.9218666553497314
+              ],
+              "move": {
+                "passed": true,
+                "steps": 3,
+                "final_position_error_m": 0.002022551605477929,
+                "final_position_world_m": [
+                  0.6047350764274597,
+                  -8.71417869348079e-05,
+                  0.9214848875999451
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6013414859771729,
+                  -3.215111792087555e-05,
+                  0.7559993863105774
+                ],
+                "cube_center_world_m": [
+                  0.599999189376831,
+                  -4.2574490066726867e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0013422966003417969,
+                  -3.172537302020828e-05,
+                  -0.0004622936248779297
+                ],
+                "xz_center_error_m": 0.0014196744552508935,
+                "tolerance_m": 0.005,
+                "passed": true,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            }
+          ],
+          "final_error_m": {
+            "available": true,
+            "soft_pair_center_world_m": [
+              0.6013414859771729,
+              -3.215111792087555e-05,
+              0.7559993863105774
+            ],
+            "cube_center_world_m": [
+              0.599999189376831,
+              -4.2574490066726867e-07,
+              0.7564616799354553
+            ],
+            "pair_center_error_world_m": [
+              0.0013422966003417969,
+              -3.172537302020828e-05,
+              -0.0004622936248779297
+            ],
+            "xz_center_error_m": 0.0014196744552508935,
+            "tolerance_m": 0.005,
+            "passed": true,
+            "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+          },
+          "final_geometry": {
+            "soft_origin_in_sensor_frame_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "soft_mesh_local_aabb_m": {
+              "min": [
+                -0.01363918,
+                -0.02524673,
+                -0.04923395
+              ],
+              "max": [
+                0.01022479,
+                -0.01999673,
+                -0.02100601
+              ]
+            },
+            "base_link_local_aabb_m": {
+              "min": [
+                -0.01616778,
+                -0.02028085,
+                -0.05095018
+              ],
+              "max": [
+                0.01271882,
+                0.00371915,
+                -0.01895018
+              ]
+            },
+            "sensor_assembly_local_aabb_m": {
+              "min": [
+                -0.01710485,
+                -0.02524673,
+                -0.05344392
+              ],
+              "max": [
+                0.01389515,
+                0.0253128,
+                0.02155608
+              ]
+            },
+            "soft_origin_world_m": {
+              "left": [
+                0.600792407989502,
+                -0.0539088249206543,
+                0.7911607027053833
+              ],
+              "right": [
+                0.6033318042755127,
+                0.05381282418966293,
+                0.7911167144775391
+              ]
+            },
+            "soft_origin_distance_m": 0.10775158539672584,
+            "soft_mesh_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ]
+              }
+            },
+            "base_link_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5869166254997253,
+                  -0.057737499475479126,
+                  0.7398773431777954
+                ],
+                "max_world_m": [
+                  0.6165893077850342,
+                  -0.03355029225349426,
+                  0.7724775075912476
+                ],
+                "center_world_m": [
+                  0.6017529964447021,
+                  -0.045643895864486694,
+                  0.7561774253845215
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5861017107963562,
+                  0.03347140550613403,
+                  0.7398810982704163
+                ],
+                "max_world_m": [
+                  0.6157736778259277,
+                  0.05768744647502899,
+                  0.7725085020065308
+                ],
+                "center_world_m": [
+                  0.6009377241134644,
+                  0.04557942599058151,
+                  0.7561948299407959
+                ]
+              }
+            },
+            "sensor_assembly_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.5856611728668213,
+                  -0.07933930307626724,
+                  0.7373618483543396
+                ],
+                "max_world_m": [
+                  0.6184794306755066,
+                  -0.02854951098561287,
+                  0.8130126595497131
+                ],
+                "center_world_m": [
+                  0.6020703315734863,
+                  -0.053944408893585205,
+                  0.7751872539520264
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.5849917531013489,
+                  0.02843409776687622,
+                  0.7373550534248352
+                ],
+                "max_world_m": [
+                  0.6178085207939148,
+                  0.07929147779941559,
+                  0.8130632042884827
+                ],
+                "center_world_m": [
+                  0.6014001369476318,
+                  0.053862787783145905,
+                  0.7752091288566589
+                ]
+              }
+            },
+            "soft_mesh_center_distance_m": 0.0625456964451301,
+            "cube_center_world_m": [
+              0.599999189376831,
+              -4.2574490066726867e-07,
+              0.7564616799354553
+            ],
+            "cube_side_center_z_m": 0.7564616799354553,
+            "cube_half_extent_m": 0.02,
+            "side_grasp_aperture": {
+              "axis": "world_y",
+              "soft_inner_gap_m": 0.057123709470033646,
+              "cube_extent_m": 0.04,
+              "margin_m": 0.017123709470033645,
+              "feasible_without_interpenetration": true
+            },
+            "soft_cube_contact_geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5799990892410278,
+                  -0.020000511780381203,
+                  0.7364614605903625
+                ],
+                "max_world_m": [
+                  0.6199992895126343,
+                  0.019999658688902855,
+                  0.7764618992805481
+                ],
+                "center_world_m": [
+                  0.599999189376831,
+                  -4.2574490066726867e-07,
+                  0.7564616799354553
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5894169807434082,
+                    -0.03400657698512077,
+                    0.7416419982910156
+                  ],
+                  "max_world_m": [
+                    0.6138840317726135,
+                    -0.02860037051141262,
+                    0.7703564167022705
+                  ],
+                  "center_world_m": [
+                    0.6016504764556885,
+                    -0.03130347281694412,
+                    0.7559992074966431
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                  "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5887988805770874,
+                    0.028523338958621025,
+                    0.7416393756866455
+                  ],
+                  "max_world_m": [
+                    0.6132660508155823,
+                    0.03395500034093857,
+                    0.7703597545623779
+                  ],
+                  "center_world_m": [
+                    0.6010324954986572,
+                    0.03123917058110237,
+                    0.7559995651245117
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                  "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": []
+            }
+          },
+          "passed": true
+        },
+        "preclose_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013428270816803,
+            1.741107553243637e-05,
+            0.7560757398605347
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2314698589507316e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013436377048492432,
+            1.7834222518331444e-05,
+            -0.0003859400749206543
+          ],
+          "xz_center_error_m": 0.0013979671038054874,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        }
+      },
+      "postclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6015610694885254,
+            -0.04575156420469284,
+            0.7903116345405579
+          ],
+          "right": [
+            0.6042527556419373,
+            0.045528922230005264,
+            0.7903761267662048
+          ]
+        },
+        "soft_origin_distance_m": 0.09132018691040192,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905863642692566,
+              -0.02561796084046364,
+              0.7410926222801208
+            ],
+            "max_world_m": [
+              0.6148330569267273,
+              -0.019992778077721596,
+              0.7696672677993774
+            ],
+            "center_world_m": [
+              0.6027097105979919,
+              -0.02280537039041519,
+              0.7553799152374268
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900971293449402,
+              0.0197133868932724,
+              0.7412214875221252
+            ],
+            "max_world_m": [
+              0.6143423914909363,
+              0.025371212512254715,
+              0.7698012590408325
+            ],
+            "center_world_m": [
+              0.6022197604179382,
+              0.022542299702763557,
+              0.7555114030838013
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5880952477455139,
+              -0.049363747239112854,
+              0.7391289472579956
+            ],
+            "max_world_m": [
+              0.6175047159194946,
+              -0.024930117651820183,
+              0.7717093229293823
+            ],
+            "center_world_m": [
+              0.6028000116348267,
+              -0.03714693337678909,
+              0.755419135093689
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5874242186546326,
+              0.02464868314564228,
+              0.7392338514328003
+            ],
+            "max_world_m": [
+              0.6168363690376282,
+              0.04911910742521286,
+              0.7718386054039001
+            ],
+            "center_world_m": [
+              0.6021302938461304,
+              0.036883894354104996,
+              0.7555361986160278
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5868628025054932,
+              -0.07132785767316818,
+              0.736427366733551
+            ],
+            "max_world_m": [
+              0.6190635561943054,
+              -0.01993725076317787,
+              0.8122707009315491
+            ],
+            "center_world_m": [
+              0.6029632091522217,
+              -0.045632556080818176,
+              0.77434903383255
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5863438248634338,
+              0.01965298503637314,
+              0.7365069389343262
+            ],
+            "max_world_m": [
+              0.6185495257377625,
+              0.07112989574670792,
+              0.8124016523361206
+            ],
+            "center_world_m": [
+              0.6024466753005981,
+              0.04539144039154053,
+              0.7744542956352234
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.045350507418467294,
+        "cube_center_world_m": [
+          0.6000269055366516,
+          -0.0001751065719872713,
+          0.7572775483131409
+        ],
+        "cube_side_center_z_m": 0.7572775483131409,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.039706164970993996,
+          "cube_extent_m": 0.04,
+          "margin_m": -0.00029383502900600517,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799939632415771,
+              -0.02021949738264084,
+              0.7372146248817444
+            ],
+            "max_world_m": [
+              0.6200598478317261,
+              0.019869282841682434,
+              0.7773404717445374
+            ],
+            "center_world_m": [
+              0.6000269055366516,
+              -0.0001751065719872713,
+              0.7572775483131409
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "postsettle_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6015828847885132,
+            -0.046439774334430695,
+            0.7901672720909119
+          ],
+          "right": [
+            0.6042469143867493,
+            0.04608052596449852,
+            0.7901533842086792
+          ]
+        },
+        "soft_origin_distance_m": 0.09255864742949517,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905758738517761,
+              -0.026427507400512695,
+              0.7408256530761719
+            ],
+            "max_world_m": [
+              0.6148382425308228,
+              -0.020957831293344498,
+              0.76938396692276
+            ],
+            "center_world_m": [
+              0.602707028388977,
+              -0.023692669346928596,
+              0.7551047801971436
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900662541389465,
+              0.020578432828187943,
+              0.7408623099327087
+            ],
+            "max_world_m": [
+              0.6143280267715454,
+              0.026059675961732864,
+              0.7694220542907715
+            ],
+            "center_world_m": [
+              0.6021971702575684,
+              0.023319054394960403,
+              0.7551422119140625
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.588085412979126,
+              -0.05016292259097099,
+              0.7389956712722778
+            ],
+            "max_world_m": [
+              0.6175178289413452,
+              -0.025904567912220955,
+              0.771455705165863
+            ],
+            "center_world_m": [
+              0.6028016209602356,
+              -0.03803374618291855,
+              0.755225658416748
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5873889923095703,
+              0.025524457916617393,
+              0.7390263676643372
+            ],
+            "max_world_m": [
+              0.6168224811553955,
+              0.04979589954018593,
+              0.7714928984642029
+            ],
+            "center_world_m": [
+              0.6021057367324829,
+              0.037660177797079086,
+              0.75525963306427
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5868502259254456,
+              -0.07189708203077316,
+              0.7364164590835571
+            ],
+            "max_world_m": [
+              0.6191035509109497,
+              -0.02092554420232773,
+              0.8119906187057495
+            ],
+            "center_world_m": [
+              0.60297691822052,
+              -0.046411313116550446,
+              0.7742035388946533
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5863041281700134,
+              0.020544419065117836,
+              0.7364381551742554
+            ],
+            "max_world_m": [
+              0.6185593605041504,
+              0.07154663652181625,
+              0.8120259046554565
+            ],
+            "center_world_m": [
+              0.6024317741394043,
+              0.04604552686214447,
+              0.774232029914856
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.04701450335408516,
+        "cube_center_world_m": [
+          0.600002646446228,
+          -8.354848978342488e-05,
+          0.7564616799354553
+        ],
+        "cube_side_center_z_m": 0.7564616799354553,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.04153626412153244,
+          "cube_extent_m": 0.04,
+          "margin_m": 0.0015362641215324394,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799895524978638,
+              -0.020096655935049057,
+              0.7364615201950073
+            ],
+            "max_world_m": [
+              0.6200157403945923,
+              0.019929558038711548,
+              0.7764618396759033
+            ],
+            "center_world_m": [
+              0.600002646446228,
+              -8.354848978342488e-05,
+              0.7564616799354553
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905758738517761,
+                -0.026427507400512695,
+                0.7408256530761719
+              ],
+              "max_world_m": [
+                0.6148382425308228,
+                -0.020957831293344498,
+                0.76938396692276
+              ],
+              "center_world_m": [
+                0.602707028388977,
+                -0.023692669346928596,
+                0.7551047801971436
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": -0.0008611753582954407,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900662541389465,
+                0.020578432828187943,
+                0.7408623099327087
+              ],
+              "max_world_m": [
+                0.6143280267715454,
+                0.026059675961732864,
+                0.7694220542907715
+              ],
+              "center_world_m": [
+                0.6021971702575684,
+                0.023319054394960403,
+                0.7551422119140625
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": -0.0006488747894763947,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "close_safety": {
+        "preclose_object_shift_m": 9.927257451636251e-07,
+        "max_preclose_object_shift_m": 0.015,
+        "preclose_object_shift_passed": true,
+        "preclose_arm_settle_max_error_rad": 0.0,
+        "direct_grasp_target": true,
+        "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+        "arm_velocity_latch": {
+          "latched": true,
+          "zeroed_arm_velocity": true,
+          "arm_hold": {
+            "max_abs_error_rad": 0.0,
+            "target_rad": [
+              -0.04455135017633438,
+              -1.0464569330215454,
+              1.527091145515442,
+              -2.0309174060821533,
+              -1.5710783004760742,
+              -0.05022554099559784
+            ],
+            "actual_rad": [
+              -0.04455135017633438,
+              -1.0464569330215454,
+              1.527091145515442,
+              -2.0309174060821533,
+              -1.5710783004760742,
+              -0.05022554099559784
+            ]
+          }
+        },
+        "passed": false,
+        "max_close_object_lift_m": 0.002,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_trigger_m": 0.002,
+        "max_object_lift_during_close_m": 0.0008158683776855469,
+        "final_object_lift_after_close_m": 0.0008158683776855469,
+        "close_object_lift_passed": true,
+        "close_stopped_by_object_lift": false,
+        "max_object_lift_during_settle_m": 0.002597630023956299,
+        "final_object_lift_after_settle_m": 0.0,
+        "settle_object_lift_passed": false,
+        "settle_stopped_by_object_lift": true,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "force_control_enabled": true,
+        "stable_grasp_detected": true,
+        "stable_grasp_passed": true,
+        "high_force_stop": false,
+        "close_goal_reached": false
+      },
+      "preclose_arm_settle": {
+        "requested_steps": 50,
+        "actual_steps": 50,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        },
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "actual_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "max_abs_error_rad": 0.0
+        }
+      },
+      "direct_move": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "approach": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_approach_stage"
+      },
+      "descend_precontact": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_precontact_stage"
+      },
+      "descend": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "close_command": {
+        "executed": true,
+        "steps": 160,
+        "settle_steps": 4,
+        "target_close_rad": 0.25,
+        "close_passed": true,
+        "force_control": {
+          "requested_steps": 160,
+          "actual_steps": 122,
+          "requested_target_close_rad": 0.25,
+          "target_close_rad": 0.25,
+          "absolute_close_cap_rad": 0.45,
+          "start_close_rad": 0.0,
+          "final_target_close_rad": 0.19062499701976776,
+          "actual_final_close_rad": 0.17407794296741486,
+          "close_goal_reached": false,
+          "soft_contact_detected": true,
+          "last_contact_read": {
+            "enabled": true,
+            "contact_detected": true,
+            "contact_sides": [
+              "left",
+              "right"
+            ],
+            "geometry_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_by_side_n": {
+              "left": 1.3959752321243286,
+              "right": 1.4334803819656372
+            },
+            "max_force_n": 1.4334803819656372,
+            "both_sides_force_contact": true,
+            "threshold_n": 0.2,
+            "sides": {
+              "left": {
+                "initialized": true,
+                "max_force_n": 1.3959752321243286,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5905863642692566,
+                    -0.02561796084046364,
+                    0.7410926222801208
+                  ],
+                  "max_world_m": [
+                    0.6148330569267273,
+                    -0.019992778077721596,
+                    0.7696672677993774
+                  ],
+                  "center_world_m": [
+                    0.6027097105979919,
+                    -0.02280537039041519,
+                    0.7553799152374268
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              },
+              "right": {
+                "initialized": true,
+                "max_force_n": 1.4334803819656372,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900971293449402,
+                    0.0197133868932724,
+                    0.7412214875221252
+                  ],
+                  "max_world_m": [
+                    0.6143423914909363,
+                    0.025371212512254715,
+                    0.7698012590408325
+                  ],
+                  "center_world_m": [
+                    0.6022197604179382,
+                    0.022542299702763557,
+                    0.7555114030838013
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              }
+            },
+            "geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5799939632415771,
+                  -0.02021949738264084,
+                  0.7372146248817444
+                ],
+                "max_world_m": [
+                  0.6200598478317261,
+                  0.019869282841682434,
+                  0.7773404717445374
+                ],
+                "center_world_m": [
+                  0.6000269055366516,
+                  -0.0001751065719872713,
+                  0.7572775483131409
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5905863642692566,
+                    -0.02561796084046364,
+                    0.7410926222801208
+                  ],
+                  "max_world_m": [
+                    0.6148330569267273,
+                    -0.019992778077721596,
+                    0.7696672677993774
+                  ],
+                  "center_world_m": [
+                    0.6027097105979919,
+                    -0.02280537039041519,
+                    0.7553799152374268
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900971293449402,
+                    0.0197133868932724,
+                    0.7412214875221252
+                  ],
+                  "max_world_m": [
+                    0.6143423914909363,
+                    0.025371212512254715,
+                    0.7698012590408325
+                  ],
+                  "center_world_m": [
+                    0.6022197604179382,
+                    0.022542299702763557,
+                    0.7555114030838013
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": [
+                "left",
+                "right"
+              ]
+            },
+            "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+          },
+          "soft_contact_stop_enabled": false,
+          "stopped_by_no_contact_cap": false,
+          "force_control": {
+            "enabled": true,
+            "stable_force_threshold_n": 0.5,
+            "high_force_threshold_n": 8.0,
+            "required_stable_steps": 1,
+            "stable_grasp_detected": true,
+            "stable_grasp_step": 122,
+            "stable_force_stop_enabled": true,
+            "stopped_by_stable_force": true,
+            "final_stable_counter": 1,
+            "max_force_seen_n": 1.4334803819656372,
+            "stopped_by_high_force": false,
+            "high_force_step": null,
+            "last_force_safe_close_rad": 0.190625,
+            "force_history_tail": [
+              {
+                "step": 111,
+                "planned_close_rad": 0.1734375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 112,
+                "planned_close_rad": 0.175,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 113,
+                "planned_close_rad": 0.1765625,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 114,
+                "planned_close_rad": 0.178125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 115,
+                "planned_close_rad": 0.1796875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 116,
+                "planned_close_rad": 0.18125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 117,
+                "planned_close_rad": 0.1828125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 118,
+                "planned_close_rad": 0.184375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 119,
+                "planned_close_rad": 0.1859375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 120,
+                "planned_close_rad": 0.1875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 121,
+                "planned_close_rad": 0.1890625,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 1.0102137327194214
+                },
+                "max_force_n": 1.0102137327194214,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 122,
+                "planned_close_rad": 0.190625,
+                "force_by_side_n": {
+                  "left": 1.3959752321243286,
+                  "right": 1.4334803819656372
+                },
+                "max_force_n": 1.4334803819656372,
+                "both_sides_stable": true,
+                "stable_counter": 1,
+                "high_force_detected": false
+              }
+            ]
+          },
+          "preclose_object_z_m": 0.7564616799354553,
+          "final_object_z_m": 0.7572775483131409,
+          "final_object_lift_m": 0.0008158683776855469,
+          "max_object_lift_during_close_m": 0.0008158683776855469,
+          "max_close_object_lift_m": 0.002,
+          "object_lift_guard_trigger_m": 0.002,
+          "object_lift_guard_trigger_fraction": 1.0,
+          "object_lift_guard_enabled": true,
+          "object_lift_within_limit": true,
+          "stopped_by_object_lift": false,
+          "last_safe_close_rad": 0.190625,
+          "object_lift_rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": null,
+          "object_z_history_tail": [
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "object_z_m": 0.7564616799354553,
+              "object_lift_m": 0.0
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "object_z_m": 0.7564616799354553,
+              "object_lift_m": 0.0
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "object_z_m": 0.7564616203308105,
+              "object_lift_m": -5.960464477539063e-08
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "object_z_m": 0.7564614415168762,
+              "object_lift_m": -2.384185791015625e-07
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "object_z_m": 0.7564586400985718,
+              "object_lift_m": -3.039836883544922e-06
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "object_z_m": 0.7564623355865479,
+              "object_lift_m": 6.556510925292969e-07
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "object_z_m": 0.7564598321914673,
+              "object_lift_m": -1.8477439880371094e-06
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "object_z_m": 0.7564609050750732,
+              "object_lift_m": -7.748603820800781e-07
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "object_z_m": 0.7565593719482422,
+              "object_lift_m": 9.769201278686523e-05
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "object_z_m": 0.7564796209335327,
+              "object_lift_m": 1.7940998077392578e-05
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "object_z_m": 0.7565234899520874,
+              "object_lift_m": 6.181001663208008e-05
+            },
+            {
+              "step": 122,
+              "planned_close_rad": 0.190625,
+              "object_z_m": 0.7572775483131409,
+              "object_lift_m": 0.0008158683776855469
+            }
+          ],
+          "arm_hold_enabled": true
+        }
+      },
+      "close_gripper": {
+        "target_rad": {
+          "finger_joint": 0.19062499701976776,
+          "left_inner_finger_joint": -0.19062499701976776,
+          "left_inner_knuckle_joint": 0.19062499701976776,
+          "right_outer_knuckle_joint": 0.19062499701976776,
+          "right_inner_finger_joint": -0.19062499701976776,
+          "right_inner_knuckle_joint": 0.19062499701976776
+        },
+        "actual_rad": {
+          "finger_joint": 0.17407794296741486,
+          "left_inner_finger_joint": -0.16463914513587952,
+          "left_inner_knuckle_joint": 0.1934232860803604,
+          "right_outer_knuckle_joint": 0.16966243088245392,
+          "right_inner_finger_joint": -0.15988744795322418,
+          "right_inner_knuckle_joint": 0.19331853091716766
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.016547054052352905,
+          "left_inner_finger_joint": 0.025985851883888245,
+          "left_inner_knuckle_joint": 0.0027982890605926514,
+          "right_outer_knuckle_joint": 0.020962566137313843,
+          "right_inner_finger_joint": 0.03073754906654358,
+          "right_inner_knuckle_joint": 0.0026935338973999023
+        },
+        "max_abs_error_rad": 0.03073754906654358
+      },
+      "close_settle": {
+        "requested_steps": 4,
+        "actual_steps": 10,
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.1699913591146469,
+            "left_inner_finger_joint": -0.1699913591146469,
+            "left_inner_knuckle_joint": 0.1699913591146469,
+            "right_outer_knuckle_joint": 0.1699913591146469,
+            "right_inner_finger_joint": -0.1699913591146469,
+            "right_inner_knuckle_joint": 0.1699913591146469
+          },
+          "actual_rad": {
+            "finger_joint": 0.16382558643817902,
+            "left_inner_finger_joint": -0.16030412912368774,
+            "left_inner_knuckle_joint": 0.1709127426147461,
+            "right_outer_knuckle_joint": 0.16252422332763672,
+            "right_inner_finger_joint": -0.158983513712883,
+            "right_inner_knuckle_joint": 0.1707242727279663
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.0061657726764678955,
+            "left_inner_finger_joint": 0.009687229990959167,
+            "left_inner_knuckle_joint": 0.0009213835000991821,
+            "right_outer_knuckle_joint": 0.007467135787010193,
+            "right_inner_finger_joint": 0.011007845401763916,
+            "right_inner_knuckle_joint": 0.000732913613319397
+          },
+          "max_abs_error_rad": 0.011007845401763916
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7564616799354553,
+        "final_object_lift_m": 0.0,
+        "max_object_lift_during_settle_m": 0.002597630023956299,
+        "max_close_object_lift_m": 0.002,
+        "object_lift_guard_trigger_m": 0.002,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": false,
+        "stopped_by_object_lift": true,
+        "last_safe_close_rad": 0.16999135434627533,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": 0.16999135434627533,
+        "final_target_close_rad": 0.1699913591146469,
+        "object_z_history_tail": [
+          {
+            "step": 1,
+            "object_z_m": 0.7581485509872437,
+            "object_lift_m": 0.00168687105178833,
+            "close_rad": 0.17499135434627533
+          },
+          {
+            "step": 2,
+            "object_z_m": 0.7590593099594116,
+            "object_lift_m": 0.002597630023956299,
+            "close_rad": 0.17502984404563904
+          },
+          {
+            "step": 3,
+            "object_z_m": 0.7565417885780334,
+            "object_lift_m": 8.0108642578125e-05,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          },
+          {
+            "step": 4,
+            "object_z_m": 0.7564619183540344,
+            "object_lift_m": 2.384185791015625e-07,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          },
+          {
+            "step": 5,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          },
+          {
+            "step": 6,
+            "object_z_m": 0.7564617991447449,
+            "object_lift_m": 1.1920928955078125e-07,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          },
+          {
+            "step": 7,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          },
+          {
+            "step": 8,
+            "object_z_m": 0.7564617395401001,
+            "object_lift_m": 5.960464477539063e-08,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          },
+          {
+            "step": 9,
+            "object_z_m": 0.7564615607261658,
+            "object_lift_m": -1.1920928955078125e-07,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          },
+          {
+            "step": 10,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0,
+            "close_rad": 0.16999135434627533,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16999135434627533,
+            "object_lift_guard_trigger_m": 0.002
+          }
+        ],
+        "arm_hold_enabled": true
+      },
+      "lift": {
+        "passed": true,
+        "steps": 41,
+        "final_position_error_m": 0.005756268743425608,
+        "final_position_world_m": [
+          0.6089471578598022,
+          -0.0001724979665596038,
+          1.0775624513626099
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "hold": {
+        "hold_steps": 300,
+        "actual_hold_steps": 300,
+        "final_object_z_m": 0.7564617395401001,
+        "max_object_z_m": 0.7564617395401001,
+        "min_object_z_m": 0.7564617395401001,
+        "final_lift_m": 1.1920928955078125e-07,
+        "min_lift_m": 1.1920928955078125e-07,
+        "arm_hold_enabled": true
+      },
+      "hold_gripper": {
+        "target_rad": {
+          "finger_joint": 0.1699913591146469,
+          "left_inner_finger_joint": -0.1699913591146469,
+          "left_inner_knuckle_joint": 0.1699913591146469,
+          "right_outer_knuckle_joint": 0.1699913591146469,
+          "right_inner_finger_joint": -0.1699913591146469,
+          "right_inner_knuckle_joint": 0.1699913591146469
+        },
+        "actual_rad": {
+          "finger_joint": 0.17001716792583466,
+          "left_inner_finger_joint": -0.16000036895275116,
+          "left_inner_knuckle_joint": 0.16995497047901154,
+          "right_outer_knuckle_joint": 0.16807910799980164,
+          "right_inner_finger_joint": -0.16000044345855713,
+          "right_inner_knuckle_joint": 0.16994209587574005
+        },
+        "abs_error_rad": {
+          "finger_joint": 2.580881118774414e-05,
+          "left_inner_finger_joint": 0.009990990161895752,
+          "left_inner_knuckle_joint": 3.6388635635375977e-05,
+          "right_outer_knuckle_joint": 0.0019122511148452759,
+          "right_inner_finger_joint": 0.009990915656089783,
+          "right_inner_knuckle_joint": 4.926323890686035e-05
+        },
+        "max_abs_error_rad": 0.009990990161895752
+      },
+      "motion_reached_nominal": true,
+      "step_budget_used": 610
+    }
+  ]
+}
+
+## 2026-07-10T09:27:42Z — Phase2 grasp test did not reach success criteria
+
+{
+  "passed": false,
+  "reason": "reached max_attempts=1; preserved logs for contact_demo review",
+  "attempts_used": 1,
+  "max_attempts": 1,
+  "step_budget_used": 609,
+  "max_steps": 0,
+  "success_criteria": {
+    "selected_mode": "contact_demo",
+    "modes": {
+      "contact_demo": "Default Phase2 tactile-grasp bring-up gate: soft-center preclose alignment, stable two-sided force close, gripper/safety checks, and live tactile contact image change. Does not require 10 cm object lift.",
+      "lift_hold": "Legacy strict gate: require the configured object lift margin during hold."
+    },
+    "lift_distance_m": 0.16,
+    "success_lift_margin_m": 0.1,
+    "hold_seconds": 5.0,
+    "max_gripper_joint_error_rad": 0.08,
+    "max_close_object_lift_m": 0.001,
+    "close_object_lift_guard_enabled": true,
+    "max_preclose_object_shift_m": 0.015,
+    "object": "4cm_cube",
+    "grasp_target": "GSmini soft-link mesh pair center aligned to the 4 cm cube side-face center plus CLI offsets; no approach/precontact/terminal XY adjustment stages",
+    "soft_center_tcp": {
+      "frame_name": "virtual_soft_center_tcp",
+      "definition": "The initial IK target is computed from the measured ee_link -> average(left/right GSmini soft-link mesh center) transform, then bounded measured refinement corrects the realized soft-link center before close.",
+      "implemented_as": "runtime geometry layer in ur5_phase2_grasp_test.py; no extra URDF joint required"
+    },
+    "align_soft_center": true,
+    "grasp_soft_center_z_offset_m": 0.0,
+    "soft_center_tolerance_m": 0.005,
+    "soft_center_refine_rounds": 4,
+    "soft_center_refine_steps": 60,
+    "max_soft_center_refine_step_m": 0.025,
+    "object_lift_rewind_steps": 8,
+    "object_lift_rewind_open_margin_rad": 0.005,
+    "object_lift_guard_trigger_fraction": 1.0,
+    "force_control": {
+      "enabled": true,
+      "body_by_side": {
+        "left": "left_gelsight_mini_gelpad",
+        "right": "right_gelsight_mini_gelpad"
+      },
+      "filter_prim_path": "/World/Origin1/GraspCube",
+      "contact_report_threshold_n": 0.2,
+      "stable_force_threshold_n": 0.5,
+      "high_force_stop_threshold_n": 8.0,
+      "stable_steps": 1,
+      "stable_force_stop_enabled": true,
+      "soft_contact_stop_enabled": false,
+      "absolute_close_cap_rad": 0.45
+    },
+    "motion_profile": {
+      "direct_move_steps": 240,
+      "direct_max_joint_delta_per_step": 0.018,
+      "descend_accept_tolerance_m": 0.006,
+      "legacy_approach_steps_skipped": 90,
+      "legacy_precontact_steps_skipped": 1,
+      "close_steps": 160,
+      "close_settle_steps": 1,
+      "arm_hold_settle_steps": 50
+    },
+    "demo_default_note": "Default max_attempts=1 executes the user-tuned direct cube-center target once. Set --max_attempts > 1 only when you explicitly want independent tuning attempts."
+  },
+  "tactile_live": {
+    "enabled": true,
+    "shown_data_types": [
+      "tactile_rgb"
+    ],
+    "sides": [
+      "left",
+      "right"
+    ],
+    "sensor_paths": {
+      "left": {
+        "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+        "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+        "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera"
+      },
+      "right": {
+        "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+        "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+        "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera"
+      }
+    },
+    "sensor_camera_clipping_range_m": [
+      0.024,
+      0.04
+    ],
+    "dock_tactile_windows_right": true,
+    "script_tactile_panel": true,
+    "script_tactile_panel_stats": {
+      "left": {
+        "frames": 610,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      },
+      "right": {
+        "frames": 610,
+        "width": 320,
+        "height": 240,
+        "mean": 151.251484375,
+        "std": 42.88085280004504,
+        "min": 0,
+        "max": 255,
+        "flat": false
+      }
+    },
+    "contact_imprint_fallback": {
+      "enabled": true,
+      "nominal_depth_mm": 1.5,
+      "background_threshold_mean_abs_delta": 0.75,
+      "stats": {
+        "left": {
+          "frames": 610,
+          "baseline_frames": 561,
+          "contact_frames": 49,
+          "applied_frames": 49,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.032117705792188644,
+          "max_depth_mm": 1.6096013002097607,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6127817034721375,
+              -0.026572909206151962,
+              0.8925801515579224
+            ],
+            "max_world_m": [
+              0.6393384337425232,
+              -0.02105358988046646,
+              0.9230382442474365
+            ],
+            "center_world_m": [
+              0.6260600686073303,
+              -0.02381324954330921,
+              0.9078091979026794
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.1161184310913086,
+            "soft_mesh_aabb_distance_m": 0.11612042039632797,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.03024434670805931,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        },
+        "right": {
+          "frames": 610,
+          "baseline_frames": 564,
+          "contact_frames": 46,
+          "applied_frames": 46,
+          "real_contact_delta_frames": 0,
+          "max_mean_abs_delta_before": 0.0,
+          "max_mean_abs_delta_after": 0.03183571994304657,
+          "max_depth_mm": 1.592546921223402,
+          "enabled": true,
+          "last_contact": false,
+          "last_contact_sides": [],
+          "last_geometry": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.6122727990150452,
+              0.01921067014336586,
+              0.8922819495201111
+            ],
+            "max_world_m": [
+              0.6388236284255981,
+              0.024940093979239464,
+              0.9227831959724426
+            ],
+            "center_world_m": [
+              0.625548243522644,
+              0.022075381129980087,
+              0.9075325727462769
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.11582022905349731,
+            "soft_mesh_aabb_distance_m": 0.11582022905349731,
+            "contact_margin_m": 0.002
+          },
+          "last_result": {
+            "applied": false,
+            "reason": "no soft-link/cube AABB contact on this update"
+          },
+          "last_applied_result": {
+            "applied": true,
+            "source": "soft_link_aabb_contact_geometry_to_taxim_height_map",
+            "depth_mm": 1.5,
+            "base_height_mm": 28.5,
+            "height_map_shape": [
+              240,
+              320
+            ],
+            "gelpad_to_camera_min_distance_m": 0.024,
+            "gelpad_height_m": 0.0045,
+            "far_gelpad_surface_mm": 28.5
+          },
+          "last_mean_abs_delta_before": 0.0,
+          "last_mean_abs_delta_after": 0.03024434670805931,
+          "background_threshold": 0.75,
+          "note": "Contact imprint is a fallback for camera-depth/background mismatch: it uses the canonical GSmini soft-link AABB contact geometry to feed a height map into TacEx/Taxim, then updates the same tactile_rgb tensor displayed by the live panel/windows."
+        }
+      },
+      "source": "canonical GSmini soft-link AABB contact geometry rendered through TacEx/Taxim when camera-depth RGB stays at background"
+    },
+    "legacy_tacex_debug_windows": false,
+    "mount_info": {
+      "enabled": true,
+      "mounted": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+            "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+            "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "hidden_render_meshes": 3,
+          "disabled_physics_attrs": 7,
+          "camera_clipping": {
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "applied": true,
+            "clipping_range_m": [
+              0.024,
+              0.04
+            ]
+          },
+          "mount_check": {
+            "passed": true,
+            "mount_mode": "fingertip_child_local_offsets",
+            "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+            "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+            "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+            "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+            "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+            "mounted_under_fingertip": true,
+            "local_offsets_m": {
+              "case": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.01850000023841858
+              ],
+              "gelpad": [
+                -0.01549999974668026,
+                -0.012000000104308128,
+                0.042500000447034836
+              ]
+            },
+            "expected_local_offsets_m": {
+              "case": [
+                -0.0155,
+                -0.012,
+                0.0185
+              ],
+              "gelpad": [
+                -0.0155,
+                -0.012,
+                0.042499999999999996
+              ]
+            },
+            "local_mount_errors_m": {
+              "case": 2.5331974018438785e-10,
+              "gelpad": 4.4703483970121027e-10,
+              "max": 4.4703483970121027e-10,
+              "tolerance": 0.0001
+            },
+            "camera_exists": true
+          }
+        }
+      },
+      "camera_check": {
+        "left": {
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        },
+        "right": {
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "camera_exists": true,
+          "expected_appendix": "/Camera",
+          "clipping_range_m": [
+            0.024000000208616257,
+            0.03999999910593033
+          ],
+          "expected_clipping_range_m": [
+            0.024,
+            0.04
+          ]
+        }
+      },
+      "mount_check": {
+        "left": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/left_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/left_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "gelpad": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "camera": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        },
+        "right": {
+          "passed": true,
+          "mount_mode": "fingertip_child_local_offsets",
+          "fingertip_parent": "/World/Origin1/Robot/right_inner_finger",
+          "sensor_group": "/World/Origin1/Robot/right_inner_finger/phase2_tacex",
+          "case": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "gelpad": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "camera": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "mounted_under_fingertip": true,
+          "local_offsets_m": {
+            "case": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.01850000023841858
+            ],
+            "gelpad": [
+              -0.01549999974668026,
+              -0.012000000104308128,
+              0.042500000447034836
+            ]
+          },
+          "expected_local_offsets_m": {
+            "case": [
+              -0.0155,
+              -0.012,
+              0.0185
+            ],
+            "gelpad": [
+              -0.0155,
+              -0.012,
+              0.042499999999999996
+            ]
+          },
+          "local_mount_errors_m": {
+            "case": 2.5331974018438785e-10,
+            "gelpad": 4.4703483970121027e-10,
+            "max": 4.4703483970121027e-10,
+            "tolerance": 0.0001
+          },
+          "camera_exists": true
+        }
+      },
+      "runtime_shell_policy": "The canonical URDF owns visible/collision GSmini geometry. Phase2 TacEx shell mesh descendants are hidden and their physics is disabled; their camera prims remain active for tactile_rgb."
+    },
+    "inner_finger_stage_audit": {
+      "prim_status": {
+        "/World/Origin1/Robot/left_inner_finger": {
+          "path": "/World/Origin1/Robot/left_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/left_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/left_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger": {
+          "path": "/World/Origin1/Robot/right_inner_finger",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/visuals": {
+          "path": "/World/Origin1/Robot/right_inner_finger/visuals",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/collisions": {
+          "path": "/World/Origin1/Robot/right_inner_finger/collisions",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_gelpad_left",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera": {
+          "path": "/World/Origin1/Robot/left_inner_finger/phase2_tacex/gelsight_mini_case_left/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_gelpad_right",
+          "exists": true,
+          "active": true,
+          "type": "Xform",
+          "visibility": "inherited",
+          "purpose": "default"
+        },
+        "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera": {
+          "path": "/World/Origin1/Robot/right_inner_finger/phase2_tacex/gelsight_mini_case_right/Camera",
+          "exists": true,
+          "active": true,
+          "type": "Camera",
+          "visibility": "inherited",
+          "purpose": "default"
+        }
+      },
+      "interpretation": "Gray Stage-tree entries under phase2_tacex are expected when TacEx runtime shell meshes are hidden or their physics is disabled. Canonical URDF gelpad contact is validated separately by filtered contact forces and GSmini soft-mesh AABB overlap."
+    }
+  },
+  "final_attempt": {
+    "passed": false,
+    "success_evaluation": {
+      "selected_mode": "contact_demo",
+      "selected_passed": false,
+      "contact_demo_passed": false,
+      "lift_hold_passed": false,
+      "checks": {
+        "soft_center_preclose_passed": true,
+        "direct_motion_passed": true,
+        "lift_motion_passed": true,
+        "close_passed": true,
+        "close_settle_gripper_passed": true,
+        "hold_gripper_passed": true,
+        "stable_grasp_passed": true,
+        "close_safety_passed": false,
+        "strict_lift_margin_passed": false,
+        "tactile_contact_change": {
+          "required": true,
+          "passed": true,
+          "skipped": false,
+          "sides": {
+            "left": {
+              "passed": true,
+              "contact_frames": 49,
+              "imprint_applied_frames": 49,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.032117705792188644
+            },
+            "right": {
+              "passed": true,
+              "contact_frames": 46,
+              "imprint_applied_frames": 46,
+              "real_contact_delta_frames": 0,
+              "max_mean_abs_delta_after": 0.03183571994304657
+            }
+          },
+          "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+        }
+      },
+      "notes": {
+        "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+        "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+      }
+    },
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "pregrasp_wrist3_deg": -2.6,
+    "static_geometry_audit": {
+      "urdf_pad_collision_z_max_m": 0.05117,
+      "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+      "urdf_gsmini_full_collision_z_max_m": 0.08586,
+      "gsmini_base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "gsmini_sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+      "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+      "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+    },
+    "object": {
+      "kind": "cube",
+      "label": "4cm_cube",
+      "cube_size_m": 0.04,
+      "cube_side_centers_world_m": {
+        "left_y_positive": [
+          0.6000000834465027,
+          0.020000004159889322,
+          0.7564616203308105
+        ],
+        "right_y_negative": [
+          0.6000000834465027,
+          -0.01999999584011068,
+          0.7564616203308105
+        ]
+      }
+    },
+    "object_initial_position_m": [
+      0.6000000834465027,
+      4.159889321897481e-09,
+      0.7564616203308105
+    ],
+    "grasp_target_world_m": [
+      0.6033328771591187,
+      -9.96661838144064e-05,
+      0.9218440651893616
+    ],
+    "effective_grasp_target_world_m": [
+      0.6047350764274597,
+      -8.71417869348079e-05,
+      0.9214848875999451
+    ],
+    "lift_target_world_m": [
+      0.6047350764274597,
+      -8.71417869348079e-05,
+      1.0814849138259888
+    ],
+    "preclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6007925271987915,
+          -0.05386461317539215,
+          0.7911803126335144
+        ],
+        "right": [
+          0.6033332943916321,
+          0.0538550466299057,
+          0.791196346282959
+        ]
+      },
+      "soft_origin_distance_m": 0.10774962117601727,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5894174575805664,
+            -0.03391304612159729,
+            0.741692066192627
+          ],
+          "max_world_m": [
+            0.6138845682144165,
+            -0.02850966528058052,
+            0.7704071998596191
+          ],
+          "center_world_m": [
+            0.6016510128974915,
+            -0.031211355701088905,
+            0.756049633026123
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5888010859489441,
+            0.028544485569000244,
+            0.7417442798614502
+          ],
+          "max_world_m": [
+            0.6132681965827942,
+            0.03394787013530731,
+            0.7704594135284424
+          ],
+          "center_world_m": [
+            0.6010346412658691,
+            0.031246177852153778,
+            0.7561018466949463
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5869169235229492,
+            -0.057644013315439224,
+            0.7399066090583801
+          ],
+          "max_world_m": [
+            0.6165891885757446,
+            -0.03346000611782074,
+            0.7725100517272949
+          ],
+          "center_world_m": [
+            0.6017530560493469,
+            -0.04555200785398483,
+            0.7562083005905151
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5861034393310547,
+            0.03349461406469345,
+            0.7399809956550598
+          ],
+          "max_world_m": [
+            0.6157756447792053,
+            0.057678621262311935,
+            0.7725843787193298
+          ],
+          "center_world_m": [
+            0.6009395122528076,
+            0.045586615800857544,
+            0.7562826871871948
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5856615900993347,
+            -0.07926959544420242,
+            0.7373780608177185
+          ],
+          "max_world_m": [
+            0.6184790134429932,
+            -0.028487306088209152,
+            0.8130356073379517
+          ],
+          "center_world_m": [
+            0.6020703315734863,
+            -0.05387844890356064,
+            0.7752068042755127
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5849930047988892,
+            0.028497889637947083,
+            0.7374599575996399
+          ],
+          "max_world_m": [
+            0.6178104281425476,
+            0.07928018271923065,
+            0.813117504119873
+          ],
+          "center_world_m": [
+            0.601401686668396,
+            0.05388903617858887,
+            0.7752887010574341
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.06246059668150727,
+      "cube_center_world_m": [
+        0.599999189376831,
+        -4.2314698589507316e-07,
+        0.7564616799354553
+      ],
+      "cube_side_center_z_m": 0.7564616799354553,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.057054150849580765,
+        "cube_extent_m": 0.04,
+        "margin_m": 0.017054150849580764,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799991488456726,
+            -0.020000433549284935,
+            0.7364616394042969
+          ],
+          "max_world_m": [
+            0.6199992299079895,
+            0.019999587908387184,
+            0.7764617204666138
+          ],
+          "center_world_m": [
+            0.599999189376831,
+            -4.2314698589507316e-07,
+            0.7564616799354553
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5894174575805664,
+              -0.03391304612159729,
+              0.741692066192627
+            ],
+            "max_world_m": [
+              0.6138845682144165,
+              -0.02850966528058052,
+              0.7704071998596191
+            ],
+            "center_world_m": [
+              0.6016510128974915,
+              -0.031211355701088905,
+              0.756049633026123
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.008509231731295586,
+            "soft_mesh_aabb_distance_m": 0.008509231731295586,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5888010859489441,
+              0.028544485569000244,
+              0.7417442798614502
+            ],
+            "max_world_m": [
+              0.6132681965827942,
+              0.03394787013530731,
+              0.7704594135284424
+            ],
+            "center_world_m": [
+              0.6010346412658691,
+              0.031246177852153778,
+              0.7561018466949463
+            ],
+            "soft_mesh_aabb_overlap": false,
+            "soft_mesh_aabb_min_overlap_m": -0.00854489766061306,
+            "soft_mesh_aabb_distance_m": 0.00854489766061306,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": []
+      }
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 3,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 21,
+              "final_position_error_m": 0.002308105118572712,
+              "final_position_world_m": [
+                0.6197659969329834,
+                -0.0008960269624367356,
+                0.9206937551498413
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "applied_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "raw_correction_norm_m": 0.012249276041984558,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6075860261917114,
+              -0.00015121622709557414,
+              0.9217606782913208
+            ],
+            "move": {
+              "passed": true,
+              "steps": 16,
+              "final_position_error_m": 0.0023440951481461525,
+              "final_position_world_m": [
+                0.6074981093406677,
+                0.0005897066439501941,
+                0.9239828586578369
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 3,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "applied_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "raw_correction_norm_m": 0.005245862528681755,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6027489900588989,
+              -0.00010787684004753828,
+              0.9218666553497314
+            ],
+            "move": {
+              "passed": true,
+              "steps": 3,
+              "final_position_error_m": 0.002022551605477929,
+              "final_position_world_m": [
+                0.6047350764274597,
+                -8.71417869348079e-05,
+                0.9214848875999451
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6013414859771729,
+                -3.215111792087555e-05,
+                0.7559993863105774
+              ],
+              "cube_center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0013422966003417969,
+                -3.172537302020828e-05,
+                -0.0004622936248779297
+              ],
+              "xz_center_error_m": 0.0014196744552508935,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013414859771729,
+            -3.215111792087555e-05,
+            0.7559993863105774
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013422966003417969,
+            -3.172537302020828e-05,
+            -0.0004622936248779297
+          ],
+          "xz_center_error_m": 0.0014196744552508935,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0253128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.600792407989502,
+              -0.0539088249206543,
+              0.7911607027053833
+            ],
+            "right": [
+              0.6033318042755127,
+              0.05381282418966293,
+              0.7911167144775391
+            ]
+          },
+          "soft_origin_distance_m": 0.10775158539672584,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894169807434082,
+                -0.03400657698512077,
+                0.7416419982910156
+              ],
+              "max_world_m": [
+                0.6138840317726135,
+                -0.02860037051141262,
+                0.7703564167022705
+              ],
+              "center_world_m": [
+                0.6016504764556885,
+                -0.03130347281694412,
+                0.7559992074966431
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5887988805770874,
+                0.028523338958621025,
+                0.7416393756866455
+              ],
+              "max_world_m": [
+                0.6132660508155823,
+                0.03395500034093857,
+                0.7703597545623779
+              ],
+              "center_world_m": [
+                0.6010324954986572,
+                0.03123917058110237,
+                0.7559995651245117
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5869166254997253,
+                -0.057737499475479126,
+                0.7398773431777954
+              ],
+              "max_world_m": [
+                0.6165893077850342,
+                -0.03355029225349426,
+                0.7724775075912476
+              ],
+              "center_world_m": [
+                0.6017529964447021,
+                -0.045643895864486694,
+                0.7561774253845215
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5861017107963562,
+                0.03347140550613403,
+                0.7398810982704163
+              ],
+              "max_world_m": [
+                0.6157736778259277,
+                0.05768744647502899,
+                0.7725085020065308
+              ],
+              "center_world_m": [
+                0.6009377241134644,
+                0.04557942599058151,
+                0.7561948299407959
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5856611728668213,
+                -0.07933930307626724,
+                0.7373618483543396
+              ],
+              "max_world_m": [
+                0.6184794306755066,
+                -0.02854951098561287,
+                0.8130126595497131
+              ],
+              "center_world_m": [
+                0.6020703315734863,
+                -0.053944408893585205,
+                0.7751872539520264
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5849917531013489,
+                0.02843409776687622,
+                0.7373550534248352
+              ],
+              "max_world_m": [
+                0.6178085207939148,
+                0.07929147779941559,
+                0.8130632042884827
+              ],
+              "center_world_m": [
+                0.6014001369476318,
+                0.053862787783145905,
+                0.7752091288566589
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.0625456964451301,
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "cube_side_center_z_m": 0.7564616799354553,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.057123709470033646,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.017123709470033645,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799990892410278,
+                -0.020000511780381203,
+                0.7364614605903625
+              ],
+              "max_world_m": [
+                0.6199992895126343,
+                0.019999658688902855,
+                0.7764618992805481
+              ],
+              "center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6013428270816803,
+          1.741107553243637e-05,
+          0.7560757398605347
+        ],
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.0013436377048492432,
+          1.7834222518331444e-05,
+          -0.0003859400749206543
+        ],
+        "xz_center_error_m": 0.0013979671038054874,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "postclose_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6015610694885254,
+          -0.04575156420469284,
+          0.7903116345405579
+        ],
+        "right": [
+          0.6042527556419373,
+          0.045528922230005264,
+          0.7903761267662048
+        ]
+      },
+      "soft_origin_distance_m": 0.09132018691040192,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5905863642692566,
+            -0.02561796084046364,
+            0.7410926222801208
+          ],
+          "max_world_m": [
+            0.6148330569267273,
+            -0.019992778077721596,
+            0.7696672677993774
+          ],
+          "center_world_m": [
+            0.6027097105979919,
+            -0.02280537039041519,
+            0.7553799152374268
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5900971293449402,
+            0.0197133868932724,
+            0.7412214875221252
+          ],
+          "max_world_m": [
+            0.6143423914909363,
+            0.025371212512254715,
+            0.7698012590408325
+          ],
+          "center_world_m": [
+            0.6022197604179382,
+            0.022542299702763557,
+            0.7555114030838013
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5880952477455139,
+            -0.049363747239112854,
+            0.7391289472579956
+          ],
+          "max_world_m": [
+            0.6175047159194946,
+            -0.024930117651820183,
+            0.7717093229293823
+          ],
+          "center_world_m": [
+            0.6028000116348267,
+            -0.03714693337678909,
+            0.755419135093689
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5874242186546326,
+            0.02464868314564228,
+            0.7392338514328003
+          ],
+          "max_world_m": [
+            0.6168363690376282,
+            0.04911910742521286,
+            0.7718386054039001
+          ],
+          "center_world_m": [
+            0.6021302938461304,
+            0.036883894354104996,
+            0.7555361986160278
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5868628025054932,
+            -0.07132785767316818,
+            0.736427366733551
+          ],
+          "max_world_m": [
+            0.6190635561943054,
+            -0.01993725076317787,
+            0.8122707009315491
+          ],
+          "center_world_m": [
+            0.6029632091522217,
+            -0.045632556080818176,
+            0.77434903383255
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5863438248634338,
+            0.01965298503637314,
+            0.7365069389343262
+          ],
+          "max_world_m": [
+            0.6185495257377625,
+            0.07112989574670792,
+            0.8124016523361206
+          ],
+          "center_world_m": [
+            0.6024466753005981,
+            0.04539144039154053,
+            0.7744542956352234
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.045350507418467294,
+      "cube_center_world_m": [
+        0.6000269055366516,
+        -0.0001751065719872713,
+        0.7572775483131409
+      ],
+      "cube_side_center_z_m": 0.7572775483131409,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.039706164970993996,
+        "cube_extent_m": 0.04,
+        "margin_m": -0.00029383502900600517,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5799939632415771,
+            -0.02021949738264084,
+            0.7372146248817444
+          ],
+          "max_world_m": [
+            0.6200598478317261,
+            0.019869282841682434,
+            0.7773404717445374
+          ],
+          "center_world_m": [
+            0.6000269055366516,
+            -0.0001751065719872713,
+            0.7572775483131409
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905863642692566,
+              -0.02561796084046364,
+              0.7410926222801208
+            ],
+            "max_world_m": [
+              0.6148330569267273,
+              -0.019992778077721596,
+              0.7696672677993774
+            ],
+            "center_world_m": [
+              0.6027097105979919,
+              -0.02280537039041519,
+              0.7553799152374268
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900971293449402,
+              0.0197133868932724,
+              0.7412214875221252
+            ],
+            "max_world_m": [
+              0.6143423914909363,
+              0.025371212512254715,
+              0.7698012590408325
+            ],
+            "center_world_m": [
+              0.6022197604179382,
+              0.022542299702763557,
+              0.7555114030838013
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "postsettle_soft_geometry": {
+      "soft_origin_in_sensor_frame_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "soft_mesh_local_aabb_m": {
+        "min": [
+          -0.01363918,
+          -0.02524673,
+          -0.04923395
+        ],
+        "max": [
+          0.01022479,
+          -0.01999673,
+          -0.02100601
+        ]
+      },
+      "base_link_local_aabb_m": {
+        "min": [
+          -0.01616778,
+          -0.02028085,
+          -0.05095018
+        ],
+        "max": [
+          0.01271882,
+          0.00371915,
+          -0.01895018
+        ]
+      },
+      "sensor_assembly_local_aabb_m": {
+        "min": [
+          -0.01710485,
+          -0.02524673,
+          -0.05344392
+        ],
+        "max": [
+          0.01389515,
+          0.0253128,
+          0.02155608
+        ]
+      },
+      "soft_origin_world_m": {
+        "left": [
+          0.6015974879264832,
+          -0.046445056796073914,
+          0.7901602983474731
+        ],
+        "right": [
+          0.6042569279670715,
+          0.04613626003265381,
+          0.7901448011398315
+        ]
+      },
+      "soft_origin_distance_m": 0.09261950705566399,
+      "soft_mesh_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.590589702129364,
+            -0.026438407599925995,
+            0.7408137917518616
+          ],
+          "max_world_m": [
+            0.6148520708084106,
+            -0.020974615588784218,
+            0.7693707346916199
+          ],
+          "center_world_m": [
+            0.6027208566665649,
+            -0.023706510663032532,
+            0.7550922632217407
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_soft_mesh",
+          "min_world_m": [
+            0.5900773406028748,
+            0.020651699975132942,
+            0.7408463358879089
+          ],
+          "max_world_m": [
+            0.6143391728401184,
+            0.02612360194325447,
+            0.7694039940834045
+          ],
+          "center_world_m": [
+            0.6022082567214966,
+            0.02338765189051628,
+            0.7551251649856567
+          ]
+        }
+      },
+      "base_link_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.588099479675293,
+            -0.05017344653606415,
+            0.7389896512031555
+          ],
+          "max_world_m": [
+            0.6175327897071838,
+            -0.025921663269400597,
+            0.7714436054229736
+          ],
+          "center_world_m": [
+            0.602816104888916,
+            -0.03804755583405495,
+            0.7552165985107422
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_base_link_collision",
+          "min_world_m": [
+            0.5873991847038269,
+            0.025598252192139626,
+            0.7390191555023193
+          ],
+          "max_world_m": [
+            0.6168334484100342,
+            0.04985920339822769,
+            0.7714766263961792
+          ],
+          "center_world_m": [
+            0.6021163463592529,
+            0.037728726863861084,
+            0.7552478909492493
+          ]
+        }
+      },
+      "sensor_assembly_aabb_world_m": {
+        "left": {
+          "body": "left_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5868641138076782,
+            -0.07189769297838211,
+            0.7364158034324646
+          ],
+          "max_world_m": [
+            0.6191191673278809,
+            -0.020943211391568184,
+            0.8119773268699646
+          ],
+          "center_world_m": [
+            0.6029916405677795,
+            -0.04642045125365257,
+            0.7741965651512146
+          ]
+        },
+        "right": {
+          "body": "right_gelsight_mini_gelpad",
+          "label": "gsmini_sensor_assembly_visual_bounds",
+          "min_world_m": [
+            0.5863134860992432,
+            0.020619086921215057,
+            0.7364389896392822
+          ],
+          "max_world_m": [
+            0.6185702681541443,
+            0.07159506529569626,
+            0.8120079040527344
+          ],
+          "center_world_m": [
+            0.6024419069290161,
+            0.04610707610845566,
+            0.7742234468460083
+          ]
+        }
+      },
+      "soft_mesh_center_distance_m": 0.04709696367973027,
+      "cube_center_world_m": [
+        0.5999810099601746,
+        -0.00023825957032386214,
+        0.7564617395401001
+      ],
+      "cube_side_center_z_m": 0.7564617395401001,
+      "cube_half_extent_m": 0.02,
+      "side_grasp_aperture": {
+        "axis": "world_y",
+        "soft_inner_gap_m": 0.04162631556391716,
+        "cube_extent_m": 0.04,
+        "margin_m": 0.0016263155639171592,
+        "feasible_without_interpenetration": true
+      },
+      "soft_cube_contact_geometry": {
+        "cube_aabb": {
+          "min_world_m": [
+            0.5798712968826294,
+            -0.020347947254776955,
+            0.7364616990089417
+          ],
+          "max_world_m": [
+            0.6200907230377197,
+            0.0198714267462492,
+            0.7764617800712585
+          ],
+          "center_world_m": [
+            0.5999810099601746,
+            -0.00023825957032386214,
+            0.7564617395401001
+          ],
+          "half_extent_m": 0.02
+        },
+        "sides": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.590589702129364,
+              -0.026438407599925995,
+              0.7408137917518616
+            ],
+            "max_world_m": [
+              0.6148520708084106,
+              -0.020974615588784218,
+              0.7693707346916199
+            ],
+            "center_world_m": [
+              0.6027208566665649,
+              -0.023706510663032532,
+              0.7550922632217407
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": -0.0006266683340072632,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900773406028748,
+              0.020651699975132942,
+              0.7408463358879089
+            ],
+            "max_world_m": [
+              0.6143391728401184,
+              0.02612360194325447,
+              0.7694039940834045
+            ],
+            "center_world_m": [
+              0.6022082567214966,
+              0.02338765189051628,
+              0.7551251649856567
+            ],
+            "soft_mesh_aabb_overlap": true,
+            "soft_mesh_aabb_min_overlap_m": -0.0007802732288837433,
+            "soft_mesh_aabb_distance_m": 0.0,
+            "contact_margin_m": 0.002
+          }
+        },
+        "contact_sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 9.927257451636251e-07,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        }
+      },
+      "passed": false,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.001,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "final_object_lift_after_close_m": 0.0008158683776855469,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.00168687105178833,
+      "final_object_lift_after_settle_m": 5.960464477539063e-08,
+      "settle_object_lift_passed": false,
+      "settle_stopped_by_object_lift": true,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    },
+    "preclose_arm_settle": {
+      "requested_steps": 50,
+      "actual_steps": 50,
+      "arm_hold": {
+        "max_abs_error_rad": 0.0,
+        "target_rad": [
+          -0.04455135017633438,
+          -1.0464569330215454,
+          1.527091145515442,
+          -2.0309174060821533,
+          -1.5710783004760742,
+          -0.05022554099559784
+        ],
+        "actual_rad": [
+          -0.04455135017633438,
+          -1.0464569330215454,
+          1.527091145515442,
+          -2.0309174060821533,
+          -1.5710783004760742,
+          -0.05022554099559784
+        ]
+      },
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "actual_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.0,
+          "left_inner_finger_joint": 0.0,
+          "left_inner_knuckle_joint": 0.0,
+          "right_outer_knuckle_joint": 0.0,
+          "right_inner_finger_joint": 0.0,
+          "right_inner_knuckle_joint": 0.0
+        },
+        "max_abs_error_rad": 0.0
+      }
+    },
+    "direct_move": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "approach": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_approach_stage"
+    },
+    "descend_precontact": {
+      "passed": true,
+      "steps": 0,
+      "final_position_error_m": 0.0,
+      "final_position_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "accepted_stop_tolerance_m": 0.0,
+      "skipped": true,
+      "reason": "direct_mode_no_precontact_stage"
+    },
+    "descend": {
+      "passed": true,
+      "steps": 10,
+      "final_position_error_m": 0.0038226142060011625,
+      "final_position_world_m": [
+        0.6014817357063293,
+        -0.0022016773000359535,
+        0.9244454503059387
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "close_command": {
+      "executed": true,
+      "steps": 160,
+      "settle_steps": 1,
+      "target_close_rad": 0.25,
+      "close_passed": true,
+      "force_control": {
+        "requested_steps": 160,
+        "actual_steps": 122,
+        "requested_target_close_rad": 0.25,
+        "target_close_rad": 0.25,
+        "absolute_close_cap_rad": 0.45,
+        "start_close_rad": 0.0,
+        "final_target_close_rad": 0.19062499701976776,
+        "actual_final_close_rad": 0.17407794296741486,
+        "close_goal_reached": false,
+        "soft_contact_detected": true,
+        "last_contact_read": {
+          "enabled": true,
+          "contact_detected": true,
+          "contact_sides": [
+            "left",
+            "right"
+          ],
+          "geometry_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_contact_sides": [
+            "left",
+            "right"
+          ],
+          "force_by_side_n": {
+            "left": 1.3959752321243286,
+            "right": 1.4334803819656372
+          },
+          "max_force_n": 1.4334803819656372,
+          "both_sides_force_contact": true,
+          "threshold_n": 0.2,
+          "sides": {
+            "left": {
+              "initialized": true,
+              "max_force_n": 1.3959752321243286,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5905863642692566,
+                  -0.02561796084046364,
+                  0.7410926222801208
+                ],
+                "max_world_m": [
+                  0.6148330569267273,
+                  -0.019992778077721596,
+                  0.7696672677993774
+                ],
+                "center_world_m": [
+                  0.6027097105979919,
+                  -0.02280537039041519,
+                  0.7553799152374268
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            },
+            "right": {
+              "initialized": true,
+              "max_force_n": 1.4334803819656372,
+              "in_contact": true,
+              "contact_source": "force+soft_mesh_aabb",
+              "force_in_contact": true,
+              "geometry": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900971293449402,
+                  0.0197133868932724,
+                  0.7412214875221252
+                ],
+                "max_world_m": [
+                  0.6143423914909363,
+                  0.025371212512254715,
+                  0.7698012590408325
+                ],
+                "center_world_m": [
+                  0.6022197604179382,
+                  0.022542299702763557,
+                  0.7555114030838013
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "geometry_in_contact": true
+            }
+          },
+          "geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799939632415771,
+                -0.02021949738264084,
+                0.7372146248817444
+              ],
+              "max_world_m": [
+                0.6200598478317261,
+                0.019869282841682434,
+                0.7773404717445374
+              ],
+              "center_world_m": [
+                0.6000269055366516,
+                -0.0001751065719872713,
+                0.7572775483131409
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5905863642692566,
+                  -0.02561796084046364,
+                  0.7410926222801208
+                ],
+                "max_world_m": [
+                  0.6148330569267273,
+                  -0.019992778077721596,
+                  0.7696672677993774
+                ],
+                "center_world_m": [
+                  0.6027097105979919,
+                  -0.02280537039041519,
+                  0.7553799152374268
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5900971293449402,
+                  0.0197133868932724,
+                  0.7412214875221252
+                ],
+                "max_world_m": [
+                  0.6143423914909363,
+                  0.025371212512254715,
+                  0.7698012590408325
+                ],
+                "center_world_m": [
+                  0.6022197604179382,
+                  0.022542299702763557,
+                  0.7555114030838013
+                ],
+                "soft_mesh_aabb_overlap": true,
+                "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                "soft_mesh_aabb_distance_m": 0.0,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": [
+              "left",
+              "right"
+            ]
+          },
+          "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+        },
+        "soft_contact_stop_enabled": false,
+        "stopped_by_no_contact_cap": false,
+        "force_control": {
+          "enabled": true,
+          "stable_force_threshold_n": 0.5,
+          "high_force_threshold_n": 8.0,
+          "required_stable_steps": 1,
+          "stable_grasp_detected": true,
+          "stable_grasp_step": 122,
+          "stable_force_stop_enabled": true,
+          "stopped_by_stable_force": true,
+          "final_stable_counter": 1,
+          "max_force_seen_n": 1.4334803819656372,
+          "stopped_by_high_force": false,
+          "high_force_step": null,
+          "last_force_safe_close_rad": 0.190625,
+          "force_history_tail": [
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 0.0
+              },
+              "max_force_n": 0.0,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "force_by_side_n": {
+                "left": 0.0,
+                "right": 1.0102137327194214
+              },
+              "max_force_n": 1.0102137327194214,
+              "both_sides_stable": false,
+              "stable_counter": 0,
+              "high_force_detected": false
+            },
+            {
+              "step": 122,
+              "planned_close_rad": 0.190625,
+              "force_by_side_n": {
+                "left": 1.3959752321243286,
+                "right": 1.4334803819656372
+              },
+              "max_force_n": 1.4334803819656372,
+              "both_sides_stable": true,
+              "stable_counter": 1,
+              "high_force_detected": false
+            }
+          ]
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7572775483131409,
+        "final_object_lift_m": 0.0008158683776855469,
+        "max_object_lift_during_close_m": 0.0008158683776855469,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": true,
+        "stopped_by_object_lift": false,
+        "last_safe_close_rad": 0.190625,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": null,
+        "object_z_history_tail": [
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "object_z_m": 0.7564616799354553,
+            "object_lift_m": 0.0
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "object_z_m": 0.7564616203308105,
+            "object_lift_m": -5.960464477539063e-08
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "object_z_m": 0.7564614415168762,
+            "object_lift_m": -2.384185791015625e-07
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "object_z_m": 0.7564586400985718,
+            "object_lift_m": -3.039836883544922e-06
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "object_z_m": 0.7564623355865479,
+            "object_lift_m": 6.556510925292969e-07
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "object_z_m": 0.7564598321914673,
+            "object_lift_m": -1.8477439880371094e-06
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "object_z_m": 0.7564609050750732,
+            "object_lift_m": -7.748603820800781e-07
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "object_z_m": 0.7565593719482422,
+            "object_lift_m": 9.769201278686523e-05
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "object_z_m": 0.7564796209335327,
+            "object_lift_m": 1.7940998077392578e-05
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "object_z_m": 0.7565234899520874,
+            "object_lift_m": 6.181001663208008e-05
+          },
+          {
+            "step": 122,
+            "planned_close_rad": 0.190625,
+            "object_z_m": 0.7572775483131409,
+            "object_lift_m": 0.0008158683776855469
+          }
+        ],
+        "arm_hold_enabled": true
+      }
+    },
+    "close_gripper": {
+      "target_rad": {
+        "finger_joint": 0.19062499701976776,
+        "left_inner_finger_joint": -0.19062499701976776,
+        "left_inner_knuckle_joint": 0.19062499701976776,
+        "right_outer_knuckle_joint": 0.19062499701976776,
+        "right_inner_finger_joint": -0.19062499701976776,
+        "right_inner_knuckle_joint": 0.19062499701976776
+      },
+      "actual_rad": {
+        "finger_joint": 0.17407794296741486,
+        "left_inner_finger_joint": -0.16463914513587952,
+        "left_inner_knuckle_joint": 0.1934232860803604,
+        "right_outer_knuckle_joint": 0.16966243088245392,
+        "right_inner_finger_joint": -0.15988744795322418,
+        "right_inner_knuckle_joint": 0.19331853091716766
+      },
+      "abs_error_rad": {
+        "finger_joint": 0.016547054052352905,
+        "left_inner_finger_joint": 0.025985851883888245,
+        "left_inner_knuckle_joint": 0.0027982890605926514,
+        "right_outer_knuckle_joint": 0.020962566137313843,
+        "right_inner_finger_joint": 0.03073754906654358,
+        "right_inner_knuckle_joint": 0.0026935338973999023
+      },
+      "max_abs_error_rad": 0.03073754906654358
+    },
+    "close_settle": {
+      "requested_steps": 1,
+      "actual_steps": 9,
+      "gripper": {
+        "target_rad": {
+          "finger_joint": 0.16907794773578644,
+          "left_inner_finger_joint": -0.16907794773578644,
+          "left_inner_knuckle_joint": 0.16907794773578644,
+          "right_outer_knuckle_joint": 0.16907794773578644,
+          "right_inner_finger_joint": -0.16907794773578644,
+          "right_inner_knuckle_joint": 0.16907794773578644
+        },
+        "actual_rad": {
+          "finger_joint": 0.16335010528564453,
+          "left_inner_finger_joint": -0.160101518034935,
+          "left_inner_knuckle_joint": 0.16973042488098145,
+          "right_outer_knuckle_joint": 0.1621558964252472,
+          "right_inner_finger_joint": -0.15895800292491913,
+          "right_inner_knuckle_joint": 0.1695316880941391
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.005727842450141907,
+          "left_inner_finger_joint": 0.00897642970085144,
+          "left_inner_knuckle_joint": 0.0006524771451950073,
+          "right_outer_knuckle_joint": 0.006922051310539246,
+          "right_inner_finger_joint": 0.01011994481086731,
+          "right_inner_knuckle_joint": 0.00045374035835266113
+        },
+        "max_abs_error_rad": 0.01011994481086731
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7564617395401001,
+      "final_object_lift_m": 5.960464477539063e-08,
+      "max_object_lift_during_settle_m": 0.00168687105178833,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": false,
+      "stopped_by_object_lift": true,
+      "last_safe_close_rad": 0.16907794296741485,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": 0.16907794296741485,
+      "final_target_close_rad": 0.16907794773578644,
+      "object_z_history_tail": [
+        {
+          "step": 1,
+          "object_z_m": 0.7581485509872437,
+          "object_lift_m": 0.00168687105178833,
+          "close_rad": 0.17499135434627533
+        },
+        {
+          "step": 2,
+          "object_z_m": 0.7566158175468445,
+          "object_lift_m": 0.00015413761138916016,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 3,
+          "object_z_m": 0.756517767906189,
+          "object_lift_m": 5.608797073364258e-05,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 4,
+          "object_z_m": 0.7564619779586792,
+          "object_lift_m": 2.980232238769531e-07,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 5,
+          "object_z_m": 0.7564617991447449,
+          "object_lift_m": 1.1920928955078125e-07,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 6,
+          "object_z_m": 0.7564616203308105,
+          "object_lift_m": -5.960464477539063e-08,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 7,
+          "object_z_m": 0.7564617395401001,
+          "object_lift_m": 5.960464477539063e-08,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 8,
+          "object_z_m": 0.7564617991447449,
+          "object_lift_m": 1.1920928955078125e-07,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        },
+        {
+          "step": 9,
+          "object_z_m": 0.7564617395401001,
+          "object_lift_m": 5.960464477539063e-08,
+          "close_rad": 0.16907794296741485,
+          "rewind_hold": true,
+          "rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": 0.16907794296741485,
+          "object_lift_guard_trigger_m": 0.001
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "lift": {
+      "passed": true,
+      "steps": 41,
+      "final_position_error_m": 0.005725326016545296,
+      "final_position_world_m": [
+        0.609000027179718,
+        -0.00018426428141538054,
+        1.0776665210723877
+      ],
+      "accepted_stop_tolerance_m": 0.006,
+      "control_mode": "single_direct_ik_segment_then_arm_latch"
+    },
+    "hold": {
+      "hold_steps": 300,
+      "actual_hold_steps": 300,
+      "final_object_z_m": 0.7564616799354553,
+      "max_object_z_m": 0.7564616799354553,
+      "min_object_z_m": 0.7564616799354553,
+      "final_lift_m": 5.960464477539063e-08,
+      "min_lift_m": 5.960464477539063e-08,
+      "arm_hold_enabled": true
+    },
+    "hold_gripper": {
+      "target_rad": {
+        "finger_joint": 0.16907794773578644,
+        "left_inner_finger_joint": -0.16907794773578644,
+        "left_inner_knuckle_joint": 0.16907794773578644,
+        "right_outer_knuckle_joint": 0.16907794773578644,
+        "right_inner_finger_joint": -0.16907794773578644,
+        "right_inner_knuckle_joint": 0.16907794773578644
+      },
+      "actual_rad": {
+        "finger_joint": 0.16910099983215332,
+        "left_inner_finger_joint": -0.16000030934810638,
+        "left_inner_knuckle_joint": 0.16904473304748535,
+        "right_outer_knuckle_joint": 0.16734223067760468,
+        "right_inner_finger_joint": -0.16000030934810638,
+        "right_inner_knuckle_joint": 0.16903331875801086
+      },
+      "abs_error_rad": {
+        "finger_joint": 2.3052096366882324e-05,
+        "left_inner_finger_joint": 0.009077638387680054,
+        "left_inner_knuckle_joint": 3.3214688301086426e-05,
+        "right_outer_knuckle_joint": 0.0017357170581817627,
+        "right_inner_finger_joint": 0.009077638387680054,
+        "right_inner_knuckle_joint": 4.462897777557373e-05
+      },
+      "max_abs_error_rad": 0.009077638387680054
+    },
+    "motion_reached_nominal": true,
+    "step_budget_used": 609
+  },
+  "best_attempt": {
+    "attempt": 1,
+    "passed": false,
+    "params": {
+      "attempt": 1,
+      "ee_z_offset": 0.17,
+      "soft_center_z_offset": 0.0,
+      "longitudinal_x_offset": 0.0,
+      "lateral_y_offset": 0.0,
+      "yaw_offset_rad": 0.0,
+      "pitch_offset_rad": 0.0,
+      "roll_offset_rad": 0.0,
+      "gripper_close_rad": 0.25
+    },
+    "soft_center_alignment": {
+      "enabled": true,
+      "mode": "soft_mesh_pair_center_to_cube_side_center",
+      "soft_center_tcp": {
+        "frame_name": "virtual_soft_center_tcp",
+        "parent_frame": "ee_link",
+        "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+        "target_frame_for_ik": "ee_link",
+        "desired_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+      },
+      "desired_soft_pair_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "pregrasp_ee_world_m": [
+        0.5980228781700134,
+        0.0033233817666769028,
+        1.0136542320251465
+      ],
+      "pregrasp_soft_pair_center_world_m": [
+        0.5946900844573975,
+        0.0034230519086122513,
+        0.8482718467712402
+      ],
+      "soft_offset_in_ee_frame_m": [
+        0.16541601717472076,
+        -6.539048627018929e-07,
+        1.4901161193847656e-08
+      ],
+      "target_soft_offset_world_m": [
+        -0.003332778811454773,
+        9.967034566216171e-05,
+        -0.16538242995738983
+      ],
+      "target_ee_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "cube_center_world_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "soft_center_z_offset_m": 0.0,
+      "longitudinal_x_offset_m": 0.0,
+      "lateral_y_offset_m": 0.0,
+      "refinement": {
+        "enabled": true,
+        "rounds_requested": 4,
+        "rounds_used": 3,
+        "refine_steps_per_round": 60,
+        "refine_pos_tolerance_m": 0.0025,
+        "max_correction_step_m": 0.025,
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "rounds": [
+          {
+            "round": 1,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.5794125497341156,
+                -0.0011853072792291641,
+                0.7603024244308472
+              ],
+              "cube_center_world_m": [
+                0.5999999046325684,
+                -7.167465554402952e-08,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                -0.02058735489845276,
+                -0.00118523560457362,
+                0.0038407444953918457
+              ],
+              "xz_center_error_m": 0.020942552375336907,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "applied_correction_world_m": [
+              0.020587503910064697,
+              0.00118531147018075,
+              -0.003840804100036621
+            ],
+            "raw_correction_norm_m": 0.020976224914193153,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.622069239616394,
+              -0.0010163658298552036,
+              0.9206046462059021
+            ],
+            "move": {
+              "passed": true,
+              "steps": 21,
+              "final_position_error_m": 0.002308105118572712,
+              "final_position_world_m": [
+                0.6197659969329834,
+                -0.0008960269624367356,
+                0.9206937551498413
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 2,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6121800541877747,
+                -0.0007448066025972366,
+                0.755394697189331
+              ],
+              "cube_center_world_m": [
+                0.5999996662139893,
+                -4.084978684204543e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0121803879737854,
+                -0.0007443981047288162,
+                -0.0010669827461242676
+              ],
+              "xz_center_error_m": 0.012227031666453756,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "applied_correction_world_m": [
+              -0.012179970741271973,
+              0.0007448107353411615,
+              0.0010669231414794922
+            ],
+            "raw_correction_norm_m": 0.012249276041984558,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6075860261917114,
+              -0.00015121622709557414,
+              0.9217606782913208
+            ],
+            "move": {
+              "passed": true,
+              "steps": 16,
+              "final_position_error_m": 0.0023440951481461525,
+              "final_position_world_m": [
+                0.6074981093406677,
+                0.0005897066439501941,
+                0.9239828586578369
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          },
+          {
+            "round": 3,
+            "before_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6047491729259491,
+                0.0006975876167416573,
+                0.758577823638916
+              ],
+              "cube_center_world_m": [
+                0.599999725818634,
+                -2.0087369989596482e-07,
+                0.7564617991447449
+              ],
+              "pair_center_error_world_m": [
+                0.0047494471073150635,
+                0.0006977884904415532,
+                0.0021160244941711426
+              ],
+              "xz_center_error_m": 0.005199500695751051,
+              "tolerance_m": 0.005,
+              "passed": false,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            },
+            "desired_soft_pair_center_world_m": [
+              0.6000000834465027,
+              4.159889321897481e-09,
+              0.7564616203308105
+            ],
+            "raw_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "applied_correction_world_m": [
+              -0.004749119281768799,
+              -0.0006975834839977324,
+              -0.0021162033081054688
+            ],
+            "raw_correction_norm_m": 0.005245862528681755,
+            "max_correction_step_m": 0.025,
+            "correction_clamped": false,
+            "target_ee_world_m": [
+              0.6027489900588989,
+              -0.00010787684004753828,
+              0.9218666553497314
+            ],
+            "move": {
+              "passed": true,
+              "steps": 3,
+              "final_position_error_m": 0.002022551605477929,
+              "final_position_world_m": [
+                0.6047350764274597,
+                -8.71417869348079e-05,
+                0.9214848875999451
+              ],
+              "accepted_stop_tolerance_m": 0.0025,
+              "control_mode": "single_direct_ik_segment_then_arm_latch"
+            },
+            "after_error_m": {
+              "available": true,
+              "soft_pair_center_world_m": [
+                0.6013414859771729,
+                -3.215111792087555e-05,
+                0.7559993863105774
+              ],
+              "cube_center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "pair_center_error_world_m": [
+                0.0013422966003417969,
+                -3.172537302020828e-05,
+                -0.0004622936248779297
+              ],
+              "xz_center_error_m": 0.0014196744552508935,
+              "tolerance_m": 0.005,
+              "passed": true,
+              "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+            }
+          }
+        ],
+        "final_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013414859771729,
+            -3.215111792087555e-05,
+            0.7559993863105774
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013422966003417969,
+            -3.172537302020828e-05,
+            -0.0004622936248779297
+          ],
+          "xz_center_error_m": 0.0014196744552508935,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        },
+        "final_geometry": {
+          "soft_origin_in_sensor_frame_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "soft_mesh_local_aabb_m": {
+            "min": [
+              -0.01363918,
+              -0.02524673,
+              -0.04923395
+            ],
+            "max": [
+              0.01022479,
+              -0.01999673,
+              -0.02100601
+            ]
+          },
+          "base_link_local_aabb_m": {
+            "min": [
+              -0.01616778,
+              -0.02028085,
+              -0.05095018
+            ],
+            "max": [
+              0.01271882,
+              0.00371915,
+              -0.01895018
+            ]
+          },
+          "sensor_assembly_local_aabb_m": {
+            "min": [
+              -0.01710485,
+              -0.02524673,
+              -0.05344392
+            ],
+            "max": [
+              0.01389515,
+              0.0253128,
+              0.02155608
+            ]
+          },
+          "soft_origin_world_m": {
+            "left": [
+              0.600792407989502,
+              -0.0539088249206543,
+              0.7911607027053833
+            ],
+            "right": [
+              0.6033318042755127,
+              0.05381282418966293,
+              0.7911167144775391
+            ]
+          },
+          "soft_origin_distance_m": 0.10775158539672584,
+          "soft_mesh_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894169807434082,
+                -0.03400657698512077,
+                0.7416419982910156
+              ],
+              "max_world_m": [
+                0.6138840317726135,
+                -0.02860037051141262,
+                0.7703564167022705
+              ],
+              "center_world_m": [
+                0.6016504764556885,
+                -0.03130347281694412,
+                0.7559992074966431
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5887988805770874,
+                0.028523338958621025,
+                0.7416393756866455
+              ],
+              "max_world_m": [
+                0.6132660508155823,
+                0.03395500034093857,
+                0.7703597545623779
+              ],
+              "center_world_m": [
+                0.6010324954986572,
+                0.03123917058110237,
+                0.7559995651245117
+              ]
+            }
+          },
+          "base_link_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5869166254997253,
+                -0.057737499475479126,
+                0.7398773431777954
+              ],
+              "max_world_m": [
+                0.6165893077850342,
+                -0.03355029225349426,
+                0.7724775075912476
+              ],
+              "center_world_m": [
+                0.6017529964447021,
+                -0.045643895864486694,
+                0.7561774253845215
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_base_link_collision",
+              "min_world_m": [
+                0.5861017107963562,
+                0.03347140550613403,
+                0.7398810982704163
+              ],
+              "max_world_m": [
+                0.6157736778259277,
+                0.05768744647502899,
+                0.7725085020065308
+              ],
+              "center_world_m": [
+                0.6009377241134644,
+                0.04557942599058151,
+                0.7561948299407959
+              ]
+            }
+          },
+          "sensor_assembly_aabb_world_m": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5856611728668213,
+                -0.07933930307626724,
+                0.7373618483543396
+              ],
+              "max_world_m": [
+                0.6184794306755066,
+                -0.02854951098561287,
+                0.8130126595497131
+              ],
+              "center_world_m": [
+                0.6020703315734863,
+                -0.053944408893585205,
+                0.7751872539520264
+              ]
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_sensor_assembly_visual_bounds",
+              "min_world_m": [
+                0.5849917531013489,
+                0.02843409776687622,
+                0.7373550534248352
+              ],
+              "max_world_m": [
+                0.6178085207939148,
+                0.07929147779941559,
+                0.8130632042884827
+              ],
+              "center_world_m": [
+                0.6014001369476318,
+                0.053862787783145905,
+                0.7752091288566589
+              ]
+            }
+          },
+          "soft_mesh_center_distance_m": 0.0625456964451301,
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2574490066726867e-07,
+            0.7564616799354553
+          ],
+          "cube_side_center_z_m": 0.7564616799354553,
+          "cube_half_extent_m": 0.02,
+          "side_grasp_aperture": {
+            "axis": "world_y",
+            "soft_inner_gap_m": 0.057123709470033646,
+            "cube_extent_m": 0.04,
+            "margin_m": 0.017123709470033645,
+            "feasible_without_interpenetration": true
+          },
+          "soft_cube_contact_geometry": {
+            "cube_aabb": {
+              "min_world_m": [
+                0.5799990892410278,
+                -0.020000511780381203,
+                0.7364614605903625
+              ],
+              "max_world_m": [
+                0.6199992895126343,
+                0.019999658688902855,
+                0.7764618992805481
+              ],
+              "center_world_m": [
+                0.599999189376831,
+                -4.2574490066726867e-07,
+                0.7564616799354553
+              ],
+              "half_extent_m": 0.02
+            },
+            "sides": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                "contact_margin_m": 0.002
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ],
+                "soft_mesh_aabb_overlap": false,
+                "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                "contact_margin_m": 0.002
+              }
+            },
+            "contact_sides": []
+          }
+        },
+        "passed": true
+      },
+      "preclose_error_m": {
+        "available": true,
+        "soft_pair_center_world_m": [
+          0.6013428270816803,
+          1.741107553243637e-05,
+          0.7560757398605347
+        ],
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "pair_center_error_world_m": [
+          0.0013436377048492432,
+          1.7834222518331444e-05,
+          -0.0003859400749206543
+        ],
+        "xz_center_error_m": 0.0013979671038054874,
+        "tolerance_m": 0.005,
+        "passed": true,
+        "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+      }
+    },
+    "min_lift_m": 5.960464477539063e-08,
+    "max_lift_m": 5.960464477539063e-08,
+    "force_control": {
+      "requested_steps": 160,
+      "actual_steps": 122,
+      "requested_target_close_rad": 0.25,
+      "target_close_rad": 0.25,
+      "absolute_close_cap_rad": 0.45,
+      "start_close_rad": 0.0,
+      "final_target_close_rad": 0.19062499701976776,
+      "actual_final_close_rad": 0.17407794296741486,
+      "close_goal_reached": false,
+      "soft_contact_detected": true,
+      "last_contact_read": {
+        "enabled": true,
+        "contact_detected": true,
+        "contact_sides": [
+          "left",
+          "right"
+        ],
+        "geometry_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_contact_sides": [
+          "left",
+          "right"
+        ],
+        "force_by_side_n": {
+          "left": 1.3959752321243286,
+          "right": 1.4334803819656372
+        },
+        "max_force_n": 1.4334803819656372,
+        "both_sides_force_contact": true,
+        "threshold_n": 0.2,
+        "sides": {
+          "left": {
+            "initialized": true,
+            "max_force_n": 1.3959752321243286,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          },
+          "right": {
+            "initialized": true,
+            "max_force_n": 1.4334803819656372,
+            "in_contact": true,
+            "contact_source": "force+soft_mesh_aabb",
+            "force_in_contact": true,
+            "geometry": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "geometry_in_contact": true
+          }
+        },
+        "geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799939632415771,
+              -0.02021949738264084,
+              0.7372146248817444
+            ],
+            "max_world_m": [
+              0.6200598478317261,
+              0.019869282841682434,
+              0.7773404717445374
+            ],
+            "center_world_m": [
+              0.6000269055366516,
+              -0.0001751065719872713,
+              0.7572775483131409
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        },
+        "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+      },
+      "soft_contact_stop_enabled": false,
+      "stopped_by_no_contact_cap": false,
+      "force_control": {
+        "enabled": true,
+        "stable_force_threshold_n": 0.5,
+        "high_force_threshold_n": 8.0,
+        "required_stable_steps": 1,
+        "stable_grasp_detected": true,
+        "stable_grasp_step": 122,
+        "stable_force_stop_enabled": true,
+        "stopped_by_stable_force": true,
+        "final_stable_counter": 1,
+        "max_force_seen_n": 1.4334803819656372,
+        "stopped_by_high_force": false,
+        "high_force_step": null,
+        "last_force_safe_close_rad": 0.190625,
+        "force_history_tail": [
+          {
+            "step": 111,
+            "planned_close_rad": 0.1734375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 112,
+            "planned_close_rad": 0.175,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 113,
+            "planned_close_rad": 0.1765625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 114,
+            "planned_close_rad": 0.178125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 115,
+            "planned_close_rad": 0.1796875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 116,
+            "planned_close_rad": 0.18125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 117,
+            "planned_close_rad": 0.1828125,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 118,
+            "planned_close_rad": 0.184375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 119,
+            "planned_close_rad": 0.1859375,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 120,
+            "planned_close_rad": 0.1875,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 0.0
+            },
+            "max_force_n": 0.0,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 121,
+            "planned_close_rad": 0.1890625,
+            "force_by_side_n": {
+              "left": 0.0,
+              "right": 1.0102137327194214
+            },
+            "max_force_n": 1.0102137327194214,
+            "both_sides_stable": false,
+            "stable_counter": 0,
+            "high_force_detected": false
+          },
+          {
+            "step": 122,
+            "planned_close_rad": 0.190625,
+            "force_by_side_n": {
+              "left": 1.3959752321243286,
+              "right": 1.4334803819656372
+            },
+            "max_force_n": 1.4334803819656372,
+            "both_sides_stable": true,
+            "stable_counter": 1,
+            "high_force_detected": false
+          }
+        ]
+      },
+      "preclose_object_z_m": 0.7564616799354553,
+      "final_object_z_m": 0.7572775483131409,
+      "final_object_lift_m": 0.0008158683776855469,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_enabled": true,
+      "object_lift_within_limit": true,
+      "stopped_by_object_lift": false,
+      "last_safe_close_rad": 0.190625,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "rewind_close_rad": null,
+      "object_z_history_tail": [
+        {
+          "step": 111,
+          "planned_close_rad": 0.1734375,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0
+        },
+        {
+          "step": 112,
+          "planned_close_rad": 0.175,
+          "object_z_m": 0.7564616799354553,
+          "object_lift_m": 0.0
+        },
+        {
+          "step": 113,
+          "planned_close_rad": 0.1765625,
+          "object_z_m": 0.7564616203308105,
+          "object_lift_m": -5.960464477539063e-08
+        },
+        {
+          "step": 114,
+          "planned_close_rad": 0.178125,
+          "object_z_m": 0.7564614415168762,
+          "object_lift_m": -2.384185791015625e-07
+        },
+        {
+          "step": 115,
+          "planned_close_rad": 0.1796875,
+          "object_z_m": 0.7564586400985718,
+          "object_lift_m": -3.039836883544922e-06
+        },
+        {
+          "step": 116,
+          "planned_close_rad": 0.18125,
+          "object_z_m": 0.7564623355865479,
+          "object_lift_m": 6.556510925292969e-07
+        },
+        {
+          "step": 117,
+          "planned_close_rad": 0.1828125,
+          "object_z_m": 0.7564598321914673,
+          "object_lift_m": -1.8477439880371094e-06
+        },
+        {
+          "step": 118,
+          "planned_close_rad": 0.184375,
+          "object_z_m": 0.7564609050750732,
+          "object_lift_m": -7.748603820800781e-07
+        },
+        {
+          "step": 119,
+          "planned_close_rad": 0.1859375,
+          "object_z_m": 0.7565593719482422,
+          "object_lift_m": 9.769201278686523e-05
+        },
+        {
+          "step": 120,
+          "planned_close_rad": 0.1875,
+          "object_z_m": 0.7564796209335327,
+          "object_lift_m": 1.7940998077392578e-05
+        },
+        {
+          "step": 121,
+          "planned_close_rad": 0.1890625,
+          "object_z_m": 0.7565234899520874,
+          "object_lift_m": 6.181001663208008e-05
+        },
+        {
+          "step": 122,
+          "planned_close_rad": 0.190625,
+          "object_z_m": 0.7572775483131409,
+          "object_lift_m": 0.0008158683776855469
+        }
+      ],
+      "arm_hold_enabled": true
+    },
+    "close_safety": {
+      "preclose_object_shift_m": 9.927257451636251e-07,
+      "max_preclose_object_shift_m": 0.015,
+      "preclose_object_shift_passed": true,
+      "preclose_arm_settle_max_error_rad": 0.0,
+      "direct_grasp_target": true,
+      "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+      "arm_velocity_latch": {
+        "latched": true,
+        "zeroed_arm_velocity": true,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        }
+      },
+      "passed": false,
+      "max_close_object_lift_m": 0.001,
+      "object_lift_guard_trigger_fraction": 1.0,
+      "object_lift_guard_trigger_m": 0.001,
+      "max_object_lift_during_close_m": 0.0008158683776855469,
+      "final_object_lift_after_close_m": 0.0008158683776855469,
+      "close_object_lift_passed": true,
+      "close_stopped_by_object_lift": false,
+      "max_object_lift_during_settle_m": 0.00168687105178833,
+      "final_object_lift_after_settle_m": 5.960464477539063e-08,
+      "settle_object_lift_passed": false,
+      "settle_stopped_by_object_lift": true,
+      "object_lift_rewind_open_margin_rad": 0.005,
+      "force_control_enabled": true,
+      "stable_grasp_detected": true,
+      "stable_grasp_passed": true,
+      "high_force_stop": false,
+      "close_goal_reached": false
+    }
+  },
+  "attempts": [
+    {
+      "passed": false,
+      "success_evaluation": {
+        "selected_mode": "contact_demo",
+        "selected_passed": false,
+        "contact_demo_passed": false,
+        "lift_hold_passed": false,
+        "checks": {
+          "soft_center_preclose_passed": true,
+          "direct_motion_passed": true,
+          "lift_motion_passed": true,
+          "close_passed": true,
+          "close_settle_gripper_passed": true,
+          "hold_gripper_passed": true,
+          "stable_grasp_passed": true,
+          "close_safety_passed": false,
+          "strict_lift_margin_passed": false,
+          "tactile_contact_change": {
+            "required": true,
+            "passed": true,
+            "skipped": false,
+            "sides": {
+              "left": {
+                "passed": true,
+                "contact_frames": 49,
+                "imprint_applied_frames": 49,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.032117705792188644
+              },
+              "right": {
+                "passed": true,
+                "contact_frames": 46,
+                "imprint_applied_frames": 46,
+                "real_contact_delta_frames": 0,
+                "max_mean_abs_delta_after": 0.03183571994304657
+              }
+            },
+            "criteria": "Each displayed tactile side must see at least one contact frame and either a real TacEx contact delta or the TacEx/Taxim contact-imprint fallback applied to tactile_rgb."
+          }
+        },
+        "notes": {
+          "contact_demo": "Default Phase2 bring-up criterion: centered soft-link grasp, stable close, safety guards, and visible tactile contact change; it intentionally does not require 10 cm lift/hold.",
+          "lift_hold": "Legacy strict criterion requiring the configured object lift margin during hold."
+        }
+      },
+      "params": {
+        "attempt": 1,
+        "ee_z_offset": 0.17,
+        "soft_center_z_offset": 0.0,
+        "longitudinal_x_offset": 0.0,
+        "lateral_y_offset": 0.0,
+        "yaw_offset_rad": 0.0,
+        "pitch_offset_rad": 0.0,
+        "roll_offset_rad": 0.0,
+        "gripper_close_rad": 0.25
+      },
+      "pregrasp_wrist3_deg": -2.6,
+      "static_geometry_audit": {
+        "urdf_pad_collision_z_max_m": 0.05117,
+        "urdf_gsmini_soft_collision_z_max_m": 0.08165,
+        "urdf_gsmini_full_collision_z_max_m": 0.08586,
+        "gsmini_base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "gsmini_sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "urdf_gsmini_collision_extension_beyond_pad_m": 0.03048,
+        "hard_sensor_collision_scale_note": "contact colliders: Robotiq pad on inner fingers plus a TacEx-style fixed GSmini gelpad body; connector/case remain visual-only, while the fixed attachment joint preserves the original mount origin/rpy and adds camera link anchors",
+        "note": "The canonical URDF includes explicit Robotiq finger/pad collisions and matching TacEx-style connector/GSmini visuals at the same origin/rpy/scale as before. The GSmini soft gel is a separate fixed gelpad body under the sensor case with a simple box collider, so contact-stop cross-checks the soft mesh AABB while the hard connector/base remain visual-only."
+      },
+      "object": {
+        "kind": "cube",
+        "label": "4cm_cube",
+        "cube_size_m": 0.04,
+        "cube_side_centers_world_m": {
+          "left_y_positive": [
+            0.6000000834465027,
+            0.020000004159889322,
+            0.7564616203308105
+          ],
+          "right_y_negative": [
+            0.6000000834465027,
+            -0.01999999584011068,
+            0.7564616203308105
+          ]
+        }
+      },
+      "object_initial_position_m": [
+        0.6000000834465027,
+        4.159889321897481e-09,
+        0.7564616203308105
+      ],
+      "grasp_target_world_m": [
+        0.6033328771591187,
+        -9.96661838144064e-05,
+        0.9218440651893616
+      ],
+      "effective_grasp_target_world_m": [
+        0.6047350764274597,
+        -8.71417869348079e-05,
+        0.9214848875999451
+      ],
+      "lift_target_world_m": [
+        0.6047350764274597,
+        -8.71417869348079e-05,
+        1.0814849138259888
+      ],
+      "preclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6007925271987915,
+            -0.05386461317539215,
+            0.7911803126335144
+          ],
+          "right": [
+            0.6033332943916321,
+            0.0538550466299057,
+            0.791196346282959
+          ]
+        },
+        "soft_origin_distance_m": 0.10774962117601727,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5894174575805664,
+              -0.03391304612159729,
+              0.741692066192627
+            ],
+            "max_world_m": [
+              0.6138845682144165,
+              -0.02850966528058052,
+              0.7704071998596191
+            ],
+            "center_world_m": [
+              0.6016510128974915,
+              -0.031211355701088905,
+              0.756049633026123
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5888010859489441,
+              0.028544485569000244,
+              0.7417442798614502
+            ],
+            "max_world_m": [
+              0.6132681965827942,
+              0.03394787013530731,
+              0.7704594135284424
+            ],
+            "center_world_m": [
+              0.6010346412658691,
+              0.031246177852153778,
+              0.7561018466949463
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5869169235229492,
+              -0.057644013315439224,
+              0.7399066090583801
+            ],
+            "max_world_m": [
+              0.6165891885757446,
+              -0.03346000611782074,
+              0.7725100517272949
+            ],
+            "center_world_m": [
+              0.6017530560493469,
+              -0.04555200785398483,
+              0.7562083005905151
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5861034393310547,
+              0.03349461406469345,
+              0.7399809956550598
+            ],
+            "max_world_m": [
+              0.6157756447792053,
+              0.057678621262311935,
+              0.7725843787193298
+            ],
+            "center_world_m": [
+              0.6009395122528076,
+              0.045586615800857544,
+              0.7562826871871948
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5856615900993347,
+              -0.07926959544420242,
+              0.7373780608177185
+            ],
+            "max_world_m": [
+              0.6184790134429932,
+              -0.028487306088209152,
+              0.8130356073379517
+            ],
+            "center_world_m": [
+              0.6020703315734863,
+              -0.05387844890356064,
+              0.7752068042755127
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5849930047988892,
+              0.028497889637947083,
+              0.7374599575996399
+            ],
+            "max_world_m": [
+              0.6178104281425476,
+              0.07928018271923065,
+              0.813117504119873
+            ],
+            "center_world_m": [
+              0.601401686668396,
+              0.05388903617858887,
+              0.7752887010574341
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.06246059668150727,
+        "cube_center_world_m": [
+          0.599999189376831,
+          -4.2314698589507316e-07,
+          0.7564616799354553
+        ],
+        "cube_side_center_z_m": 0.7564616799354553,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.057054150849580765,
+          "cube_extent_m": 0.04,
+          "margin_m": 0.017054150849580764,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799991488456726,
+              -0.020000433549284935,
+              0.7364616394042969
+            ],
+            "max_world_m": [
+              0.6199992299079895,
+              0.019999587908387184,
+              0.7764617204666138
+            ],
+            "center_world_m": [
+              0.599999189376831,
+              -4.2314698589507316e-07,
+              0.7564616799354553
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5894174575805664,
+                -0.03391304612159729,
+                0.741692066192627
+              ],
+              "max_world_m": [
+                0.6138845682144165,
+                -0.02850966528058052,
+                0.7704071998596191
+              ],
+              "center_world_m": [
+                0.6016510128974915,
+                -0.031211355701088905,
+                0.756049633026123
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.008509231731295586,
+              "soft_mesh_aabb_distance_m": 0.008509231731295586,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5888010859489441,
+                0.028544485569000244,
+                0.7417442798614502
+              ],
+              "max_world_m": [
+                0.6132681965827942,
+                0.03394787013530731,
+                0.7704594135284424
+              ],
+              "center_world_m": [
+                0.6010346412658691,
+                0.031246177852153778,
+                0.7561018466949463
+              ],
+              "soft_mesh_aabb_overlap": false,
+              "soft_mesh_aabb_min_overlap_m": -0.00854489766061306,
+              "soft_mesh_aabb_distance_m": 0.00854489766061306,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": []
+        }
+      },
+      "soft_center_alignment": {
+        "enabled": true,
+        "mode": "soft_mesh_pair_center_to_cube_side_center",
+        "soft_center_tcp": {
+          "frame_name": "virtual_soft_center_tcp",
+          "parent_frame": "ee_link",
+          "definition": "Virtual TCP at the average of the left/right GSmini soft-link mesh AABB centers while the gripper is open. The IK solver still targets ee_link; this TCP provides the deterministic ee_link offset needed to place the soft pads on the cube side-center line.",
+          "target_frame_for_ik": "ee_link",
+          "desired_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "offset_in_ee_frame_m": [
+            0.16541601717472076,
+            -6.539048627018929e-07,
+            1.4901161193847656e-08
+          ],
+          "target_ee_world_m": [
+            0.6033328771591187,
+            -9.96661838144064e-05,
+            0.9218440651893616
+          ],
+          "refinement_policy": "Use this as the first deterministic target, then keep the bounded measured soft-center refinement because PhysX articulation settling and gripper mimic constraints can still move the realized soft_link centers by millimeters."
+        },
+        "desired_soft_pair_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "pregrasp_ee_world_m": [
+          0.5980228781700134,
+          0.0033233817666769028,
+          1.0136542320251465
+        ],
+        "pregrasp_soft_pair_center_world_m": [
+          0.5946900844573975,
+          0.0034230519086122513,
+          0.8482718467712402
+        ],
+        "soft_offset_in_ee_frame_m": [
+          0.16541601717472076,
+          -6.539048627018929e-07,
+          1.4901161193847656e-08
+        ],
+        "target_soft_offset_world_m": [
+          -0.003332778811454773,
+          9.967034566216171e-05,
+          -0.16538242995738983
+        ],
+        "target_ee_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "cube_center_world_m": [
+          0.6000000834465027,
+          4.159889321897481e-09,
+          0.7564616203308105
+        ],
+        "soft_center_z_offset_m": 0.0,
+        "longitudinal_x_offset_m": 0.0,
+        "lateral_y_offset_m": 0.0,
+        "refinement": {
+          "enabled": true,
+          "rounds_requested": 4,
+          "rounds_used": 3,
+          "refine_steps_per_round": 60,
+          "refine_pos_tolerance_m": 0.0025,
+          "max_correction_step_m": 0.025,
+          "desired_soft_pair_center_world_m": [
+            0.6000000834465027,
+            4.159889321897481e-09,
+            0.7564616203308105
+          ],
+          "rounds": [
+            {
+              "round": 1,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.5794125497341156,
+                  -0.0011853072792291641,
+                  0.7603024244308472
+                ],
+                "cube_center_world_m": [
+                  0.5999999046325684,
+                  -7.167465554402952e-08,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  -0.02058735489845276,
+                  -0.00118523560457362,
+                  0.0038407444953918457
+                ],
+                "xz_center_error_m": 0.020942552375336907,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "applied_correction_world_m": [
+                0.020587503910064697,
+                0.00118531147018075,
+                -0.003840804100036621
+              ],
+              "raw_correction_norm_m": 0.020976224914193153,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.622069239616394,
+                -0.0010163658298552036,
+                0.9206046462059021
+              ],
+              "move": {
+                "passed": true,
+                "steps": 21,
+                "final_position_error_m": 0.002308105118572712,
+                "final_position_world_m": [
+                  0.6197659969329834,
+                  -0.0008960269624367356,
+                  0.9206937551498413
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6121800541877747,
+                  -0.0007448066025972366,
+                  0.755394697189331
+                ],
+                "cube_center_world_m": [
+                  0.5999996662139893,
+                  -4.084978684204543e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0121803879737854,
+                  -0.0007443981047288162,
+                  -0.0010669827461242676
+                ],
+                "xz_center_error_m": 0.012227031666453756,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            },
+            {
+              "round": 2,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6121800541877747,
+                  -0.0007448066025972366,
+                  0.755394697189331
+                ],
+                "cube_center_world_m": [
+                  0.5999996662139893,
+                  -4.084978684204543e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0121803879737854,
+                  -0.0007443981047288162,
+                  -0.0010669827461242676
+                ],
+                "xz_center_error_m": 0.012227031666453756,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                -0.012179970741271973,
+                0.0007448107353411615,
+                0.0010669231414794922
+              ],
+              "applied_correction_world_m": [
+                -0.012179970741271973,
+                0.0007448107353411615,
+                0.0010669231414794922
+              ],
+              "raw_correction_norm_m": 0.012249276041984558,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.6075860261917114,
+                -0.00015121622709557414,
+                0.9217606782913208
+              ],
+              "move": {
+                "passed": true,
+                "steps": 16,
+                "final_position_error_m": 0.0023440951481461525,
+                "final_position_world_m": [
+                  0.6074981093406677,
+                  0.0005897066439501941,
+                  0.9239828586578369
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6047491729259491,
+                  0.0006975876167416573,
+                  0.758577823638916
+                ],
+                "cube_center_world_m": [
+                  0.599999725818634,
+                  -2.0087369989596482e-07,
+                  0.7564617991447449
+                ],
+                "pair_center_error_world_m": [
+                  0.0047494471073150635,
+                  0.0006977884904415532,
+                  0.0021160244941711426
+                ],
+                "xz_center_error_m": 0.005199500695751051,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            },
+            {
+              "round": 3,
+              "before_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6047491729259491,
+                  0.0006975876167416573,
+                  0.758577823638916
+                ],
+                "cube_center_world_m": [
+                  0.599999725818634,
+                  -2.0087369989596482e-07,
+                  0.7564617991447449
+                ],
+                "pair_center_error_world_m": [
+                  0.0047494471073150635,
+                  0.0006977884904415532,
+                  0.0021160244941711426
+                ],
+                "xz_center_error_m": 0.005199500695751051,
+                "tolerance_m": 0.005,
+                "passed": false,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              },
+              "desired_soft_pair_center_world_m": [
+                0.6000000834465027,
+                4.159889321897481e-09,
+                0.7564616203308105
+              ],
+              "raw_correction_world_m": [
+                -0.004749119281768799,
+                -0.0006975834839977324,
+                -0.0021162033081054688
+              ],
+              "applied_correction_world_m": [
+                -0.004749119281768799,
+                -0.0006975834839977324,
+                -0.0021162033081054688
+              ],
+              "raw_correction_norm_m": 0.005245862528681755,
+              "max_correction_step_m": 0.025,
+              "correction_clamped": false,
+              "target_ee_world_m": [
+                0.6027489900588989,
+                -0.00010787684004753828,
+                0.9218666553497314
+              ],
+              "move": {
+                "passed": true,
+                "steps": 3,
+                "final_position_error_m": 0.002022551605477929,
+                "final_position_world_m": [
+                  0.6047350764274597,
+                  -8.71417869348079e-05,
+                  0.9214848875999451
+                ],
+                "accepted_stop_tolerance_m": 0.0025,
+                "control_mode": "single_direct_ik_segment_then_arm_latch"
+              },
+              "after_error_m": {
+                "available": true,
+                "soft_pair_center_world_m": [
+                  0.6013414859771729,
+                  -3.215111792087555e-05,
+                  0.7559993863105774
+                ],
+                "cube_center_world_m": [
+                  0.599999189376831,
+                  -4.2574490066726867e-07,
+                  0.7564616799354553
+                ],
+                "pair_center_error_world_m": [
+                  0.0013422966003417969,
+                  -3.172537302020828e-05,
+                  -0.0004622936248779297
+                ],
+                "xz_center_error_m": 0.0014196744552508935,
+                "tolerance_m": 0.005,
+                "passed": true,
+                "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+              }
+            }
+          ],
+          "final_error_m": {
+            "available": true,
+            "soft_pair_center_world_m": [
+              0.6013414859771729,
+              -3.215111792087555e-05,
+              0.7559993863105774
+            ],
+            "cube_center_world_m": [
+              0.599999189376831,
+              -4.2574490066726867e-07,
+              0.7564616799354553
+            ],
+            "pair_center_error_world_m": [
+              0.0013422966003417969,
+              -3.172537302020828e-05,
+              -0.0004622936248779297
+            ],
+            "xz_center_error_m": 0.0014196744552508935,
+            "tolerance_m": 0.005,
+            "passed": true,
+            "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+          },
+          "final_geometry": {
+            "soft_origin_in_sensor_frame_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "soft_mesh_local_aabb_m": {
+              "min": [
+                -0.01363918,
+                -0.02524673,
+                -0.04923395
+              ],
+              "max": [
+                0.01022479,
+                -0.01999673,
+                -0.02100601
+              ]
+            },
+            "base_link_local_aabb_m": {
+              "min": [
+                -0.01616778,
+                -0.02028085,
+                -0.05095018
+              ],
+              "max": [
+                0.01271882,
+                0.00371915,
+                -0.01895018
+              ]
+            },
+            "sensor_assembly_local_aabb_m": {
+              "min": [
+                -0.01710485,
+                -0.02524673,
+                -0.05344392
+              ],
+              "max": [
+                0.01389515,
+                0.0253128,
+                0.02155608
+              ]
+            },
+            "soft_origin_world_m": {
+              "left": [
+                0.600792407989502,
+                -0.0539088249206543,
+                0.7911607027053833
+              ],
+              "right": [
+                0.6033318042755127,
+                0.05381282418966293,
+                0.7911167144775391
+              ]
+            },
+            "soft_origin_distance_m": 0.10775158539672584,
+            "soft_mesh_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5894169807434082,
+                  -0.03400657698512077,
+                  0.7416419982910156
+                ],
+                "max_world_m": [
+                  0.6138840317726135,
+                  -0.02860037051141262,
+                  0.7703564167022705
+                ],
+                "center_world_m": [
+                  0.6016504764556885,
+                  -0.03130347281694412,
+                  0.7559992074966431
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_soft_mesh",
+                "min_world_m": [
+                  0.5887988805770874,
+                  0.028523338958621025,
+                  0.7416393756866455
+                ],
+                "max_world_m": [
+                  0.6132660508155823,
+                  0.03395500034093857,
+                  0.7703597545623779
+                ],
+                "center_world_m": [
+                  0.6010324954986572,
+                  0.03123917058110237,
+                  0.7559995651245117
+                ]
+              }
+            },
+            "base_link_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5869166254997253,
+                  -0.057737499475479126,
+                  0.7398773431777954
+                ],
+                "max_world_m": [
+                  0.6165893077850342,
+                  -0.03355029225349426,
+                  0.7724775075912476
+                ],
+                "center_world_m": [
+                  0.6017529964447021,
+                  -0.045643895864486694,
+                  0.7561774253845215
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_base_link_collision",
+                "min_world_m": [
+                  0.5861017107963562,
+                  0.03347140550613403,
+                  0.7398810982704163
+                ],
+                "max_world_m": [
+                  0.6157736778259277,
+                  0.05768744647502899,
+                  0.7725085020065308
+                ],
+                "center_world_m": [
+                  0.6009377241134644,
+                  0.04557942599058151,
+                  0.7561948299407959
+                ]
+              }
+            },
+            "sensor_assembly_aabb_world_m": {
+              "left": {
+                "body": "left_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.5856611728668213,
+                  -0.07933930307626724,
+                  0.7373618483543396
+                ],
+                "max_world_m": [
+                  0.6184794306755066,
+                  -0.02854951098561287,
+                  0.8130126595497131
+                ],
+                "center_world_m": [
+                  0.6020703315734863,
+                  -0.053944408893585205,
+                  0.7751872539520264
+                ]
+              },
+              "right": {
+                "body": "right_gelsight_mini_gelpad",
+                "label": "gsmini_sensor_assembly_visual_bounds",
+                "min_world_m": [
+                  0.5849917531013489,
+                  0.02843409776687622,
+                  0.7373550534248352
+                ],
+                "max_world_m": [
+                  0.6178085207939148,
+                  0.07929147779941559,
+                  0.8130632042884827
+                ],
+                "center_world_m": [
+                  0.6014001369476318,
+                  0.053862787783145905,
+                  0.7752091288566589
+                ]
+              }
+            },
+            "soft_mesh_center_distance_m": 0.0625456964451301,
+            "cube_center_world_m": [
+              0.599999189376831,
+              -4.2574490066726867e-07,
+              0.7564616799354553
+            ],
+            "cube_side_center_z_m": 0.7564616799354553,
+            "cube_half_extent_m": 0.02,
+            "side_grasp_aperture": {
+              "axis": "world_y",
+              "soft_inner_gap_m": 0.057123709470033646,
+              "cube_extent_m": 0.04,
+              "margin_m": 0.017123709470033645,
+              "feasible_without_interpenetration": true
+            },
+            "soft_cube_contact_geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5799990892410278,
+                  -0.020000511780381203,
+                  0.7364614605903625
+                ],
+                "max_world_m": [
+                  0.6199992895126343,
+                  0.019999658688902855,
+                  0.7764618992805481
+                ],
+                "center_world_m": [
+                  0.599999189376831,
+                  -4.2574490066726867e-07,
+                  0.7564616799354553
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5894169807434082,
+                    -0.03400657698512077,
+                    0.7416419982910156
+                  ],
+                  "max_world_m": [
+                    0.6138840317726135,
+                    -0.02860037051141262,
+                    0.7703564167022705
+                  ],
+                  "center_world_m": [
+                    0.6016504764556885,
+                    -0.03130347281694412,
+                    0.7559992074966431
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.008599858731031418,
+                  "soft_mesh_aabb_distance_m": 0.008599858731031418,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5887988805770874,
+                    0.028523338958621025,
+                    0.7416393756866455
+                  ],
+                  "max_world_m": [
+                    0.6132660508155823,
+                    0.03395500034093857,
+                    0.7703597545623779
+                  ],
+                  "center_world_m": [
+                    0.6010324954986572,
+                    0.03123917058110237,
+                    0.7559995651245117
+                  ],
+                  "soft_mesh_aabb_overlap": false,
+                  "soft_mesh_aabb_min_overlap_m": -0.00852368026971817,
+                  "soft_mesh_aabb_distance_m": 0.00852368026971817,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": []
+            }
+          },
+          "passed": true
+        },
+        "preclose_error_m": {
+          "available": true,
+          "soft_pair_center_world_m": [
+            0.6013428270816803,
+            1.741107553243637e-05,
+            0.7560757398605347
+          ],
+          "cube_center_world_m": [
+            0.599999189376831,
+            -4.2314698589507316e-07,
+            0.7564616799354553
+          ],
+          "pair_center_error_world_m": [
+            0.0013436377048492432,
+            1.7834222518331444e-05,
+            -0.0003859400749206543
+          ],
+          "xz_center_error_m": 0.0013979671038054874,
+          "tolerance_m": 0.005,
+          "passed": true,
+          "interpretation": "Checks the average left/right GSmini soft-link mesh center against the cube side-face center line. Y is reported for symmetry; X and Z decide whether the pad is centered on the side face."
+        }
+      },
+      "postclose_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6015610694885254,
+            -0.04575156420469284,
+            0.7903116345405579
+          ],
+          "right": [
+            0.6042527556419373,
+            0.045528922230005264,
+            0.7903761267662048
+          ]
+        },
+        "soft_origin_distance_m": 0.09132018691040192,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5905863642692566,
+              -0.02561796084046364,
+              0.7410926222801208
+            ],
+            "max_world_m": [
+              0.6148330569267273,
+              -0.019992778077721596,
+              0.7696672677993774
+            ],
+            "center_world_m": [
+              0.6027097105979919,
+              -0.02280537039041519,
+              0.7553799152374268
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900971293449402,
+              0.0197133868932724,
+              0.7412214875221252
+            ],
+            "max_world_m": [
+              0.6143423914909363,
+              0.025371212512254715,
+              0.7698012590408325
+            ],
+            "center_world_m": [
+              0.6022197604179382,
+              0.022542299702763557,
+              0.7555114030838013
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5880952477455139,
+              -0.049363747239112854,
+              0.7391289472579956
+            ],
+            "max_world_m": [
+              0.6175047159194946,
+              -0.024930117651820183,
+              0.7717093229293823
+            ],
+            "center_world_m": [
+              0.6028000116348267,
+              -0.03714693337678909,
+              0.755419135093689
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5874242186546326,
+              0.02464868314564228,
+              0.7392338514328003
+            ],
+            "max_world_m": [
+              0.6168363690376282,
+              0.04911910742521286,
+              0.7718386054039001
+            ],
+            "center_world_m": [
+              0.6021302938461304,
+              0.036883894354104996,
+              0.7555361986160278
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5868628025054932,
+              -0.07132785767316818,
+              0.736427366733551
+            ],
+            "max_world_m": [
+              0.6190635561943054,
+              -0.01993725076317787,
+              0.8122707009315491
+            ],
+            "center_world_m": [
+              0.6029632091522217,
+              -0.045632556080818176,
+              0.77434903383255
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5863438248634338,
+              0.01965298503637314,
+              0.7365069389343262
+            ],
+            "max_world_m": [
+              0.6185495257377625,
+              0.07112989574670792,
+              0.8124016523361206
+            ],
+            "center_world_m": [
+              0.6024466753005981,
+              0.04539144039154053,
+              0.7744542956352234
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.045350507418467294,
+        "cube_center_world_m": [
+          0.6000269055366516,
+          -0.0001751065719872713,
+          0.7572775483131409
+        ],
+        "cube_side_center_z_m": 0.7572775483131409,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.039706164970993996,
+          "cube_extent_m": 0.04,
+          "margin_m": -0.00029383502900600517,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5799939632415771,
+              -0.02021949738264084,
+              0.7372146248817444
+            ],
+            "max_world_m": [
+              0.6200598478317261,
+              0.019869282841682434,
+              0.7773404717445374
+            ],
+            "center_world_m": [
+              0.6000269055366516,
+              -0.0001751065719872713,
+              0.7572775483131409
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5905863642692566,
+                -0.02561796084046364,
+                0.7410926222801208
+              ],
+              "max_world_m": [
+                0.6148330569267273,
+                -0.019992778077721596,
+                0.7696672677993774
+              ],
+              "center_world_m": [
+                0.6027097105979919,
+                -0.02280537039041519,
+                0.7553799152374268
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900971293449402,
+                0.0197133868932724,
+                0.7412214875221252
+              ],
+              "max_world_m": [
+                0.6143423914909363,
+                0.025371212512254715,
+                0.7698012590408325
+              ],
+              "center_world_m": [
+                0.6022197604179382,
+                0.022542299702763557,
+                0.7555114030838013
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "postsettle_soft_geometry": {
+        "soft_origin_in_sensor_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_mesh_local_aabb_m": {
+          "min": [
+            -0.01363918,
+            -0.02524673,
+            -0.04923395
+          ],
+          "max": [
+            0.01022479,
+            -0.01999673,
+            -0.02100601
+          ]
+        },
+        "base_link_local_aabb_m": {
+          "min": [
+            -0.01616778,
+            -0.02028085,
+            -0.05095018
+          ],
+          "max": [
+            0.01271882,
+            0.00371915,
+            -0.01895018
+          ]
+        },
+        "sensor_assembly_local_aabb_m": {
+          "min": [
+            -0.01710485,
+            -0.02524673,
+            -0.05344392
+          ],
+          "max": [
+            0.01389515,
+            0.0253128,
+            0.02155608
+          ]
+        },
+        "soft_origin_world_m": {
+          "left": [
+            0.6015974879264832,
+            -0.046445056796073914,
+            0.7901602983474731
+          ],
+          "right": [
+            0.6042569279670715,
+            0.04613626003265381,
+            0.7901448011398315
+          ]
+        },
+        "soft_origin_distance_m": 0.09261950705566399,
+        "soft_mesh_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.590589702129364,
+              -0.026438407599925995,
+              0.7408137917518616
+            ],
+            "max_world_m": [
+              0.6148520708084106,
+              -0.020974615588784218,
+              0.7693707346916199
+            ],
+            "center_world_m": [
+              0.6027208566665649,
+              -0.023706510663032532,
+              0.7550922632217407
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_soft_mesh",
+            "min_world_m": [
+              0.5900773406028748,
+              0.020651699975132942,
+              0.7408463358879089
+            ],
+            "max_world_m": [
+              0.6143391728401184,
+              0.02612360194325447,
+              0.7694039940834045
+            ],
+            "center_world_m": [
+              0.6022082567214966,
+              0.02338765189051628,
+              0.7551251649856567
+            ]
+          }
+        },
+        "base_link_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.588099479675293,
+              -0.05017344653606415,
+              0.7389896512031555
+            ],
+            "max_world_m": [
+              0.6175327897071838,
+              -0.025921663269400597,
+              0.7714436054229736
+            ],
+            "center_world_m": [
+              0.602816104888916,
+              -0.03804755583405495,
+              0.7552165985107422
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_base_link_collision",
+            "min_world_m": [
+              0.5873991847038269,
+              0.025598252192139626,
+              0.7390191555023193
+            ],
+            "max_world_m": [
+              0.6168334484100342,
+              0.04985920339822769,
+              0.7714766263961792
+            ],
+            "center_world_m": [
+              0.6021163463592529,
+              0.037728726863861084,
+              0.7552478909492493
+            ]
+          }
+        },
+        "sensor_assembly_aabb_world_m": {
+          "left": {
+            "body": "left_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5868641138076782,
+              -0.07189769297838211,
+              0.7364158034324646
+            ],
+            "max_world_m": [
+              0.6191191673278809,
+              -0.020943211391568184,
+              0.8119773268699646
+            ],
+            "center_world_m": [
+              0.6029916405677795,
+              -0.04642045125365257,
+              0.7741965651512146
+            ]
+          },
+          "right": {
+            "body": "right_gelsight_mini_gelpad",
+            "label": "gsmini_sensor_assembly_visual_bounds",
+            "min_world_m": [
+              0.5863134860992432,
+              0.020619086921215057,
+              0.7364389896392822
+            ],
+            "max_world_m": [
+              0.6185702681541443,
+              0.07159506529569626,
+              0.8120079040527344
+            ],
+            "center_world_m": [
+              0.6024419069290161,
+              0.04610707610845566,
+              0.7742234468460083
+            ]
+          }
+        },
+        "soft_mesh_center_distance_m": 0.04709696367973027,
+        "cube_center_world_m": [
+          0.5999810099601746,
+          -0.00023825957032386214,
+          0.7564617395401001
+        ],
+        "cube_side_center_z_m": 0.7564617395401001,
+        "cube_half_extent_m": 0.02,
+        "side_grasp_aperture": {
+          "axis": "world_y",
+          "soft_inner_gap_m": 0.04162631556391716,
+          "cube_extent_m": 0.04,
+          "margin_m": 0.0016263155639171592,
+          "feasible_without_interpenetration": true
+        },
+        "soft_cube_contact_geometry": {
+          "cube_aabb": {
+            "min_world_m": [
+              0.5798712968826294,
+              -0.020347947254776955,
+              0.7364616990089417
+            ],
+            "max_world_m": [
+              0.6200907230377197,
+              0.0198714267462492,
+              0.7764617800712585
+            ],
+            "center_world_m": [
+              0.5999810099601746,
+              -0.00023825957032386214,
+              0.7564617395401001
+            ],
+            "half_extent_m": 0.02
+          },
+          "sides": {
+            "left": {
+              "body": "left_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.590589702129364,
+                -0.026438407599925995,
+                0.7408137917518616
+              ],
+              "max_world_m": [
+                0.6148520708084106,
+                -0.020974615588784218,
+                0.7693707346916199
+              ],
+              "center_world_m": [
+                0.6027208566665649,
+                -0.023706510663032532,
+                0.7550922632217407
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": -0.0006266683340072632,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            },
+            "right": {
+              "body": "right_gelsight_mini_gelpad",
+              "label": "gsmini_soft_mesh",
+              "min_world_m": [
+                0.5900773406028748,
+                0.020651699975132942,
+                0.7408463358879089
+              ],
+              "max_world_m": [
+                0.6143391728401184,
+                0.02612360194325447,
+                0.7694039940834045
+              ],
+              "center_world_m": [
+                0.6022082567214966,
+                0.02338765189051628,
+                0.7551251649856567
+              ],
+              "soft_mesh_aabb_overlap": true,
+              "soft_mesh_aabb_min_overlap_m": -0.0007802732288837433,
+              "soft_mesh_aabb_distance_m": 0.0,
+              "contact_margin_m": 0.002
+            }
+          },
+          "contact_sides": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "close_safety": {
+        "preclose_object_shift_m": 9.927257451636251e-07,
+        "max_preclose_object_shift_m": 0.015,
+        "preclose_object_shift_passed": true,
+        "preclose_arm_settle_max_error_rad": 0.0,
+        "direct_grasp_target": true,
+        "direct_target_note": "The grasp target is initialized from the measured GSmini soft-link mesh pair center, then refined with bounded measured corrections so the pre-close soft_link center lands on the cube side-face center line plus CLI offsets. Approach/precontact/terminal XY adjustment stages are skipped; residual arm velocity is zeroed once at the reached pose before close.",
+        "arm_velocity_latch": {
+          "latched": true,
+          "zeroed_arm_velocity": true,
+          "arm_hold": {
+            "max_abs_error_rad": 0.0,
+            "target_rad": [
+              -0.04455135017633438,
+              -1.0464569330215454,
+              1.527091145515442,
+              -2.0309174060821533,
+              -1.5710783004760742,
+              -0.05022554099559784
+            ],
+            "actual_rad": [
+              -0.04455135017633438,
+              -1.0464569330215454,
+              1.527091145515442,
+              -2.0309174060821533,
+              -1.5710783004760742,
+              -0.05022554099559784
+            ]
+          }
+        },
+        "passed": false,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_trigger_m": 0.001,
+        "max_object_lift_during_close_m": 0.0008158683776855469,
+        "final_object_lift_after_close_m": 0.0008158683776855469,
+        "close_object_lift_passed": true,
+        "close_stopped_by_object_lift": false,
+        "max_object_lift_during_settle_m": 0.00168687105178833,
+        "final_object_lift_after_settle_m": 5.960464477539063e-08,
+        "settle_object_lift_passed": false,
+        "settle_stopped_by_object_lift": true,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "force_control_enabled": true,
+        "stable_grasp_detected": true,
+        "stable_grasp_passed": true,
+        "high_force_stop": false,
+        "close_goal_reached": false
+      },
+      "preclose_arm_settle": {
+        "requested_steps": 50,
+        "actual_steps": 50,
+        "arm_hold": {
+          "max_abs_error_rad": 0.0,
+          "target_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ],
+          "actual_rad": [
+            -0.04455135017633438,
+            -1.0464569330215454,
+            1.527091145515442,
+            -2.0309174060821533,
+            -1.5710783004760742,
+            -0.05022554099559784
+          ]
+        },
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "actual_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.0,
+            "left_inner_finger_joint": 0.0,
+            "left_inner_knuckle_joint": 0.0,
+            "right_outer_knuckle_joint": 0.0,
+            "right_inner_finger_joint": 0.0,
+            "right_inner_knuckle_joint": 0.0
+          },
+          "max_abs_error_rad": 0.0
+        }
+      },
+      "direct_move": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "approach": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_approach_stage"
+      },
+      "descend_precontact": {
+        "passed": true,
+        "steps": 0,
+        "final_position_error_m": 0.0,
+        "final_position_world_m": [
+          0.6033328771591187,
+          -9.96661838144064e-05,
+          0.9218440651893616
+        ],
+        "accepted_stop_tolerance_m": 0.0,
+        "skipped": true,
+        "reason": "direct_mode_no_precontact_stage"
+      },
+      "descend": {
+        "passed": true,
+        "steps": 10,
+        "final_position_error_m": 0.0038226142060011625,
+        "final_position_world_m": [
+          0.6014817357063293,
+          -0.0022016773000359535,
+          0.9244454503059387
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "close_command": {
+        "executed": true,
+        "steps": 160,
+        "settle_steps": 1,
+        "target_close_rad": 0.25,
+        "close_passed": true,
+        "force_control": {
+          "requested_steps": 160,
+          "actual_steps": 122,
+          "requested_target_close_rad": 0.25,
+          "target_close_rad": 0.25,
+          "absolute_close_cap_rad": 0.45,
+          "start_close_rad": 0.0,
+          "final_target_close_rad": 0.19062499701976776,
+          "actual_final_close_rad": 0.17407794296741486,
+          "close_goal_reached": false,
+          "soft_contact_detected": true,
+          "last_contact_read": {
+            "enabled": true,
+            "contact_detected": true,
+            "contact_sides": [
+              "left",
+              "right"
+            ],
+            "geometry_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_contact_sides": [
+              "left",
+              "right"
+            ],
+            "force_by_side_n": {
+              "left": 1.3959752321243286,
+              "right": 1.4334803819656372
+            },
+            "max_force_n": 1.4334803819656372,
+            "both_sides_force_contact": true,
+            "threshold_n": 0.2,
+            "sides": {
+              "left": {
+                "initialized": true,
+                "max_force_n": 1.3959752321243286,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5905863642692566,
+                    -0.02561796084046364,
+                    0.7410926222801208
+                  ],
+                  "max_world_m": [
+                    0.6148330569267273,
+                    -0.019992778077721596,
+                    0.7696672677993774
+                  ],
+                  "center_world_m": [
+                    0.6027097105979919,
+                    -0.02280537039041519,
+                    0.7553799152374268
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              },
+              "right": {
+                "initialized": true,
+                "max_force_n": 1.4334803819656372,
+                "in_contact": true,
+                "contact_source": "force+soft_mesh_aabb",
+                "force_in_contact": true,
+                "geometry": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900971293449402,
+                    0.0197133868932724,
+                    0.7412214875221252
+                  ],
+                  "max_world_m": [
+                    0.6143423914909363,
+                    0.025371212512254715,
+                    0.7698012590408325
+                  ],
+                  "center_world_m": [
+                    0.6022197604179382,
+                    0.022542299702763557,
+                    0.7555114030838013
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "geometry_in_contact": true
+              }
+            },
+            "geometry": {
+              "cube_aabb": {
+                "min_world_m": [
+                  0.5799939632415771,
+                  -0.02021949738264084,
+                  0.7372146248817444
+                ],
+                "max_world_m": [
+                  0.6200598478317261,
+                  0.019869282841682434,
+                  0.7773404717445374
+                ],
+                "center_world_m": [
+                  0.6000269055366516,
+                  -0.0001751065719872713,
+                  0.7572775483131409
+                ],
+                "half_extent_m": 0.02
+              },
+              "sides": {
+                "left": {
+                  "body": "left_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5905863642692566,
+                    -0.02561796084046364,
+                    0.7410926222801208
+                  ],
+                  "max_world_m": [
+                    0.6148330569267273,
+                    -0.019992778077721596,
+                    0.7696672677993774
+                  ],
+                  "center_world_m": [
+                    0.6027097105979919,
+                    -0.02280537039041519,
+                    0.7553799152374268
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00022671930491924286,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                },
+                "right": {
+                  "body": "right_gelsight_mini_gelpad",
+                  "label": "gsmini_soft_mesh",
+                  "min_world_m": [
+                    0.5900971293449402,
+                    0.0197133868932724,
+                    0.7412214875221252
+                  ],
+                  "max_world_m": [
+                    0.6143423914909363,
+                    0.025371212512254715,
+                    0.7698012590408325
+                  ],
+                  "center_world_m": [
+                    0.6022197604179382,
+                    0.022542299702763557,
+                    0.7555114030838013
+                  ],
+                  "soft_mesh_aabb_overlap": true,
+                  "soft_mesh_aabb_min_overlap_m": 0.00015589594841003418,
+                  "soft_mesh_aabb_distance_m": 0.0,
+                  "contact_margin_m": 0.002
+                }
+              },
+              "contact_sides": [
+                "left",
+                "right"
+              ]
+            },
+            "note": "The URDF now exposes GSmini soft_link visual/collision geometry on TacEx-style gelpad bodies. Soft-link contact is now diagnostic only; gripper closure is stopped only by high force or other safety guards."
+          },
+          "soft_contact_stop_enabled": false,
+          "stopped_by_no_contact_cap": false,
+          "force_control": {
+            "enabled": true,
+            "stable_force_threshold_n": 0.5,
+            "high_force_threshold_n": 8.0,
+            "required_stable_steps": 1,
+            "stable_grasp_detected": true,
+            "stable_grasp_step": 122,
+            "stable_force_stop_enabled": true,
+            "stopped_by_stable_force": true,
+            "final_stable_counter": 1,
+            "max_force_seen_n": 1.4334803819656372,
+            "stopped_by_high_force": false,
+            "high_force_step": null,
+            "last_force_safe_close_rad": 0.190625,
+            "force_history_tail": [
+              {
+                "step": 111,
+                "planned_close_rad": 0.1734375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 112,
+                "planned_close_rad": 0.175,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 113,
+                "planned_close_rad": 0.1765625,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 114,
+                "planned_close_rad": 0.178125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 115,
+                "planned_close_rad": 0.1796875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 116,
+                "planned_close_rad": 0.18125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 117,
+                "planned_close_rad": 0.1828125,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 118,
+                "planned_close_rad": 0.184375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 119,
+                "planned_close_rad": 0.1859375,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 120,
+                "planned_close_rad": 0.1875,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 0.0
+                },
+                "max_force_n": 0.0,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 121,
+                "planned_close_rad": 0.1890625,
+                "force_by_side_n": {
+                  "left": 0.0,
+                  "right": 1.0102137327194214
+                },
+                "max_force_n": 1.0102137327194214,
+                "both_sides_stable": false,
+                "stable_counter": 0,
+                "high_force_detected": false
+              },
+              {
+                "step": 122,
+                "planned_close_rad": 0.190625,
+                "force_by_side_n": {
+                  "left": 1.3959752321243286,
+                  "right": 1.4334803819656372
+                },
+                "max_force_n": 1.4334803819656372,
+                "both_sides_stable": true,
+                "stable_counter": 1,
+                "high_force_detected": false
+              }
+            ]
+          },
+          "preclose_object_z_m": 0.7564616799354553,
+          "final_object_z_m": 0.7572775483131409,
+          "final_object_lift_m": 0.0008158683776855469,
+          "max_object_lift_during_close_m": 0.0008158683776855469,
+          "max_close_object_lift_m": 0.001,
+          "object_lift_guard_trigger_m": 0.001,
+          "object_lift_guard_trigger_fraction": 1.0,
+          "object_lift_guard_enabled": true,
+          "object_lift_within_limit": true,
+          "stopped_by_object_lift": false,
+          "last_safe_close_rad": 0.190625,
+          "object_lift_rewind_open_margin_rad": 0.005,
+          "rewind_close_rad": null,
+          "object_z_history_tail": [
+            {
+              "step": 111,
+              "planned_close_rad": 0.1734375,
+              "object_z_m": 0.7564616799354553,
+              "object_lift_m": 0.0
+            },
+            {
+              "step": 112,
+              "planned_close_rad": 0.175,
+              "object_z_m": 0.7564616799354553,
+              "object_lift_m": 0.0
+            },
+            {
+              "step": 113,
+              "planned_close_rad": 0.1765625,
+              "object_z_m": 0.7564616203308105,
+              "object_lift_m": -5.960464477539063e-08
+            },
+            {
+              "step": 114,
+              "planned_close_rad": 0.178125,
+              "object_z_m": 0.7564614415168762,
+              "object_lift_m": -2.384185791015625e-07
+            },
+            {
+              "step": 115,
+              "planned_close_rad": 0.1796875,
+              "object_z_m": 0.7564586400985718,
+              "object_lift_m": -3.039836883544922e-06
+            },
+            {
+              "step": 116,
+              "planned_close_rad": 0.18125,
+              "object_z_m": 0.7564623355865479,
+              "object_lift_m": 6.556510925292969e-07
+            },
+            {
+              "step": 117,
+              "planned_close_rad": 0.1828125,
+              "object_z_m": 0.7564598321914673,
+              "object_lift_m": -1.8477439880371094e-06
+            },
+            {
+              "step": 118,
+              "planned_close_rad": 0.184375,
+              "object_z_m": 0.7564609050750732,
+              "object_lift_m": -7.748603820800781e-07
+            },
+            {
+              "step": 119,
+              "planned_close_rad": 0.1859375,
+              "object_z_m": 0.7565593719482422,
+              "object_lift_m": 9.769201278686523e-05
+            },
+            {
+              "step": 120,
+              "planned_close_rad": 0.1875,
+              "object_z_m": 0.7564796209335327,
+              "object_lift_m": 1.7940998077392578e-05
+            },
+            {
+              "step": 121,
+              "planned_close_rad": 0.1890625,
+              "object_z_m": 0.7565234899520874,
+              "object_lift_m": 6.181001663208008e-05
+            },
+            {
+              "step": 122,
+              "planned_close_rad": 0.190625,
+              "object_z_m": 0.7572775483131409,
+              "object_lift_m": 0.0008158683776855469
+            }
+          ],
+          "arm_hold_enabled": true
+        }
+      },
+      "close_gripper": {
+        "target_rad": {
+          "finger_joint": 0.19062499701976776,
+          "left_inner_finger_joint": -0.19062499701976776,
+          "left_inner_knuckle_joint": 0.19062499701976776,
+          "right_outer_knuckle_joint": 0.19062499701976776,
+          "right_inner_finger_joint": -0.19062499701976776,
+          "right_inner_knuckle_joint": 0.19062499701976776
+        },
+        "actual_rad": {
+          "finger_joint": 0.17407794296741486,
+          "left_inner_finger_joint": -0.16463914513587952,
+          "left_inner_knuckle_joint": 0.1934232860803604,
+          "right_outer_knuckle_joint": 0.16966243088245392,
+          "right_inner_finger_joint": -0.15988744795322418,
+          "right_inner_knuckle_joint": 0.19331853091716766
+        },
+        "abs_error_rad": {
+          "finger_joint": 0.016547054052352905,
+          "left_inner_finger_joint": 0.025985851883888245,
+          "left_inner_knuckle_joint": 0.0027982890605926514,
+          "right_outer_knuckle_joint": 0.020962566137313843,
+          "right_inner_finger_joint": 0.03073754906654358,
+          "right_inner_knuckle_joint": 0.0026935338973999023
+        },
+        "max_abs_error_rad": 0.03073754906654358
+      },
+      "close_settle": {
+        "requested_steps": 1,
+        "actual_steps": 9,
+        "gripper": {
+          "target_rad": {
+            "finger_joint": 0.16907794773578644,
+            "left_inner_finger_joint": -0.16907794773578644,
+            "left_inner_knuckle_joint": 0.16907794773578644,
+            "right_outer_knuckle_joint": 0.16907794773578644,
+            "right_inner_finger_joint": -0.16907794773578644,
+            "right_inner_knuckle_joint": 0.16907794773578644
+          },
+          "actual_rad": {
+            "finger_joint": 0.16335010528564453,
+            "left_inner_finger_joint": -0.160101518034935,
+            "left_inner_knuckle_joint": 0.16973042488098145,
+            "right_outer_knuckle_joint": 0.1621558964252472,
+            "right_inner_finger_joint": -0.15895800292491913,
+            "right_inner_knuckle_joint": 0.1695316880941391
+          },
+          "abs_error_rad": {
+            "finger_joint": 0.005727842450141907,
+            "left_inner_finger_joint": 0.00897642970085144,
+            "left_inner_knuckle_joint": 0.0006524771451950073,
+            "right_outer_knuckle_joint": 0.006922051310539246,
+            "right_inner_finger_joint": 0.01011994481086731,
+            "right_inner_knuckle_joint": 0.00045374035835266113
+          },
+          "max_abs_error_rad": 0.01011994481086731
+        },
+        "preclose_object_z_m": 0.7564616799354553,
+        "final_object_z_m": 0.7564617395401001,
+        "final_object_lift_m": 5.960464477539063e-08,
+        "max_object_lift_during_settle_m": 0.00168687105178833,
+        "max_close_object_lift_m": 0.001,
+        "object_lift_guard_trigger_m": 0.001,
+        "object_lift_guard_trigger_fraction": 1.0,
+        "object_lift_guard_enabled": true,
+        "object_lift_within_limit": false,
+        "stopped_by_object_lift": true,
+        "last_safe_close_rad": 0.16907794296741485,
+        "object_lift_rewind_open_margin_rad": 0.005,
+        "rewind_close_rad": 0.16907794296741485,
+        "final_target_close_rad": 0.16907794773578644,
+        "object_z_history_tail": [
+          {
+            "step": 1,
+            "object_z_m": 0.7581485509872437,
+            "object_lift_m": 0.00168687105178833,
+            "close_rad": 0.17499135434627533
+          },
+          {
+            "step": 2,
+            "object_z_m": 0.7566158175468445,
+            "object_lift_m": 0.00015413761138916016,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 3,
+            "object_z_m": 0.756517767906189,
+            "object_lift_m": 5.608797073364258e-05,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 4,
+            "object_z_m": 0.7564619779586792,
+            "object_lift_m": 2.980232238769531e-07,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 5,
+            "object_z_m": 0.7564617991447449,
+            "object_lift_m": 1.1920928955078125e-07,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 6,
+            "object_z_m": 0.7564616203308105,
+            "object_lift_m": -5.960464477539063e-08,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 7,
+            "object_z_m": 0.7564617395401001,
+            "object_lift_m": 5.960464477539063e-08,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 8,
+            "object_z_m": 0.7564617991447449,
+            "object_lift_m": 1.1920928955078125e-07,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          },
+          {
+            "step": 9,
+            "object_z_m": 0.7564617395401001,
+            "object_lift_m": 5.960464477539063e-08,
+            "close_rad": 0.16907794296741485,
+            "rewind_hold": true,
+            "rewind_open_margin_rad": 0.005,
+            "rewind_close_rad": 0.16907794296741485,
+            "object_lift_guard_trigger_m": 0.001
+          }
+        ],
+        "arm_hold_enabled": true
+      },
+      "lift": {
+        "passed": true,
+        "steps": 41,
+        "final_position_error_m": 0.005725326016545296,
+        "final_position_world_m": [
+          0.609000027179718,
+          -0.00018426428141538054,
+          1.0776665210723877
+        ],
+        "accepted_stop_tolerance_m": 0.006,
+        "control_mode": "single_direct_ik_segment_then_arm_latch"
+      },
+      "hold": {
+        "hold_steps": 300,
+        "actual_hold_steps": 300,
+        "final_object_z_m": 0.7564616799354553,
+        "max_object_z_m": 0.7564616799354553,
+        "min_object_z_m": 0.7564616799354553,
+        "final_lift_m": 5.960464477539063e-08,
+        "min_lift_m": 5.960464477539063e-08,
+        "arm_hold_enabled": true
+      },
+      "hold_gripper": {
+        "target_rad": {
+          "finger_joint": 0.16907794773578644,
+          "left_inner_finger_joint": -0.16907794773578644,
+          "left_inner_knuckle_joint": 0.16907794773578644,
+          "right_outer_knuckle_joint": 0.16907794773578644,
+          "right_inner_finger_joint": -0.16907794773578644,
+          "right_inner_knuckle_joint": 0.16907794773578644
+        },
+        "actual_rad": {
+          "finger_joint": 0.16910099983215332,
+          "left_inner_finger_joint": -0.16000030934810638,
+          "left_inner_knuckle_joint": 0.16904473304748535,
+          "right_outer_knuckle_joint": 0.16734223067760468,
+          "right_inner_finger_joint": -0.16000030934810638,
+          "right_inner_knuckle_joint": 0.16903331875801086
+        },
+        "abs_error_rad": {
+          "finger_joint": 2.3052096366882324e-05,
+          "left_inner_finger_joint": 0.009077638387680054,
+          "left_inner_knuckle_joint": 3.3214688301086426e-05,
+          "right_outer_knuckle_joint": 0.0017357170581817627,
+          "right_inner_finger_joint": 0.009077638387680054,
+          "right_inner_knuckle_joint": 4.462897777557373e-05
+        },
+        "max_abs_error_rad": 0.009077638387680054
+      },
+      "motion_reached_nominal": true,
+      "step_budget_used": 609
+    }
+  ]
+}

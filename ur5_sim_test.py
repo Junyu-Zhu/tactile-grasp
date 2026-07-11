@@ -23,6 +23,10 @@ import json
 
 from isaaclab.app import AppLauncher
 
+from ur5_isaac_app import exit_headless_without_kit_shutdown, patch_headless_viewport_wait
+
+patch_headless_viewport_wait()
+
 parser = argparse.ArgumentParser(description="Demonstrate Phase 1 integrated UR5 embodiment milestones.")
 parser.add_argument("--gripper-cycles", type=int, default=2, help="How many visible gripper open/close cycles to play.")
 parser.add_argument("--pregrasp-holds", type=int, default=1, help="How many visible pre-grasp repetitions to play.")
@@ -192,9 +196,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    exit_code = 1
-    try:
-        exit_code = main()
-    finally:
-        simulation_app.close()
+    exit_code = main()
+    if args_cli.headless:
+        exit_headless_without_kit_shutdown(exit_code)
+    simulation_app.close()
     raise SystemExit(exit_code)

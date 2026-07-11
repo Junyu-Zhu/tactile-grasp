@@ -13,3 +13,5 @@ artifacts/*
 !artifacts/phase5_cube_force_slip/**
 >>>>>>> phase4
 sim_dataset/
+sparsh-force-slip/dataset/
+sparsh-force-slip/soft_banana_backup/

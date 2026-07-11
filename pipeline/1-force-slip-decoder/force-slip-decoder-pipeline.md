@@ -4,7 +4,7 @@
 
 核心约定：
 
-> 后续所有 force-slip 训练相关代码统一放在 `tactile_grasp/sparsh-force-slip/`。代码必须先在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改并 push 到 GitHub，再到服务器 `zjy-4090` 的 `/documents/tactile_grasp` pull，下游训练/评估从 `/documents/tactile_grasp/sparsh-force-slip` 运行。训练完成后，再按需要把 checkpoint 从服务器 `scp` 回本地做测试或集成验证。
+> 后续所有 force-slip 相关代码修改和训练都在服务器 `zjy-4090` 上进行。服务器项目根目录固定为 `/home/zjy/document`，`tactile_grasp` 仓库位于 `/home/zjy/document/tactile_grasp`，force-slip 代码位于 `/home/zjy/document/tactile_grasp/sparsh-force-slip`。相关任务统一在 `tactile_grasp` 的 `sparsh-force-slip` 分支上工作并 commit；`git push` 和 `git pull` 由用户本人手动操作。每完成一个 phase 后，必须在该分支进行一次整体 commit。
 
 ---
 
@@ -33,7 +33,7 @@ C: shared decoder + force-slip consistency loss
 推荐主线仍然是：
 
 ```text
-本地/远程代码同步确认
+服务器项目路径与分支确认
   ↓
 远程环境与路径确认
   ↓
@@ -56,7 +56,7 @@ C: shared decoder + force-slip consistency loss
 
 ---
 
-## 2. 代码同步与远程训练资源约定
+## 2. 服务器代码、分支与训练资源约定
 
 ### 2.1 服务器连接方式
 
@@ -68,18 +68,24 @@ ssh zjy-4090
 
 后续训练、重评 baseline、导出 checkpoint、整理训练日志，默认都在该服务器上完成。
 
-### 2.2 force-slip 代码目录
+### 2.2 服务器项目路径与 force-slip 代码目录
 
-本地开发源头：
+服务器项目根目录：
 
 ```text
-/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip
+/home/zjy/document
 ```
 
-服务器运行副本：
+服务器上的 `tactile_grasp` 仓库：
 
 ```text
-/documents/tactile_grasp/sparsh-force-slip
+/home/zjy/document/tactile_grasp
+```
+
+force-slip 代码目录：
+
+```text
+/home/zjy/document/tactile_grasp/sparsh-force-slip
 ```
 
 关于 force-slip 阶段的代码必须集中在 `sparsh-force-slip/`：
@@ -93,39 +99,35 @@ ssh zjy-4090
 
 `pipeline/1-force-slip-decoder/` 只保存流程文档和约束，不作为训练代码目录。
 
-### 2.3 GitHub 同步与服务器运行流程
+### 2.3 分支、commit 与手动 push/pull 规则
 
-后续只允许按以下顺序修改、同步和运行 force-slip 代码：
+后续 force-slip 任务统一在 `tactile_grasp` 仓库的 `sparsh-force-slip` 分支上进行：
 
 ```bash
-# A. 本地修改、验证、提交、推送
-cd /home/zjy/Documents/grasp/tactile_grasp
-# edit sparsh-force-slip/ locally
-git status
-git add sparsh-force-slip pipeline/1-force-slip-decoder
-git commit  # 提交信息按 AGENTS.md 的 Lore Commit Protocol 填写
-git push origin main
-
-# B. 服务器拉取 GitHub 代码
 ssh zjy-4090
-cd /documents/tactile_grasp
+cd /home/zjy/document/tactile_grasp
 git status
-git pull --ff-only origin main
-cd sparsh-force-slip
-
-# C. 只在服务器运行训练/评估
-# run the corresponding force-slip command here
+git switch sparsh-force-slip
 ```
 
-服务器上的 `/documents/tactile_grasp/sparsh-force-slip` 是运行副本，不是开发源头。不要在服务器上直接留下未同步代码改动；若必须临时 debug，最终改动必须回到本地复现、提交、push，再由服务器 pull。
+若分支尚不存在，由用户/维护者在服务器仓库中创建 `sparsh-force-slip` 分支。相关任务的 commit 均在该分支上进行，提交信息按 AGENTS.md 的 Lore Commit Protocol 填写。
 
-### 2.4 服务器上的 tactile_grasp 仓库
+`git push` 和 `git pull` 改为用户本人手动操作：pipeline、训练脚本或 agent 不自动 push/pull，也不把 push/pull 作为训练前后默认步骤。若需要同步远端代码或发布结果，由用户手动执行并记录对应 commit。
 
-服务器上的 `tactile_grasp` 仓库位置：
+新增 phase 级提交规则：
+
+- 每完成一个 phase（例如 Phase 1、Phase 2 或后续新增 phase）并完成该 phase 的验证后，必须进行一次整体 commit。
+- 该整体 commit 应覆盖本 phase 的代码、config、pipeline 文档、运行脚本、实验记录模板、指标汇总或 source 记录等相关改动。
+- 若 phase 未通过验证，不提交“完成”性质的 commit；可按需要提交明确标注 diagnostic / failed-attempt 的记录性 commit。
+
+### 2.4 服务器运行入口
+
+后续训练、重评 baseline、导出 checkpoint、整理训练日志，默认都在服务器上从以下目录执行：
 
 ```bash
 ssh zjy-4090
-cd /documents/tactile_grasp
+cd /home/zjy/document/tactile_grasp
+git switch sparsh-force-slip
 cd sparsh-force-slip
 ```
 
@@ -189,28 +191,37 @@ paths=zjy_4090
 
 服务器 `zjy-4090` 负责：
 
-- 在 `/documents/tactile_grasp` 执行 `git pull --ff-only origin main` 同步 GitHub 上的本地改动；
-- 从 `/documents/tactile_grasp/sparsh-force-slip` 运行 force-slip 训练/评估；
+- 在 `/home/zjy/document/tactile_grasp` 的 `sparsh-force-slip` 分支上进行 force-slip 代码修改、提交和实验记录；
+- 从 `/home/zjy/document/tactile_grasp/sparsh-force-slip` 运行 force-slip 训练/评估；
 - 数据加载冒烟测试；
 - force 轴语义统计；
 - trajectory-level split 生成；
 - A/B/C 模型训练；
 - baseline 重评；
 - checkpoint 保存；
-- 训练日志与指标表生成。
+- 训练日志与指标表生成；
+- 每个 phase 完成并验证后执行一次整体 commit。
 
 ### 3.2 本地负责
 
 本地 `/home/zjy/Documents/grasp/tactile_grasp` 负责：
 
-- 保存 pipeline 文档；
-- 在 `sparsh-force-slip/` 开发所有 force-slip 阶段代码；
-- 本地轻量验证后通过 GitHub push 发布代码；
-- 保存分析结论；
+- 可保存从服务器同步回来的 pipeline 文档副本、分析结论和 checkpoint；
 - 保存从服务器拷贝回来的 checkpoint；
-- 做轻量测试、集成测试或 `tactile_grasp` 侧的验证。
+- 做轻量测试、集成测试或 `tactile_grasp` 侧的验证；
+- 不作为后续 force-slip 代码开发和训练的默认位置。
 
-### 3.3 checkpoint 回传策略
+### 3.3 用户手动 Git 操作
+
+以下操作由用户本人手动执行，不由 pipeline、训练脚本或 agent 自动执行：
+
+- `git pull`
+- `git push`
+- 远端分支发布、同步和冲突处理
+
+phase 完成后的整体 commit 仍应发生在服务器 `/home/zjy/document/tactile_grasp` 的 `sparsh-force-slip` 分支上；如当时由用户手动接管提交，执行者必须至少整理好待提交文件、验证结果和符合 Lore Commit Protocol 的提交信息草案。
+
+### 3.4 checkpoint 回传策略
 
 训练完成后，再按需要从服务器拷贝 checkpoint 到本地。
 
@@ -659,8 +670,10 @@ tactile_grasp/checkpoints/force_slip_decoder/<run_name>/
 
 ```text
 server: zjy-4090
-remote_repo: /documents/tactile_grasp
-remote_code_dir: /documents/tactile_grasp/sparsh-force-slip
+remote_project_root: /home/zjy/document
+remote_repo: /home/zjy/document/tactile_grasp
+remote_branch: sparsh-force-slip
+remote_code_dir: /home/zjy/document/tactile_grasp/sparsh-force-slip
 remote_run: /vla1/zjy/sparsh_runs/experiments/<run_name>
 remote_checkpoint: checkpoints/<ckpt>.pth
 git_commit: <commit used on server>
@@ -675,7 +688,7 @@ copied_at: <timestamp>
 
 第一阶段最小交付应包括：
 
-1. 服务器 paths config 与 GitHub commit/pull 同步记录；
+1. 服务器 paths config、`sparsh-force-slip` 分支状态和 phase 级整体 commit 记录；
 2. 服务器数据加载冒烟测试结果；
 3. force 轴语义和单位报告；
 4. trajectory-level split 文件；
@@ -717,4 +730,4 @@ sim2real diagnostic
 
 ## 15. 一句话总结
 
-> 后续训练统一在 `zjy-4090` 上进行；force-slip 代码先在本地 `/home/zjy/Documents/grasp/tactile_grasp/sparsh-force-slip` 修改并 push 到 GitHub，再在服务器 `/documents/tactile_grasp` pull，并从 `/documents/tactile_grasp/sparsh-force-slip` 运行。数据、base model、训练输出仍使用 `/vla1/zjy`。先用真实 GSmini 数据固定 force 轴、Newton 单位、轨迹级划分和 A baseline；再训练 B；最后谨慎训练 C。训练完成后，再按需把 checkpoint 从服务器 scp 回本地做测试。Phase5 仿真数据只作为辅助诊断，不能作为 friction consistency 的主证据。
+> 后续训练和代码修改统一在 `zjy-4090` 上进行；服务器项目根目录为 `/home/zjy/document`，仓库为 `/home/zjy/document/tactile_grasp`，force-slip 代码从 `/home/zjy/document/tactile_grasp/sparsh-force-slip` 运行。相关任务统一在 `sparsh-force-slip` 分支上 commit；`git push` 和 `git pull` 由用户本人手动操作；每完成一个 phase 后必须进行一次整体 commit。数据、base model、训练输出仍使用 `/vla1/zjy`。先用真实 GSmini 数据固定 force 轴、Newton 单位、轨迹级划分和 A baseline；再训练 B；最后谨慎训练 C。训练完成后，再按需把 checkpoint 从服务器 scp 回本地做测试。Phase5 仿真数据只作为辅助诊断，不能作为 friction consistency 的主证据。

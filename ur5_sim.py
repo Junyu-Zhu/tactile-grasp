@@ -23,6 +23,10 @@ import argparse
 
 from isaaclab.app import AppLauncher
 
+from ur5_isaac_app import exit_headless_without_kit_shutdown, patch_headless_viewport_wait
+
+patch_headless_viewport_wait()
+
 parser = argparse.ArgumentParser(description="Phase 1 integrated UR5e embodiment Isaac Sim scene.")
 parser.add_argument("--num_envs", type=int, default=1, help="Number of environments to spawn.")
 parser.add_argument("--max_steps", type=int, default=0, help="Maximum simulation steps to run. 0 keeps running.")
@@ -143,9 +147,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    exit_code = 1
-    try:
-        exit_code = main()
-    finally:
-        simulation_app.close()
+    exit_code = main()
+    if args_cli.headless:
+        exit_headless_without_kit_shutdown(exit_code)
+    simulation_app.close()
     raise SystemExit(exit_code)
