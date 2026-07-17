@@ -14,5 +14,6 @@ artifacts/*
 >>>>>>> phase4
 sim_dataset/
 sparsh-force-slip/dataset/
+sparsh-force-slip/dataset.zip
 sparsh-force-slip/soft_banana_backup/
 pipeline/
