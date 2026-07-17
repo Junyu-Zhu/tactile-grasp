@@ -1,0 +1,10 @@
+extend-exclude = ["sparsh-force-slip"]
+
+[lint]
+# Keep the static gate focused on syntax, import placement and undefined/unused
+# names. Line-length normalization is intentionally excluded from this
+# behavior-preserving reorganization to avoid a repository-wide formatting diff.
+select = ["E4", "E7", "E9", "F"]
+
+[lint.per-file-ignores]
+"isaacsim_test/viewers/*.py" = ["E402"]

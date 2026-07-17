@@ -296,7 +296,7 @@
     </collision>
   </link>
   <joint name="left_gelsight_connector_fixed_attachment_joint" type="fixed">
-    <origin xyz="-0.001576 -0.0093293446692936 0.03532" rpy="3.141592654 0.0 3.141592654"/>
+    <origin xyz="-0.001576 -0.0073293446692936 0.03532" rpy="3.141592654 0.0 3.141592654"/>
     <parent link="left_inner_finger"/>
     <child link="left_gelsight_connector"/>
   </joint>
@@ -308,16 +308,14 @@
     </inertial>
     <visual name="left_gelsight_connector_visual">
       <!--
-        adaptor-3.STL is exported in millimetres.  adaptor_3.STL is a
-        byte-identical Isaac-compatible copy because a hyphen in a mesh
-        basename becomes an invalid USD prim name in Isaac Sim 4.5.  Keep the
-        underscore-named file in this URDF even when the CAD mesh is updated.
-        The existing origin and finger-to-connector fixed-joint transform are
-        intentionally retained.
+        adaptor_4.STL is the frozen adaptor-v4 mechanical baseline and is
+        exported in millimetres.  Its underscore-only basename is required for
+        a valid USD prim name in Isaac Sim 4.5.  The existing origin and
+        finger-to-connector fixed-joint transform are intentionally retained.
       -->
       <origin rpy="0 0 0" xyz="-0.017104848723 -0.015687201598 -0.053443920870"/>
       <geometry>
-        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_3.STL" scale="0.001 0.001 0.001"/>
+        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_4.STL" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="DarkGray">
         <color rgba="0.35 0.35 0.35 1.0"/>
@@ -326,12 +324,12 @@
     <collision name="left_gelsight_connector_collision">
       <origin rpy="0 0 0" xyz="-0.017104848723 -0.015687201598 -0.053443920870"/>
       <geometry>
-        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_3.STL" scale="0.001 0.001 0.001"/>
+        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_4.STL" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
   <joint name="left_gelsight_mini_case_fixed_attachment_joint" type="fixed">
-    <origin xyz="0 0.0085 0" rpy="0 0 0"/>
+    <origin xyz="0 0.0075 0" rpy="0 0 0"/>
     <parent link="left_gelsight_connector"/>
     <child link="left_gelsight_mini_case"/>
   </joint>
@@ -515,7 +513,7 @@
     </collision>
   </link>
   <joint name="right_gelsight_connector_fixed_attachment_joint" type="fixed">
-    <origin xyz="-0.001576 -0.0093293446692936 0.03532" rpy="3.141592654 0.0 3.141592654"/>
+    <origin xyz="-0.001576 -0.0073293446692936 0.03532" rpy="3.141592654 0.0 3.141592654"/>
     <parent link="right_inner_finger"/>
     <child link="right_gelsight_connector"/>
   </joint>
@@ -528,7 +526,7 @@
     <visual name="right_gelsight_connector_visual">
       <origin rpy="0 0 0" xyz="-0.017104848723 -0.015687201598 -0.053443920870"/>
       <geometry>
-        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_3.STL" scale="0.001 0.001 0.001"/>
+        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_4.STL" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="DarkGray">
         <color rgba="0.35 0.35 0.35 1.0"/>
@@ -537,12 +535,12 @@
     <collision name="right_gelsight_connector_collision">
       <origin rpy="0 0 0" xyz="-0.017104848723 -0.015687201598 -0.053443920870"/>
       <geometry>
-        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_3.STL" scale="0.001 0.001 0.001"/>
+        <mesh filename="../meshes/gelsight_robotiq_connector/visual/adaptor_4.STL" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
   <joint name="right_gelsight_mini_case_fixed_attachment_joint" type="fixed">
-    <origin xyz="0 0.0085 0" rpy="0 0 0"/>
+    <origin xyz="0 0.0075 0" rpy="0 0 0"/>
     <parent link="right_gelsight_connector"/>
     <child link="right_gelsight_mini_case"/>
   </joint>
