@@ -1,9 +1,0 @@
-{
-  "generated_at": "2026-05-16T15:19:32",
-  "stamp": "20260516_023557",
-  "status": "pending",
-  "missing": [
-    "DINO A force experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_force' under /vla1/zjy/sparsh_runs/experiments",
-    "DINO A slip experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_slip_allsource' under /vla1/zjy/sparsh_runs/experiments"
-  ]
-}

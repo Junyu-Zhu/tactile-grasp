@@ -1,411 +1,0 @@
-[2026-05-16 05:51:42] supervisor started
-[2026-05-16 05:51:44] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 05:51:46] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 05:51:49] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 05:56:51] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 05:56:54] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 05:56:56] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:01:58] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:02:01] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:02:03] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:07:05] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:07:07] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:07:10] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:12:13] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:12:15] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:12:17] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:17:19] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:17:20] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:17:22] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:22:24] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:22:26] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:22:29] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:27:31] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:27:33] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:27:35] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:32:37] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:32:39] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:32:42] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:37:44] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:37:47] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:37:49] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:42:51] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:42:54] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:42:56] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:47:57] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:47:59] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:48:00] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:53:03] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:53:05] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:53:07] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 06:58:10] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 06:58:12] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 06:58:14] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:03:17] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:03:19] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:03:21] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:08:23] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:08:25] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:08:27] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:13:29] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:13:30] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:13:31] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:18:34] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:18:36] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:18:39] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:23:41] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:23:43] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:23:44] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:28:47] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:28:49] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:28:51] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:33:52] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:33:54] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:33:55] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:38:58] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:39:00] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:39:02] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:44:05] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:44:07] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:44:09] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:49:11] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:49:13] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:49:16] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:54:18] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:54:20] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:54:22] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 07:59:24] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 07:59:27] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 07:59:29] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:04:31] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:04:33] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:04:35] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:09:37] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:09:38] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:09:40] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:14:43] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:14:45] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:14:47] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:19:49] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:19:52] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:19:53] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:24:56] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:24:57] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:25:00] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:30:02] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:30:04] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:30:07] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:35:10] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:35:12] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:35:15] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:40:17] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:40:19] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:40:21] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:45:23] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:45:26] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:45:28] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:50:30] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:50:33] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:50:34] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 08:55:37] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 08:55:39] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 08:55:41] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:00:42] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:00:44] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:00:47] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:05:49] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:05:52] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:05:54] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:10:55] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:10:57] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:10:59] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:16:01] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:16:03] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:16:05] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:21:07] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:21:09] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:21:11] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:26:13] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:26:15] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:26:17] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:31:20] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:31:22] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:31:24] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:36:26] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:36:28] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:36:31] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:41:32] launched dino_b_lam025 on GPU 1 as p30_20260516_023557_dino_b_lam025_g1
-[2026-05-16 09:41:33] launched dino_b_lam050 on GPU 1 as p30_20260516_023557_dino_b_lam050_g1
-[2026-05-16 09:41:34] launched dino_forceonly on GPU 1 as p30_20260516_023557_dino_forceonly_g1
-[2026-05-16 09:46:35] dino_b_lam025 waiting: no free zjy GPU
-[2026-05-16 09:46:37] dino_b_lam050 waiting: no free zjy GPU
-[2026-05-16 09:46:38] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:46:45] supervisor started
-[2026-05-16 09:46:45] dino_b_lam025 already running
-[2026-05-16 09:46:45] dino_b_lam050 already running
-[2026-05-16 09:46:47] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:51:47] dino_b_lam025 already running
-[2026-05-16 09:51:47] dino_b_lam050 already running
-[2026-05-16 09:51:49] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 09:56:49] dino_b_lam025 already running
-[2026-05-16 09:56:50] dino_b_lam050 already running
-[2026-05-16 09:56:52] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 10:01:52] dino_b_lam025 already running
-[2026-05-16 10:01:52] dino_b_lam050 already running
-[2026-05-16 10:01:54] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 10:06:55] dino_b_lam025 already running
-[2026-05-16 10:06:55] dino_b_lam050 already running
-[2026-05-16 10:06:58] dino_forceonly waiting: no free zjy GPU
-[2026-05-16 10:11:58] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:11:58] dino_b_lam050 already running
-[2026-05-16 10:12:01] launched dino_forceonly on GPU 2 as p30_20260516_023557_dino_forceonly_g2
-[2026-05-16 10:19:01] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:19:01] dino_b_lam050 already running
-[2026-05-16 10:19:01] dino_forceonly already running
-[2026-05-16 10:24:01] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:24:01] dino_b_lam050 already running
-[2026-05-16 10:24:02] dino_forceonly already running
-[2026-05-16 10:29:02] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:29:02] dino_b_lam050 already running
-[2026-05-16 10:29:02] dino_forceonly already running
-[2026-05-16 10:34:02] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:34:02] dino_b_lam050 already running
-[2026-05-16 10:34:02] dino_forceonly already running
-[2026-05-16 10:39:02] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:39:02] dino_b_lam050 already running
-[2026-05-16 10:39:02] dino_forceonly already running
-[2026-05-16 10:44:02] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:44:02] dino_b_lam050 already running
-[2026-05-16 10:44:02] dino_forceonly already running
-[2026-05-16 10:49:02] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:49:03] dino_b_lam050 already running
-[2026-05-16 10:49:03] dino_forceonly already running
-[2026-05-16 10:54:03] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:54:03] dino_b_lam050 already running
-[2026-05-16 10:54:03] dino_forceonly already running
-[2026-05-16 10:59:03] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 10:59:03] dino_b_lam050 already running
-[2026-05-16 10:59:03] dino_forceonly already running
-[2026-05-16 11:04:03] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:04:03] dino_b_lam050 already running
-[2026-05-16 11:04:03] dino_forceonly already running
-[2026-05-16 11:09:03] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:09:03] dino_b_lam050 already running
-[2026-05-16 11:09:04] dino_forceonly already running
-[2026-05-16 11:14:04] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:14:04] dino_b_lam050 already running
-[2026-05-16 11:14:04] dino_forceonly already running
-[2026-05-16 11:19:04] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:19:04] dino_b_lam050 already running
-[2026-05-16 11:19:04] dino_forceonly already running
-[2026-05-16 11:24:04] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:24:05] dino_b_lam050 already running
-[2026-05-16 11:24:05] dino_forceonly already running
-[2026-05-16 11:29:05] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:29:05] dino_b_lam050 already running
-[2026-05-16 11:29:05] dino_forceonly already running
-[2026-05-16 11:34:05] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:34:05] dino_b_lam050 already running
-[2026-05-16 11:34:05] dino_forceonly already running
-[2026-05-16 11:39:05] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:39:05] dino_b_lam050 already running
-[2026-05-16 11:39:05] dino_forceonly already running
-[2026-05-16 11:44:05] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:44:06] dino_b_lam050 already running
-[2026-05-16 11:44:06] dino_forceonly already running
-[2026-05-16 11:49:06] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:49:06] dino_b_lam050 already running
-[2026-05-16 11:49:06] dino_forceonly already running
-[2026-05-16 11:54:06] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:54:06] dino_b_lam050 already running
-[2026-05-16 11:54:06] dino_forceonly already running
-[2026-05-16 11:59:07] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 11:59:07] dino_b_lam050 already running
-[2026-05-16 11:59:07] dino_forceonly already running
-[2026-05-16 12:04:07] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:04:07] dino_b_lam050 already running
-[2026-05-16 12:04:07] dino_forceonly already running
-[2026-05-16 12:09:07] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:09:07] dino_b_lam050 already running
-[2026-05-16 12:09:07] dino_forceonly already running
-[2026-05-16 12:14:07] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:14:07] dino_b_lam050 already running
-[2026-05-16 12:14:07] dino_forceonly already running
-[2026-05-16 12:19:07] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:19:07] dino_b_lam050 already running
-[2026-05-16 12:19:08] dino_forceonly already running
-[2026-05-16 12:24:08] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:24:08] dino_b_lam050 already running
-[2026-05-16 12:24:08] dino_forceonly already running
-[2026-05-16 12:29:08] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:29:08] dino_b_lam050 already running
-[2026-05-16 12:29:08] dino_forceonly already running
-[2026-05-16 12:34:08] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:34:08] dino_b_lam050 already running
-[2026-05-16 12:34:08] dino_forceonly already running
-[2026-05-16 12:39:08] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:39:08] dino_b_lam050 already running
-[2026-05-16 12:39:09] dino_forceonly already running
-[2026-05-16 12:44:09] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:44:09] dino_b_lam050 already running
-[2026-05-16 12:44:09] dino_forceonly already running
-[2026-05-16 12:49:09] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:49:09] dino_b_lam050 already running
-[2026-05-16 12:49:09] dino_forceonly already running
-[2026-05-16 12:54:09] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:54:09] dino_b_lam050 already running
-[2026-05-16 12:54:09] dino_forceonly already running
-[2026-05-16 12:59:09] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 12:59:10] dino_b_lam050 already running
-[2026-05-16 12:59:10] dino_forceonly already running
-[2026-05-16 13:04:10] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:04:10] dino_b_lam050 already running
-[2026-05-16 13:04:10] dino_forceonly already running
-[2026-05-16 13:09:10] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:09:11] dino_b_lam050 already running
-[2026-05-16 13:09:11] dino_forceonly already running
-[2026-05-16 13:14:11] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:14:11] dino_b_lam050 already running
-[2026-05-16 13:14:11] dino_forceonly already running
-[2026-05-16 13:19:11] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:19:11] dino_b_lam050 already running
-[2026-05-16 13:19:11] dino_forceonly already running
-[2026-05-16 13:24:11] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:24:11] dino_b_lam050 already running
-[2026-05-16 13:24:11] dino_forceonly already running
-[2026-05-16 13:29:11] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:29:11] dino_b_lam050 already running
-[2026-05-16 13:29:12] dino_forceonly already running
-[2026-05-16 13:34:12] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:34:12] dino_b_lam050 already running
-[2026-05-16 13:34:12] dino_forceonly already running
-[2026-05-16 13:39:12] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:39:12] dino_b_lam050 already running
-[2026-05-16 13:39:12] dino_forceonly already running
-[2026-05-16 13:44:12] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:44:12] dino_b_lam050 already running
-[2026-05-16 13:44:13] dino_forceonly already running
-[2026-05-16 13:49:13] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:49:13] dino_b_lam050 already running
-[2026-05-16 13:49:13] dino_forceonly already running
-[2026-05-16 13:54:13] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:54:13] dino_b_lam050 already running
-[2026-05-16 13:54:13] dino_forceonly already running
-[2026-05-16 13:59:13] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 13:59:13] dino_b_lam050 already running
-[2026-05-16 13:59:14] dino_forceonly already running
-[2026-05-16 14:04:14] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:04:14] dino_b_lam050 already running
-[2026-05-16 14:04:14] dino_forceonly already running
-[2026-05-16 14:09:14] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:09:14] dino_b_lam050 already running
-[2026-05-16 14:09:14] dino_forceonly already running
-[2026-05-16 14:14:14] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:14:14] dino_b_lam050 already running
-[2026-05-16 14:14:14] dino_forceonly already running
-[2026-05-16 14:19:14] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:19:15] dino_b_lam050 already running
-[2026-05-16 14:19:15] dino_forceonly already running
-[2026-05-16 14:24:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:24:15] dino_b_lam050 already running
-[2026-05-16 14:24:15] dino_forceonly already running
-[2026-05-16 14:29:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:29:15] dino_b_lam050 already running
-[2026-05-16 14:29:15] dino_forceonly already running
-[2026-05-16 14:34:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:34:15] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:34:15] dino_forceonly already running
-[2026-05-16 14:39:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:39:15] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:39:15] dino_forceonly already running
-[2026-05-16 14:44:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:44:15] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:44:15] dino_forceonly already running
-[2026-05-16 14:49:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:49:15] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:49:15] dino_forceonly already running
-[2026-05-16 14:54:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:54:15] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:54:15] dino_forceonly already running
-[2026-05-16 14:59:15] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:59:15] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 14:59:16] dino_forceonly already running
-[2026-05-16 15:04:16] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:04:16] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:04:16] dino_forceonly already running
-[2026-05-16 15:09:16] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:09:16] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:09:16] dino_forceonly already running
-[2026-05-16 15:14:16] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:14:16] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:14:16] dino_forceonly already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:14:16] running finalizer on visible GPU 0
-/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
-  warnings.warn("xFormers is available (SwiGLU)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
-  warnings.warn("xFormers is available (Attention)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
-  warnings.warn("xFormers is available (Block)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
-  warnings.warn("xFormers is available (Block)")
-{
-  "generated_at": "2026-05-16T15:14:22",
-  "stamp": "20260516_023557",
-  "status": "pending",
-  "missing": [
-    "DINO A force experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_force' under /vla1/zjy/sparsh_runs/experiments",
-    "DINO A slip experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_slip_allsource' under /vla1/zjy/sparsh_runs/experiments"
-  ]
-}
-[2026-05-16 15:14:25] finalizer exit code 2
-[2026-05-16 15:19:25] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:19:25] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:19:25] dino_forceonly already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:19:25] running finalizer on visible GPU 0
-/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
-  warnings.warn("xFormers is available (SwiGLU)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
-  warnings.warn("xFormers is available (Attention)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
-  warnings.warn("xFormers is available (Block)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
-  warnings.warn("xFormers is available (Block)")
-{
-  "generated_at": "2026-05-16T15:19:32",
-  "stamp": "20260516_023557",
-  "status": "pending",
-  "missing": [
-    "DINO A force experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_force' under /vla1/zjy/sparsh_runs/experiments",
-    "DINO A slip experiment missing: No experiment directory matching 'phase3_0_dino_a_*_dino_slip_allsource' under /vla1/zjy/sparsh_runs/experiments"
-  ]
-}
-[2026-05-16 15:19:33] finalizer exit code 2
-[2026-05-16 15:24:33] dino_b_lam025 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam025_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:24:33] dino_b_lam050 already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_dino_b_lam050_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:24:33] dino_forceonly already complete: /vla1/zjy/sparsh_runs/force_slip_phase2/phase3_0_forceonly_gsmini_20260516_023557/dino_partially_shared_multitask/training_summary.json
-[2026-05-16 15:24:33] running finalizer on visible GPU 0
-/home/zjy/document/sparsh/tactile_ssl/model/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
-  warnings.warn("xFormers is available (SwiGLU)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/attention.py:31: UserWarning: xFormers is available (Attention)
-  warnings.warn("xFormers is available (Attention)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/block.py:33: UserWarning: xFormers is available (Block)
-  warnings.warn("xFormers is available (Block)")
-/home/zjy/document/sparsh/tactile_ssl/model/layers/decoder_block.py:32: UserWarning: xFormers is available (Block)
-  warnings.warn("xFormers is available (Block)")
-eval-A-dino:flat_batch_1_val:   0%|          | 0/12 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:flat_batch_1_val:   8%|▊         | 1/12 [00:02<00:27,  2.47s/it]eval-A-dino:flat_batch_1_val:  17%|█▋        | 2/12 [00:03<00:15,  1.50s/it]eval-A-dino:flat_batch_1_val:  25%|██▌       | 3/12 [00:04<00:10,  1.19s/it]eval-A-dino:flat_batch_1_val:  33%|███▎      | 4/12 [00:04<00:08,  1.06s/it]eval-A-dino:flat_batch_1_val:  42%|████▏     | 5/12 [00:05<00:06,  1.02it/s]eval-A-dino:flat_batch_1_val:  50%|█████     | 6/12 [00:06<00:05,  1.08it/s]eval-A-dino:flat_batch_1_val:  58%|█████▊    | 7/12 [00:07<00:04,  1.12it/s]eval-A-dino:flat_batch_1_val:  67%|██████▋   | 8/12 [00:08<00:03,  1.11it/s]eval-A-dino:flat_batch_1_val:  75%|███████▌  | 9/12 [00:08<00:02,  1.31it/s]eval-A-dino:flat_batch_1_val:  83%|████████▎ | 10/12 [00:09<00:01,  1.50it/s]eval-A-dino:flat_batch_1_val:  92%|█████████▏| 11/12 [00:10<00:00,  1.39it/s]eval-A-dino:flat_batch_1_val: 100%|██████████| 12/12 [00:10<00:00,  1.70it/s]                                                                             eval-A-dino:flat_batch_2_val:   0%|          | 0/9 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:flat_batch_2_val:  11%|█         | 1/9 [00:01<00:11,  1.49s/it]eval-A-dino:flat_batch_2_val:  22%|██▏       | 2/9 [00:02<00:07,  1.10s/it]eval-A-dino:flat_batch_2_val:  33%|███▎      | 3/9 [00:03<00:05,  1.02it/s]eval-A-dino:flat_batch_2_val:  44%|████▍     | 4/9 [00:04<00:04,  1.08it/s]eval-A-dino:flat_batch_2_val:  56%|█████▌    | 5/9 [00:04<00:03,  1.12it/s]eval-A-dino:flat_batch_2_val:  67%|██████▋   | 6/9 [00:05<00:02,  1.15it/s]eval-A-dino:flat_batch_2_val:  78%|███████▊  | 7/9 [00:06<00:01,  1.17it/s]eval-A-dino:flat_batch_2_val:  89%|████████▉ | 8/9 [00:07<00:00,  1.18it/s]eval-A-dino:flat_batch_2_val: 100%|██████████| 9/9 [00:08<00:00,  1.18it/s]                                                                           eval-A-dino:sharp_batch_1_val:   0%|          | 0/16 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:sharp_batch_1_val:   6%|▋         | 1/16 [00:01<00:21,  1.45s/it]eval-A-dino:sharp_batch_1_val:  12%|█▎        | 2/16 [00:01<00:12,  1.17it/s]eval-A-dino:sharp_batch_1_val:  19%|█▉        | 3/16 [00:02<00:08,  1.47it/s]eval-A-dino:sharp_batch_1_val:  25%|██▌       | 4/16 [00:02<00:07,  1.71it/s]eval-A-dino:sharp_batch_1_val:  31%|███▏      | 5/16 [00:03<00:05,  1.84it/s]eval-A-dino:sharp_batch_1_val:  38%|███▊      | 6/16 [00:03<00:05,  1.96it/s]eval-A-dino:sharp_batch_1_val:  44%|████▍     | 7/16 [00:04<00:04,  2.02it/s]eval-A-dino:sharp_batch_1_val:  50%|█████     | 8/16 [00:04<00:03,  2.09it/s]eval-A-dino:sharp_batch_1_val:  56%|█████▋    | 9/16 [00:05<00:03,  2.10it/s]eval-A-dino:sharp_batch_1_val:  62%|██████▎   | 10/16 [00:05<00:02,  2.15it/s]eval-A-dino:sharp_batch_1_val:  69%|██████▉   | 11/16 [00:06<00:02,  2.15it/s]eval-A-dino:sharp_batch_1_val:  75%|███████▌  | 12/16 [00:06<00:01,  2.18it/s]eval-A-dino:sharp_batch_1_val:  81%|████████▏ | 13/16 [00:06<00:01,  2.17it/s]eval-A-dino:sharp_batch_1_val:  88%|████████▊ | 14/16 [00:07<00:00,  2.20it/s]eval-A-dino:sharp_batch_1_val:  94%|█████████▍| 15/16 [00:07<00:00,  2.18it/s]eval-A-dino:sharp_batch_1_val: 100%|██████████| 16/16 [00:08<00:00,  2.28it/s]                                                                              eval-A-dino:sharp_batch_2_val:   0%|          | 0/15 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:sharp_batch_2_val:   7%|▋         | 1/15 [00:01<00:16,  1.21s/it]eval-A-dino:sharp_batch_2_val:  13%|█▎        | 2/15 [00:01<00:09,  1.32it/s]eval-A-dino:sharp_batch_2_val:  20%|██        | 3/15 [00:02<00:07,  1.60it/s]eval-A-dino:sharp_batch_2_val:  27%|██▋       | 4/15 [00:02<00:06,  1.80it/s]eval-A-dino:sharp_batch_2_val:  33%|███▎      | 5/15 [00:03<00:05,  1.90it/s]eval-A-dino:sharp_batch_2_val:  40%|████      | 6/15 [00:03<00:04,  2.01it/s]eval-A-dino:sharp_batch_2_val:  47%|████▋     | 7/15 [00:03<00:03,  2.05it/s]eval-A-dino:sharp_batch_2_val:  53%|█████▎    | 8/15 [00:04<00:03,  2.11it/s]eval-A-dino:sharp_batch_2_val:  60%|██████    | 9/15 [00:04<00:02,  2.10it/s]eval-A-dino:sharp_batch_2_val:  67%|██████▋   | 10/15 [00:05<00:02,  2.15it/s]eval-A-dino:sharp_batch_2_val:  73%|███████▎  | 11/15 [00:06<00:02,  1.83it/s]eval-A-dino:sharp_batch_2_val:  80%|████████  | 12/15 [00:06<00:01,  1.58it/s]eval-A-dino:sharp_batch_2_val:  87%|████████▋ | 13/15 [00:07<00:01,  1.45it/s]eval-A-dino:sharp_batch_2_val:  93%|█████████▎| 14/15 [00:08<00:00,  1.36it/s]eval-A-dino:sharp_batch_2_val: 100%|██████████| 15/15 [00:08<00:00,  1.63it/s]                                                                              eval-A-dino:sphere_batch_1_val:   0%|          | 0/15 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:sphere_batch_1_val:   7%|▋         | 1/15 [00:01<00:25,  1.85s/it]eval-A-dino:sphere_batch_1_val:  13%|█▎        | 2/15 [00:02<00:16,  1.25s/it]eval-A-dino:sphere_batch_1_val:  20%|██        | 3/15 [00:03<00:12,  1.06s/it]eval-A-dino:sphere_batch_1_val:  27%|██▋       | 4/15 [00:04<00:10,  1.03it/s]eval-A-dino:sphere_batch_1_val:  33%|███▎      | 5/15 [00:05<00:08,  1.16it/s]eval-A-dino:sphere_batch_1_val:  40%|████      | 6/15 [00:05<00:06,  1.39it/s]eval-A-dino:sphere_batch_1_val:  47%|████▋     | 7/15 [00:06<00:05,  1.45it/s]eval-A-dino:sphere_batch_1_val:  53%|█████▎    | 8/15 [00:06<00:05,  1.35it/s]eval-A-dino:sphere_batch_1_val:  60%|██████    | 9/15 [00:07<00:04,  1.30it/s]eval-A-dino:sphere_batch_1_val:  67%|██████▋   | 10/15 [00:08<00:03,  1.27it/s]eval-A-dino:sphere_batch_1_val:  73%|███████▎  | 11/15 [00:09<00:03,  1.24it/s]eval-A-dino:sphere_batch_1_val:  80%|████████  | 12/15 [00:10<00:02,  1.23it/s]eval-A-dino:sphere_batch_1_val:  87%|████████▋ | 13/15 [00:11<00:01,  1.21it/s]eval-A-dino:sphere_batch_1_val:  93%|█████████▎| 14/15 [00:11<00:00,  1.21it/s]eval-A-dino:sphere_batch_1_val: 100%|██████████| 15/15 [00:12<00:00,  1.50it/s]                                                                               eval-A-dino:sphere_batch_2_val:   0%|          | 0/15 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:sphere_batch_2_val:   7%|▋         | 1/15 [00:01<00:16,  1.17s/it]eval-A-dino:sphere_batch_2_val:  13%|█▎        | 2/15 [00:01<00:11,  1.15it/s]eval-A-dino:sphere_batch_2_val:  20%|██        | 3/15 [00:02<00:10,  1.18it/s]eval-A-dino:sphere_batch_2_val:  27%|██▋       | 4/15 [00:03<00:09,  1.17it/s]eval-A-dino:sphere_batch_2_val:  33%|███▎      | 5/15 [00:04<00:08,  1.18it/s]eval-A-dino:sphere_batch_2_val:  40%|████      | 6/15 [00:05<00:07,  1.19it/s]eval-A-dino:sphere_batch_2_val:  47%|████▋     | 7/15 [00:05<00:06,  1.20it/s]eval-A-dino:sphere_batch_2_val:  53%|█████▎    | 8/15 [00:06<00:05,  1.20it/s]eval-A-dino:sphere_batch_2_val:  60%|██████    | 9/15 [00:07<00:05,  1.19it/s]eval-A-dino:sphere_batch_2_val:  67%|██████▋   | 10/15 [00:08<00:04,  1.20it/s]eval-A-dino:sphere_batch_2_val:  73%|███████▎  | 11/15 [00:09<00:03,  1.20it/s]eval-A-dino:sphere_batch_2_val:  80%|████████  | 12/15 [00:10<00:02,  1.20it/s]eval-A-dino:sphere_batch_2_val:  87%|████████▋ | 13/15 [00:11<00:01,  1.20it/s]eval-A-dino:sphere_batch_2_val:  93%|█████████▎| 14/15 [00:11<00:00,  1.19it/s]eval-A-dino:sphere_batch_2_val: 100%|██████████| 15/15 [00:12<00:00,  1.27it/s]                                                                               eval-A-dino:sphere_batch_3_val:   0%|          | 0/16 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:sphere_batch_3_val:   6%|▋         | 1/16 [00:01<00:19,  1.31s/it]eval-A-dino:sphere_batch_3_val:  12%|█▎        | 2/16 [00:01<00:11,  1.25it/s]eval-A-dino:sphere_batch_3_val:  19%|█▉        | 3/16 [00:02<00:09,  1.41it/s]eval-A-dino:sphere_batch_3_val:  25%|██▌       | 4/16 [00:03<00:09,  1.32it/s]eval-A-dino:sphere_batch_3_val:  31%|███▏      | 5/16 [00:04<00:08,  1.28it/s]eval-A-dino:sphere_batch_3_val:  38%|███▊      | 6/16 [00:04<00:08,  1.25it/s]eval-A-dino:sphere_batch_3_val:  44%|████▍     | 7/16 [00:05<00:07,  1.23it/s]eval-A-dino:sphere_batch_3_val:  50%|█████     | 8/16 [00:06<00:06,  1.21it/s]eval-A-dino:sphere_batch_3_val:  56%|█████▋    | 9/16 [00:07<00:05,  1.21it/s]eval-A-dino:sphere_batch_3_val:  62%|██████▎   | 10/16 [00:08<00:04,  1.21it/s]eval-A-dino:sphere_batch_3_val:  69%|██████▉   | 11/16 [00:09<00:04,  1.21it/s]eval-A-dino:sphere_batch_3_val:  75%|███████▌  | 12/16 [00:09<00:03,  1.18it/s]eval-A-dino:sphere_batch_3_val:  81%|████████▏ | 13/16 [00:10<00:02,  1.19it/s]eval-A-dino:sphere_batch_3_val:  88%|████████▊ | 14/16 [00:11<00:01,  1.19it/s]eval-A-dino:sphere_batch_3_val:  94%|█████████▍| 15/16 [00:12<00:00,  1.19it/s]eval-A-dino:sphere_batch_3_val: 100%|██████████| 16/16 [00:12<00:00,  1.50it/s]                                                                               eval-A-dino:sphere_batch_4_val:   0%|          | 0/22 [00:00<?, ?it/s]/home/zjy/miniconda3/envs/sparsh/lib/python3.9/contextlib.py:87: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
-  self.gen = func(*args, **kwds)
-eval-A-dino:sphere_batch_4_val:   5%|▍         | 1/22 [00:01<00:23,  1.14s/it]eval-A-dino:sphere_batch_4_val:   9%|▉         | 2/22 [00:01<00:14,  1.37it/s]eval-A-dino:sphere_batch_4_val:  14%|█▎        | 3/22 [00:02<00:14,  1.29it/s]eval-A-dino:sphere_batch_4_val:  18%|█▊        | 4/22 [00:03<00:14,  1.25it/s]eval-A-dino:sphere_batch_4_val:  23%|██▎       | 5/22 [00:04<00:13,  1.23it/s]eval-A-dino:sphere_batch_4_val:  27%|██▋       | 6/22 [00:04<00:13,  1.22it/s]eval-A-dino:sphere_batch_4_val:  32%|███▏      | 7/22 [00:05<00:12,  1.21it/s]eval-A-dino:sphere_batch_4_val:  36%|███▋      | 8/22 [00:06<00:11,  1.20it/s]eval-A-dino:sphere_batch_4_val:  41%|████      | 9/22 [00:07<00:10,  1.20it/s]eval-A-dino:sphere_batch_4_val:  45%|████▌     | 10/22 [00:08<00:10,  1.20it/s]eval-A-dino:sphere_batch_4_val:  50%|█████     | 11/22 [00:09<00:09,  1.20it/s]eval-A-dino:sphere_batch_4_val:  55%|█████▍    | 12/22 [00:09<00:08,  1.19it/s]eval-A-dino:sphere_batch_4_val:  59%|█████▉    | 13/22 [00:10<00:07,  1.19it/s]eval-A-dino:sphere_batch_4_val:  64%|██████▎   | 14/22 [00:11<00:06,  1.20it/s]eval-A-dino:sphere_batch_4_val:  68%|██████▊   | 15/22 [00:12<00:05,  1.20it/s]eval-A-dino:sphere_batch_4_val:  73%|███████▎  | 16/22 [00:13<00:05,  1.20it/s]eval-A-dino:sphere_batch_4_val:  77%|███████▋  | 17/22 [00:13<00:03,  1.29it/s]

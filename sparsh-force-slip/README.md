@@ -1,60 +1,65 @@
-# Sparsh Force-Slip Workspace
+# Force-conditioned tactile slip and contact-state prediction
 
-This directory is the canonical workspace for force-slip stage code, scripts, runbooks, reports, and source records in `tactile-grasp`.
+This directory contains research source code built on Sparsh tactile representations:
+current force estimation, current static/gross slip detection, force-conditioned
+fusion, limited encoder fine-tuning, and short-horizon contact-force prediction.
 
-## Path contract
+## Source layout
 
-- Server project root: `/home/zjy/document`
-<<<<<<< Updated upstream
-- Server repository: `/home/zjy/document/tactile-grasp`
-- Server force-slip code path: `/home/zjy/document/tactile-grasp/sparsh-force-slip`
-- Working branch: `sparsh-force-slip`
-- Sparsh training repo: `/home/zjy/document/sparsh`
-- Raw datasets: `/vla1/zjy/tactile_datasets` (read-only for this workflow)
-- Derived datasets / run outputs: `/vla1/zjy/sparsh_runs`
-- Base models: `/vla1/zjy/sparsh_models`
+- `scripts/`: original force/slip and future-head implementations and analysis tools.
+- `runbooks/*.sh`: historical launcher source; inspect arguments and paths before use.
+- `experiments/htt_normalflow/`: later implementations, preserving cross-round imports.
+- `experiments/htt_normalflow/round22_921_g1_joint_frozen/`: frozen visual,
+  concatenation and FiLM detectors (`train_frozen.py`), contact-force-change
+  prediction (`train_f1.py`), and limited fine-tuning implementation (`train_e3.py`).
+- `experiments/htt_normalflow/round23_921_g2_force_aux_finetune/`: fine-tuning queue,
+  prediction, evaluation and diagnostic code.
 
-## Execution contract
+The `experiments` directory is not ignored wholesale: it contains real source code.
+Generated reports, metrics, predictions, images, run inventories, checkpoints,
+training logs, local pipeline plans and delivery copies are excluded from Git.
+Existing excluded files remain on the owner's filesystem.
 
-Future force-slip code edits, data derivation, training, evaluation, and run-record updates happen on `zjy-4090` under `/home/zjy/document/tactile-grasp`.
+## External dependencies and inputs
 
-```bash
-ssh zjy-4090
-cd /home/zjy/document/tactile-grasp
-git switch sparsh-force-slip
-cd sparsh-force-slip
-```
-=======
-- Server repository: `/home/zjy/document/tactile_grasp`
-- Server force-slip code path: `/home/zjy/document/tactile_grasp/sparsh-force-slip`
-- Working branch: `sparsh-force-slip`
-- Training outputs/checkpoints stay outside the repo under `/vla1/zjy/sparsh_runs`
-- Datasets and base models stay under `/vla1/zjy/{tactile_datasets,sparsh_models}`
+The upstream Sparsh implementation is a separate dependency:
+https://github.com/facebookresearch/sparsh
 
-## Execution contract
+The original environment used Python 3.9 and PyTorch 2.7.0 with CUDA 12.8.
+Other imports include torchvision, NumPy, SciPy, scikit-learn, Matplotlib,
+Pillow and OpenCV. This is an environment record, not a verified portable lockfile.
+The attention configuration used `XFORMERS_DISABLED=1`.
 
-Future force-slip code edits, training, evaluation, and run-record updates happen on `zjy-4090` under `/home/zjy/document/tactile_grasp`.
+Datasets, pretrained weights, trained checkpoints and extracted feature caches
+must be obtained separately under their respective terms. This repository does
+not redistribute HTT, NormalFlow, ToucHD or Sparsh datasets or pretrained weights.
+Robot/scene asset files elsewhere in the parent repository are not trained neural
+model checkpoints and are outside this component's publication cleanup.
 
-```bash
-ssh zjy-4090
-cd /home/zjy/document/tactile_grasp
-git switch sparsh-force-slip
-cd sparsh-force-slip
-```
+## Reproduction boundary
 
-`git push` and `git pull` are manual operations performed by the user. Do not make training scripts or automation push/pull automatically.
+This is a research-source archive, not yet a standalone training distribution.
+Some scripts retain historical machine paths and import modules from earlier
+rounds. Preserve the directory hierarchy; do not flatten the Python files.
 
-## Phase commit rule
+Training and evaluation scripts may require generated JSON protocols, data-role
+splits, normalization records, input identities, run inventories and dispatch
+permissions. These experiment records are deliberately excluded. Source scripts
+that create them are retained where available. Reproduction requires preparing
+compatible inputs and configurations and reviewing the original entry point.
+Do not bypass provenance checks, replace data roles, or assume a missing file is
+optional. Reusable public example configurations should be developed separately
+from the private execution records, with a fresh small-scale validation.
 
-After each phase is complete and verified, make one overall commit on the `sparsh-force-slip` branch covering that phase's code, configs, docs, scripts, run records, metrics summaries, and source records. Commit messages should follow the AGENTS.md Lore Commit Protocol.
->>>>>>> Stashed changes
+Original force-slip weights and the upstream Sparsh repository have independent
+provenance. Changes made to a local Sparsh checkout are not automatically included
+here. A portable release must also document those changes and compatible versions.
 
-`git push` and `git pull` are manual operations performed by the user. Do not make training scripts or automation push/pull automatically.
+## Scientific scope
 
-## Data contract
+The experiments concern development-set comparisons. Force estimates and force
+changes use the target conventions of each experiment; they are not universally
+interchangeable across sensors. Future-force prediction does not by itself establish
+early slip warning, drop prediction, or a full action-conditioned world model.
 
-Do not modify raw data under `/vla1/zjy/tactile_datasets`. Generate derived manifests, split-specific datasets, reports, and training outputs under `/vla1/zjy/sparsh_runs`.
-
-## Phase commit rule
-
-After each phase is complete and verified, make one overall commit on the `sparsh-force-slip` branch covering that phase's code, configs, docs, scripts, run records, metrics summaries, and source records. Commit messages should follow the AGENTS.md Lore Commit Protocol.
+See `PUBLICATION.md` for publication and Git-history handling.

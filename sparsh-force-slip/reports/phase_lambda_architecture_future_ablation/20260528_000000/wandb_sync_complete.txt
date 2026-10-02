@@ -1,4 +1,0 @@
-completed_at: 2026-05-28 04:29:54 CST
-sync_method: copied offline W&B runs from zjy-4090 to local client and ran wandb sync with server .netrc credentials
-sync_log: sparsh-force-slip/logs/phase_lambda_architecture_future_ablation/20260528_000000/local_wandb_sync_from_client.log
-run_count: 9

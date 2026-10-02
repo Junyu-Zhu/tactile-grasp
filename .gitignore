@@ -4,16 +4,69 @@ gelsight_adaptor/
 .omx/
 __pycache__/
 artifacts/
-<<<<<<< HEAD
 sim_data/
-=======
-!artifacts/
-artifacts/*
-!artifacts/phase5_cube_force_slip/
-!artifacts/phase5_cube_force_slip/**
->>>>>>> phase4
 sim_dataset/
 sparsh-force-slip/dataset/
 sparsh-force-slip/dataset.zip
 sparsh-force-slip/soft_banana_backup/
 pipeline/
+
+# Local trained checkpoints
+/trained_model/
+
+# BEGIN force-slip source-only publication
+# Keep data and experiment outputs on disk, outside version control.
+/AGENTS.md
+/.vscode/
+/log.md
+pipeline/
+artifacts/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+/trained_model/
+/sparsh-force-slip/dataset/
+/sparsh-force-slip/datasets/
+/sparsh-force-slip/dataset.zip
+/sparsh-force-slip/soft_banana_backup/
+/sparsh-force-slip/logs/
+/sparsh-force-slip/reports/
+/sparsh-force-slip/phase1_run_id.txt
+/sparsh-force-slip/runbooks/*
+!/sparsh-force-slip/runbooks/*.sh
+
+# Experiments contain source code mixed with private records. Admit source only.
+/sparsh-force-slip/experiments/**
+!/sparsh-force-slip/experiments/**/
+!/sparsh-force-slip/experiments/**/*.py
+!/sparsh-force-slip/experiments/**/*.sh
+/sparsh-force-slip/experiments/**/__pycache__/
+/sparsh-force-slip/experiments/**/.pytest_cache/
+/sparsh-force-slip/experiments/**/delivery_bundle/
+/sparsh-force-slip/experiments/**/formal_delivery_bundle/
+
+# Exclude generated source copies and run-specific recovery snapshots as well.
+/sparsh-force-slip/experiments/**/results/
+/sparsh-force-slip/experiments/**/server_results/
+/sparsh-force-slip/experiments/**/*snapshot*/
+/sparsh-force-slip/experiments/**/logs/
+/sparsh-force-slip/experiments/**/audit_round5_identity.py
+/sparsh-force-slip/experiments/**/audit_round6_identity.py
+
+# Never add learned weights, tensor caches or raw archives in this component.
+/sparsh-force-slip/**/*.pt
+/sparsh-force-slip/**/*.pth
+/sparsh-force-slip/**/*.ckpt
+/sparsh-force-slip/**/*.safetensors
+/sparsh-force-slip/**/*.onnx
+/sparsh-force-slip/**/*.npz
+/sparsh-force-slip/**/*.npy
+/sparsh-force-slip/**/*.zip
+/sparsh-force-slip/**/*.tar
+/sparsh-force-slip/**/*.gz
+# END force-slip source-only publication

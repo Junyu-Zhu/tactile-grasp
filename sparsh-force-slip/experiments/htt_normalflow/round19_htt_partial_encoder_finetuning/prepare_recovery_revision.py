@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Materialize a GPU-count-specific recovery budget, queue revision, and release gate."""
+import argparse,datetime as dt,hashlib,json,os
+from pathlib import Path
+
+TZ=dt.timezone(dt.timedelta(hours=8));STOP=dt.datetime.fromisoformat("2026-09-23T01:55:53+08:00");DEADLINE=dt.datetime.fromisoformat("2026-09-25T01:55:53+08:00")
+def sha(path):
+ h=hashlib.sha256()
+ with Path(path).open("rb") as f:
+  for block in iter(lambda:f.read(1<<20),b""):h.update(block)
+ return h.hexdigest()
+def write(path,value):
+ path=Path(path);tmp=path.with_suffix(path.suffix+".tmp");tmp.write_text(json.dumps(value,indent=2,sort_keys=True)+"\n");os.replace(tmp,path)
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument("--gpus",default="0,1");args=parser.parse_args();indices=[int(x.strip()) for x in args.gpus.split(",") if x.strip()];count=len(indices)
+ if count not in (2,3) or len(set(indices))!=count:raise ValueError("recovery requires two or three distinct GPU indices")
+ tag="THREE" if count==3 else "TWO";suffix="_3GPU" if count==3 else "";local=Path(__file__).resolve().parent;now=dt.datetime.now(TZ);old=json.loads((local/"FORMAL_BUDGET_UPDATE_02.json").read_text());formal=json.loads((local/"FORMAL_STATUS.json").read_text());smoke=json.loads((local/("GPU_RECOVERY_SMOKE"+suffix+".json")).read_text());audit=json.loads((local/"HARDWARE_FAILURE_AUDIT.json").read_text());queue_smoke_file="QUEUE_SMOKE_V3.json" if count==3 else "QUEUE_SMOKE_V2.json";queue_smoke=json.loads((local/queue_smoke_file).read_text())
+ remaining=sum(r["status"]!="complete" for r in formal["runs"]);per_epoch=old["per_gpu_median_seconds"];factor=old["largest_fold_fit_factor"]
+ per_run={gpu:per_epoch[gpu]*60*factor/3600 for gpu in (f"gpu{i}" for i in indices)}
+ assignments={gpu:0 for gpu in per_run};costs={gpu:0.0 for gpu in per_run}
+ for _ in range(remaining):
+  gpu=min(costs,key=costs.get);assignments[gpu]+=1;costs[gpu]+=per_run[gpu]
+ lane_hours={gpu:assignments[gpu]*per_run[gpu] for gpu in assignments};worst_training=old["all_interval_p95_seconds"]*60*factor/3600*((remaining+count-1)//count);post_hours=13.75
+ last_dispatch_hours=old["all_interval_p95_seconds"]*60*factor/3600*((remaining-1)//count);safe_dispatch=STOP-dt.timedelta(hours=last_dispatch_hours);safe_final=DEADLINE-dt.timedelta(hours=worst_training+post_hours);latest_safe=min(safe_dispatch,safe_final)
+ budget={"schema":f"round19_{count}_gpu_recovery_budget_v1","status":"fits_if_cuda_recovers_before_latest_safe_start","created_at":now.isoformat(),"remaining_runs":remaining,"recoverable_checkpoint_runs":1,"fresh_start_runs":remaining-1,"healthy_gpu_target_indices":indices,"balanced_assignment_for_median":{"runs":assignments,"lane_hours":lane_hours,"critical_lane_hours":max(lane_hours.values())},"conservative_pooled_p95_training_hours":worst_training,"conservative_last_dispatch_offset_hours":last_dispatch_hours,"reserved_post_training_hours":post_hours,"total_conservative_hours":worst_training+post_hours,"hours_to_stop_dispatch":(STOP-now).total_seconds()/3600,"hours_to_final_deadline":(DEADLINE-now).total_seconds()/3600,"latest_safe_start_for_dispatch_cutoff":safe_dispatch.isoformat(),"latest_safe_start_for_final_deadline":safe_final.isoformat(),"binding_latest_safe_start":latest_safe.isoformat(),"interpretation":"Observed interval extrapolation, not a hard bound. No batch, accumulation, optimizer, model, data, or protocol change.","scientific_protocol_changed":False,"test_consumed":False};budget_path=local/f"{tag}_GPU_RECOVERY_BUDGET.json";write(budget_path,budget)
+ revision={"schema":f"round19_queue_engineering_revision_v{3 if count==3 else 2}","status":"validated_blocked_on_real_cuda_smoke" if smoke["status"]!="pass" else "validated_pending_root_release","created_at":now.isoformat(),"base_queue_revision_sha256":sha(local/"QUEUE_REVISION.json"),"hardware_failure_audit_sha256":sha(local/"HARDWARE_FAILURE_AUDIT.json"),"gpu_recovery_smoke_sha256":sha(local/("GPU_RECOVERY_SMOKE"+suffix+".json")),"queue_smoke_sha256":sha(local/queue_smoke_file),"run_all_sha256":sha(local/"run_all.py"),"budget_sha256":sha(budget_path),"changes":["runtime nvidia-smi index-to-UUID discovery","real CUDA compute probe before each dispatch","failed GPU UUID quarantine","completed run skip only after summary identity and best/latest commit hashes pass","one-time requeue only for terminal runs whose every attempt has CUDA-unknown hardware evidence","preserve attempts, terminal reason, recovery history, and append-only log","classify each attempt from its own log byte offset with numeric/identity priority"],"unchanged":["train.py and all model code","24-run grid and existing 9 accepted outputs","input/preprocessing/optimizer/hyperparameters/selector","protocol and test exclusion"],"scientific_protocol_changed":False,"test_consumed":False};revision_path=local/f"QUEUE_REVISION_V{3 if count==3 else 2}.json";write(revision_path,revision)
+ checks={"hardware_failure_audit":audit["status"]=="pass","queue_smoke":queue_smoke["status"]=="pass","real_cuda_gpus":smoke["status"]=="pass" and len(smoke["probes"])==count and [x.get("index") for x in smoke["probes"]]==indices and all(x["compute_pass"] for x in smoke["probes"]),"budget_fit":budget["total_conservative_hours"]<(DEADLINE-now).total_seconds()/3600 and now<latest_safe}
+ gate_status="ready_pending_root_release" if all(checks.values()) else ("ready_pending_gpu_health" if all(v for k,v in checks.items() if k!="real_cuda_gpus") else "blocked")
+ gate={"schema":f"round19_dispatch_ready_v{4 if count==3 else 3}","status":gate_status,"created_at":now.isoformat(),"checks":checks,"queue_revision_sha256":sha(revision_path),"allowed_gpus":[{"index":x.get("index"),"uuid":x.get("uuid")} for x in smoke["probes"] if x.get("compute_pass")],"recovery_runs":remaining,"root_release_required":True,"test_consumed":False};write(local/f"DISPATCH_READY_V{4 if count==3 else 3}.json",gate);print(json.dumps({"budget":budget,"revision":revision,"gate":gate},indent=2))
+if __name__=="__main__":main()
