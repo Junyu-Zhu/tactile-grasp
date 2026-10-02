@@ -1,66 +1,66 @@
 # tactile-grasp
 
-基于视觉触觉的接触力估计、力条件化滑移检测与短期接触状态预测研究代码。
-仓库同时保留部分 UR5 抓取仿真与触觉采集代码；本文档以 `sparsh-force-slip/` 为主要入口。
+Research code for contact-force estimation, force-conditioned slip detection, and short-horizon contact-state prediction from vision-based tactile sensing.
 
-> 当前发布的是研究源码。数据集、预训练权重、训练后的模型、特征缓存、运行日志、实验记录及内部 pipeline 不随最新代码版本分发。部分入口依赖原实验生成的协议和清单，因此尚不是下载后即可完整复现实验的一键运行包。
+The repository also contains UR5 grasping simulation and tactile data collection code. This README focuses on the [`sparsh-force-slip`](sparsh-force-slip/) component.
 
-## 1. 研究内容
+> **Release scope:** This is a research-source archive, not a one-command reproduction package. Datasets, pretrained weights, trained checkpoints, feature caches, training logs, experiment records, and internal pipeline plans are excluded from the current source snapshot. Some entry points require protocols and manifests generated during the original experiments.
 
-- **当前接触力估计**：从视觉触觉表示估计三轴接触力，为下游提供预测力信息。
-- **当前滑移检测**：比较视觉基线、视觉—力普通拼接、特征级 FiLM 和有界 FiLM，分析 static 误报与 gross 召回的权衡。
-- **有限编码器微调**：比较视觉训练、当前真实力辅助监督、FiLM 及二者组合。辅助监督不等同于修改原物理力输出路径。
-- **短期接触状态预测**：利用当前基础视觉表示、预测力或其组合，预测未来 1、5、10 帧的三轴力变化。
+## 1. Research tasks
 
-不同实验保存在独立轮次目录中。它们是对照方案，不是默认串联成一个部署模型；未来力预测也不直接等同于未来滑移或掉落预测。
+- **Current contact-force estimation:** Estimate three-axis contact force from tactile representations and provide predicted force to downstream models.
+- **Current slip detection:** Compare a visual baseline, visual–force concatenation, feature-level FiLM, and bounded FiLM, with emphasis on the trade-off between static false positives and gross-slip recall.
+- **Limited encoder fine-tuning:** Compare visual training, auxiliary supervision from current ground-truth force, FiLM conditioning, and their combination. Auxiliary force supervision is distinct from updating the original physical-force output branch.
+- **Short-horizon contact-state prediction:** Use the current basic visual representation, predicted force, or both to predict three-axis force changes at horizons of 1, 5, and 10 frames.
 
-## 2. 目录结构
+Experimental variants are stored in separate round directories. They are controlled comparisons, not components that automatically form one deployment model. Predicting future force does not by itself establish early slip warning or drop prediction.
+
+## 2. Repository layout
 
 ```text
 tactile-grasp/
 ├── sparsh-force-slip/
-│   ├── scripts/                 # 早期 force/slip/future 训练与分析源码
-│   ├── runbooks/                # 保留的 shell 启动脚本
+│   ├── scripts/                 # Earlier force/slip/future training and analysis
+│   ├── runbooks/                # Retained shell launchers
 │   └── experiments/htt_normalflow/
-│       ├── adapters.py          # 数据适配
-│       ├── prepare_splits.py    # 数据角色划分工具
+│       ├── adapters.py          # Dataset adapters
+│       ├── prepare_splits.py    # Data-role split preparation
 │       ├── round18_htt_force_conditioned_film/
 │       ├── round19_htt_partial_encoder_finetuning/
 │       ├── round20_htt_contact_state_transition/
 │       ├── round22_921_g1_joint_frozen/
 │       ├── round23_921_g2_force_aux_finetune/
-│       └── ...                  # 其他历史方案与评价工具
-├── protac/                      # 抓取、感知与采集相关模块
-├── isaacsim_test/               # 仿真相关脚本和检查
-├── environment/                 # 机器人与场景资源
-└── PYTHON_CODE_LAYOUT.md        # 父仓库代码布局说明
+│       └── ...                  # Other experimental variants and evaluation tools
+├── protac/                      # Grasping, perception, and collection modules
+├── isaacsim_test/               # Simulation scripts and checks
+├── environment/                 # Robot and scene assets
+└── PYTHON_CODE_LAYOUT.md        # Parent-repository code layout
 ```
 
-部分轮次直接导入早期轮次模块，请保持目录结构，不要只复制单个训练文件。
-`experiments` 中的 `.py`、`.sh` 是源码；同目录下的运行结果与记录由 `.gitignore` 排除。
+Some rounds import modules from earlier rounds. Preserve this directory hierarchy rather than copying individual training files in isolation. Python and shell files under `experiments` are source code; generated results and records in the same directories are excluded by `.gitignore`.
 
-## 3. 数据集及其用途
+## 3. Datasets and their roles
 
-| 数据集或数据来源 | 在本研究中的用途 | 使用边界 |
+| Dataset or data source | Role in this research | Scope and limitations |
 |---|---|---|
-| **HTT** | 当前力监督适配、static/gross 滑移检测、未来接触力变化预测 | 主要使用试次级隔离的开发协议；incipient 不进入主要二分类监督 |
-| **Sparsh / TacBench 相关 Gelsight-mini 数据** | 早期接触力估计和滑移任务，包括 `gelsight-force-estimation`、`object_slide` | 需按具体任务检查输入、标签和划分，不能直接与 HTT 指标混排 |
-| **ToucHD-Force** | 在经过核验的传感器路线进行力监督预适配，再评价向 HTT 的迁移 | 不直接混合两域的力坐标、零点或误差 |
-| **NormalFlow** | 历史阶段的接触状态、冻结特征及运动辅助预测探索 | 不把运动或位姿直接解释为滑移标签；不是当前 HTT 检测模型的必需训练数据 |
-| **ToucHD-Mani** | 数据可用性讨论和后续研究候选 | 不属于本次主要训练方案的必需输入，不宣称已完成其滑移监督训练 |
-| **DeformableObjectsGrasping** | 外域真实物体数据可用性审计 | 审计不等同于外域性能验证 |
-| **自行采集的稳定/滑移触觉序列** | 有限实物补充分析 | 无真实力记录的序列不用于报告物理力精度 |
+| **HTT** | Supervised force adaptation, static/gross slip detection, and future contact-force-change prediction | Primarily evaluated with trial-group-separated development protocols; incipient samples are excluded from the main binary supervision |
+| **Sparsh / TacBench-related Gelsight-mini data** | Earlier force-estimation and slip tasks, including `gelsight-force-estimation` and `object_slide` | Inputs, labels, and splits must be checked for each task; metrics are not directly interchangeable with HTT results |
+| **ToucHD-Force** | Force-supervised pre-adaptation on the verified sensor subset, followed by transfer evaluation on HTT | Force coordinates, offsets, and errors from the two domains must not be combined without validation |
+| **NormalFlow** | Earlier contact-state, frozen-feature, and motion-assisted prediction experiments | Motion or pose is not treated as a slip label; this dataset is not required by the current HTT detection pipeline |
+| **ToucHD-Mani** | Data-availability assessment and a candidate for future work | Not a required input for the main training pipeline; no completed supervised slip-training result is claimed here |
+| **DeformableObjectsGrasping** | Availability audit for external real-object data | A data audit is not an external-domain performance evaluation |
+| **Locally collected stable/slip tactile sequences** | Limited supplementary real-object analysis | Sequences without force ground truth are not used to report physical-force accuracy |
 
-数据和权重应从各自发布方获得，并遵守原始使用条款。相关入口：
+Obtain datasets and weights from their original providers and follow their terms of use. Relevant upstream projects:
 
-- [Sparsh 官方项目](https://github.com/facebookresearch/sparsh)：预训练触觉表示与下游任务说明。
-- [AnyTouch2 / ToucHD 项目](https://github.com/GeWu-Lab/AnyTouch2)：ToucHD 系列数据与相关说明。
+- [Sparsh](https://github.com/facebookresearch/sparsh): pretrained tactile representations and downstream-task documentation.
+- [AnyTouch2 / ToucHD](https://github.com/GeWu-Lab/AnyTouch2): the ToucHD dataset family and related information.
 
-本仓库不重新分发上述数据。预训练编码器采用 Sparsh 路线，主要后续实验使用 MAE；历史代码也包含 DINO、I-JEPA 等编码器对照。
+This repository does not redistribute these datasets. The main later experiments use a Sparsh MAE encoder; historical code also includes comparisons with DINO, I-JEPA, and other encoders.
 
-### 建议的数据布局
+### Suggested storage layout
 
-将数据和产物放在仓库之外，例如：
+Keep datasets and generated artifacts outside the repository, for example:
 
 ```text
 <storage>/
@@ -71,95 +71,99 @@ tactile-grasp/
 ├── tactile_datasets/Gelsight-mini/
 │   ├── gelsight-force-estimation/
 │   └── object_slide/
-├── sparsh_models/               # 预训练权重
-└── sparsh_runs/                 # 特征缓存、训练模型和结果
+├── sparsh_models/               # Pretrained weights
+└── sparsh_runs/                 # Feature caches, checkpoints, and results
 ```
 
-这只是推荐布局，不是自动生效的环境配置。历史脚本仍可能含原机器的绝对路径，运行前需要检查参数默认值、配置和上游依赖。
+This layout is a recommendation, not an automatically applied configuration. Historical scripts may retain machine-specific absolute paths. Review argument defaults, configuration files, and upstream dependencies before running them.
 
-## 4. 环境准备
+## 4. Environment
 
-原训练环境记录为：Python **3.9.25**、PyTorch **2.7.0+cu128**、CUDA runtime **12.8**。
-这些版本是原实验环境信息，不代表所有代码已在其他机器验证。GPU 驱动需兼容所安装的 PyTorch CUDA 构建。
+The original training environment used **Python 3.9.25**, **PyTorch 2.7.0+cu128**, and **CUDA runtime 12.8**. These are recorded experiment versions, not a claim that every script has been validated on other machines. The GPU driver must support the installed PyTorch CUDA build.
 
-核心 Python 依赖包括：`torch`、`torchvision`、`numpy`、`scipy`、`scikit-learn`、`matplotlib`、`Pillow`、`opencv-python`，以及独立的 Sparsh `tactile_ssl` 包及其依赖。
+Core Python dependencies include `torch`, `torchvision`, `numpy`, `scipy`, `scikit-learn`, `matplotlib`, `Pillow`, and `opencv-python`, together with the separate Sparsh `tactile_ssl` package and its dependencies.
 
 ```bash
 git clone https://github.com/Junyu-Zhu/tactile-grasp.git
 cd tactile-grasp
 
-# 在已配置好兼容 PyTorch 和 Sparsh 依赖的 Python 环境中：
+# Run in an environment with compatible PyTorch and Sparsh dependencies.
 export XFORMERS_DISABLED=1
 python -c "import torch; print(torch.__version__, torch.version.cuda)"
 python -c "import tactile_ssl; print(tactile_ssl.__file__)"
 ```
 
-Sparsh 请按官方仓库安装。原服务器对其训练入口、环境及信号处理有本地适配，
-这些外部仓库修改不会自动随本仓库克隆获得。当前没有声称提供完整、可移植的依赖锁文件。
-Isaac Sim、Isaac Lab 和机器人控制依赖仅属于对应仿真模块，不是阅读或使用缓存检测头源码的前提。
+Follow the official Sparsh installation instructions. The original server also had local changes to Sparsh training entry points, environment configuration, and signal handling; changes to that external checkout are not included automatically when cloning this repository. A complete portable dependency lockfile is not provided.
 
-## 5. 主要训练与评价入口
+Isaac Sim, Isaac Lab, and robot-control dependencies apply to the corresponding simulation modules. They are not required merely to inspect or use the cached-feature head implementations.
 
-下列路径均相对 `sparsh-force-slip/experiments/htt_normalflow/`。
+## 5. Training and evaluation entry points
 
-| 任务 | 入口 | 说明 |
+Paths below are relative to `sparsh-force-slip/experiments/htt_normalflow/`.
+
+| Task | Entry point | Notes |
 |---|---|---|
-| 数据适配、划分 | `adapters.py`、`prepare_splits.py` | 核验原始字段、试次、标签和角色 |
-| 冻结编码器检测头 | `round22_921_g1_joint_frozen/train_frozen.py` | V：视觉；C：拼接；M：FiLM；MB：有界 FiLM |
-| 短期力变化预测 | `round22_921_g1_joint_frozen/train_f1.py` | K-V、K-F、K-VF 三组输入对照 |
-| 有限编码器微调 | `round22_921_g1_joint_frozen/train_e3.py` | G2 的训练实现仍位于 R22 准备目录 |
-| 微调任务队列 | `round23_921_g2_force_aux_finetune/launch_g2_queue.py` | 依赖运行清单及授权身份，不应直接套用历史路径 |
-| 冻结检测评价 | `round22_921_g1_joint_frozen/evaluate_frozen_detection.py` | 固定阈值与 calibration 规则 |
-| 微调模型预测、评价 | `round23_921_g2_force_aux_finetune/predict_e3.py`、`evaluate_e3.py` | 使用匹配输入和上游身份的模型 |
+| Data adaptation and splitting | `adapters.py`, `prepare_splits.py` | Check raw fields, trials, labels, and data roles |
+| Frozen-encoder detection | `round22_921_g1_joint_frozen/train_frozen.py` | V: visual; C: concatenation; M: FiLM; MB: bounded FiLM |
+| Short-horizon force-change prediction | `round22_921_g1_joint_frozen/train_f1.py` | K-V, K-F, and K-VF input comparisons |
+| Limited encoder fine-tuning | `round22_921_g1_joint_frozen/train_e3.py` | The G2 training implementation remains in the R22 preparation directory |
+| Fine-tuning queue | `round23_921_g2_force_aux_finetune/launch_g2_queue.py` | Requires a run inventory and matching authorization records; historical paths are not portable defaults |
+| Frozen detection evaluation | `round22_921_g1_joint_frozen/evaluate_frozen_detection.py` | Fixed thresholds and calibration rules |
+| Fine-tuned model prediction and evaluation | `round23_921_g2_force_aux_finetune/predict_e3.py`, `round23_921_g2_force_aux_finetune/evaluate_e3.py` | Requires compatible inputs and upstream model identities |
 
-### 运行顺序
+### Workflow
 
-1. 按目标实验准备原始数据、预训练编码器和所需 force/visual 上游权重。
-2. 核验试次与泄漏组，生成 fit、selection、calibration、validation 角色及完整端点。
-3. 使用对应准备代码生成特征缓存、支持清单和协议；归一化只使用允许的训练数据。
-4. 先做小规模 smoke，确认输入、目标、梯度、冻结边界和恢复行为，再执行正式配置。
-5. 由 selection 选择 checkpoint、calibration 确定阈值，在 validation 报告开发评价结果。
+1. Prepare the selected dataset, pretrained encoder, and required force/visual upstream weights.
+2. Verify complete trials and leakage groups, then construct fit, selection, calibration, and validation roles with valid temporal endpoints.
+3. Use the corresponding preparation code to generate feature caches, support manifests, and protocols. Fit normalization only on the permitted training data.
+4. Run a small smoke check for inputs, targets, gradients, frozen parameters, and checkpoint recovery before launching the full configuration.
+5. Select checkpoints using the selection role, choose thresholds using calibration, and report development evaluation on validation.
 
-不要伪造缺失的协议、清单或身份摘要来绕过检查，也不要用测试标签选择模型。
+Do not fabricate missing protocols, manifests, or identity hashes to bypass checks. Do not use test labels for model selection.
 
-### 已准备缓存后的命令示例
+### Examples with prepared caches
 
-以下命令展示真实 CLI 参数，**不是原始数据到训练的一键命令**。
-`DATA`、`SUPPORT`、`OUT` 必须替换为已生成且与代码 schema、fold、seed 一致的路径。
-示例没有启用 `--formal`；正式派发还需要入口规定的锁定协议和授权文件。
+These examples use actual CLI arguments; they are **not raw-data-to-training quick-start commands**. Set `DATA`, `SUPPORT`, and `OUT` to compatible, previously prepared paths with the required schema, fold, and seed identities. The examples omit `--formal`; formal dispatch additionally requires the locked protocol and authorization files expected by the entry point.
 
 ```bash
 EXP=sparsh-force-slip/experiments/htt_normalflow/round22_921_g1_joint_frozen
 
-# 冻结编码器：力条件 FiLM 当前滑移检测
+# Frozen encoder: force-conditioned FiLM for current slip detection.
 python "$EXP/train_frozen.py" \
   --data "$DATA" --support-inventory "$SUPPORT" \
   --output "$OUT" --group M --fold 1 --seed 20260914 --device cuda:0
 
-# 短期接触状态：视觉＋预测力输入
-# 此处 DATA、SUPPORT、OUT 应切换为未来状态任务自己的缓存、清单和输出目录。
+# Short-horizon state prediction: visual representation plus predicted force.
+# Replace DATA, SUPPORT, and OUT with this task's own cache, manifest, and output.
 python "$EXP/train_f1.py" \
   --data "$DATA" --support-inventory "$SUPPORT" \
   --output "$OUT" --group K-VF --fold 1 --seed 20260914 --device cuda:0
 ```
 
-完整对照需保留协议规定的全部折、种子和组别；单条示例不代表完整实验。
-原实验的配置、划分、运行清单、授权与结果没有随本次源码公开，重现实验前仍需准备相应材料。
+A full comparison must retain all folds, seeds, and groups required by its protocol. A single example command does not reproduce the complete experiment. Original configurations, splits, run inventories, authorization records, and results are not distributed with this source archive and must be prepared separately.
 
-## 6. 评价约定
+## 6. Evaluation conventions
 
-- 当前检测主要比较 **static 与 gross**。incipient 单独分析，不默认将其作为可靠提前预警标签。
-- 报告 pAUC、AP、实际 static FPR、gross 召回、BA、macro-F1，以及逐试次连续误告警与事件检出。
-- calibration 上的误报约束不保证 validation 达到同样误报率。
-- 短期状态任务区分真实力变化、预测变化、当前力估计误差和未来绝对力误差；比较保持与线性等基线。
-- HTT 相关实验使用的参考相对、逐轴裁剪至 ±20 N 的目标是实验约定，不代表传感器通用量程或各数据集统一力定义。
-- 开发折存在重叠和历史开发暴露；不能将这些结果表述为独立盲测或真实机器人成功率。
+- The main current-slip task compares **static versus gross**. Incipient samples are analyzed separately and are not automatically treated as reliable early-warning labels.
+- Detection metrics include pAUC, AP, observed static FPR, gross recall, balanced accuracy, macro-F1, trial-level false alarms, and event detection.
+- A false-positive constraint met on calibration does not guarantee the same rate on validation.
+- Short-horizon evaluation separates true force change, predicted change, current-force estimation error, and future absolute-force error, with persistence and linear baselines.
+- The reference-relative, per-axis clipping to **±20 N** used in the relevant HTT experiments is a target convention. It is not a universal sensor range or a shared force definition across datasets.
+- Development folds overlap, and historical upstream models have development-data exposure. These results are not independent blind tests or robot success rates.
 
-## 7. Git 与资源管理
+## 7. Version control and release scope
 
-最新版本只跟踪源码和使用说明；数据、权重、训练记录、pipeline 等通过 `.gitignore` 排除。
-被停止跟踪的文件仍保留在原机器磁盘。原 Git 历史按项目所有者要求保留，
-**旧提交中可能仍能找到此前提交的日志、报告和计划**；忽略规则只约束后续版本。
+The current force-slip snapshot tracks source code and usage documentation. Datasets, weights, training records, and pipeline plans are excluded through `.gitignore`. Files removed from Git tracking remain on their original machines.
 
-查看组件说明：[sparsh-force-slip/README.md](sparsh-force-slip/README.md)。
-上游代码、数据集及权重遵守各自许可证；本次整理不擅自新增或改变它们的授权。
+Git history is retained at the project owner's request. **Earlier commits may still contain previously tracked logs, reports, and plans.** Ignore rules govern subsequent snapshots; they do not remove historical content.
+
+Future commits should describe one coherent change and use a consistent subject, for example:
+
+- `feat(force-slip): add a force-conditioned detection module`
+- `fix(data): correct trial-to-frame alignment`
+- `docs: update dataset and reproduction instructions`
+- `chore(repo): exclude generated experiment artifacts`
+
+Older commit subjects are preserved. Annotated release tags identify source snapshots without rewriting history. The `v0.1.0-source` tag marks the initial documented source archive, not a validated turnkey training package.
+
+See the [component README](sparsh-force-slip/README.md) for additional context. Upstream code, datasets, and weights retain their respective licenses; this source cleanup does not assign or change those permissions.
